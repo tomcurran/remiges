@@ -8,7 +8,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="org.tomcurran.remiges.JumpListActivity">
+    tools:context="org.tomcurran.remiges.ui.JumpListActivity">
 
     <!--
     This layout is a two-pane layout for the Jumps
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/jump_list"
-        android:name="org.tomcurran.remiges.JumpListFragment"
+        android:name="org.tomcurran.remiges.ui.JumpListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

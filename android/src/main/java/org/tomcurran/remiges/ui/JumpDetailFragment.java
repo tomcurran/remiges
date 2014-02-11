@@ -1,4 +1,4 @@
-package org.tomcurran.remiges;
+package org.tomcurran.remiges.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.dummy.DummyContent;
 
 /**

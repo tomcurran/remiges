@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="org.tomcurran.remiges.JumpListActivity"
+            android:name=".ui.JumpListActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,13 +17,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.tomcurran.remiges.JumpDetailActivity"
+            android:name=".ui.JumpDetailActivity"
             android:label="@string/title_jump_detail"
-            android:parentActivityName="org.tomcurran.remiges.JumpListActivity" >
+            android:parentActivityName=".ui.JumpListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.tomcurran.remiges.JumpListActivity" />
+                android:value="org.tomcurran.remiges.ui.JumpListActivity" />
         </activity>
+
+        <provider
+            android:name="org.tomcurran.remiges.provider.RemigesProvider"
+            android:authorities="org.tomcurran.remiges"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
     </application>
 
 </manifest>

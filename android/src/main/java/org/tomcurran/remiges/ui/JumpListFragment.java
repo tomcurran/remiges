@@ -1,4 +1,4 @@
-package org.tomcurran.remiges;
+package org.tomcurran.remiges.ui;
 
 import android.app.Activity;
 import android.os.Bundle;

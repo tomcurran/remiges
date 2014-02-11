@@ -1,8 +1,10 @@
-package org.tomcurran.remiges;
+package org.tomcurran.remiges.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+
+import org.tomcurran.remiges.R;
 
 
 /**
