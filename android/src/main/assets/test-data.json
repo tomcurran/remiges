@@ -1,0 +1,27 @@
+{
+    "dateFormats": {
+        "jump": "dd/mm/yyyy"
+    },
+    "jumps" : [
+        {
+            "number": 290,
+            "date": "19/01/2014",
+            "description": "Solo"
+        },
+        {
+            "number": 289,
+            "date": "11/01/2014",
+            "description": "4 way FS with Scott, Stuart, Oscar\nOscar FS1!"
+        },
+        {
+            "number": 288,
+            "date": "11/01/2014",
+            "description": "2 way FS with Stuart\nRotated him over and then tracked a bit"
+        },
+        {
+            "number": 287,
+            "date": "11/01/2014",
+            "description": "2 way FS with Stuart"
+        }
+    ]
+}

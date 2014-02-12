@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/list_item_jump"
+        style="@style/ListItemJump">
+
+        <TextView
+            android:id="@+id/list_item_jump_number"
+            style="@style/ListItemJumpText.Number"
+            tools:text="@string/tools_text_jump_number" />
+
+        <TextView
+            android:id="@+id/list_item_jump_date"
+            style="@style/ListItemJumpText.Date"
+            tools:text="@string/tools_text_jump_date" />
+
+        <TextView
+            android:id="@+id/list_item_jump_description"
+            style="@style/ListItemJumpText.Description"
+            tools:text="@string/tools_text_jump_description" />
+
+    </RelativeLayout>
+
+</FrameLayout>

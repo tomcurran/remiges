@@ -1,9 +1,31 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/jump_detail"
-    style="?android:attr/textAppearanceLarge"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context="org.tomcurran.remiges.ui.JumpDetailFragment" />
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:orientation="vertical"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+tools:context="org.tomcurran.remiges.ui.JumpDetailFragment">
+
+<RelativeLayout
+    android:id="@+id/jump"
+    style="@style/Jump">
+
+    <TextView
+        android:id="@+id/jump_number"
+        style="@style/JumpText.Number"
+        tools:text="@string/tools_text_jump_number" />
+
+    <TextView
+        android:id="@+id/jump_date"
+        style="@style/JumpText.Date"
+        tools:text="@string/tools_text_jump_date" />
+
+    <TextView
+        android:id="@+id/jump_description"
+        style="@style/JumpText.Description"
+        tools:text="@string/tools_text_jump_description" />
+
+</RelativeLayout>
+
+</FrameLayout>

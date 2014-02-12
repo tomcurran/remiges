@@ -1,14 +1,21 @@
 package org.tomcurran.remiges.ui;
 
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.tomcurran.remiges.R;
-import org.tomcurran.remiges.dummy.DummyContent;
+import org.tomcurran.remiges.provider.RemigesContract;
+
+import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 /**
  * A fragment representing a single Jump detail screen.
@@ -16,22 +23,19 @@ import org.tomcurran.remiges.dummy.DummyContent;
  * in two-pane mode (on tablets) or a {@link JumpDetailActivity}
  * on handsets.
  */
-public class JumpDetailFragment extends Fragment {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
-    public static final String ARG_ITEM_ID = "item_id";
+public class JumpDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+    private static final String TAG = makeLogTag(JumpDetailFragment.class);
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
-    private DummyContent.DummyItem mItem;
+    private static final String SAVE_STATE_JUMP_URI = "jump_uri";
+    public static final String ARG_JUMP_URI = "jump_uri";
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    private Uri mJumpUri;
+    private Cursor mJumpCursor;
+
+    private TextView mJumpNumber;
+    private TextView mJumpDate;
+    private TextView mJumpDescription;
+
     public JumpDetailFragment() {
     }
 
@@ -39,24 +43,77 @@ public class JumpDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+        if (savedInstanceState != null) {
+            mJumpUri = savedInstanceState.getParcelable(SAVE_STATE_JUMP_URI);
+            getLoaderManager().restartLoader(0, null, this);
+        } else if (getArguments().containsKey(ARG_JUMP_URI)) {
+            mJumpUri = getArguments().getParcelable(ARG_JUMP_URI);
+            getLoaderManager().restartLoader(0, null, this);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_jump_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.jump_detail)).setText(mItem.content);
-        }
+        mJumpNumber = (TextView) rootView.findViewById(R.id.jump_number);
+        mJumpDate = (TextView) rootView.findViewById(R.id.jump_date);
+        mJumpDescription = (TextView) rootView.findViewById(R.id.jump_description);
 
         return rootView;
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(SAVE_STATE_JUMP_URI, mJumpUri);
+    }
+
+    private void loadJump() {
+        Cursor jumpCursor = mJumpCursor;
+        if (jumpCursor.moveToFirst()) {
+            mJumpNumber.setText(jumpCursor.getString(JumpQuery.NUMBER));
+            mJumpDate.setText(jumpCursor.getString(JumpQuery.DATE));
+            mJumpDescription.setText(jumpCursor.getString(JumpQuery.DESCRIPTION));
+        }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        return new CursorLoader(
+                getActivity(),
+                mJumpUri,
+                JumpQuery.PROJECTION,
+                null,
+                null,
+                RemigesContract.Jumps.DEFAULT_SORT
+        );
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+        mJumpCursor = cursor;
+        loadJump();
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+        mJumpCursor = null;
+    }
+
+    private interface JumpQuery {
+
+        String[] PROJECTION = {
+                RemigesContract.Jumps.JUMP_NUMBER,
+                RemigesContract.Jumps.JUMP_DATE,
+                RemigesContract.Jumps.JUMP_DESCRIPTION,
+                RemigesContract.Jumps._ID
+        };
+
+        int NUMBER = 0;
+        int DATE = 1;
+        int DESCRIPTION = 2;
+
+    }
+
 }

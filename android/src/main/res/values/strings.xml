@@ -4,4 +4,12 @@
     <string name="app_name">Remiges</string>
     <string name="title_jump_detail">Jump Detail</string>
 
+    <string name="menu_debug">Debug</string>
+    <string name="menu_debug_insert_data">Insert Test Data</string>
+    <string name="menu_debug_delete_data">Delete All Data</string>
+
+    <string name="tools_text_jump_number">391</string>
+    <string name="tools_text_jump_date">11/02/2014</string>
+    <string name="tools_text_jump_description">jumped out of the plane and deployed parachute some time later</string>
+
 </resources>

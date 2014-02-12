@@ -1,13 +1,32 @@
 package org.tomcurran.remiges.ui;
 
 import android.app.Activity;
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import org.tomcurran.remiges.dummy.DummyContent;
+import org.json.JSONException;
+import org.tomcurran.remiges.BuildConfig;
+import org.tomcurran.remiges.R;
+import org.tomcurran.remiges.provider.RemigesContract;
+import org.tomcurran.remiges.util.TestData;
+
+import java.text.ParseException;
+
+import static org.tomcurran.remiges.util.LogUtils.LOGE;
+import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 /**
  * A list fragment representing a list of Jumps. This fragment
@@ -18,7 +37,8 @@ import org.tomcurran.remiges.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class JumpListFragment extends ListFragment {
+public class JumpListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor> {
+    private static final String TAG = makeLogTag(JumpListFragment.class);
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -46,7 +66,7 @@ public class JumpListFragment extends ListFragment {
         /**
          * Callback for when an item has been selected.
          */
-        public void onItemSelected(String id);
+        public void onItemSelected(Uri uri);
     }
 
     /**
@@ -55,9 +75,12 @@ public class JumpListFragment extends ListFragment {
      */
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
-        public void onItemSelected(String id) {
+        public void onItemSelected(Uri uri) {
         }
     };
+
+    private TestData mTestData;
+    private CursorAdapter mAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -70,12 +93,46 @@ public class JumpListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                DummyContent.ITEMS));
+        setHasOptionsMenu(true);
+
+        mAdapter = new JumpListAdapter(getActivity());
+        setListAdapter(mAdapter);
+
+        getLoaderManager().initLoader(0, null, this);
+
+        mTestData = new TestData(getActivity());
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        if (BuildConfig.DEBUG) {
+            inflater.inflate(R.menu.debug, menu);
+        }
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_debug_insert_data:
+                try {
+                    mTestData.insert();
+                } catch (JSONException e) {
+                    LOGE(TAG, String.format("Test data JSON error: %s", e.getMessage()));
+                } catch (ParseException e) {
+                    LOGE(TAG, String.format("Test data JSON parse error: %s", e.getMessage()));
+                }
+                return true;
+            case R.id.menu_debug_delete_data:
+                mTestData.delete();
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -115,7 +172,7 @@ public class JumpListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        mCallbacks.onItemSelected(RemigesContract.Jumps.buildJumpUri(id));
     }
 
     @Override
@@ -148,4 +205,62 @@ public class JumpListFragment extends ListFragment {
 
         mActivatedPosition = position;
     }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        return new CursorLoader(
+                getActivity(),
+                RemigesContract.Jumps.CONTENT_URI,
+                JumpsQuery.PROJECTION,
+                null,
+                null,
+                RemigesContract.Jumps.DEFAULT_SORT
+        );
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+        mAdapter.changeCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+        mAdapter.changeCursor(null);
+    }
+
+    public static class JumpListAdapter extends SimpleCursorAdapter {
+
+        private static final String[] FROM = {
+                RemigesContract.Jumps.JUMP_NUMBER,
+                RemigesContract.Jumps.JUMP_DATE,
+                RemigesContract.Jumps.JUMP_DESCRIPTION
+        };
+
+        private static final int[] TO = {
+                R.id.list_item_jump_number,
+                R.id.list_item_jump_date,
+                R.id.list_item_jump_description
+        };
+
+        public JumpListAdapter(Context context) {
+            super(context, R.layout.list_item_jumps, null, FROM, TO, 0);
+        }
+
+    }
+
+    private interface JumpsQuery {
+
+        String[] PROJECTION = {
+                RemigesContract.Jumps.JUMP_NUMBER,
+                RemigesContract.Jumps.JUMP_DATE,
+                RemigesContract.Jumps.JUMP_DESCRIPTION,
+                RemigesContract.Jumps._ID
+        };
+
+        int NUMBER = 0;
+        int DATE = 1;
+        int DESCRIPTION = 2;
+
+    }
+
 }
