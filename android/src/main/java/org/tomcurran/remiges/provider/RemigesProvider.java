@@ -89,7 +89,7 @@ public class RemigesProvider extends ContentProvider {
             case JUMPS: {
                 db.insertOrThrow(Tables.JUMPS, null, values);
                 notifyChange(uri);
-                return Jumps.buildJumpUri(values.getAsString(Jumps.JUMP_ID));
+                return Jumps.buildJumpUri(values.getAsString(Jumps._ID));
             }
             default: {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

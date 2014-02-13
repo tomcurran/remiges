@@ -6,7 +6,6 @@ import android.provider.BaseColumns;
 public class RemigesContract {
 
     interface JumpsColumns {
-        String JUMP_ID = "jump_id";
         String JUMP_NUMBER = "jump_number";
         String JUMP_DATE = "jump_date";
         String JUMP_DESCRIPTION = "jump_description";
