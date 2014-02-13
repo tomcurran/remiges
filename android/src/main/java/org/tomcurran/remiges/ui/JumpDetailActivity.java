@@ -17,7 +17,7 @@ import org.tomcurran.remiges.R;
  * This activity is mostly just a 'shell' activity containing nothing
  * more than a {@link JumpDetailFragment}.
  */
-public class JumpDetailActivity extends FragmentActivity {
+public class JumpDetailActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +28,8 @@ public class JumpDetailActivity extends FragmentActivity {
 
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity using a fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putParcelable(JumpDetailFragment.ARG_JUMP_URI,
-                    getIntent().getParcelableExtra(JumpDetailFragment.ARG_JUMP_URI));
-
             JumpDetailFragment fragment = new JumpDetailFragment();
-            fragment.setArguments(arguments);
+            fragment.setArguments(BaseActivity.intentToFragmentArguments(getIntent()));
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.jump_detail_container, fragment)
                     .commit();

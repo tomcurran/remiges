@@ -1,5 +1,6 @@
 package org.tomcurran.remiges.ui;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 
+import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 /**
@@ -27,7 +29,6 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     private static final String TAG = makeLogTag(JumpDetailFragment.class);
 
     private static final String SAVE_STATE_JUMP_URI = "jump_uri";
-    public static final String ARG_JUMP_URI = "jump_uri";
 
     private Uri mJumpUri;
     private Cursor mJumpCursor;
@@ -43,13 +44,13 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
+            final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
+            mJumpUri = intent.getData();
+        } else {
             mJumpUri = savedInstanceState.getParcelable(SAVE_STATE_JUMP_URI);
-            getLoaderManager().restartLoader(0, null, this);
-        } else if (getArguments().containsKey(ARG_JUMP_URI)) {
-            mJumpUri = getArguments().getParcelable(ARG_JUMP_URI);
-            getLoaderManager().restartLoader(0, null, this);
         }
+        getLoaderManager().restartLoader(0, null, this);
     }
 
     @Override

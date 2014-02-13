@@ -1,11 +1,15 @@
 package org.tomcurran.remiges.ui;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import org.tomcurran.remiges.R;
+import org.tomcurran.remiges.provider.RemigesContract;
+
+import static org.tomcurran.remiges.util.LogUtils.LOGE;
 
 
 /**
@@ -24,7 +28,7 @@ import org.tomcurran.remiges.R;
  * {@link JumpListFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class JumpListActivity extends FragmentActivity
+public class JumpListActivity extends BaseActivity
         implements JumpListFragment.Callbacks {
 
     /**
@@ -52,7 +56,14 @@ public class JumpListActivity extends FragmentActivity
                     .setActivateOnItemClick(true);
         }
 
-        // TODO: If exposing deep links into your app, handle intents here.
+        final Intent intent = getIntent();
+        final Uri uri = intent.getData();
+        if (uri != null) {
+            String uriType = getContentResolver().getType(uri);
+            if (uriType.equals(RemigesContract.Jumps.CONTENT_ITEM_TYPE)) {
+                onItemSelected(uri);
+            }
+        }
     }
 
     /**
@@ -61,24 +72,18 @@ public class JumpListActivity extends FragmentActivity
      */
     @Override
     public void onItemSelected(Uri uri) {
+        Intent detailIntent = new Intent();
+        detailIntent.setData(uri);
         if (mTwoPane) {
-            // In two-pane mode, show the detail view in this activity by
-            // adding or replacing the detail fragment using a
-            // fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putParcelable(JumpDetailFragment.ARG_JUMP_URI, uri);
             JumpDetailFragment fragment = new JumpDetailFragment();
-            fragment.setArguments(arguments);
+            fragment.setArguments(BaseActivity.intentToFragmentArguments(detailIntent));
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.jump_detail_container, fragment)
                     .commit();
-
         } else {
-            // In single-pane mode, simply start the detail activity
-            // for the selected item ID.
-            Intent detailIntent = new Intent(this, JumpDetailActivity.class);
-            detailIntent.putExtra(JumpDetailFragment.ARG_JUMP_URI, uri);
+            detailIntent.setClass(this, JumpDetailActivity.class);
             startActivity(detailIntent);
         }
     }
+
 }
