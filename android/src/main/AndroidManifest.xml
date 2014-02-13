@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.tomcurran.remiges" >
 
+    <permission
+        android:name="org.tomcurran.remiges.permission.WRITE_LOG"
+        android:protectionLevel="normal"
+        android:label="@string/permission_write"
+        android:description="@string/permission_write"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"

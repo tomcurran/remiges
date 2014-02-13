@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">Remiges</string>
+    <string name="permission_write">Modify Remiges logbook data</string>
     <string name="title_jump_detail">Jump Detail</string>
 
     <string name="menu_debug">Debug</string>
