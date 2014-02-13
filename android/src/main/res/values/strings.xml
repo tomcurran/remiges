@@ -8,6 +8,14 @@
     <string name="menu_debug_insert_data">Insert Test Data</string>
     <string name="menu_debug_delete_data">Delete All Data</string>
 
+    <string name="time_ago_today">today</string>
+    <string name="time_ago_day">1 day ago</string>
+    <string name="time_ago_days">%d days ago</string>
+    <string name="time_ago_week">1 week ago</string>
+    <string name="time_ago_weeks">%d weeks ago</string>
+    <string name="time_ago_months">%d months ago</string>
+    <string name="time_ago_years">%d years ago</string>
+
     <string name="tools_text_jump_number">391</string>
     <string name="tools_text_jump_date">11/02/2014</string>
     <string name="tools_text_jump_description">jumped out of the plane and deployed parachute some time later</string>

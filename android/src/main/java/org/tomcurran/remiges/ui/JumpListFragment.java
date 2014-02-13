@@ -11,21 +11,25 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.tomcurran.remiges.BuildConfig;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.TestData;
+import org.tomcurran.remiges.util.TimeUtils;
 
 import java.text.ParseException;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
+import static org.tomcurran.remiges.util.LogUtils.LOGI;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 /**
@@ -228,7 +232,7 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
         mAdapter.changeCursor(null);
     }
 
-    public static class JumpListAdapter extends SimpleCursorAdapter {
+    public static class JumpListAdapter extends SimpleCursorAdapter implements SimpleCursorAdapter.ViewBinder {
 
         private static final String[] FROM = {
                 RemigesContract.Jumps.JUMP_NUMBER,
@@ -244,6 +248,36 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
 
         public JumpListAdapter(Context context) {
             super(context, R.layout.list_item_jumps, null, FROM, TO, 0);
+            setViewBinder(this);
+        }
+
+        @Override
+        public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+            switch (columnIndex) {
+                case JumpsQuery.DATE: {
+                    ViewHolder holder = getViewHolder(view);
+                    holder.date.setText(
+                            TimeUtils.getTimeAgo(view.getContext(), cursor.getLong(JumpsQuery.DATE))
+                    );
+                    return true;
+                }
+                default:
+                    return false;
+            }
+        }
+
+        private ViewHolder getViewHolder(View view) {
+            ViewHolder holder = (ViewHolder) view.getTag();
+            if (holder == null) {
+                holder = new ViewHolder();
+                holder.date = (TextView) view.findViewById(R.id.list_item_jump_date);
+                view.setTag(holder);
+            }
+            return holder;
+        }
+
+        static class ViewHolder {
+            TextView date;
         }
 
     }
