@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.tomcurran.remiges.ui.JumpEditFragment">
+
+
+    <EditText
+        android:id="@+id/edit_jump_number"
+        android:inputType="number"
+        style="@style/EditJump.Number" />
+
+    <EditText
+        android:id="@+id/edit_jump_date"
+        android:inputType="date"
+        style="@style/EditJump.Date" />
+
+    <EditText
+        android:id="@+id/edit_jump_description"
+        android:inputType="textMultiLine"
+        style="@style/EditJump.Description" />
+
+</RelativeLayout>

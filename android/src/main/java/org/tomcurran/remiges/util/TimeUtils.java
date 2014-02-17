@@ -2,7 +2,6 @@ package org.tomcurran.remiges.util;
 
 
 import android.content.Context;
-import android.text.format.DateUtils;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;

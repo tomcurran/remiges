@@ -1,12 +1,14 @@
 package org.tomcurran.remiges.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
 import org.tomcurran.remiges.R;
+
+import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 /**
  * An activity representing a single Jump detail screen. This
@@ -17,7 +19,8 @@ import org.tomcurran.remiges.R;
  * This activity is mostly just a 'shell' activity containing nothing
  * more than a {@link JumpDetailFragment}.
  */
-public class JumpDetailActivity extends BaseActivity {
+public class JumpDetailActivity extends BaseActivity implements JumpDetailFragment.Callbacks {
+    private static final String TAG = makeLogTag(JumpEditActivity.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,4 +48,20 @@ public class JumpDetailActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onEditJump(Uri uri) {
+        Intent intent = new Intent();
+        intent.setData(uri);
+        intent.setAction(Intent.ACTION_EDIT);
+        intent.setClass(this, JumpEditActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDeleteJump(Uri uri) {
+        setResult(RESULT_OK, new Intent(Intent.ACTION_DELETE, uri));
+        finish();
+    }
+
 }

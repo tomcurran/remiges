@@ -4,20 +4,16 @@ package org.tomcurran.remiges.util;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.text.format.Time;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.tomcurran.remiges.provider.RemigesContract.Jumps;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 public class TestData {

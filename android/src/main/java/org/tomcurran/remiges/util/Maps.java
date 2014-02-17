@@ -17,7 +17,6 @@
 package org.tomcurran.remiges.util;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 /**
  * Provides static methods for creating mutable {@code Maps} instances easily.

@@ -1,5 +1,6 @@
 package org.tomcurran.remiges.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -8,7 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,7 +21,6 @@ import android.widget.TextView;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 
-import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 /**
@@ -37,12 +41,30 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     private TextView mJumpDate;
     private TextView mJumpDescription;
 
+    public interface Callbacks {
+        public void onEditJump(Uri uri);
+        public void onDeleteJump(Uri uri);
+    }
+
+    private static Callbacks sDummyCallbacks = new Callbacks() {
+        @Override
+        public void onEditJump(Uri uri) {
+        }
+        @Override
+        public void onDeleteJump(Uri uri) {
+        }
+    };
+
+    private Callbacks mCallbacks = sDummyCallbacks;
+
     public JumpDetailFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
 
         if (savedInstanceState == null) {
             final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
@@ -65,16 +87,61 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (!(activity instanceof Callbacks)) {
+            throw new IllegalStateException("Activity must implement fragment's callbacks.");
+        }
+        mCallbacks = (Callbacks) activity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = sDummyCallbacks;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.jump_detail, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_jump_detail_edit:
+                editJump();
+                return true;
+            case R.id.menu_jump_edit_delete:
+                deleteJump();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(SAVE_STATE_JUMP_URI, mJumpUri);
+    }
+
+    private void editJump() {
+        mCallbacks.onEditJump(mJumpUri);
+    }
+
+    private void deleteJump() {
+        int rowsDeleted = getActivity().getContentResolver().delete(mJumpUri, null, null);
+        if (rowsDeleted > 0) {
+            mCallbacks.onDeleteJump(mJumpUri);
+        }
     }
 
     private void loadJump() {
         Cursor jumpCursor = mJumpCursor;
         if (jumpCursor.moveToFirst()) {
             mJumpNumber.setText(jumpCursor.getString(JumpQuery.NUMBER));
-            mJumpDate.setText(jumpCursor.getString(JumpQuery.DATE));
+            mJumpDate.setText(DateFormat.format(getString(R.string.format_detail_jump_date), jumpCursor.getLong(JumpQuery.DATE)));
             mJumpDescription.setText(jumpCursor.getString(JumpQuery.DESCRIPTION));
         }
     }

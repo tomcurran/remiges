@@ -4,18 +4,17 @@
 
     <permission
         android:name="org.tomcurran.remiges.permission.WRITE_LOG"
-        android:protectionLevel="normal"
+        android:description="@string/permission_write"
         android:label="@string/permission_write"
-        android:description="@string/permission_write"/>
+        android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <activity
-            android:name=".ui.JumpListActivity"
+            android:name="org.tomcurran.remiges.ui.JumpListActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,27 +26,44 @@
                 <data android:mimeType="vnd.android.cursor.dir/vnd.remiges.jump" />
             </intent-filter>
             <intent-filter>
+                <action android:name="android.intent.action.INSERT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.remiges.jump" />
+            </intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.item/vnd.remiges.jump" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.remiges.jump" />
+            </intent-filter>
         </activity>
-
         <activity
-            android:name=".ui.JumpDetailActivity"
+            android:name="org.tomcurran.remiges.ui.JumpDetailActivity"
             android:label="@string/title_jump_detail"
-            android:parentActivityName=".ui.JumpListActivity" >
+            android:parentActivityName="org.tomcurran.remiges.ui.JumpListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.tomcurran.remiges.ui.JumpListActivity" />
         </activity>
+        <activity
+            android:name="org.tomcurran.remiges.ui.JumpEditActivity"
+            android:label="@string/title_activity_jump_edit"
+            android:parentActivityName="org.tomcurran.remiges.ui.JumpDetailActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.tomcurran.remiges.ui.JumpDetailActivity" />
+        </activity>
 
         <provider
-            android:name=".provider.RemigesProvider"
+            android:name="org.tomcurran.remiges.provider.RemigesProvider"
             android:authorities="org.tomcurran.remiges"
-            android:writePermission="org.tomcurran.remiges.permission.WRITE_LOG"
             android:exported="true"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:writePermission="org.tomcurran.remiges.permission.WRITE_LOG" />
 
     </application>
 

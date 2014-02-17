@@ -66,4 +66,32 @@
         <item name="android:layout_below">@id/jump_number</item>
     </style>
 
+    <style name="EditJump">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
+    </style>
+
+    <style name="EditJump.Number">
+        <item name="android:hint">@string/hint_edit_jump_number</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:ems">10</item>
+    </style>
+
+    <style name="EditJump.Date">
+        <item name="android:hint">@string/hint_edit_jump_date</item>
+        <item name="android:layout_below">@+id/edit_jump_number</item>
+        <item name="android:layout_alignLeft">@+id/edit_jump_number</item>
+        <item name="android:layout_alignStart">@+id/edit_jump_number</item>
+        <item name="android:ems">10</item>
+    </style>
+
+    <style name="EditJump.Description">
+        <item name="android:hint">@string/hint_edit_jump_description</item>
+        <item name="android:layout_below">@+id/edit_jump_date</item>
+        <item name="android:layout_alignLeft">@+id/edit_jump_date</item>
+        <item name="android:layout_alignStart">@+id/edit_jump_date</item>
+        <item name="android:ems">10</item>
+    </style>
+
 </resources>

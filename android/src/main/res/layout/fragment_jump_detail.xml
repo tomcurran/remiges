@@ -19,7 +19,7 @@ tools:context="org.tomcurran.remiges.ui.JumpDetailFragment">
     <TextView
         android:id="@+id/jump_date"
         style="@style/JumpText.Date"
-        tools:text="@string/tools_text_jump_date" />
+        tools:text="@string/tools_text_jump_detail_date" />
 
     <TextView
         android:id="@+id/jump_description"

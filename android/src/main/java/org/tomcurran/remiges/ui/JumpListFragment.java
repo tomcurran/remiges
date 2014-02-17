@@ -11,7 +11,6 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,7 +28,6 @@ import org.tomcurran.remiges.util.TimeUtils;
 import java.text.ParseException;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
-import static org.tomcurran.remiges.util.LogUtils.LOGI;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 /**
@@ -38,10 +36,11 @@ import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
  * 'activated' state upon selection. This helps indicate which item is
  * currently being viewed in a {@link JumpDetailFragment}.
  * <p>
- * Activities containing this fragment MUST implement the {@link Callbacks}
+ * Activities containing this fragment MUST implement the {@link org.tomcurran.remiges.ui.JumpListFragment.Callbacks}
  * interface.
  */
-public class JumpListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class JumpListFragment extends ListFragment implements
+        LoaderManager.LoaderCallbacks<Cursor>, JumpDetailFragment.Callbacks {
     private static final String TAG = makeLogTag(JumpListFragment.class);
 
     /**
@@ -51,45 +50,29 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
 
     /**
-     * The fragment's current callback object, which is notified of list item
-     * clicks.
-     */
-    private Callbacks mCallbacks = sDummyCallbacks;
-
-    /**
      * The current activated item position. Only used on tablets.
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
-    /**
-     * A callback interface that all activities containing this fragment must
-     * implement. This mechanism allows activities to be notified of item
-     * selections.
-     */
-    public interface Callbacks {
-        /**
-         * Callback for when an item has been selected.
-         */
-        public void onItemSelected(Uri uri);
-    }
-
-    /**
-     * A dummy implementation of the {@link Callbacks} interface that does
-     * nothing. Used only when this fragment is not attached to an activity.
-     */
-    private static Callbacks sDummyCallbacks = new Callbacks() {
-        @Override
-        public void onItemSelected(Uri uri) {
-        }
-    };
-
     private TestData mTestData;
     private CursorAdapter mAdapter;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    public interface Callbacks {
+        public void onJumpSelected(Uri uri);
+        public void onInsertJump();
+    }
+
+    private static Callbacks sDummyCallbacks = new Callbacks() {
+        @Override
+        public void onJumpSelected(Uri uri) {
+        }
+        @Override
+        public void onInsertJump() {
+        }
+    };
+
+    private Callbacks mCallbacks = sDummyCallbacks;
+
     public JumpListFragment() {
     }
 
@@ -108,16 +91,12 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.jump_list, menu);
         if (BuildConfig.DEBUG) {
             inflater.inflate(R.menu.debug, menu);
         }
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -135,8 +114,15 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
             case R.id.menu_debug_delete_data:
                 mTestData.delete();
                 return true;
+            case R.id.menu_jump_list_insert:
+                insertJump();
+                return true;
         }
         return false;
+    }
+
+    private void insertJump() {
+        mCallbacks.onInsertJump();
     }
 
     @Override
@@ -153,20 +139,15 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
-        // Activities containing this fragment must implement its callbacks.
         if (!(activity instanceof Callbacks)) {
             throw new IllegalStateException("Activity must implement fragment's callbacks.");
         }
-
         mCallbacks = (Callbacks) activity;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-
-        // Reset the active callbacks interface to the dummy implementation.
         mCallbacks = sDummyCallbacks;
     }
 
@@ -176,7 +157,7 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(RemigesContract.Jumps.buildJumpUri(id));
+        mCallbacks.onJumpSelected(RemigesContract.Jumps.buildJumpUri(id));
     }
 
     @Override
@@ -208,6 +189,14 @@ public class JumpListFragment extends ListFragment implements LoaderManager.Load
         }
 
         mActivatedPosition = position;
+    }
+
+    @Override
+    public void onEditJump(Uri uri) {
+    }
+
+    @Override
+    public void onDeleteJump(Uri uri) {
     }
 
     @Override

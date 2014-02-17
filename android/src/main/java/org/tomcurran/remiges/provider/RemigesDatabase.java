@@ -1,12 +1,11 @@
 package org.tomcurran.remiges.provider;
 
-import org.tomcurran.remiges.provider.RemigesContract.Jumps;
-import org.tomcurran.remiges.provider.RemigesContract.JumpsColumns;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+
+import org.tomcurran.remiges.provider.RemigesContract.JumpsColumns;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGW;
