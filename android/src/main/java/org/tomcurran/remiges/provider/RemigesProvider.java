@@ -1,24 +1,25 @@
 package org.tomcurran.remiges.provider;
 
-import org.tomcurran.remiges.provider.RemigesContract.Jumps;
-import org.tomcurran.remiges.provider.RemigesContract.JumpsColumns;
-import org.tomcurran.remiges.provider.RemigesDatabase.Tables;
-import org.tomcurran.remiges.util.SelectionBuilder;
-
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.OperationApplicationException;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
+import org.tomcurran.remiges.provider.RemigesContract.Jumps;
+import org.tomcurran.remiges.provider.RemigesDatabase.Tables;
+import org.tomcurran.remiges.util.SelectionBuilder;
+
 import java.util.ArrayList;
 
+import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
+
 public class RemigesProvider extends ContentProvider {
+    private static final String TAG = makeLogTag(RemigesProvider.class);
 
     private RemigesDatabase mOpenHelper;
 
@@ -75,7 +76,9 @@ public class RemigesProvider extends ContentProvider {
             default: {
                 // Most cases are handled with simple SelectionBuilder
                 final SelectionBuilder builder = buildExpandedSelection(uri, match);
-                return builder.where(selection, selectionArgs).query(db, projection, sortOrder);
+                Cursor cursor = builder.where(selection, selectionArgs).query(db, projection, sortOrder);
+                cursor.setNotificationUri(getContext().getContentResolver(), uri);
+                return cursor;
             }
         }
     }
@@ -87,9 +90,9 @@ public class RemigesProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case JUMPS: {
-                db.insertOrThrow(Tables.JUMPS, null, values);
+                long jump_id = db.insertOrThrow(Tables.JUMPS, null, values);
                 notifyChange(uri);
-                return Jumps.buildJumpUri(values.getAsString(Jumps._ID));
+                return Jumps.buildJumpUri(String.valueOf(jump_id));
             }
             default: {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
