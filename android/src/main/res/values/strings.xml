@@ -9,14 +9,6 @@
     <string name="menu_debug_insert_data">Insert Test Data</string>
     <string name="menu_debug_delete_data">Delete All Data</string>
 
-    <string name="time_ago_today">today</string>
-    <string name="time_ago_day">1 day ago</string>
-    <string name="time_ago_days">%d days ago</string>
-    <string name="time_ago_week">1 week ago</string>
-    <string name="time_ago_weeks">%d weeks ago</string>
-    <string name="time_ago_months">%d months ago</string>
-    <string name="time_ago_years">%d years ago</string>
-
     <string name="tools_text_jump_number">391</string>
     <string name="tools_text_jump_date">11/02/2014</string>
     <string name="tools_text_jump_detail_date">Tuesday, 11 February, 2014</string>
@@ -35,5 +27,23 @@
     <string name="title_activity_jump_edit">JumpEditActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="time_ago_today">today</string>
+    <plurals name="time_ago_days">
+        <item quantity="one">%d day ago</item>
+        <item quantity="other">%d days ago</item>
+    </plurals>
+    <plurals name="time_ago_weeks">
+        <item quantity="one">1 week ago</item>
+        <item quantity="other">%d weeks ago</item>
+    </plurals>
+    <plurals name="time_ago_months">
+        <item quantity="one">1 month ago</item>
+        <item quantity="other">%d months ago</item>
+    </plurals>
+    <plurals name="time_ago_years">
+        <item quantity="one">1 year ago</item>
+        <item quantity="other">%d years ago</item>
+    </plurals>
 
 </resources>

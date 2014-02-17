@@ -2,6 +2,7 @@ package org.tomcurran.remiges.util;
 
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -23,18 +24,14 @@ public class TimeUtils {
 
         if (days < 1) {
             return context.getString(R.string.time_ago_today);
-        } else if (days == 1) {
-            return context.getString(R.string.time_ago_day);
         } else if (weeks < 1) {
-            return context.getString(R.string.time_ago_days, days);
-        } else if (weeks == 1) {
-            return context.getString(R.string.time_ago_week);
+            return context.getResources().getQuantityString(R.plurals.time_ago_days, days, days);
         } else if (months < 2) {
-            return context.getString(R.string.time_ago_weeks, weeks);
+            return context.getResources().getQuantityString(R.plurals.time_ago_weeks, weeks, weeks);
         } else if (years < 2) {
-            return context.getString(R.string.time_ago_months, months);
+            return context.getResources().getQuantityString(R.plurals.time_ago_months, months, months);
         } else {
-            return context.getString(R.string.time_ago_years, years);
+            return context.getResources().getQuantityString(R.plurals.time_ago_years, years, years);
         }
     }
 
