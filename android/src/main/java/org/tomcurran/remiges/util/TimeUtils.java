@@ -34,7 +34,7 @@ public class TimeUtils {
         } else if (years < 2) {
             return context.getString(R.string.time_ago_months, months);
         } else {
-            return context.getString(R.string.time_ago_years, weeks);
+            return context.getString(R.string.time_ago_years, years);
         }
     }
 
