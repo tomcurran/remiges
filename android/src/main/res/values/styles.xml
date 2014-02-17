@@ -66,9 +66,16 @@
         <item name="android:layout_below">@id/jump_number</item>
     </style>
 
+    <style name="EditJumpContainer">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
     <style name="EditJump">
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
 
     <style name="EditJump.Number">
@@ -78,12 +85,14 @@
         <item name="android:ems">10</item>
     </style>
 
-    <style name="EditJump.Date">
-        <item name="android:hint">@string/hint_edit_jump_date</item>
+    <style name="EditJump.Date" parent="@android:style/Widget.DeviceDefault.Light.Spinner">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:hint">@string/tools_text_jump_detail_date</item>
         <item name="android:layout_below">@+id/edit_jump_number</item>
         <item name="android:layout_alignLeft">@+id/edit_jump_number</item>
         <item name="android:layout_alignStart">@+id/edit_jump_number</item>
-        <item name="android:ems">10</item>
+        <item name="android:paddingLeft">12dp</item>
     </style>
 
     <style name="EditJump.Description">

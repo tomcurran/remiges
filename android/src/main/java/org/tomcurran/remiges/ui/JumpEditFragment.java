@@ -1,31 +1,33 @@
 package org.tomcurran.remiges.ui;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.DbAdpater;
 import org.tomcurran.remiges.util.UIUtils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
@@ -38,18 +40,23 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
     private static final String SAVE_STATE_JUMP_URI = "jump_uri";
     private static final String SAVE_STATE_JUMP_STATE = "jump_state";
-
-    private static final String DATE_FORMAT = "dd/MM/yyyy";
+    private static final String SAVE_SATE_JUMP_TIME = "jump_time";
 
     private int mState;
     private Uri mJumpUri;
     private Cursor mJumpCursor;
 
     private EditText mJumpNumber;
-    private EditText mJumpDate;
+    private TextView mJumpDate;
     private EditText mJumpDescription;
 
-    private SimpleDateFormat mDateFormat;
+    private Time mTime;
+    private View.OnClickListener mDateClickedListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            showDatePickerDialog(view);
+        }
+    };
 
     public interface Callbacks {
         public void onJumpEdited(Uri uri);
@@ -73,7 +80,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         setHasOptionsMenu(true);
 
         FragmentActivity activity = (FragmentActivity) getActivity();
-        mDateFormat = new SimpleDateFormat(DATE_FORMAT);
+        mTime = new Time();
 
         if (savedInstanceState == null) {
             final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
@@ -81,9 +88,10 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             if (action.equals(Intent.ACTION_INSERT)) {
                 mState = STATE_INSERT;
                 // TODO: incorporate values passed in ?
+                mTime.setToNow();
                 ContentValues values = new ContentValues();
                 values.put(RemigesContract.Jumps.JUMP_NUMBER, DbAdpater.getHighestJumpNumber(getActivity()) + 1);
-                values.put(RemigesContract.Jumps.JUMP_DATE, new Date().getTime());
+                values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
                 values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, "");
                 mJumpUri = activity.getContentResolver().insert(intent.getData(), values);
                 if (mJumpUri == null) {
@@ -104,6 +112,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         } else {
             mJumpUri = savedInstanceState.getParcelable(SAVE_STATE_JUMP_URI);
             mState = savedInstanceState.getInt(SAVE_STATE_JUMP_STATE);
+            mTime.set(savedInstanceState.getLong(SAVE_SATE_JUMP_TIME));
         }
         activity.setResult(FragmentActivity.RESULT_OK, (new Intent()).setAction(mJumpUri.toString()));
         getLoaderManager().initLoader(0, null, this);
@@ -114,8 +123,10 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         View rootView = inflater.inflate(R.layout.fragment_jump_edit, container, false);
 
         mJumpNumber = (EditText) rootView.findViewById(R.id.edit_jump_number);
-        mJumpDate = (EditText) rootView.findViewById(R.id.edit_jump_date);
+        mJumpDate = (TextView) rootView.findViewById(R.id.edit_jump_date);
         mJumpDescription = (EditText) rootView.findViewById(R.id.edit_jump_description);
+
+        mJumpDate.setOnClickListener(mDateClickedListener);
 
         return rootView;
     }
@@ -126,6 +137,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         updateJump();
         outState.putParcelable(SAVE_STATE_JUMP_URI, mJumpUri);
         outState.putInt(SAVE_STATE_JUMP_STATE, mState);
+        outState.putLong(SAVE_SATE_JUMP_TIME, mTime.toMillis(false));
     }
 
     @Override
@@ -153,23 +165,22 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         Cursor jumpCursor = mJumpCursor;
         if (jumpCursor.moveToFirst()) {
             mJumpNumber.setText(jumpCursor.getString(JumpQuery.NUMBER));
-            mJumpDate.setText(mDateFormat.format(jumpCursor.getLong(JumpQuery.DATE)));
+            mTime.set(jumpCursor.getLong(JumpQuery.DATE));
+            updateDate();
             mJumpDescription.setText(jumpCursor.getString(JumpQuery.DESCRIPTION));
         }
+    }
+
+    private void updateDate() {
+        mJumpDate.setText(DateFormat.format(getString(R.string.format_detail_jump_date), mTime.toMillis(false)));
     }
 
     private void updateJump() {
         ContentValues values = new ContentValues();
         values.put(RemigesContract.Jumps.JUMP_NUMBER, UIUtils.parseTextViewInt(mJumpNumber));
-        long date = 0L;
-        try {
-            date = mDateFormat.parse(mJumpDate.getText().toString()).getTime();
-        } catch (ParseException e) {
-            LOGD(TAG, String.format("date parse error: %s", e.getMessage()));
-        }
-        values.put(RemigesContract.Jumps.JUMP_DATE, date);
+        values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
         values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, mJumpDescription.getText().toString());
-        int rowsUpdate = getActivity().getContentResolver().update(mJumpUri, values,null, null);
+        int rowsUpdate = getActivity().getContentResolver().update(mJumpUri, values, null, null);
         if (rowsUpdate > 0) {
             mCallbacks.onJumpEdited(mJumpUri);
         }
@@ -209,6 +220,41 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         int NUMBER = 0;
         int DATE = 1;
         int DESCRIPTION = 2;
+
+    }
+
+    public void showDatePickerDialog(View view) {
+        DialogFragment fragment = new DatePickerFragment();
+        fragment.setTargetFragment(this, 0);
+        fragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+    }
+
+    public void setDate(int year, int month, int day) {
+        mTime.set(day, month, year);
+        updateDate();
+    }
+
+    public Time getDate() {
+        return mTime;
+    }
+
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            JumpEditFragment fragment = ((JumpEditFragment)getTargetFragment());
+            Time time = fragment.getDate();
+            return new DatePickerDialog(getActivity(), this, time.year, time.month, time.monthDay);
+        }
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            JumpEditFragment fragment = ((JumpEditFragment)getTargetFragment());
+            if (fragment.isAdded()) {
+                fragment.setDate(year, month, day);
+            }
+        }
 
     }
 
