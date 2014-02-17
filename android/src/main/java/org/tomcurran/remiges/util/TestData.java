@@ -12,7 +12,6 @@ import org.tomcurran.remiges.provider.RemigesContract.Jumps;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
@@ -40,11 +39,11 @@ public class TestData {
         ContentValues[] jumps = new ContentValues[jsonJumps.length()];
         for (int i = 0; i < jsonJumps.length(); i++) {
             JSONObject jsonJump = jsonJumps.getJSONObject(i);
-            jumps[i] = new JumpValues(
-                    jsonJump.getInt("number"),
-                    mDateFormatter.parse(jsonJump.getString("date")),
-                    jsonJump.getString("description")
-            ).getValues();
+            ContentValues values = new ContentValues();
+            values.put(Jumps.JUMP_NUMBER, jsonJump.getInt("number"));
+            values.put(Jumps.JUMP_DATE, mDateFormatter.parse(jsonJump.getString("date")).getTime());
+            values.put(Jumps.JUMP_DESCRIPTION, jsonJump.getString("description"));
+            jumps[i] = values;
         }
         resolver.bulkInsert(Jumps.CONTENT_URI, jumps);
     }
@@ -56,23 +55,6 @@ public class TestData {
     public void delete() {
         ContentResolver resolver = mContext.getContentResolver();
         resolver.delete(Jumps.CONTENT_URI, null, null);
-    }
-
-    private static class JumpValues {
-
-        private ContentValues values;
-
-        public JumpValues(int number, Date date, String description) {
-            values = new ContentValues();
-            values.put(Jumps.JUMP_NUMBER, number);
-            values.put(Jumps.JUMP_DATE, date.getTime());
-            values.put(Jumps.JUMP_DESCRIPTION, description);
-        }
-
-        public ContentValues getValues() {
-            return values;
-        }
-
     }
 
 }
