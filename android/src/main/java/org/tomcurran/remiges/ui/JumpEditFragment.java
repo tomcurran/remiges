@@ -49,6 +49,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     private EditText mJumpNumber;
     private TextView mJumpDate;
     private EditText mJumpDescription;
+    private EditText mJumpExitAltitude;
+    private EditText mJumpDeploymentAltitude;
+    private EditText mJumpDelay;
 
     private Time mTime;
     private View.OnClickListener mDateClickedListener = new View.OnClickListener() {
@@ -93,6 +96,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
                 values.put(RemigesContract.Jumps.JUMP_NUMBER, DbAdpater.getHighestJumpNumber(getActivity()) + 1);
                 values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
                 values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, "");
+                values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, 0);
+                values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, 0);
+                values.put(RemigesContract.Jumps.JUMP_DELAY, 0);
                 mJumpUri = activity.getContentResolver().insert(intent.getData(), values);
                 if (mJumpUri == null) {
                     LOGE(TAG, "Failed to insert new jump into " + intent.getData());
@@ -125,6 +131,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         mJumpNumber = (EditText) rootView.findViewById(R.id.edit_jump_number);
         mJumpDate = (TextView) rootView.findViewById(R.id.edit_jump_date);
         mJumpDescription = (EditText) rootView.findViewById(R.id.edit_jump_description);
+        mJumpExitAltitude = (EditText) rootView.findViewById(R.id.edit_jump_exit_altitude);
+        mJumpDeploymentAltitude = (EditText) rootView.findViewById(R.id.edit_jump_deployment_altitude);
+        mJumpDelay = (EditText) rootView.findViewById(R.id.edit_jump_delay);
 
         mJumpDate.setOnClickListener(mDateClickedListener);
 
@@ -168,6 +177,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             mTime.set(jumpCursor.getLong(JumpQuery.DATE));
             updateDate();
             mJumpDescription.setText(jumpCursor.getString(JumpQuery.DESCRIPTION));
+            UIUtils.setTextViewInt(mJumpExitAltitude, jumpCursor.getInt(JumpQuery.EXIT_ALTITUDE));
+            UIUtils.setTextViewInt(mJumpDeploymentAltitude, jumpCursor.getInt(JumpQuery.DEPLOYMENT_ALTITUDE));
+            UIUtils.setTextViewInt(mJumpDelay, jumpCursor.getInt(JumpQuery.DELAY));
         }
     }
 
@@ -180,6 +192,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         values.put(RemigesContract.Jumps.JUMP_NUMBER, UIUtils.parseTextViewInt(mJumpNumber));
         values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
         values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, mJumpDescription.getText().toString());
+        values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, UIUtils.parseTextViewInt(mJumpExitAltitude));
+        values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, UIUtils.parseTextViewInt(mJumpDeploymentAltitude));
+        values.put(RemigesContract.Jumps.JUMP_DELAY, UIUtils.parseTextViewInt(mJumpDelay));
         int rowsUpdate = getActivity().getContentResolver().update(mJumpUri, values, null, null);
         if (rowsUpdate > 0) {
             mCallbacks.onJumpEdited(mJumpUri);
@@ -214,12 +229,18 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         String[] PROJECTION = {
                 RemigesContract.Jumps.JUMP_NUMBER,
                 RemigesContract.Jumps.JUMP_DATE,
-                RemigesContract.Jumps.JUMP_DESCRIPTION
+                RemigesContract.Jumps.JUMP_DESCRIPTION,
+                RemigesContract.Jumps.JUMP_EXIT_ALTITUDE,
+                RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE,
+                RemigesContract.Jumps.JUMP_DELAY
         };
 
         int NUMBER = 0;
         int DATE = 1;
         int DESCRIPTION = 2;
+        int EXIT_ALTITUDE = 3;
+        int DEPLOYMENT_ALTITUDE = 4;
+        int DELAY = 5;
 
     }
 

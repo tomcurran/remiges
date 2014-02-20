@@ -6,1451 +6,2321 @@
         {
             "number": 290,
             "date": "2014-01-19T00:00:00.000Z",
+            "exitAltitude": 5060,
+            "deploymentAltitude": 0,
+            "delay": 14,
             "description": "Solo"
         },
         {
             "number": 289,
             "date": "2014-01-11T00:00:00.000Z",
+            "exitAltitude": 10800,
+            "deploymentAltitude": 0,
+            "delay": 48,
             "description": "4 way FS with Scott, Stuart, Oscar\nOscar FS1!"
         },
         {
             "number": 288,
             "date": "2014-01-11T00:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 41,
             "description": "2 way FS with Stuart\nRotated him over and then tracked a bit"
         },
         {
             "number": 287,
             "date": "2014-01-11T00:00:00.000Z",
+            "exitAltitude": 5200,
+            "deploymentAltitude": 0,
+            "delay": 19,
             "description": "2 way FS with Stuart"
         },
         {
             "number": 286,
             "date": "2013-12-07T00:00:00.000Z",
+            "exitAltitude": 3450,
+            "deploymentAltitude": 0,
+            "delay": 4,
             "description": "3 way CF with Sandy & Ceaser\nCaesars storm takes a lot longer to open so he was too slow to get involved. I docked on Sandy"
         },
         {
             "number": 285,
             "date": "2013-12-07T00:00:00.000Z",
+            "exitAltitude": 3300,
+            "deploymentAltitude": 0,
+            "delay": 4,
             "description": "2 way CF with Sandy\nBusted an awesome turn to set up on Sandy. He wouldn't take the dock claiming it came in too low. He popped round and docked on me. Piloted about for a bit"
         },
         {
             "number": 284,
             "date": "2013-11-30T00:00:00.000Z",
+            "exitAltitude": 9530,
+            "deploymentAltitude": 0,
+            "delay": 45,
             "description": "4 way FS with Sandy, Greg & Oscar"
         },
         {
             "number": 283,
             "date": "2013-11-24T00:00:00.000Z",
-            "description": "2 way FS with Sandy\nDocked on Sandy. Flew about. KB flew under us in the plane. Landed uncompressed in the pit."
+            "exitAltitude": 4430,
+            "deploymentAltitude": 0,
+            "delay": 4,
+            "description": "2 way CF with Sandy\nDocked on Sandy. Flew about. KB flew under us in the plane. Landed uncompressed in the pit."
         },
         {
             "number": 282,
             "date": "2013-11-24T00:00:00.000Z",
-            "description": "2 way FS with Sandy\nDocked on Sandy. Flew it back to DZ. Sandy wanted to land it uncompressed but I couldn't hear what he was saying"
+            "exitAltitude": 3910,
+            "deploymentAltitude": 0,
+            "delay": 4,
+            "description": "2 way CF with Sandy\nDocked on Sandy. Flew it back to DZ. Sandy wanted to land it uncompressed but I couldn't hear what he was saying"
         },
         {
             "number": 281,
             "date": "2013-11-09T00:00:00.000Z",
+            "exitAltitude": 9640,
+            "deploymentAltitude": 0,
+            "delay": 45,
             "description": "4 way FS with Sandy, Scott & Oscar.\nOscar flipped under on exit. I then took out sandy trying to dock."
         },
         {
             "number": 280,
             "date": "2013-11-03T00:00:00.000Z",
+            "exitAltitude": 8440,
+            "deploymentAltitude": 0,
+            "delay": 35,
             "description": "2 way tracking with Sandy\nSandy back tracking but very steep so I struggled to keep level"
         },
         {
             "number": 279,
             "date": "2013-10-25T23:00:00.000Z",
+            "exitAltitude": 14600,
+            "deploymentAltitude": 0,
+            "delay": 68,
             "description": "3 way FS with John & Briony"
         },
         {
             "number": 278,
             "date": "2013-10-19T23:00:00.000Z",
+            "exitAltitude": 4160,
+            "deploymentAltitude": 0,
+            "delay": 4,
             "description": "CF flew about sandy and briony"
         },
         {
             "number": 277,
             "date": "2013-10-12T23:00:00.000Z",
+            "exitAltitude": 9770,
+            "deploymentAltitude": 0,
+            "delay": 46,
             "description": "4 way FS with Sandy, Ceasar & Oscar"
         },
         {
             "number": 276,
             "date": "2013-10-12T23:00:00.000Z",
+            "exitAltitude": 9610,
+            "deploymentAltitude": 0,
+            "delay": 40,
             "description": "3 way FS with Scott & Oscar\n4 point 3 way"
         },
         {
             "number": 275,
             "date": "2013-10-11T23:00:00.000Z",
+            "exitAltitude": 9400,
+            "deploymentAltitude": 0,
+            "delay": 44,
             "description": "4 way FS with Sandy, Scott & Marwa\nExit funnelled. Marwa broke away. No points."
         },
         {
             "number": 274,
             "date": "2013-10-11T23:00:00.000Z",
+            "exitAltitude": 9860,
+            "deploymentAltitude": 0,
+            "delay": 44,
             "description": "3 way FS with Sandy & Oscar\n3 point 3 way - 6 points!"
         },
         {
             "number": 273,
             "date": "2013-10-04T23:00:00.000Z",
+            "exitAltitude": 9990,
+            "deploymentAltitude": 0,
+            "delay": 45,
             "description": "3 way FS with Stewart & Mark"
         },
         {
             "number": 272,
             "date": "2013-09-21T23:00:00.000Z",
+            "exitAltitude": 3260,
+            "deploymentAltitude": 0,
+            "delay": 4,
             "description": "hop'n'pop"
         },
         {
             "number": 271,
             "date": "2013-09-21T23:00:00.000Z",
+            "exitAltitude": 3320,
+            "deploymentAltitude": 0,
+            "delay": 4,
             "description": "hop'n'pop"
         },
         {
             "number": 270,
             "date": "2013-09-13T23:00:00.000Z",
+            "exitAltitude": 9680,
+            "deploymentAltitude": 0,
+            "delay": 44,
             "description": "4 way FS\nwith Sandy, Scott, Marwa\nExit OK. Last minute coach slot swap confused Marwa"
         },
         {
             "number": 269,
             "date": "2013-09-13T23:00:00.000Z",
+            "exitAltitude": 8000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "4 way CF\nwith Sandy, Scott, Angela\nDocked third, Angela docked fourth, rest of us rotated for Angela to pilot"
         },
         {
             "number": 268,
             "date": "2013-09-13T23:00:00.000Z",
+            "exitAltitude": 8830,
+            "deploymentAltitude": 0,
+            "delay": 40,
             "description": "4 way FS\nwith Sandy, Scott, Marwa\nExit funelled"
         },
         {
             "number": 267,
             "date": "2013-09-13T23:00:00.000Z",
+            "exitAltitude": 8380,
+            "deploymentAltitude": 0,
+            "delay": 5,
             "description": "4 way CF\nwith Sandy, Scott, Angela\nSandy had little bit of a pilot chute in tow which left him out of position. I pinned Scott, Sandy on third but not much altitude left"
         },
         {
             "number": 266,
             "date": "2013-09-13T23:00:00.000Z",
+            "exitAltitude": 9740,
+            "deploymentAltitude": 0,
+            "delay": 48,
             "description": "4 way FS\nwith Sandy, Scott, Marwa\nExit funnelled"
         },
         {
             "number": 265,
             "date": "2013-09-07T23:00:00.000Z",
+            "exitAltitude": 5000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "3 way CF with Sandy & Angela\nSandy base, docked second,  Angela on third\nFlew the stack about"
         },
         {
             "number": 264,
             "date": "2013-09-07T23:00:00.000Z",
+            "exitAltitude": 4000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "2 way CF with Sandy\n2 rotations"
         },
         {
             "number": 263,
             "date": "2013-09-07T23:00:00.000Z",
+            "exitAltitude": 9570,
+            "deploymentAltitude": 0,
+            "delay": 43,
             "description": "3 way fs with Sandy & Olywn\nOlwyns 4 point attempt. 0 points, exit funnelled"
         },
         {
             "number": 262,
             "date": "2013-09-06T23:00:00.000Z",
+            "exitAltitude": 5000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "2 way CF with Sandy"
         },
         {
             "number": 261,
             "date": "2013-09-06T23:00:00.000Z",
+            "exitAltitude": 5000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "2 way CF with Sandy"
         },
         {
             "number": 260,
             "date": "2013-08-09T23:00:00.000Z",
+            "exitAltitude": 6810,
+            "deploymentAltitude": 0,
+            "delay": 31,
             "description": "3 way FS with Sandy & Olwyn\nOlwyns 3 point 3 way. Sandy coaching\n4 points"
         },
         {
             "number": 259,
             "date": "2013-08-09T23:00:00.000Z",
+            "exitAltitude": 6440,
+            "deploymentAltitude": 0,
+            "delay": 30,
             "description": "3 way FS with Sandy & Briony"
         },
         {
             "number": 258,
             "date": "2013-08-09T23:00:00.000Z",
+            "exitAltitude": 5000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "2 way CF with sandy\nsandy docked, landed the stack"
         },
         {
             "number": 257,
             "date": "2013-08-08T23:00:00.000Z",
+            "exitAltitude": 6000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "4 way CF with Scott, Sergiey, Ian\nIan docked on Scott"
         },
         {
             "number": 256,
             "date": "2013-08-08T23:00:00.000Z",
+            "exitAltitude": 5000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "4 way CF with Scott, Sandy & Ian\ndocked third, Ian put cells over head"
         },
         {
             "number": 255,
             "date": "2013-08-07T23:00:00.000Z",
+            "exitAltitude": 9760,
+            "deploymentAltitude": 0,
+            "delay": 45,
             "description": "3 way fs with sandy & marwa"
         },
         {
             "number": 254,
             "date": "2013-08-06T23:00:00.000Z",
+            "exitAltitude": 6500,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "6 way CReW with Scott, Sandy, Gus, Stig, Stewart\ndocked third, stack oscillating, broke down, lined up to dock fifth but stack oscillating to much again to safely dock"
         },
         {
             "number": 253,
             "date": "2013-08-05T23:00:00.000Z",
+            "exitAltitude": 6000,
+            "deploymentAltitude": 0,
+            "delay": 21,
             "description": "3 way with Stewart & Caesar"
         },
         {
             "number": 252,
             "date": "2013-08-05T23:00:00.000Z",
+            "exitAltitude": 3350,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "3 way CReW with Scott & Sandy\nbuilt stack"
         },
         {
             "number": 251,
             "date": "2013-08-04T23:00:00.000Z",
+            "exitAltitude": 9590,
+            "deploymentAltitude": 0,
+            "delay": 45,
             "description": "3 way Angela with scott\n4 points"
         },
         {
             "number": 250,
             "date": "2013-08-04T23:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 48,
             "description": "3 way Angela with billy\n3 points"
         },
         {
             "number": 249,
             "date": "2013-08-03T23:00:00.000Z",
+            "exitAltitude": 9760,
+            "deploymentAltitude": 0,
+            "delay": 45,
             "description": "4 way FS\nBriony FS1 attempt with sandy & mike"
         },
         {
             "number": 248,
             "date": "2013-08-03T23:00:00.000Z",
+            "exitAltitude": 9950,
+            "deploymentAltitude": 0,
+            "delay": 49,
             "description": "4 way FS\nBriony FS1 attempt with sandy & mike"
         },
         {
             "number": 247,
             "date": "2013-08-03T23:00:00.000Z",
+            "exitAltitude": 3960,
+            "deploymentAltitude": 0,
+            "delay": 8,
             "description": "hop'n'pop"
         },
         {
             "number": 246,
             "date": "2013-07-19T23:00:00.000Z",
+            "exitAltitude": 12500,
+            "deploymentAltitude": 0,
+            "delay": 50,
             "description": "2 way fs\nwith ben\nhorney gorilla exit. tandem track to frontloop"
         },
         {
             "number": 245,
             "date": "2013-06-21T23:00:00.000Z",
+            "exitAltitude": 8000,
+            "deploymentAltitude": 0,
+            "delay": 33,
             "description": "2 way fs\nwith jonny"
         },
         {
             "number": 244,
             "date": "2013-06-08T23:00:00.000Z",
+            "exitAltitude": 12000,
+            "deploymentAltitude": 0,
+            "delay": 50,
             "description": "Solo FF\nSit fly working :)"
         },
         {
             "number": 243,
             "date": "2013-01-05T00:00:00.000Z",
+            "exitAltitude": 2500,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "hop'n'pop"
         },
         {
             "number": 242,
             "date": "2012-11-04T00:00:00.000Z",
+            "exitAltitude": 6120,
+            "deploymentAltitude": 0,
+            "delay": 20,
             "description": "solo ff\nsit good"
         },
         {
             "number": 241,
             "date": "2012-10-12T23:00:00.000Z",
+            "exitAltitude": 9730,
+            "deploymentAltitude": 0,
+            "delay": 40,
             "description": "3 way fs\nwith carol & anna\njim filming"
         },
         {
             "number": 240,
             "date": "2012-09-21T23:00:00.000Z",
+            "exitAltitude": 9460,
+            "deploymentAltitude": 0,
+            "delay": 41,
             "description": "3 way fs\nolwyns 3 way, sandy coaching"
         },
         {
             "number": 239,
             "date": "2012-09-21T23:00:00.000Z",
+            "exitAltitude": 9880,
+            "deploymentAltitude": 0,
+            "delay": 41,
             "description": "solo ff"
         },
         {
             "number": 238,
             "date": "2012-09-07T23:00:00.000Z",
+            "exitAltitude": 12900,
+            "deploymentAltitude": 0,
+            "delay": 56,
             "description": "solo"
         },
         {
             "number": 237,
             "date": "2012-08-25T23:00:00.000Z",
+            "exitAltitude": 5000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "3 way cf\nwith sandy & greg\nptri-plane attempt"
         },
         {
             "number": 236,
             "date": "2012-08-25T23:00:00.000Z",
+            "exitAltitude": 4000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "3 way cf\nwith sandy & greg\nptri-plane attempt"
         },
         {
             "number": 235,
             "date": "2012-08-25T23:00:00.000Z",
+            "exitAltitude": 2230,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "2 way cf\nwith greg\ndownplane"
         },
         {
             "number": 234,
             "date": "2012-08-24T23:00:00.000Z",
+            "exitAltitude": 5000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "3 way cf\nwith sandy & greg\npendulum to down-plane attempt"
         },
         {
             "number": 233,
             "date": "2012-08-24T23:00:00.000Z",
+            "exitAltitude": 6000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "3 way cf\nwith sandy & greg\npendulum to down-plane attempt"
         },
         {
             "number": 232,
             "date": "2012-08-24T23:00:00.000Z",
+            "exitAltitude": 7050,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "3 way cf\nwith sandy & greg\npendulum to down-plane attempt"
         },
         {
             "number": 231,
             "date": "2012-08-11T23:00:00.000Z",
+            "exitAltitude": 10620,
+            "deploymentAltitude": 0,
+            "delay": 46,
             "description": "4 way fs\nBPA nationals round 8\nPHQ\n6 points"
         },
         {
             "number": 230,
             "date": "2012-08-11T23:00:00.000Z",
+            "exitAltitude": 10590,
+            "deploymentAltitude": 0,
+            "delay": 50,
             "description": "4 way fs\nBPA nationals round 7\nLMD\n5 points"
         },
         {
             "number": 229,
             "date": "2012-08-11T23:00:00.000Z",
+            "exitAltitude": 10440,
+            "deploymentAltitude": 0,
+            "delay": 49,
             "description": "4 way fs\nBPA nationals round 6\nJCO\n4 points"
         },
         {
             "number": 228,
             "date": "2012-08-11T23:00:00.000Z",
+            "exitAltitude": 10540,
+            "deploymentAltitude": 0,
+            "delay": 49,
             "description": "4 way fs\nBPA nationals round 5\nGHN\n3 points"
         },
         {
             "number": 227,
             "date": "2012-08-10T23:00:00.000Z",
+            "exitAltitude": 10720,
+            "deploymentAltitude": 0,
+            "delay": 48,
             "description": "4 way fs\nBPA nationals round 4\nQCP\n4 points"
         },
         {
             "number": 226,
             "date": "2012-08-10T23:00:00.000Z",
+            "exitAltitude": 10410,
+            "deploymentAltitude": 0,
+            "delay": 45,
             "description": "4 way fs\nBPA nationals round 3\nKAJ\n0 points"
         },
         {
             "number": 225,
             "date": "2012-08-10T23:00:00.000Z",
+            "exitAltitude": 10550,
+            "deploymentAltitude": 0,
+            "delay": 48,
             "description": "4 way fs\nBPA nationals round 2\nMFO\n2 points"
         },
         {
             "number": 224,
             "date": "2012-08-10T23:00:00.000Z",
+            "exitAltitude": 10500,
+            "deploymentAltitude": 0,
+            "delay": 48,
             "description": "4 way fs\nBPA nationals round 1\nBLE\n3 points"
         },
         {
             "number": 223,
             "date": "2012-07-09T23:00:00.000Z",
+            "exitAltitude": 15040,
+            "deploymentAltitude": 0,
+            "delay": 73,
             "description": "3 way fs"
         },
         {
             "number": 222,
             "date": "2012-07-21T23:00:00.000Z",
+            "exitAltitude": 14620,
+            "deploymentAltitude": 0,
+            "delay": 73,
             "description": "12 way fs"
         },
         {
             "number": 221,
             "date": "2012-07-20T23:00:00.000Z",
+            "exitAltitude": 14870,
+            "deploymentAltitude": 0,
+            "delay": 74,
             "description": "12 way fs\n3 points"
         },
         {
             "number": 220,
             "date": "2012-07-20T23:00:00.000Z",
+            "exitAltitude": 10460,
+            "deploymentAltitude": 0,
+            "delay": 47,
             "description": "4 way fs\nhib cup round 6"
         },
         {
             "number": 219,
             "date": "2012-07-20T23:00:00.000Z",
+            "exitAltitude": 10490,
+            "deploymentAltitude": 0,
+            "delay": 46,
             "description": "4 way fs\nhib cup round 5"
         },
         {
             "number": 218,
             "date": "2012-07-20T23:00:00.000Z",
+            "exitAltitude": 10330,
+            "deploymentAltitude": 0,
+            "delay": 47,
             "description": "4 way fs\nhib cup round 4"
         },
         {
             "number": 217,
             "date": "2012-07-20T23:00:00.000Z",
+            "exitAltitude": 10330,
+            "deploymentAltitude": 0,
+            "delay": 47,
             "description": "4 way fs\nhib cup round 3"
         },
         {
             "number": 216,
             "date": "2012-07-20T23:00:00.000Z",
+            "exitAltitude": 10240,
+            "deploymentAltitude": 0,
+            "delay": 46,
             "description": "4 way fs\nhib cup round 2"
         },
         {
             "number": 215,
             "date": "2012-07-20T23:00:00.000Z",
+            "exitAltitude": 10480,
+            "deploymentAltitude": 0,
+            "delay": 48,
             "description": "4 way fs\nhib cup round 1"
         },
         {
             "number": 214,
             "date": "2012-07-06T23:00:00.000Z",
+            "exitAltitude": 14330,
+            "deploymentAltitude": 0,
+            "delay": 63,
             "description": "3 way fs\nwith john & lucy"
         },
         {
             "number": 213,
             "date": "2012-06-21T23:00:00.000Z",
+            "exitAltitude": 13500,
+            "deploymentAltitude": 0,
+            "delay": 66,
             "description": "8 way fs\nturning blocks, to star"
         },
         {
             "number": 212,
             "date": "2012-06-20T23:00:00.000Z",
+            "exitAltitude": 12700,
+            "deploymentAltitude": 0,
+            "delay": 58,
             "description": "6 way fs"
         },
         {
             "number": 211,
             "date": "2012-06-20T23:00:00.000Z",
+            "exitAltitude": 13700,
+            "deploymentAltitude": 0,
+            "delay": 58,
             "description": "6 way hybrid\nzooo"
         },
         {
             "number": 210,
             "date": "2012-06-20T23:00:00.000Z",
+            "exitAltitude": 13000,
+            "deploymentAltitude": 0,
+            "delay": 66,
             "description": "9 way fs\nstar, zipper, turns"
         },
         {
             "number": 209,
             "date": "2012-06-19T23:00:00.000Z",
+            "exitAltitude": 13280,
+            "deploymentAltitude": 0,
+            "delay": 50,
             "description": "solo ff\nmuch more confident sit"
         },
         {
             "number": 208,
             "date": "2012-06-19T23:00:00.000Z",
+            "exitAltitude": 13700,
+            "deploymentAltitude": 0,
+            "delay": 56,
             "description": "solo ff\nstarted to get sit"
         },
         {
             "number": 207,
             "date": "2012-06-19T23:00:00.000Z",
+            "exitAltitude": 13100,
+            "deploymentAltitude": 0,
+            "delay": 52,
             "description": "2 way ff\nwith greg\nback flew ok"
         },
         {
             "number": 206,
             "date": "2012-06-18T23:00:00.000Z",
+            "exitAltitude": 12900,
+            "deploymentAltitude": 0,
+            "delay": 62,
             "description": "6 way tracking\ngreg needs to learn left from right on back\ndocked on him"
         },
         {
             "number": 205,
             "date": "2012-06-18T23:00:00.000Z",
+            "exitAltitude": 12700,
+            "deploymentAltitude": 0,
+            "delay": 54,
             "description": "2 way tracking\nwith sandy\nstill can't track on back"
         },
         {
             "number": 204,
             "date": "2012-06-18T23:00:00.000Z",
+            "exitAltitude": 13000,
+            "deploymentAltitude": 0,
+            "delay": 49,
             "description": "4 way fs\ndouble rodeo\nme on paul, beiber on greg"
         },
         {
             "number": 203,
             "date": "2012-06-18T23:00:00.000Z",
+            "exitAltitude": 13000,
+            "deploymentAltitude": 0,
+            "delay": 53,
             "description": "3 way hybrid\ngreg on me & sandys cheststraps\nmark flying about us"
         },
         {
             "number": 202,
             "date": "2012-06-17T23:00:00.000Z",
+            "exitAltitude": 13000,
+            "deploymentAltitude": 0,
+            "delay": 61,
             "description": "2 way fs\nwith sandy\nflew about as he tried out his camera"
         },
         {
             "number": 201,
             "date": "2012-06-16T23:00:00.000Z",
+            "exitAltitude": 3500,
+            "deploymentAltitude": 0,
+            "delay": 5,
             "description": "hop'n'pop"
         },
         {
             "number": 200,
             "date": "2012-06-16T23:00:00.000Z",
+            "exitAltitude": 4500,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "hop'n'pop"
         },
         {
             "number": 199,
             "date": "2012-06-02T23:00:00.000Z",
+            "exitAltitude": 6000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "3 way cf\nwith sandy & greg\npiloted with sandy second, greg third. went into pendulum and downplane soon after"
         },
         {
             "number": 198,
             "date": "2012-06-02T23:00:00.000Z",
+            "exitAltitude": 7300,
+            "deploymentAltitude": 0,
+            "delay": 31,
             "description": "2 way tracking\nwith mike\ntracked along side"
         },
         {
             "number": 197,
             "date": "2012-06-02T23:00:00.000Z",
+            "exitAltitude": 5500,
+            "deploymentAltitude": 0,
+            "delay": 17,
             "description": "2 way fs\nwith caesar\nhe floated, I held his shorts. he went on his back"
         },
         {
             "number": 196,
             "date": "2012-06-01T23:00:00.000Z",
+            "exitAltitude": 5000,
+            "deploymentAltitude": 0,
+            "delay": 4,
             "description": "2 way cf\nwith sandy\ndocked once"
         },
         {
             "number": 195,
             "date": "2012-06-01T23:00:00.000Z",
+            "exitAltitude": 6000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "2 way cf\nwith gus\ntook while to get back into it. got dock on gus, then gus docked on me"
         },
         {
             "number": 194,
             "date": "2012-06-01T23:00:00.000Z",
+            "exitAltitude": 9600,
+            "deploymentAltitude": 0,
+            "delay": 45,
             "description": "3 way fs\nwith dave & carol\nunlinked exit, dive, total zoo"
         },
         {
             "number": 193,
             "date": "2012-06-01T23:00:00.000Z",
+            "exitAltitude": 5100,
+            "deploymentAltitude": 0,
+            "delay": 18,
             "description": "2 way fs\nwith mike\nsit dive, out, track away"
         },
         {
             "number": 192,
             "date": "2012-06-01T23:00:00.000Z",
+            "exitAltitude": 4500,
+            "deploymentAltitude": 0,
+            "delay": 13,
             "description": "hop'n'pop"
         },
         {
             "number": 191,
             "date": "2012-03-25T00:00:00.000Z",
+            "exitAltitude": 2300,
+            "deploymentAltitude": 0,
+            "delay": 4,
             "description": "hop'n'pop"
         },
         {
             "number": 190,
             "date": "2012-03-24T00:00:00.000Z",
+            "exitAltitude": 9600,
+            "deploymentAltitude": 0,
+            "delay": 45,
             "description": "3 way fs\nwith john & antonis\nBCPA strathclyde 3 way march\n3 points"
         },
         {
             "number": 189,
             "date": "2012-03-17T00:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 46,
             "description": "3 way fs\nwith sandy & carol\ntits up from exit"
         },
         {
             "number": 188,
             "date": "2012-03-11T00:00:00.000Z",
+            "exitAltitude": 9800,
+            "deploymentAltitude": 0,
+            "delay": 47,
             "description": "4 way fs\njames FS1"
         },
         {
             "number": 187,
             "date": "2012-03-11T00:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 41,
             "description": "attempted free fly"
         },
         {
             "number": 186,
             "date": "2012-03-10T00:00:00.000Z",
+            "exitAltitude": 4000,
+            "deploymentAltitude": 0,
+            "delay": 12,
             "description": "2 way fs\nwith sandy, double dive\ntracked away"
         },
         {
             "number": 185,
             "date": "2012-03-10T00:00:00.000Z",
+            "exitAltitude": 4100,
+            "deploymentAltitude": 0,
+            "delay": 13,
             "description": "2 way fs\nwith sandy, double dive\ntracked away"
         },
         {
             "number": 184,
             "date": "2012-03-10T00:00:00.000Z",
+            "exitAltitude": 2800,
+            "deploymentAltitude": 0,
+            "delay": 8,
             "description": "hop'n'pop"
         },
         {
             "number": 183,
             "date": "2012-03-10T00:00:00.000Z",
+            "exitAltitude": 3000,
+            "deploymentAltitude": 0,
+            "delay": 7,
             "description": "hop'n'pop"
         },
         {
             "number": 182,
             "date": "2012-03-10T00:00:00.000Z",
+            "exitAltitude": 3100,
+            "deploymentAltitude": 0,
+            "delay": 7,
             "description": "hop'n'pop"
         },
         {
             "number": 181,
             "date": "2012-03-04T00:00:00.000Z",
+            "exitAltitude": 5200,
+            "deploymentAltitude": 0,
+            "delay": 16,
             "description": "tried sit"
         },
         {
             "number": 180,
             "date": "2012-03-04T00:00:00.000Z",
+            "exitAltitude": 8800,
+            "deploymentAltitude": 0,
+            "delay": 38,
             "description": "2 way tracking\nwith antonis"
         },
         {
             "number": 179,
             "date": "2012-02-12T00:00:00.000Z",
+            "exitAltitude": 9700,
+            "deploymentAltitude": 0,
+            "delay": 45,
             "description": "3 way fs\nwith jonny & antonis, john on camera\nBCPA strathclyde february"
         },
         {
             "number": 178,
             "date": "2012-02-12T00:00:00.000Z",
+            "exitAltitude": 11500,
+            "deploymentAltitude": 0,
+            "delay": 52,
             "description": "3 way fs\nstewards 3 point 3 way attempt"
         },
         {
             "number": 177,
             "date": "2012-02-05T00:00:00.000Z",
+            "exitAltitude": 5300,
+            "deploymentAltitude": 0,
+            "delay": 20,
             "description": "3 way fs\nwith sandy & mike\nexit worked with sandy floating on CN"
         },
         {
             "number": 176,
             "date": "2012-02-05T00:00:00.000Z",
+            "exitAltitude": 9900,
+            "deploymentAltitude": 0,
+            "delay": 48,
             "description": "3 way fs\nwith sandy & mike"
         },
         {
             "number": 175,
             "date": "2012-02-05T00:00:00.000Z",
+            "exitAltitude": 8200,
+            "deploymentAltitude": 0,
+            "delay": 37,
             "description": "3 way fs\nwith sandy & carol"
         },
         {
             "number": 174,
             "date": "2012-01-29T00:00:00.000Z",
+            "exitAltitude": 5000,
+            "deploymentAltitude": 0,
+            "delay": 17,
             "description": "5 way fs\njonny, john, gus, scott"
         },
         {
             "number": 173,
             "date": "2012-01-28T00:00:00.000Z",
+            "exitAltitude": 10100,
+            "deploymentAltitude": 0,
+            "delay": 44,
             "description": "3 way fs\nstewards 3 way, 2 points"
         },
         {
             "number": 172,
             "date": "2012-01-28T00:00:00.000Z",
+            "exitAltitude": 9700,
+            "deploymentAltitude": 0,
+            "delay": 40,
             "description": "2 way fs\nwith mike, lots of turns"
         },
         {
             "number": 171,
             "date": "2012-01-28T00:00:00.000Z",
+            "exitAltitude": 5000,
+            "deploymentAltitude": 0,
+            "delay": 15,
             "description": "backloops"
         },
         {
             "number": 170,
             "date": "2012-01-22T00:00:00.000Z",
+            "exitAltitude": 10800,
+            "deploymentAltitude": 0,
+            "delay": 53,
             "description": "3 way tracking\nwith sandy & gus"
         },
         {
             "number": 169,
             "date": "2012-01-22T00:00:00.000Z",
+            "exitAltitude": 10400,
+            "deploymentAltitude": 0,
+            "delay": 46,
             "description": "3 way fs\nwith sandy & mike\n360s"
         },
         {
             "number": 168,
             "date": "2012-01-22T00:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 45,
             "description": "4 way fs\nwith sandy, gus, mike\nme in gus base\nsandy jumped on to rodeo"
         },
         {
             "number": 167,
             "date": "2012-01-15T00:00:00.000Z",
+            "exitAltitude": 3100,
+            "deploymentAltitude": 0,
+            "delay": 6,
             "description": "hop'n'pop"
         },
         {
             "number": 166,
             "date": "2012-01-15T00:00:00.000Z",
+            "exitAltitude": 7400,
+            "deploymentAltitude": 0,
+            "delay": 29,
             "description": "2 way fs\nwith danks"
         },
         {
             "number": 165,
             "date": "2012-01-14T00:00:00.000Z",
+            "exitAltitude": 2700,
+            "deploymentAltitude": 0,
+            "delay": 4,
             "description": "4 way crew\nwith steve, gus, scott"
         },
         {
             "number": 164,
             "date": "2012-01-14T00:00:00.000Z",
+            "exitAltitude": 2900,
+            "deploymentAltitude": 0,
+            "delay": 8,
             "description": "hop'n'pop"
         },
         {
             "number": 163,
             "date": "2012-01-14T00:00:00.000Z",
+            "exitAltitude": 2700,
+            "deploymentAltitude": 0,
+            "delay": 6,
             "description": "hop'n'pop"
         },
         {
             "number": 162,
             "date": "2012-01-07T00:00:00.000Z",
+            "exitAltitude": 5000,
+            "deploymentAltitude": 0,
+            "delay": 18,
             "description": "2 way fs\nwith scott swooping down"
         },
         {
             "number": 161,
             "date": "2011-12-18T00:00:00.000Z",
+            "exitAltitude": 7800,
+            "deploymentAltitude": 0,
+            "delay": 32,
             "description": "3 way fs\nwith chris & santa john\nspun around in star"
         },
         {
             "number": 160,
             "date": "2011-12-18T00:00:00.000Z",
+            "exitAltitude": 5000,
+            "deploymentAltitude": 0,
+            "delay": 18,
             "description": "2 way\nwith john"
         },
         {
             "number": 159,
             "date": "2011-12-17T00:00:00.000Z",
+            "exitAltitude": 9700,
+            "deploymentAltitude": 0,
+            "delay": 39,
             "description": "3 way\nwith kelly & caesar for his 300th"
         },
         {
             "number": 158,
             "date": "2011-12-11T00:00:00.000Z",
+            "exitAltitude": 4700,
+            "deploymentAltitude": 0,
+            "delay": 14,
             "description": "backlooped"
         },
         {
             "number": 157,
             "date": "2011-12-10T00:00:00.000Z",
+            "exitAltitude": 9800,
+            "deploymentAltitude": 0,
+            "delay": 41,
             "description": "tracking\nwith sandy"
         },
         {
             "number": 156,
             "date": "2011-11-19T00:00:00.000Z",
+            "exitAltitude": 8400,
+            "deploymentAltitude": 0,
+            "delay": 33,
             "description": "tracking\nspiralled, back tracked"
         },
         {
             "number": 155,
             "date": "2011-11-13T00:00:00.000Z",
+            "exitAltitude": 14900,
+            "deploymentAltitude": 0,
+            "delay": 70,
             "description": "9 way fs\nfloated on back step with johnbuilt 6 star"
         },
         {
             "number": 154,
             "date": "2011-11-13T00:00:00.000Z",
+            "exitAltitude": 15200,
+            "deploymentAltitude": 0,
+            "delay": 75,
             "description": "7 way fs\nspeed star built quickly\nbit wobbly, fell apart and rebuilt couple of times"
         },
         {
             "number": 153,
             "date": "2011-11-06T00:00:00.000Z",
+            "exitAltitude": 10500,
+            "deploymentAltitude": 0,
+            "delay": 5,
             "description": "4 way fs\ngreat exit, lovely canopy ride"
         },
         {
             "number": 152,
             "date": "2011-11-06T00:00:00.000Z",
+            "exitAltitude": 10500,
+            "deploymentAltitude": 0,
+            "delay": 50,
             "description": "4 way fs\nMike got 6 points and FS1!"
         },
         {
             "number": 151,
             "date": "2011-11-06T00:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 42,
             "description": "5 way fs\nunlinked speed star\nfour in, john sank"
         },
         {
             "number": 150,
             "date": "2011-11-05T00:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 47,
             "description": "4 way fs\nAntonis got 4 points and FS1!"
         },
         {
             "number": 149,
             "date": "2011-11-05T00:00:00.000Z",
+            "exitAltitude": 9500,
+            "deploymentAltitude": 0,
+            "delay": 41,
             "description": "2 way fs with john\nhim floating, me sitting\npracticed bcpa 3 way points without third person"
         },
         {
             "number": 148,
             "date": "2011-10-29T23:00:00.000Z",
+            "exitAltitude": 2570,
+            "deploymentAltitude": 0,
+            "delay": 6,
             "description": "stable exits are now the preferred method of removing ones self from an aircraft"
         },
         {
             "number": 147,
             "date": "2011-10-01T23:00:00.000Z",
+            "exitAltitude": 3310,
+            "deploymentAltitude": 0,
+            "delay": 9,
             "description": "reverse back loop exit"
         },
         {
             "number": 146,
             "date": "2011-09-24T23:00:00.000Z",
+            "exitAltitude": 2100,
+            "deploymentAltitude": 0,
+            "delay": 5,
             "description": "hop'n'pop"
         },
         {
             "number": 145,
             "date": "2011-09-23T23:00:00.000Z",
+            "exitAltitude": 8000,
+            "deploymentAltitude": 0,
+            "delay": 30,
             "description": "2 way tracking with sandy\nraced a long side\nlooped around each other"
         },
         {
             "number": 144,
             "date": "2011-09-16T23:00:00.000Z",
+            "exitAltitude": 5000,
+            "deploymentAltitude": 0,
+            "delay": 16,
             "description": "reverse back loop exit, small turns"
         },
         {
             "number": 143,
             "date": "2011-09-02T23:00:00.000Z",
+            "exitAltitude": 13110,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "2 way fs with john\nUnlinked exit, john diving, me floating\nSpun each other about\nTried back tracking"
         },
         {
             "number": 142,
             "date": "2011-09-02T23:00:00.000Z",
+            "exitAltitude": 12930,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "2 way fs with john\nUnlinked exit, john floating, me diving\nDid alternate 90, 180, 360 turns and backloop"
         },
         {
             "number": 141,
             "date": "2011-08-05T23:00:00.000Z",
+            "exitAltitude": 10360,
+            "deploymentAltitude": 0,
+            "delay": 49,
             "description": "Carols second 4 way attempt. Exit funnelled"
         },
         {
             "number": 140,
             "date": "2011-08-05T23:00:00.000Z",
+            "exitAltitude": 10140,
+            "deploymentAltitude": 0,
+            "delay": 47,
             "description": "Carols 4 way attempt"
         },
         {
             "number": 139,
             "date": "2011-08-04T23:00:00.000Z",
+            "exitAltitude": 13680,
+            "deploymentAltitude": 0,
+            "delay": 60,
             "description": "9 way tracking\nMega fun\nWas slightly behind"
         },
         {
             "number": 138,
             "date": "2011-08-04T23:00:00.000Z",
+            "exitAltitude": 12500,
+            "deploymentAltitude": 0,
+            "delay": 60,
             "description": "Carols 4 point 3 way, greg coach\n4 points"
         },
         {
             "number": 137,
             "date": "2011-08-04T23:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "8 way crew\nDocked fourth instead of fifth because people weren't filling their slots"
         },
         {
             "number": 136,
             "date": "2011-08-04T23:00:00.000Z",
+            "exitAltitude": 11360,
+            "deploymentAltitude": 0,
+            "delay": 53,
             "description": "Carols second 3 point 3 way, phil coaching\n5 points"
         },
         {
             "number": 135,
             "date": "2011-08-04T23:00:00.000Z",
+            "exitAltitude": 8000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "8 way crew\nDocked fourth"
         },
         {
             "number": 134,
             "date": "2011-08-04T23:00:00.000Z",
+            "exitAltitude": 11200,
+            "deploymentAltitude": 0,
+            "delay": 54,
             "description": "Carols 3 point 3 way, phil coaching\n2 points, really close to last point"
         },
         {
             "number": 133,
             "date": "2011-08-03T23:00:00.000Z",
+            "exitAltitude": 7000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "6 way crew attempt, clouds"
         },
         {
             "number": 132,
             "date": "2011-08-03T23:00:00.000Z",
+            "exitAltitude": 7000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "6 way crew attempt"
         },
         {
             "number": 131,
             "date": "2011-08-02T23:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "8 way crew attempt\nDocked third\nManaged to get 7 in the stack"
         },
         {
             "number": 130,
             "date": "2011-08-02T23:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "9 way crew attempt\nDocked second, built 4 stack, paul got off top, piloted for the rest of the jump, mangage to get 6 in stack"
         },
         {
             "number": 129,
             "date": "2011-08-02T23:00:00.000Z",
+            "exitAltitude": 7000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "4 way crew, docking fourth"
         },
         {
             "number": 128,
             "date": "2011-08-02T23:00:00.000Z",
+            "exitAltitude": 7000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "3 way crew, docking third"
         },
         {
             "number": 127,
             "date": "2011-08-01T23:00:00.000Z",
+            "exitAltitude": 6000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "2 way crew, receiving"
         },
         {
             "number": 126,
             "date": "2011-07-31T23:00:00.000Z",
+            "exitAltitude": 5000,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "first crew, two good docks, two spirals"
         },
         {
             "number": 125,
             "date": "2011-07-29T23:00:00.000Z",
+            "exitAltitude": 4710,
+            "deploymentAltitude": 0,
+            "delay": 16,
             "description": "spotted, backloop"
         },
         {
             "number": 124,
             "date": "2011-07-29T23:00:00.000Z",
+            "exitAltitude": 9880,
+            "deploymentAltitude": 0,
+            "delay": 45,
             "description": "4 way fs with alan, jo, ian\nBuilt star, broke apart, then build star again"
         },
         {
             "number": 123,
             "date": "2011-07-22T23:00:00.000Z",
+            "exitAltitude": 9550,
+            "deploymentAltitude": 0,
+            "delay": 40,
             "description": "4 way tracking dive with sandy, gus, steve. Gus went wrong way, rest of us stayed in the same vacinity"
         },
         {
             "number": 122,
             "date": "2011-07-22T23:00:00.000Z",
+            "exitAltitude": 9400,
+            "deploymentAltitude": 0,
+            "delay": 40,
             "description": "3 way fs with sandy, gus. First two points good, then sandy got away from us"
         },
         {
             "number": 121,
             "date": "2011-07-22T23:00:00.000Z",
+            "exitAltitude": 8980,
+            "deploymentAltitude": 0,
+            "delay": 40,
             "description": "spotting practical. Tracked"
         },
         {
             "number": 120,
             "date": "2011-07-02T23:00:00.000Z",
+            "exitAltitude": 9380,
+            "deploymentAltitude": 0,
+            "delay": 44,
             "description": "5 way with sandy, kelly, gus, steve"
         },
         {
             "number": 119,
             "date": "2011-07-02T23:00:00.000Z",
+            "exitAltitude": 9960,
+            "deploymentAltitude": 0,
+            "delay": 46,
             "description": "3 way with sandy & gus. Got first two points good. Then gus forgot the third point and it sort of went tits up"
         },
         {
             "number": 118,
             "date": "2011-07-02T23:00:00.000Z",
+            "exitAltitude": 9590,
+            "deploymentAltitude": 0,
+            "delay": 43,
             "description": "2 way with sandy.\nDave filming"
         },
         {
             "number": 117,
             "date": "2011-07-01T23:00:00.000Z",
+            "exitAltitude": 4870,
+            "deploymentAltitude": 0,
+            "delay": 18,
             "description": "3 way. Lost grips on exit"
         },
         {
             "number": 116,
             "date": "2011-06-25T23:00:00.000Z",
+            "exitAltitude": 2200,
+            "deploymentAltitude": 0,
+            "delay": 5,
             "description": "hop'n'pop"
         },
         {
             "number": 115,
             "date": "2011-06-24T23:00:00.000Z",
+            "exitAltitude": 9810,
+            "deploymentAltitude": 0,
+            "delay": 47,
             "description": "5 way speed star unlinked exit with john, sandy, jonny, kieran"
         },
         {
             "number": 114,
             "date": "2011-06-24T23:00:00.000Z",
+            "exitAltitude": 3880,
+            "deploymentAltitude": 0,
+            "delay": 12,
             "description": "backloop exit turned into a barrel roll"
         },
         {
             "number": 113,
             "date": "2011-06-24T23:00:00.000Z",
+            "exitAltitude": 4670,
+            "deploymentAltitude": 0,
+            "delay": 16,
             "description": "backloop that didn't go so well\nthen turned to check out others in freefall"
         },
         {
             "number": 112,
             "date": "2011-06-04T23:00:00.000Z",
+            "exitAltitude": 4090,
+            "deploymentAltitude": 0,
+            "delay": 14,
             "description": "hop'n'pop"
         },
         {
             "number": 111,
             "date": "2011-06-04T23:00:00.000Z",
+            "exitAltitude": 2850,
+            "deploymentAltitude": 0,
+            "delay": 8,
             "description": "hop'n'pop"
         },
         {
             "number": 110,
             "date": "2011-06-03T23:00:00.000Z",
+            "exitAltitude": 2370,
+            "deploymentAltitude": 0,
+            "delay": 7,
             "description": "hop'n'pop"
         },
         {
             "number": 109,
             "date": "2011-06-03T23:00:00.000Z",
+            "exitAltitude": 4030,
+            "deploymentAltitude": 0,
+            "delay": 11,
             "description": "hop'n'pop"
         },
         {
             "number": 108,
             "date": "2011-06-03T23:00:00.000Z",
+            "exitAltitude": 2400,
+            "deploymentAltitude": 0,
+            "delay": 7,
             "description": "hop'n'pop"
         },
         {
             "number": 107,
             "date": "2011-06-03T23:00:00.000Z",
+            "exitAltitude": 2130,
+            "deploymentAltitude": 0,
+            "delay": 7,
             "description": "hop'n'pop"
         },
         {
             "number": 106,
             "date": "2011-05-29T23:00:00.000Z",
+            "exitAltitude": 9820,
+            "deploymentAltitude": 0,
+            "delay": 43,
             "description": "two way with kelly\nneed to make better use of deep brakes if far out on deployment"
         },
         {
             "number": 105,
             "date": "2011-05-29T23:00:00.000Z",
+            "exitAltitude": 7360,
+            "deploymentAltitude": 0,
+            "delay": 28,
             "description": "good party night before so just relaxed\nmajor chill out, backloop for good measure\ntried different ways of turning"
         },
         {
             "number": 104,
             "date": "2011-04-30T23:00:00.000Z",
+            "exitAltitude": 4070,
+            "deploymentAltitude": 0,
+            "delay": 12,
             "description": "rolled out plane"
         },
         {
             "number": 103,
             "date": "2011-04-30T23:00:00.000Z",
+            "exitAltitude": 9040,
+            "deploymentAltitude": 0,
+            "delay": 38,
             "description": "tracked"
         },
         {
             "number": 102,
             "date": "2011-04-30T23:00:00.000Z",
+            "exitAltitude": 5030,
+            "deploymentAltitude": 0,
+            "delay": 18,
             "description": "practice jump master & spotting\nspun about\nlanded in pit"
         },
         {
             "number": 101,
             "date": "2011-04-30T23:00:00.000Z",
+            "exitAltitude": 9570,
+            "deploymentAltitude": 0,
+            "delay": 40,
             "description": "same as #100\nlanded hanger side of pit\nmake sure not to"
         },
         {
             "number": 100,
             "date": "2011-04-30T23:00:00.000Z",
+            "exitAltitude": 8060,
+            "deploymentAltitude": 0,
+            "delay": 30,
             "description": "few barrol rolls & backloops & turns\npuled high to try out new canopy\nlots of fun\nlanded in pit"
         },
         {
             "number": 99,
             "date": "2011-04-24T23:00:00.000Z",
+            "exitAltitude": 4160,
+            "deploymentAltitude": 0,
+            "delay": 8,
             "description": "chilled out"
         },
         {
             "number": 98,
             "date": "2011-04-23T23:00:00.000Z",
+            "exitAltitude": 4710,
+            "deploymentAltitude": 0,
+            "delay": 16,
             "description": "sick last few days so did streaight flat fall and relaxed (after not getting enough altitude to perform a carnage of a 5 way, thank god)"
         },
         {
             "number": 97,
             "date": "2011-04-12T23:00:00.000Z",
+            "exitAltitude": 12760,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "4 way fs\nwith scott, john, rich\nexit went very badly, built together and 3 points"
         },
         {
             "number": 96,
             "date": "2011-04-12T23:00:00.000Z",
+            "exitAltitude": 12320,
+            "deploymentAltitude": 0,
+            "delay": 56,
             "description": "did lots of 360 turns as quick as possible with backloops in between"
         },
         {
             "number": 95,
             "date": "2011-04-12T23:00:00.000Z",
+            "exitAltitude": 12590,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "2 way fs\nwith scott\nfloated with scott holding my legs\ntried flipping each other about"
         },
         {
             "number": 94,
             "date": "2011-04-11T23:00:00.000Z",
+            "exitAltitude": 12450,
+            "deploymentAltitude": 0,
+            "delay": 58,
             "description": "exited in reverse with arms by side to go into a flip. tried going as steep as possible. went well, never flipped, was very steep"
         },
         {
             "number": 93,
             "date": "2011-04-11T23:00:00.000Z",
+            "exitAltitude": 12820,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "3 way fs\nwith james & friend\nexit flew upside down but recovered quickly. got next two points before seperation got best of us"
         },
         {
             "number": 92,
             "date": "2011-04-13T23:00:00.000Z",
+            "exitAltitude": 18720,
+            "deploymentAltitude": 0,
+            "delay": 90,
             "description": "3 way fs\nwith john & scott\nfun jump"
         },
         {
             "number": 91,
             "date": "2011-04-11T23:00:00.000Z",
+            "exitAltitude": 12680,
+            "deploymentAltitude": 0,
+            "delay": 55,
             "description": "5 way trackings\nwith bcpa'ers\nexit went well. found slot but was bit high. good jump"
         },
         {
             "number": 90,
             "date": "2011-04-11T23:00:00.000Z",
+            "exitAltitude": 12740,
+            "deploymentAltitude": 0,
+            "delay": 58,
             "description": "declared landing. increased range & turns on risers"
         },
         {
             "number": 89,
             "date": "2011-04-10T23:00:00.000Z",
+            "exitAltitude": 13920,
+            "deploymentAltitude": 0,
+            "delay": 64,
             "description": "2 way fs\nwith john\nswooped out after him while he was on his back going very fast, quite difficult to get down to him. declared landing. increased range & turns on risers"
         },
         {
             "number": 88,
             "date": "2011-04-10T23:00:00.000Z",
+            "exitAltitude": 12690,
+            "deploymentAltitude": 0,
+            "delay": 61,
             "description": "2 way fs\nwith john\n aliwyn filming round about us. got bunch of points then played rock, paper, scissors before tracking away. declared landing. increaed range & turns on risers"
         },
         {
             "number": 87,
             "date": "2011-04-10T23:00:00.000Z",
+            "exitAltitude": 12780,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "2 way fs\nrodeoed john. worked for few seconds then I slipped to the left which ended up putting it into a mad spin. declared landing"
         },
         {
             "number": 86,
             "date": "2011-04-10T23:00:00.000Z",
+            "exitAltitude": 12640,
+            "deploymentAltitude": 0,
+            "delay": 58,
             "description": "solo practiced backloop. declared landing"
         },
         {
             "number": 85,
             "date": "2011-04-10T23:00:00.000Z",
+            "exitAltitude": 12700,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "2 way fs\nwith nick\ndid backloops and docks\nsome backloops were bit unstable, others much better"
         },
         {
             "number": 84,
             "date": "2011-04-09T23:00:00.000Z",
+            "exitAltitude": 12660,
+            "deploymentAltitude": 0,
+            "delay": 61,
             "description": "dive exit, backlooped, spun really fast one way, tried to stop quick as possible, then same other way. tracked away from no one"
         },
         {
             "number": 83,
             "date": "2011-04-09T23:00:00.000Z",
+            "exitAltitude": 12470,
+            "deploymentAltitude": 0,
+            "delay": 57,
             "description": "5 way fs\nwith greg, john, scott, dave\ngreg on inflatable dolphin, me & john holding sides to attempt to keep him stable. very unstable lots of spinning"
         },
         {
             "number": 82,
             "date": "2011-04-09T23:00:00.000Z",
+            "exitAltitude": 12370,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "2 way fs\nwith dave\nme float, him dive. we both spun really fast was quite difficult to stop cause of momentum. then he went in to sit holding my arms to fling me away"
         },
         {
             "number": 81,
             "date": "2011-04-09T23:00:00.000Z",
+            "exitAltitude": 12560,
+            "deploymentAltitude": 0,
+            "delay": 63,
             "description": "3 way tracking\nwith john & scott\nseperation varied"
         },
         {
             "number": 80,
             "date": "2011-04-08T23:00:00.000Z",
+            "exitAltitude": 12880,
+            "deploymentAltitude": 0,
+            "delay": 60,
             "description": "4 way fs\nwith john, scott, nick\ngreg filmed unlinked exit in a row along skyvan door, then dive after eachother to create a star"
         },
         {
             "number": 79,
             "date": "2011-04-08T23:00:00.000Z",
+            "exitAltitude": 12620,
+            "deploymentAltitude": 0,
+            "delay": 52,
             "description": "3 way fs\nwith john & scott\nhorney gorilla exit with john then created a base with scott for john to hybrid"
         },
         {
             "number": 78,
             "date": "2011-04-08T23:00:00.000Z",
+            "exitAltitude": 13200,
+            "deploymentAltitude": 0,
+            "delay": 62,
             "description": "FS: 4 pt 4 way\nstairstep diamond exit. good transition to star then snowflake, then zipper. did 4 good points well done FS1!"
         },
         {
             "number": 77,
             "date": "2011-04-04T23:00:00.000Z",
+            "exitAltitude": 12850,
+            "deploymentAltitude": 0,
+            "delay": 60,
             "description": "FS: 4 pt 4 way\ngood exit. went wobbly transitioning to the second point went low then never recovered to everyone else. great flying up to second transition.\nremember: levels first, then slot, then dock"
         },
         {
             "number": 76,
             "date": "2011-04-04T23:00:00.000Z",
+            "exitAltitude": 12640,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "FS: 4 pt 4 way\ngood exit. managed 3 points. repeat\n- check levels\n- only move within your own quadrant"
         },
         {
             "number": 75,
             "date": "2011-04-04T23:00:00.000Z",
+            "exitAltitude": 12460,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "FS: 4 pt 4 way\ngood exit. formation broke, managed 2 points. good flying"
         },
         {
             "number": 74,
             "date": "2011-04-04T23:00:00.000Z",
+            "exitAltitude": 12780,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "FS: 4 pt 4 way\nbad exit, 1 point. experienced jumpers fault"
         },
         {
             "number": 73,
             "date": "2011-04-04T23:00:00.000Z",
+            "exitAltitude": 12650,
+            "deploymentAltitude": 0,
+            "delay": 60,
             "description": "FS: 4 pt 4 way\nbad exit, 1 point. experienced jumpers fault"
         },
         {
             "number": 72,
             "date": "2011-04-03T23:00:00.000Z",
+            "exitAltitude": 12690,
+            "deploymentAltitude": 0,
+            "delay": 60,
             "description": "FS: 4 pt 4 way\nbad exit, 1 point. loast AA - focused too much on points. repeat"
         },
         {
             "number": 71,
             "date": "2011-04-03T23:00:00.000Z",
+            "exitAltitude": 12850,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "2 way fs\nwith scott. both hung off skyvan door. didn't hang very long as scott let go very quickly. scott filmed on back, dropped below, dove towards him. did that a few times"
         },
         {
             "number": 70,
             "date": "2011-04-03T23:00:00.000Z",
+            "exitAltitude": 12770,
+            "deploymentAltitude": 0,
+            "delay": 61,
             "description": "FS: 4 pt 3 way: new suit, much better, 7 points. 4 pt 4 way next"
         },
         {
             "number": 69,
             "date": "2011-04-03T23:00:00.000Z",
+            "exitAltitude": 6890,
+            "deploymentAltitude": 0,
+            "delay": 25,
             "description": "jumped straight off into a backloop\ntracked towards intended landing area away from high ground"
         },
         {
             "number": 68,
             "date": "2011-04-02T23:00:00.000Z",
+            "exitAltitude": 5260,
+            "deploymentAltitude": 0,
+            "delay": 19,
             "description": "spun about the place, hit foot on door wich was quite sore. note to self, get foot all the way out the door"
         },
         {
             "number": 67,
             "date": "2011-04-01T23:00:00.000Z",
+            "exitAltitude": 12520,
+            "deploymentAltitude": 0,
+            "delay": 55,
             "description": "2 way fs\nwith john, random instructor filming, got seven points"
         },
         {
             "number": 66,
             "date": "2011-04-01T23:00:00.000Z",
+            "exitAltitude": 12740,
+            "deploymentAltitude": 0,
+            "delay": 58,
             "description": "FS: 4 pt 3 way\ngood exit, only managed 2 points. still work on levels. Proximity, AA, tracking all good"
         },
         {
             "number": 65,
             "date": "2011-04-01T23:00:00.000Z",
+            "exitAltitude": 12700,
+            "deploymentAltitude": 0,
+            "delay": 58,
             "description": "FS: 4 pt 3 way\ngood exit. only managed 1 point, need to improve levels. Proximity, AA, tracking all good"
         },
         {
             "number": 64,
             "date": "2011-04-01T23:00:00.000Z",
+            "exitAltitude": 12690,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "FS: 3 pt 3 way\ngot 3 points - a little bit scrappy. suit is too fast - work on levels. 4 pt 3 way next"
         },
         {
             "number": 63,
             "date": "2011-04-01T23:00:00.000Z",
+            "exitAltitude": 12680,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "FS: 5 pt 2 way\nGood level, exit perfect. Got 6 pts easy. Well done. 3 pt 3 way next"
         },
         {
             "number": 62,
             "date": "2011-03-31T23:00:00.000Z",
+            "exitAltitude": 12460,
+            "deploymentAltitude": 0,
+            "delay": 55,
             "description": "FS: Swoop to pin\nexit & transition to swoop wasn't perfect, recovered and adapted good swoop position\ngood controlled approach\npractised 180 turns\ngood jump"
         },
         {
             "number": 61,
             "date": "2011-03-31T23:00:00.000Z",
+            "exitAltitude": 12700,
+            "deploymentAltitude": 0,
+            "delay": 59,
             "description": "FS: 90 turns & side sliding\ngood exit from dive position\nfirst 3 attempts weren't great, too much arm input not enough leg.\nnext 2 attempts were much better. good AA, track & deployment"
         },
         {
             "number": 60,
             "date": "2011-03-31T23:00:00.000Z",
+            "exitAltitude": 12520,
+            "deploymentAltitude": 0,
+            "delay": 57,
             "description": "FS: 360 & 180 turns\nGood exit from float position\ngood 360 turn left - not completed in place. excellent 360 turn right.\ngood 180 turns in both directions\ngood AA & track\nremember - follow pattern & land into wind"
         },
         {
             "number": 59,
             "date": "2011-03-27T00:00:00.000Z",
+            "exitAltitude": 9730,
+            "deploymentAltitude": 0,
+            "delay": 45,
             "description": "FS: 360 turns\nExit: Good float-dive exit from float position. Push off more to improve\nF/F: Right 360 turn OK but fall rate & proximity flucuating. Bring knees closer together & hips down to improve body position.\nBreak-off: Broke off @ 4, rather than 5 as planned. Good track. Deployed at 3, rather than 3.5. Be super aware of altitude.\nNext: repeat"
         },
         {
             "number": 58,
             "date": "2011-03-27T00:00:00.000Z",
+            "exitAltitude": 10240,
+            "deploymentAltitude": 0,
+            "delay": 44,
             "description": "Student exit.\nShort track, practice turn in place, short track again"
         },
         {
             "number": 57,
             "date": "2011-03-27T00:00:00.000Z",
+            "exitAltitude": 9480,
+            "deploymentAltitude": 0,
+            "delay": 38,
             "description": "Dive exit. Practice a couple of turns in place and backloops.\nPulled high to play under canopy"
         },
         {
             "number": 56,
             "date": "2011-03-26T00:00:00.000Z",
+            "exitAltitude": 2500,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "Dive exit. Went quite unstable. Relaxed into rest of jump"
         },
         {
             "number": 55,
             "date": "2011-03-26T00:00:00.000Z",
+            "exitAltitude": 4990,
+            "deploymentAltitude": 0,
+            "delay": 18,
             "description": "Student exit. Backloop.\nextended range of canopy with rear risers\nturns with rear risers"
         },
         {
             "number": 54,
             "date": "2011-03-26T00:00:00.000Z",
+            "exitAltitude": 4270,
+            "deploymentAltitude": 0,
+            "delay": 13,
             "description": "hop'n'pop\nextended range of canopy with rear risers\nturns with rear risers"
         },
         {
             "number": 53,
             "date": "2011-03-26T00:00:00.000Z",
+            "exitAltitude": 3140,
+            "deploymentAltitude": 0,
+            "delay": 8,
             "description": "hop'n'pop\nextended range of canopy with rear risers\nturns with rear risers"
         },
         {
             "number": 52,
             "date": "2011-02-27T00:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 35,
             "description": "FS: 360 turns\n- good exit (AFF student position)\n- 1st turn wasn't in place - too much arm input\n- 2nd turn much better\nneed to make sure arm & leg inputs are symmetrical\nrepeat jump"
         },
         {
             "number": 51,
             "date": "2011-02-26T00:00:00.000Z",
+            "exitAltitude": 7000,
+            "deploymentAltitude": 0,
+            "delay": 24,
             "description": "FS: Fast & Slow fall.\n- good exit from rear dive position\n- good slow fall 'in place'\n- good fast fall although slight increased in seperation\n- good A/A & deployment\nPoints for improvement: tracking -  make slower transition & track less steeply\n360 turns next"
         },
         {
             "number": 50,
             "date": "2011-02-26T00:00:00.000Z",
+            "exitAltitude": 8910,
+            "deploymentAltitude": 0,
+            "delay": 34,
             "description": "Dive exit. Did few 360 turns as quick as possible trying to stop controlled on heading. Played with risers for first time."
         },
         {
             "number": 49,
             "date": "2011-02-12T00:00:00.000Z",
+            "exitAltitude": 4370,
+            "deploymentAltitude": 0,
+            "delay": 16,
             "description": "Dive exit. Some turns. Followed person in front most of the way under canopy. Landed close to pit"
         },
         {
             "number": 48,
             "date": "2011-02-05T00:00:00.000Z",
+            "exitAltitude": 4900,
+            "deploymentAltitude": 0,
+            "delay": 18,
             "description": "Dive exit. Backloop. Landed good bit away from pit"
         },
         {
             "number": 47,
             "date": "2011-01-29T00:00:00.000Z",
+            "exitAltitude": 3210,
+            "deploymentAltitude": 0,
+            "delay": 7,
             "description": "Dive exit. Relaxed jump. Landed a bit in front of the pit. Don't always use same approach as jump earlier in the day. Always land in or before the pit"
         },
         {
             "number": 46,
             "date": "2011-01-29T00:00:00.000Z",
+            "exitAltitude": 4500,
+            "deploymentAltitude": 0,
+            "delay": 11,
             "description": "Dive eixt. Chilled, watched jumpers before hand. Landed in pit"
         },
         {
             "number": 45,
             "date": "2011-01-23T00:00:00.000Z",
+            "exitAltitude": 4860,
+            "deploymentAltitude": 0,
+            "delay": 15,
             "description": "Dive exit. Concentrated on what my body position was like in freefall"
         },
         {
             "number": 44,
             "date": "2011-01-23T00:00:00.000Z",
+            "exitAltitude": 6230,
+            "deploymentAltitude": 0,
+            "delay": 22,
             "description": "Dive exit, backloop, short track. Didn't land as close to pit as I would have liked"
         },
         {
             "number": 43,
             "date": "2011-01-22T00:00:00.000Z",
+            "exitAltitude": 4860,
+            "deploymentAltitude": 0,
+            "delay": 15,
             "description": "Dived out, chilled out. Played about under canopy. Landed close to pit"
         },
         {
             "number": 42,
             "date": "2010-11-27T00:00:00.000Z",
+            "exitAltitude": 5080,
+            "deploymentAltitude": 0,
+            "delay": 18,
             "description": "Student exit, backloop, freezing cold, landed in pit"
         },
         {
             "number": 41,
             "date": "2010-10-22T23:00:00.000Z",
+            "exitAltitude": 4860,
+            "deploymentAltitude": 0,
+            "delay": 17,
             "description": "Jump started off well with KB making a quick  ascent to altitude. Did a dive exit and was pleased to spot the people that exited before. Then did two backloops before deploying. Terrible deployment which hurt quite a bit, mjor twists which made me quite dizzy. N.B watch for kit packed by McQueen"
         },
         {
             "number": 40,
             "date": "2010-10-15T23:00:00.000Z",
+            "exitAltitude": 4820,
+            "deploymentAltitude": 0,
+            "delay": 16,
             "description": "exit was bad, spent majority of jump getting stable"
         },
         {
             "number": 39,
             "date": "2010-10-15T23:00:00.000Z",
+            "exitAltitude": 4580,
+            "deploymentAltitude": 0,
+            "delay": 15,
             "description": "goggles weren't tight enough and slipped up my head a bit, so straight fell most of jump after sorting them out"
         },
         {
             "number": 38,
             "date": "2010-10-09T23:00:00.000Z",
+            "exitAltitude": 2500,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "hop'n'pop"
         },
         {
             "number": 37,
             "date": "2010-10-01T23:00:00.000Z",
+            "exitAltitude": 7800,
+            "deploymentAltitude": 0,
+            "delay": 29,
             "description": "Dive eixt. 3 backloops"
         },
         {
             "number": 36,
             "date": "2010-08-18T23:00:00.000Z",
+            "exitAltitude": 13000,
+            "deploymentAltitude": 0,
+            "delay": 60,
             "description": "Good exit. Good neutral body position. Good response to signals.\nTwo good forward movements.\nPoints to improve: alti awareness - check alti before & after every manouvre!!\nfast & slow fall next"
         },
         {
             "number": 35,
             "date": "2010-08-17T23:00:00.000Z",
+            "exitAltitude": 13000,
+            "deploymentAltitude": 0,
+            "delay": 60,
             "description": "Dive exit. Backloops. 360 turns left & right"
         },
         {
             "number": 34,
             "date": "2010-08-16T23:00:00.000Z",
+            "exitAltitude": 13000,
+            "deploymentAltitude": 0,
+            "delay": 60,
             "description": "Dive exit. Backloops. 360 turns left & right"
         },
         {
             "number": 33,
             "date": "2010-08-06T23:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 35,
             "description": "Dive exit. Tracked twice but went into both tracks too quickly and lost bit of stability. Need to go into tracks more slowly."
         },
         {
             "number": 32,
             "date": "2010-08-06T23:00:00.000Z",
+            "exitAltitude": 6000,
+            "deploymentAltitude": 0,
+            "delay": 15,
             "description": "Student exit. Straight 10 second delay. Throwaway pilot chute deployed OK. Conversion complete."
         },
         {
             "number": 31,
             "date": "2010-08-04T23:00:00.000Z",
+            "exitAltitude": 8000,
+            "deploymentAltitude": 0,
+            "delay": 25,
             "description": "Student exit, followed out by instructor. Right 360 turn, left 360 turn.\nUnder canopy did CH1 exercises extending range & flat turns"
         },
         {
             "number": 30,
             "date": "2010-08-03T23:00:00.000Z",
+            "exitAltitude": 8000,
+            "deploymentAltitude": 0,
+            "delay": 25,
             "description": "Exit from 8000ft due to cloud.\nAll manoeuvres completed, good throughout, and good alti awareness.\nWell done"
         },
         {
             "number": 29,
             "date": "2010-08-03T23:00:00.000Z",
+            "exitAltitude": 12500,
+            "deploymentAltitude": 0,
+            "delay": 50,
             "description": "Excellent exit! 2 excellent track turns to left + right!\nExcellent A/A, pull + c/c\nCat 8 next!"
         },
         {
             "number": 28,
             "date": "2010-05-30T23:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 35,
             "description": "Good exit\n2 excellent tracks\nExcellent A/A, pull + recovery\nTrack turns next!"
         },
         {
             "number": 27,
             "date": "2010-05-30T23:00:00.000Z",
-            "description": "Perfect dive exit!\nExcellent heading control, and altitude awareness.\n2 very steep tracks.\nGood pull recovery\nExcellent c/c.\nGo into track slower, to gain forward movement.\nTrack again next"
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 35,
+            "description": "Perfect dive exit!\nExcellent heading control, and altitude awareness.\n2 very steep tracks.\n Godd pull recovery\nExcellent c/c.\nGo into track slower, to gain forward movement.\nTrack again next"
         },
         {
             "number": 26,
             "date": "2010-05-29T23:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 35,
             "description": "Good position in door & good dive except didn't duck legs up enough. Went into very steep & flipped over but otherise very controlled & stable throughout.\nGood canopy control - just watch flare\nDive exit + track on next jump"
         },
         {
             "number": 25,
             "date": "2010-05-22T23:00:00.000Z",
+            "exitAltitude": 8500,
+            "deploymentAltitude": 0,
+            "delay": 25,
             "description": "V. good exit & fallaway\n2 excellent bacloops\nGood alti awareness & good deployment at correct height + good c/c\nDive exit next"
         },
         {
             "number": 24,
             "date": "2010-05-21T23:00:00.000Z",
+            "exitAltitude": 9000,
+            "deploymentAltitude": 0,
+            "delay": 30,
             "description": "Very unstable exit!\nExcellent arch to recover after 5 seconds\nExcellent alti awareness, pull, recovery + canopy control.\nBackloops nexy"
         },
         {
             "number": 23,
             "date": "2010-05-15T23:00:00.000Z",
+            "exitAltitude": 10000,
+            "deploymentAltitude": 0,
+            "delay": 35,
             "description": "Excellent exit, fallaway, right & left 360 turns\nGood alti awareness\nUnstable exit next"
         },
         {
             "number": 22,
             "date": "2010-05-15T23:00:00.000Z",
+            "exitAltitude": 5500,
+            "deploymentAltitude": 0,
+            "delay": 15,
             "description": "Perfect straight delay.\nExcellet altitude awareness.\nTurns next!"
         },
         {
             "number": 21,
             "date": "2010-05-08T23:00:00.000Z",
+            "exitAltitude": 6000,
+            "deploymentAltitude": 0,
+            "delay": 15,
             "description": "Good exit & fallaway.\nSaw student check alti on way down. Good count\nPull on alti next!\nWell done!"
         },
         {
             "number": 20,
             "date": "2010-05-08T23:00:00.000Z",
+            "exitAltitude": 6000,
+            "deploymentAltitude": 0,
+            "delay": 15,
             "description": "Excellent 15 sec delay\n15 sec + alti next"
         },
         {
             "number": 19,
             "date": "2010-05-08T23:00:00.000Z",
+            "exitAltitude": 4500,
+            "deploymentAltitude": 0,
+            "delay": 10,
             "description": "And again...\nPerfect 10!!\n15s next!"
         },
         {
             "number": 18,
             "date": "2010-05-07T23:00:00.000Z",
+            "exitAltitude": 4500,
+            "deploymentAltitude": 0,
+            "delay": 10,
             "description": "Perfect 10! V.V.V.V.G.A.T.W\n1 more!"
         },
         {
             "number": 17,
             "date": "2010-05-07T23:00:00.000Z",
+            "exitAltitude": 4200,
+            "deploymentAltitude": 0,
+            "delay": 5,
             "description": "Perfect 5s delay\n/v.V.V.V.V.G.A.T.W\n10s next!"
         },
         {
             "number": 16,
             "date": "2010-05-07T23:00:00.000Z",
+            "exitAltitude": 4200,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "V.G.A.T.W\n5 sec next\nWell done"
         },
         {
             "number": 15,
             "date": "2010-05-07T23:00:00.000Z",
+            "exitAltitude": 4200,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "Perfect exit & deployment\nWell done"
         },
         {
             "number": 14,
             "date": "2010-05-03T23:00:00.000Z",
+            "exitAltitude": 4200,
+            "deploymentAltitude": 0,
+            "delay": 3,
             "description": "Lost exit\nOn back on pull\nLook forward and up on exit\nTry 3 sec again"
         },
         {
             "number": 13,
             "date": "2010-05-02T23:00:00.000Z",
+            "exitAltitude": 3500,
+            "deploymentAltitude": 0,
+            "delay": 0,
             "description": "Good exit into stable spread + arch, V.G reach, pull + recovery\nOn heading through out\nGATW\n3rd good DRCP + cleared for 3 second delay"
         },
         {
             "number": 12,
             "date": "2010-04-11T23:00:00.000Z",
+            "exitAltitude": 3500,
+            "deploymentAltitude": 0,
+            "delay": 0,
             "description": "Perfect D/P\nThat's all I've got to say about that!"
         },
         {
             "number": 11,
             "date": "2010-04-10T23:00:00.000Z",
+            "exitAltitude": 3500,
+            "deploymentAltitude": 0,
+            "delay": 0,
             "description": "Perfect D.R.C.P"
         },
         {
             "number": 10,
             "date": "2010-04-09T23:00:00.000Z",
+            "exitAltitude": 3500,
+            "deploymentAltitude": 0,
+            "delay": 0,
             "description": "Excellent D/P.\nJust scccchloooon down!\nGood C/C.\nCleared for F/F."
         },
         {
             "number": 9,
             "date": "2010-04-08T23:00:00.000Z",
+            "exitAltitude": 3500,
+            "deploymentAltitude": 0,
+            "delay": 0,
             "description": "Great D/P.\nJust slight flat.\nC/C O.K.\nJust arch more!"
         },
         {
             "number": 8,
             "date": "2010-04-08T23:00:00.000Z",
+            "exitAltitude": 3500,
+            "deploymentAltitude": 0,
+            "delay": 0,
             "description": "Very good D.P. + ?\nNo ?"
         },
         {
             "number": 7,
             "date": "2010-04-08T23:00:00.000Z",
+            "exitAltitude": 3500,
+            "deploymentAltitude": 0,
+            "delay": 0,
             "description": "G.A.T.W"
         },
         {
             "number": 6,
             "date": "2010-03-28T00:00:00.000Z",
+            "exitAltitude": 3500,
+            "deploymentAltitude": 0,
+            "delay": 0,
             "description": "Turned slight to right on eixt. Upper body good but dropped knees\nGood grasp, pull & recovery"
         },
         {
             "number": 5,
             "date": "2010-03-21T00:00:00.000Z",
+            "exitAltitude": 3500,
+            "deploymentAltitude": 0,
+            "delay": 0,
             "description": "Exit OK but didn't arch\nFumbled D/P but when got it good grasp, pull & recovery"
         },
         {
             "number": 4,
             "date": "2010-03-14T00:00:00.000Z",
+            "exitAltitude": 3500,
+            "deploymentAltitude": 0,
+            "delay": 0,
             "description": "Good setup, exit good & on heading. Fumbled D/P handle but got it on 5 seconds"
         },
         {
             "number": 3,
             "date": "2010-03-13T00:00:00.000Z",
+            "exitAltitude": 3500,
+            "deploymentAltitude": 0,
+            "delay": 0,
             "description": "Good setup, turned 90 right on exit, did get DP"
         },
         {
             "number": 2,
             "date": "2010-02-21T00:00:00.000Z",
+            "exitAltitude": 3500,
+            "deploymentAltitude": 0,
+            "delay": 0,
             "description": "Good exit, position & count\nBOC DP's next"
         },
         {
             "number": 1,
             "date": "2009-11-28T00:00:00.000Z",
+            "exitAltitude": 3500,
+            "deploymentAltitude": 0,
+            "delay": 0,
             "description": "Good exit, position & count\n(just get head further back)"
         }
     ]

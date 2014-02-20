@@ -40,6 +40,9 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     private TextView mJumpNumber;
     private TextView mJumpDate;
     private TextView mJumpDescription;
+    private TextView mJumpExitAltitude;
+    private TextView mJumpDeploymentAltitude;
+    private TextView mJumpDelay;
 
     public interface Callbacks {
         public void onEditJump(Uri uri);
@@ -82,6 +85,9 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
         mJumpNumber = (TextView) rootView.findViewById(R.id.jump_number);
         mJumpDate = (TextView) rootView.findViewById(R.id.jump_date);
         mJumpDescription = (TextView) rootView.findViewById(R.id.jump_description);
+        mJumpExitAltitude = (TextView) rootView.findViewById(R.id.jump_exit_altitude);
+        mJumpDeploymentAltitude = (TextView) rootView.findViewById(R.id.jump_deployment_altitude);
+        mJumpDelay = (TextView) rootView.findViewById(R.id.jump_delay);
 
         return rootView;
     }
@@ -143,6 +149,9 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
             mJumpNumber.setText(jumpCursor.getString(JumpQuery.NUMBER));
             mJumpDate.setText(DateFormat.format(getString(R.string.format_detail_jump_date), jumpCursor.getLong(JumpQuery.DATE)));
             mJumpDescription.setText(jumpCursor.getString(JumpQuery.DESCRIPTION));
+            mJumpExitAltitude.setText(jumpCursor.getString(JumpQuery.EXIT_ALTITUDE));
+            mJumpDeploymentAltitude.setText(jumpCursor.getString(JumpQuery.DEPLOYMENT_ALTITUDE));
+            mJumpDelay.setText(jumpCursor.getString(JumpQuery.DELAY));
         }
     }
 
@@ -175,12 +184,18 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
                 RemigesContract.Jumps.JUMP_NUMBER,
                 RemigesContract.Jumps.JUMP_DATE,
                 RemigesContract.Jumps.JUMP_DESCRIPTION,
+                RemigesContract.Jumps.JUMP_EXIT_ALTITUDE,
+                RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE,
+                RemigesContract.Jumps.JUMP_DELAY,
                 RemigesContract.Jumps._ID
         };
 
         int NUMBER = 0;
         int DATE = 1;
         int DESCRIPTION = 2;
+        int EXIT_ALTITUDE = 3;
+        int DEPLOYMENT_ALTITUDE = 4;
+        int DELAY = 5;
 
     }
 

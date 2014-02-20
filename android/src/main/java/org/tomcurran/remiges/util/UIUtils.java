@@ -24,4 +24,12 @@ public class UIUtils {
         }
     }
 
+    public static void setTextViewInt(TextView view, int value) {
+        if (value != 0) {
+            view.setText(String.valueOf(value));
+        } else {
+            view.setText("");
+        }
+    }
+
 }

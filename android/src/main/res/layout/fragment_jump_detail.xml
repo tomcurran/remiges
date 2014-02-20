@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:orientation="vertical"
 android:layout_width="fill_parent"
@@ -9,7 +9,7 @@ tools:context="org.tomcurran.remiges.ui.JumpDetailFragment">
 
 <RelativeLayout
     android:id="@+id/jump"
-    style="@style/Jump">
+    style="@style/JumpContainer">
 
     <TextView
         android:id="@+id/jump_number"
@@ -28,4 +28,45 @@ tools:context="org.tomcurran.remiges.ui.JumpDetailFragment">
 
 </RelativeLayout>
 
-</FrameLayout>
+<RelativeLayout
+    android:id="@+id/jump_profile"
+    style="@style/JumpProfileContainer">
+
+    <TextView
+        android:id="@+id/jump_profile_title"
+        android:text="@string/jump_profile_title"
+        style="@style/JumpProfileTitle"/>
+
+    <TextView
+        android:id="@+id/label_jump_exit_altitude"
+        android:text="@string/label_jump_profile_exit_altitude"
+        style="@style/JumpProfileLabel.ExitAltitude"/>
+
+    <TextView
+        android:id="@+id/jump_exit_altitude"
+        style="@style/JumpProfile.ExitAltitude"
+        tools:text="@string/tools_text_jump_exit_altitude" />
+
+    <TextView
+        android:id="@+id/label_jump_deployment_altitude"
+        android:text="@string/label_jump_profile_deployment_altitude"
+        style="@style/JumpProfileLabel.DeploymentAltitude"/>
+
+    <TextView
+        android:id="@+id/jump_deployment_altitude"
+        style="@style/JumpProfile.DeploymentAltitude"
+        tools:text="@string/tools_text_jump_deployment_altitude" />
+
+    <TextView
+        android:id="@+id/label_jump_delay"
+        android:text="@string/label_jump_profile_delay"
+        style="@style/JumpProfileLabel.Delay"/>
+
+    <TextView
+        android:id="@+id/jump_delay"
+        style="@style/JumpProfile.Delay"
+        tools:text="@string/tools_text_jump_delay" />
+
+</RelativeLayout>
+
+</LinearLayout>

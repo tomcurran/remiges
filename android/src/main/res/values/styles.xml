@@ -36,7 +36,7 @@
         <item name="android:maxLines">1</item>
     </style>
 
-    <style name="Jump">
+    <style name="card">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginLeft">6dp</item>
@@ -44,6 +44,9 @@
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginBottom">4dp</item>
         <item name="android:background">@drawable/bg_card</item>
+    </style>
+
+    <style name="JumpContainer" parent="card">
     </style>
 
     <style name="JumpText">
@@ -64,6 +67,54 @@
     <style name="JumpText.Description">
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_below">@id/jump_number</item>
+    </style>
+
+    <style name="JumpProfileContainer" parent="card">
+    </style>
+
+    <style name="JumpProfileTitle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
+    </style>
+
+    <style name="JumpProfileLabel">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:paddingRight">6dp</item>
+    </style>
+
+    <style name="JumpProfileLabel.ExitAltitude">
+        <item name="android:layout_below">@id/jump_profile_title</item>
+    </style>
+
+    <style name="JumpProfileLabel.DeploymentAltitude">
+        <item name="android:layout_below">@id/label_jump_exit_altitude</item>
+    </style>
+
+    <style name="JumpProfileLabel.Delay">
+        <item name="android:layout_below">@id/label_jump_deployment_altitude</item>
+    </style>
+
+    <style name="JumpProfile">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="JumpProfile.ExitAltitude">
+        <item name="android:layout_below">@id/jump_profile_title</item>
+        <item name="android:layout_toRightOf">@id/label_jump_exit_altitude</item>
+    </style>
+
+    <style name="JumpProfile.DeploymentAltitude">
+        <item name="android:layout_below">@id/label_jump_exit_altitude</item>
+        <item name="android:layout_toRightOf">@id/label_jump_deployment_altitude</item>
+    </style>
+
+    <style name="JumpProfile.Delay">
+        <item name="android:layout_below">@id/label_jump_deployment_altitude</item>
+        <item name="android:layout_toRightOf">@id/label_jump_delay</item>
     </style>
 
     <style name="EditJumpContainer">
@@ -91,16 +142,29 @@
         <item name="android:hint">@string/tools_text_jump_detail_date</item>
         <item name="android:layout_below">@+id/edit_jump_number</item>
         <item name="android:layout_alignLeft">@+id/edit_jump_number</item>
-        <item name="android:layout_alignStart">@+id/edit_jump_number</item>
         <item name="android:paddingLeft">12dp</item>
     </style>
 
     <style name="EditJump.Description">
         <item name="android:hint">@string/hint_edit_jump_description</item>
-        <item name="android:layout_below">@+id/edit_jump_date</item>
+        <item name="android:layout_below">@+id/edit_jump_delay</item>
         <item name="android:layout_alignLeft">@+id/edit_jump_date</item>
-        <item name="android:layout_alignStart">@+id/edit_jump_date</item>
         <item name="android:ems">10</item>
+    </style>
+
+    <style name="EditJump.ExitAltitude">
+        <item name="android:hint">@string/hint_edit_jump_exit_altitude</item>
+        <item name="android:layout_below">@+id/edit_jump_date</item>
+    </style>
+
+    <style name="EditJump.DeploymentAltitude">
+        <item name="android:hint">@string/hint_edit_jump_deployment_altitude</item>
+        <item name="android:layout_below">@+id/edit_jump_exit_altitude</item>
+    </style>
+
+    <style name="EditJump.Delay">
+        <item name="android:hint">@string/hint_edit_jump_delay</item>
+        <item name="android:layout_below">@+id/edit_jump_deployment_altitude</item>
     </style>
 
 </resources>
