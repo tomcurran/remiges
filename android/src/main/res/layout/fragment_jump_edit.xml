@@ -32,4 +32,34 @@
         android:inputType="number"
         style="@style/EditJump.Delay" />
 
+    <TextView
+        android:id="@+id/label_edit_jump_number"
+        style="@style/EditJumpLabel.Number"
+        android:text="@string/label_edit_jump_number" />
+
+    <TextView
+        android:id="@+id/label_edit_jump_date"
+        style="@style/EditJumpLabel.Date"
+        android:text="@string/label_edit_jump_date" />
+
+    <TextView
+        android:id="@+id/label_edit_jump_description"
+        style="@style/EditJumpLabel.Description"
+        android:text="@string/label_edit_jump_description" />
+
+    <TextView
+        android:id="@+id/label_edit_jump_exit_altitude"
+        style="@style/EditJumpLabel.ExitAltitude"
+        android:text="@string/label_edit_jump_exit_altitude" />
+
+    <TextView
+        android:id="@+id/label_edit_deployment_altitude"
+        style="@style/EditJumpLabel.DeploymentAltitude"
+        android:text="@string/label_edit_jump_deployment_altitude" />
+
+    <TextView
+        android:id="@+id/label_edit_jump_delay"
+        style="@style/EditJumpLabel.Delay"
+        android:text="@string/label_edit_jump_delay" />
+
 </RelativeLayout>

@@ -31,6 +31,13 @@
     <string name="label_jump_profile_delay">Delay:</string>
     <string name="format_detail_jump_date">EEEE, d MMMM, yyyy</string>
 
+    <string name="label_edit_jump_number">Jump Number</string>
+    <string name="label_edit_jump_date">Date</string>
+    <string name="label_edit_jump_exit_altitude">Exit Altitude</string>
+    <string name="label_edit_jump_deployment_altitude">Deployment Altitude</string>
+    <string name="label_edit_jump_delay">Delay</string>
+    <string name="label_edit_jump_description">Description</string>
+
     <string name="menu_jump_list_insert">Log Jump</string>
     <string name="menu_jump_detail_edit">Edit Jump</string>
     <string name="menu_jump_edit_delete">Delete Jump</string>
@@ -41,6 +48,7 @@
 
     <string name="time_ago_today">today</string>
     <string name="jump_profile_title">Jump Profile</string>
+
     <plurals name="time_ago_days">
         <item quantity="one">%d day ago</item>
         <item quantity="other">%d days ago</item>
