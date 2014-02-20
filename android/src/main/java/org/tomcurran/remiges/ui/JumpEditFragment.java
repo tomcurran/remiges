@@ -25,7 +25,7 @@ import android.widget.TextView;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
-import org.tomcurran.remiges.util.DbAdpater;
+import org.tomcurran.remiges.util.DbAdapter;
 import org.tomcurran.remiges.util.UIUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
@@ -93,7 +93,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
                 // TODO: incorporate values passed in ?
                 mTime.setToNow();
                 ContentValues values = new ContentValues();
-                values.put(RemigesContract.Jumps.JUMP_NUMBER, DbAdpater.getHighestJumpNumber(getActivity()) + 1);
+                values.put(RemigesContract.Jumps.JUMP_NUMBER, DbAdapter.getHighestJumpNumber(getActivity()) + 1);
                 values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
                 values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, "");
                 values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, 0);

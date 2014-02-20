@@ -5,7 +5,7 @@ import android.database.Cursor;
 
 import org.tomcurran.remiges.provider.RemigesContract;
 
-public class DbAdpater {
+public class DbAdapter {
 
     public static final String[] SELECTION_ARG_ZERO = { "0" };
 
