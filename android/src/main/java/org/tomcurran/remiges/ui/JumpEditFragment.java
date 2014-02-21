@@ -52,6 +52,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     private EditText mJumpNumber;
     private TextView mJumpDate;
     private EditText mJumpDescription;
+    private EditText mJumpWay;
     private EditText mJumpExitAltitude;
     private EditText mJumpDeploymentAltitude;
     private EditText mJumpDelay;
@@ -103,6 +104,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
                 values.put(RemigesContract.Jumps.JUMP_NUMBER, DbAdapter.getHighestJumpNumber(getActivity()) + 1);
                 values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
                 values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, "");
+                values.put(RemigesContract.Jumps.JUMP_WAY, 1);
                 values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, 0);
                 values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, 0);
                 values.put(RemigesContract.Jumps.JUMP_DELAY, 0);
@@ -138,6 +140,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         mJumpNumber = (EditText) rootView.findViewById(R.id.edit_jump_number);
         mJumpDate = (TextView) rootView.findViewById(R.id.edit_jump_date);
         mJumpDescription = (EditText) rootView.findViewById(R.id.edit_jump_description);
+        mJumpWay = (EditText) rootView.findViewById(R.id.edit_jump_way);
         mJumpExitAltitude = (EditText) rootView.findViewById(R.id.edit_jump_exit_altitude);
         mJumpDeploymentAltitude = (EditText) rootView.findViewById(R.id.edit_jump_deployment_altitude);
         mJumpDelay = (EditText) rootView.findViewById(R.id.edit_jump_delay);
@@ -200,6 +203,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             mTime.set(jumpCursor.getLong(JumpQuery.DATE));
             updateDate();
             mJumpDescription.setText(jumpCursor.getString(JumpQuery.DESCRIPTION));
+            mJumpWay.setText(jumpCursor.getString(JumpQuery.WAY));
             UIUtils.setTextViewInt(mJumpExitAltitude, jumpCursor.getInt(JumpQuery.EXIT_ALTITUDE));
             UIUtils.setTextViewInt(mJumpDeploymentAltitude, jumpCursor.getInt(JumpQuery.DEPLOYMENT_ALTITUDE));
             UIUtils.setTextViewInt(mJumpDelay, jumpCursor.getInt(JumpQuery.DELAY));
@@ -215,6 +219,8 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         values.put(RemigesContract.Jumps.JUMP_NUMBER, UIUtils.parseTextViewInt(mJumpNumber));
         values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
         values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, mJumpDescription.getText().toString());
+        int way = UIUtils.parseTextViewInt(mJumpWay);
+        values.put(RemigesContract.Jumps.JUMP_WAY, way > 1 ? way : 1);
         values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, UIUtils.parseTextViewInt(mJumpExitAltitude));
         values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, UIUtils.parseTextViewInt(mJumpDeploymentAltitude));
         values.put(RemigesContract.Jumps.JUMP_DELAY, UIUtils.parseTextViewInt(mJumpDelay));
@@ -260,6 +266,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
                 RemigesContract.Jumps.JUMP_NUMBER,
                 RemigesContract.Jumps.JUMP_DATE,
                 RemigesContract.Jumps.JUMP_DESCRIPTION,
+                RemigesContract.Jumps.JUMP_WAY,
                 RemigesContract.Jumps.JUMP_EXIT_ALTITUDE,
                 RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE,
                 RemigesContract.Jumps.JUMP_DELAY
@@ -268,9 +275,10 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         int NUMBER = 0;
         int DATE = 1;
         int DESCRIPTION = 2;
-        int EXIT_ALTITUDE = 3;
-        int DEPLOYMENT_ALTITUDE = 4;
-        int DELAY = 5;
+        int WAY = 3;
+        int EXIT_ALTITUDE = 4;
+        int DEPLOYMENT_ALTITUDE = 5;
+        int DELAY = 6;
 
     }
 

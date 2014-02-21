@@ -40,6 +40,7 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     private TextView mJumpNumber;
     private TextView mJumpDate;
     private TextView mJumpDescription;
+    private TextView mJumpWay;
     private TextView mJumpExitAltitude;
     private TextView mJumpDeploymentAltitude;
     private TextView mJumpDelay;
@@ -85,6 +86,7 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
         mJumpNumber = (TextView) rootView.findViewById(R.id.jump_number);
         mJumpDate = (TextView) rootView.findViewById(R.id.jump_date);
         mJumpDescription = (TextView) rootView.findViewById(R.id.jump_description);
+        mJumpWay = (TextView) rootView.findViewById(R.id.jump_way);
         mJumpExitAltitude = (TextView) rootView.findViewById(R.id.jump_exit_altitude);
         mJumpDeploymentAltitude = (TextView) rootView.findViewById(R.id.jump_deployment_altitude);
         mJumpDelay = (TextView) rootView.findViewById(R.id.jump_delay);
@@ -149,6 +151,8 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
             mJumpNumber.setText(jumpCursor.getString(JumpQuery.NUMBER));
             mJumpDate.setText(DateFormat.format(getString(R.string.format_detail_jump_date), jumpCursor.getLong(JumpQuery.DATE)));
             mJumpDescription.setText(jumpCursor.getString(JumpQuery.DESCRIPTION));
+            int way = jumpCursor.getInt(JumpQuery.WAY);
+            mJumpWay.setText(way > 1 ? getString(R.string.detail_jump_way, way) : getString(R.string.detail_jump_solo));
             mJumpExitAltitude.setText(jumpCursor.getString(JumpQuery.EXIT_ALTITUDE));
             mJumpDeploymentAltitude.setText(jumpCursor.getString(JumpQuery.DEPLOYMENT_ALTITUDE));
             mJumpDelay.setText(jumpCursor.getString(JumpQuery.DELAY));
@@ -184,6 +188,7 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
                 RemigesContract.Jumps.JUMP_NUMBER,
                 RemigesContract.Jumps.JUMP_DATE,
                 RemigesContract.Jumps.JUMP_DESCRIPTION,
+                RemigesContract.Jumps.JUMP_WAY,
                 RemigesContract.Jumps.JUMP_EXIT_ALTITUDE,
                 RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE,
                 RemigesContract.Jumps.JUMP_DELAY,
@@ -193,9 +198,10 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
         int NUMBER = 0;
         int DATE = 1;
         int DESCRIPTION = 2;
-        int EXIT_ALTITUDE = 3;
-        int DEPLOYMENT_ALTITUDE = 4;
-        int DELAY = 5;
+        int WAY = 3;
+        int EXIT_ALTITUDE = 4;
+        int DEPLOYMENT_ALTITUDE = 5;
+        int DELAY = 6;
 
     }
 

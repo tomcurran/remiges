@@ -34,6 +34,7 @@ public class RemigesDatabase extends SQLiteOpenHelper {
                 + JumpsColumns.JUMP_NUMBER + " INTEGER NOT NULL,"
                 + JumpsColumns.JUMP_DATE + " INTEGER NOT NULL,"
                 + JumpsColumns.JUMP_DESCRIPTION + " TEXT,"
+                + JumpsColumns.JUMP_WAY + " INTEGER NOT NULL,"
                 + JumpsColumns.JUMP_EXIT_ALTITUDE + " INTEGER,"
                 + JumpsColumns.JUMP_DEPLOYMENT_ALTITUDE + " INTEGER,"
                 + JumpsColumns.JUMP_DELAY + " INTEGER)"

@@ -9,6 +9,7 @@ public class RemigesContract {
         String JUMP_NUMBER = "jump_number";
         String JUMP_DATE = "jump_date";
         String JUMP_DESCRIPTION = "jump_description";
+        String JUMP_WAY = "jump_way";
         String JUMP_EXIT_ALTITUDE = "jump_exit_altitude";
         String JUMP_DEPLOYMENT_ALTITUDE = "jump_deployment_altitude";
         String JUMP_DELAY = "jump_delay";

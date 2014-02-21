@@ -43,6 +43,7 @@ public class TestData {
             values.put(Jumps.JUMP_NUMBER, jsonJump.getInt("number"));
             values.put(Jumps.JUMP_DATE, mDateFormatter.parse(jsonJump.getString("date")).getTime());
             values.put(Jumps.JUMP_DESCRIPTION, jsonJump.getString("description"));
+            values.put(Jumps.JUMP_WAY, jsonJump.getInt("way"));
             values.put(Jumps.JUMP_EXIT_ALTITUDE, jsonJump.getInt("exitAltitude"));
             values.put(Jumps.JUMP_DEPLOYMENT_ALTITUDE, jsonJump.getInt("deploymentAltitude"));
             values.put(Jumps.JUMP_DELAY, jsonJump.getInt("delay"));

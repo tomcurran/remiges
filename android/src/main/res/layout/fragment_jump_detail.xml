@@ -26,6 +26,11 @@ tools:context="org.tomcurran.remiges.ui.JumpDetailFragment">
         style="@style/JumpText.Description"
         tools:text="@string/tools_text_jump_description" />
 
+    <TextView
+        android:id="@+id/jump_way"
+        style="@style/JumpText.Way"
+        tools:text="@string/tools_text_jump_way" />
+
 </RelativeLayout>
 
 <RelativeLayout

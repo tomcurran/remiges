@@ -18,6 +18,11 @@
         style="@style/EditJump.Description" />
 
     <EditText
+        android:id="@+id/edit_jump_way"
+        android:inputType="number"
+        style="@style/EditJump.Way" />
+
+    <EditText
         android:id="@+id/edit_jump_exit_altitude"
         android:inputType="number"
         style="@style/EditJump.ExitAltitude" />
@@ -46,6 +51,11 @@
         android:id="@+id/label_edit_jump_description"
         style="@style/EditJumpLabel.Description"
         android:text="@string/label_edit_jump_description" />
+
+    <TextView
+        android:id="@+id/label_edit_jump_way"
+        style="@style/EditJumpLabel.Way"
+        android:text="@string/label_edit_jump_way" />
 
     <TextView
         android:id="@+id/label_edit_jump_exit_altitude"
