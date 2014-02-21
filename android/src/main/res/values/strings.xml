@@ -2,36 +2,38 @@
 <resources>
 
     <string name="app_name">Remiges</string>
+
+
+    <!-- Permissions -->
+
     <string name="permission_write">Modify Remiges logbook data</string>
+
+    <!-- Jump List -->
+
+    <string name="menu_jump_list_insert">Log Jump</string>
+
+
+    <!-- Jump Detail -->
+
     <string name="title_jump_detail">Jump Detail</string>
 
-    <string name="menu_debug">Debug</string>
-    <string name="menu_debug_insert_data">Insert Test Data</string>
-    <string name="menu_debug_delete_data">Delete All Data</string>
-
-    <string name="tools_text_jump_number">391</string>
-    <string name="tools_text_jump_date">11/02/2014</string>
-    <string name="tools_text_jump_detail_date">Tuesday, 11 February, 2014</string>
-    <string name="tools_text_jump_description">jumped out of the plane and deployed parachute some time later</string>
-    <string name="tools_text_jump_way">4 way</string>
-    <string name="tools_text_jump_exit_altitude">12,460</string>
-    <string name="tools_text_jump_deployment_altitude">3,500</string>
-    <string name="tools_text_jump_delay">59</string>
-
-    <string name="hint_edit_jump_number">Jump Number</string>
-    <string name="hint_edit_jump_date">Date</string>
-    <string name="hint_edit_jump_description">Description</string>
-    <string name="hint_edit_jump_way">Way</string>
-    <string name="hint_edit_jump_exit_altitude">Exit Altitude</string>
-    <string name="hint_edit_jump_deployment_altitude">Deployment Altitude</string>
-    <string name="hint_edit_jump_delay">Delay (seconds)</string>
-
-    <string name="label_jump_profile_exit_altitude">Exit Altitude:</string>
-    <string name="label_jump_profile_deployment_altitude">Deployment Altitude:</string>
-    <string name="label_jump_profile_delay">Delay:</string>
-    <string name="format_detail_jump_date">EEEE, d MMMM, yyyy</string>
     <string name="detail_jump_solo">Solo</string>
     <string name="detail_jump_way">%d Way</string>
+
+    <string name="label_detail_jump_profile_header">Jump Profile</string>
+    <string name="label_detail_jump_exit_altitude">Exit Altitude:</string>
+    <string name="label_detail_jump_deployment_altitude">Deployment Altitude:</string>
+    <string name="label_detail_jump_delay">Delay:</string>
+
+    <string name="format_detail_jump_date">EEEE, d MMMM, yyyy</string>
+
+    <string name="menu_jump_detail_edit">Edit</string>
+    <string name="menu_jump_detail_delete">Delete</string>
+
+
+    <!-- Jump Edit -->
+
+    <string name="title_jump_edit">Jump Edit</string>
 
     <string name="label_edit_jump_number">Jump Number</string>
     <string name="label_edit_jump_date">Date</string>
@@ -41,18 +43,22 @@
     <string name="label_edit_jump_description">Description</string>
     <string name="label_edit_jump_way">Way</string>
 
-    <string name="menu_jump_list_insert">Log Jump</string>
-    <string name="menu_jump_detail_edit">Edit</string>
-    <string name="menu_jump_detail_delete">Delete</string>
+    <string name="hint_edit_jump_number">Jump Number</string>
+    <string name="hint_edit_jump_date">Date</string>
+    <string name="hint_edit_jump_description">Description</string>
+    <string name="hint_edit_jump_way">Way</string>
+    <string name="hint_edit_jump_exit_altitude">Exit Altitude</string>
+    <string name="hint_edit_jump_deployment_altitude">Deployment Altitude</string>
+    <string name="hint_edit_jump_delay">Delay (seconds)</string>
+
+    <string name="format_edit_jump_date">EEEE, d MMMM, yyyy</string>
+
     <string name="menu_jump_edit_delete">Delete</string>
 
-    <string name="title_activity_jump_edit">JumpEditActivity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+
+    <!-- Time Utility -->
 
     <string name="time_ago_today">today</string>
-    <string name="jump_profile_title">Jump Profile</string>
-
     <plurals name="time_ago_days">
         <item quantity="one">%d day ago</item>
         <item quantity="other">%d days ago</item>
@@ -69,5 +75,24 @@
         <item quantity="one">1 year ago</item>
         <item quantity="other">%d years ago</item>
     </plurals>
+
+
+    <!-- Debug Menu -->
+
+    <string name="menu_debug">Debug</string>
+    <string name="menu_debug_insert_data">Insert Test Data</string>
+    <string name="menu_debug_delete_data">Delete All Data</string>
+
+
+    <!-- Layout Preview Text -->
+
+    <string name="tools_text_jump_number">391</string>
+    <string name="tools_text_jump_time_ago">4 weeks ago</string>
+    <string name="tools_text_jump_detail_date">Tuesday, 11 February, 2014</string>
+    <string name="tools_text_jump_description">jumped out of the plane and deployed parachute some time later</string>
+    <string name="tools_text_jump_way">4 way</string>
+    <string name="tools_text_jump_exit_altitude">12,460</string>
+    <string name="tools_text_jump_deployment_altitude">3,500</string>
+    <string name="tools_text_jump_delay">59</string>
 
 </resources>

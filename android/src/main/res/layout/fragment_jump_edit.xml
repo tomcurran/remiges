@@ -13,11 +13,6 @@
         style="@style/EditJump.Date" />
 
     <EditText
-        android:id="@+id/edit_jump_description"
-        android:inputType="textMultiLine"
-        style="@style/EditJump.Description" />
-
-    <EditText
         android:id="@+id/edit_jump_way"
         android:inputType="number"
         style="@style/EditJump.Way" />
@@ -37,6 +32,11 @@
         android:inputType="number"
         style="@style/EditJump.Delay" />
 
+    <EditText
+        android:id="@+id/edit_jump_description"
+        android:inputType="textMultiLine"
+        style="@style/EditJump.Description" />
+
     <TextView
         android:id="@+id/label_edit_jump_number"
         style="@style/EditJumpLabel.Number"
@@ -46,11 +46,6 @@
         android:id="@+id/label_edit_jump_date"
         style="@style/EditJumpLabel.Date"
         android:text="@string/label_edit_jump_date" />
-
-    <TextView
-        android:id="@+id/label_edit_jump_description"
-        style="@style/EditJumpLabel.Description"
-        android:text="@string/label_edit_jump_description" />
 
     <TextView
         android:id="@+id/label_edit_jump_way"
@@ -71,5 +66,10 @@
         android:id="@+id/label_edit_jump_delay"
         style="@style/EditJumpLabel.Delay"
         android:text="@string/label_edit_jump_delay" />
+
+    <TextView
+        android:id="@+id/label_edit_jump_description"
+        style="@style/EditJumpLabel.Description"
+        android:text="@string/label_edit_jump_description" />
 
 </RelativeLayout>

@@ -5,36 +5,6 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="ListItemJump">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:layout_marginRight">8dp</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-    </style>
-
-    <style name="ListItemJumpText">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-    </style>
-
-    <style name="ListItemJumpText.Number">
-        <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_alignParentLeft">true</item>
-    </style>
-
-    <style name="ListItemJumpText.Date">
-        <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_alignParentRight">true</item>
-    </style>
-
-    <style name="ListItemJumpText.Description">
-        <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_below">@id/list_item_jump_number</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
-    </style>
 
     <style name="card">
         <item name="android:layout_height">wrap_content</item>
@@ -47,86 +17,121 @@
     </style>
 
 
-    <!-- fragment_jump_detail -->
+    <!-- Jump List -->
 
-    <style name="JumpContainer" parent="card">
+    <style name="ListItemJumpContainer">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
     </style>
 
-    <style name="JumpText">
+    <style name="ListItemJump">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
 
-    <style name="JumpText.Number">
+    <style name="ListItemJump.Number">
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_alignParentLeft">true</item>
     </style>
 
-    <style name="JumpText.Date">
+    <style name="ListItemJump.Date">
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_alignParentRight">true</item>
     </style>
 
-    <style name="JumpText.Description">
+    <style name="ListItemJump.Description">
         <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_below">@id/jump_way</item>
+        <item name="android:layout_below">@id/list_item_jump_number</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
     </style>
 
-    <style name="JumpText.Way">
+
+    <!-- Jump Detail -->
+
+    <style name="JumpDetailContainer">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="JumpDetailContainerDetail" parent="card">
+    </style>
+
+    <style name="JumpDetail">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="JumpDetail.Number">
+        <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_below">@id/jump_number</item>
     </style>
 
-    <style name="JumpProfileContainer" parent="card">
+    <style name="JumpDetail.Date">
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentRight">true</item>
     </style>
 
-    <style name="JumpProfileTitle">
+    <style name="JumpDetail.Description">
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_below">@id/detail_jump_way</item>
+    </style>
+
+    <style name="JumpDetail.Way">
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_below">@id/detail_jump_number</item>
+    </style>
+
+    <style name="JumpDetail.ExitAltitude">
+        <item name="android:layout_below">@id/detail_jump_profile_header</item>
+        <item name="android:layout_toRightOf">@id/label_detail_jump_exit_altitude</item>
+    </style>
+
+    <style name="JumpDetail.DeploymentAltitude">
+        <item name="android:layout_below">@id/label_detail_jump_exit_altitude</item>
+        <item name="android:layout_toRightOf">@id/label_detail_jump_deployment_altitude</item>
+    </style>
+
+    <style name="JumpDetail.Delay">
+        <item name="android:layout_below">@id/label_detail_jump_deployment_altitude</item>
+        <item name="android:layout_toRightOf">@id/label_detail_jump_delay</item>
+    </style>
+
+    <style name="JumpDetailProfileContainer" parent="card">
+    </style>
+
+    <style name="JumpDetailProfileHeader">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_alignParentTop">true</item>
     </style>
 
-    <style name="JumpProfileLabel">
+    <style name="JumpDetailLabel">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:paddingRight">6dp</item>
     </style>
 
-    <style name="JumpProfileLabel.ExitAltitude">
-        <item name="android:layout_below">@id/jump_profile_title</item>
+    <style name="JumpDetailLabel.ExitAltitude">
+        <item name="android:layout_below">@id/detail_jump_profile_header</item>
     </style>
 
-    <style name="JumpProfileLabel.DeploymentAltitude">
-        <item name="android:layout_below">@id/label_jump_exit_altitude</item>
+    <style name="JumpDetailLabel.DeploymentAltitude">
+        <item name="android:layout_below">@id/label_detail_jump_exit_altitude</item>
     </style>
 
-    <style name="JumpProfileLabel.Delay">
-        <item name="android:layout_below">@id/label_jump_deployment_altitude</item>
-    </style>
-
-    <style name="JumpProfile">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-    </style>
-
-    <style name="JumpProfile.ExitAltitude">
-        <item name="android:layout_below">@id/jump_profile_title</item>
-        <item name="android:layout_toRightOf">@id/label_jump_exit_altitude</item>
-    </style>
-
-    <style name="JumpProfile.DeploymentAltitude">
-        <item name="android:layout_below">@id/label_jump_exit_altitude</item>
-        <item name="android:layout_toRightOf">@id/label_jump_deployment_altitude</item>
-    </style>
-
-    <style name="JumpProfile.Delay">
-        <item name="android:layout_below">@id/label_jump_deployment_altitude</item>
-        <item name="android:layout_toRightOf">@id/label_jump_delay</item>
+    <style name="JumpDetailLabel.Delay">
+        <item name="android:layout_below">@id/label_detail_jump_deployment_altitude</item>
     </style>
 
 
-    <!-- fragment_jump_edit -->
+    <!-- Jump Edit -->
 
     <style name="EditJumpContainer">
         <item name="android:layout_height">match_parent</item>
@@ -153,11 +158,6 @@
         <item name="android:paddingLeft">12dp</item>
     </style>
 
-    <style name="EditJump.Description">
-        <item name="android:hint">@string/hint_edit_jump_description</item>
-        <item name="android:layout_below">@id/label_edit_jump_description</item>
-    </style>
-
     <style name="EditJump.Way">
         <item name="android:hint">@string/hint_edit_jump_way</item>
         <item name="android:layout_below">@id/label_edit_jump_way</item>
@@ -176,6 +176,11 @@
     <style name="EditJump.Delay">
         <item name="android:hint">@string/hint_edit_jump_delay</item>
         <item name="android:layout_below">@id/label_edit_jump_delay</item>
+    </style>
+
+    <style name="EditJump.Description">
+        <item name="android:hint">@string/hint_edit_jump_description</item>
+        <item name="android:layout_below">@id/label_edit_jump_description</item>
     </style>
 
     <style name="EditJumpLabel">

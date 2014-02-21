@@ -12,35 +12,43 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
+
         <activity
             android:name="org.tomcurran.remiges.ui.JumpListActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.dir/vnd.remiges.jump" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.dir/vnd.remiges.jump" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.item/vnd.remiges.jump" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.EDIT" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.item/vnd.remiges.jump" />
             </intent-filter>
+
         </activity>
+
         <activity
             android:name="org.tomcurran.remiges.ui.JumpDetailActivity"
             android:label="@string/title_jump_detail"
@@ -49,9 +57,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.tomcurran.remiges.ui.JumpListActivity" />
         </activity>
+
         <activity
             android:name="org.tomcurran.remiges.ui.JumpEditActivity"
-            android:label="@string/title_activity_jump_edit"
+            android:label="@string/title_jump_edit"
             android:parentActivityName="org.tomcurran.remiges.ui.JumpDetailActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -83,13 +83,13 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_jump_detail, container, false);
 
-        mJumpNumber = (TextView) rootView.findViewById(R.id.jump_number);
-        mJumpDate = (TextView) rootView.findViewById(R.id.jump_date);
-        mJumpDescription = (TextView) rootView.findViewById(R.id.jump_description);
-        mJumpWay = (TextView) rootView.findViewById(R.id.jump_way);
-        mJumpExitAltitude = (TextView) rootView.findViewById(R.id.jump_exit_altitude);
-        mJumpDeploymentAltitude = (TextView) rootView.findViewById(R.id.jump_deployment_altitude);
-        mJumpDelay = (TextView) rootView.findViewById(R.id.jump_delay);
+        mJumpNumber = (TextView) rootView.findViewById(R.id.detail_jump_number);
+        mJumpDate = (TextView) rootView.findViewById(R.id.detail_jump_date);
+        mJumpDescription = (TextView) rootView.findViewById(R.id.detail_jump_description);
+        mJumpWay = (TextView) rootView.findViewById(R.id.detail_jump_way);
+        mJumpExitAltitude = (TextView) rootView.findViewById(R.id.detail_jump_exit_altitude);
+        mJumpDeploymentAltitude = (TextView) rootView.findViewById(R.id.detail_jump_deployment_altitude);
+        mJumpDelay = (TextView) rootView.findViewById(R.id.detail_jump_delay);
 
         return rootView;
     }

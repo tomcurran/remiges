@@ -211,7 +211,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateDate() {
-        mJumpDate.setText(DateFormat.format(getString(R.string.format_detail_jump_date), mTime.toMillis(false)));
+        mJumpDate.setText(DateFormat.format(getString(R.string.format_edit_jump_date), mTime.toMillis(false)));
     }
 
     private void updateJump() {
