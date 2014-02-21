@@ -118,7 +118,7 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
             case R.id.menu_jump_detail_edit:
                 editJump();
                 return true;
-            case R.id.menu_jump_edit_delete:
+            case R.id.menu_jump_detail_delete:
                 deleteJump();
                 return true;
             default:

@@ -22,6 +22,8 @@ import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 public class JumpDetailActivity extends BaseActivity implements JumpDetailFragment.Callbacks {
     private static final String TAG = makeLogTag(JumpEditActivity.class);
 
+    private static final int ACTIVITY_EDIT = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +52,24 @@ public class JumpDetailActivity extends BaseActivity implements JumpDetailFragme
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ACTIVITY_EDIT) {
+            if (resultCode == RESULT_OK) {
+                if (data.getAction().equals(Intent.ACTION_DELETE)) {
+                    onDeleteJump(data.getData());
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     public void onEditJump(Uri uri) {
         Intent intent = new Intent();
         intent.setData(uri);
         intent.setAction(Intent.ACTION_EDIT);
         intent.setClass(this, JumpEditActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, ACTIVITY_EDIT);
     }
 
     @Override

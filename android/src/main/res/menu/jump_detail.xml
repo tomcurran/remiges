@@ -9,8 +9,8 @@
         android:showAsAction="ifRoom|withText" />
 
     <item
-        android:id="@+id/menu_jump_edit_delete"
-        android:title="@string/menu_jump_edit_delete"
+        android:id="@+id/menu_jump_detail_delete"
+        android:title="@string/menu_jump_detail_delete"
         android:icon="@drawable/ic_menu_delete"
         android:showAsAction="ifRoom|withText" />
 

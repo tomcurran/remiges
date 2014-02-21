@@ -47,4 +47,10 @@ public class JumpEditActivity extends FragmentActivity implements JumpEditFragme
     public void onJumpEdited(Uri uri) {
     }
 
+    @Override
+    public void onDeleteJump(Uri uri) {
+        setResult(RESULT_OK, new Intent(Intent.ACTION_DELETE, uri));
+        finish();
+    }
+
 }

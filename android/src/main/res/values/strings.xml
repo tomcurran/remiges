@@ -39,8 +39,9 @@
     <string name="label_edit_jump_description">Description</string>
 
     <string name="menu_jump_list_insert">Log Jump</string>
-    <string name="menu_jump_detail_edit">Edit Jump</string>
-    <string name="menu_jump_edit_delete">Delete Jump</string>
+    <string name="menu_jump_detail_edit">Edit</string>
+    <string name="menu_jump_detail_delete">Delete</string>
+    <string name="menu_jump_edit_delete">Delete</string>
 
     <string name="title_activity_jump_edit">JumpEditActivity</string>
     <string name="hello_world">Hello world!</string>

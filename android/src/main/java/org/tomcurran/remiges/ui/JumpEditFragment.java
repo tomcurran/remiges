@@ -17,6 +17,9 @@ import android.support.v4.content.Loader;
 import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -63,11 +66,15 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
     public interface Callbacks {
         public void onJumpEdited(Uri uri);
+        public void onDeleteJump(Uri uri);
     }
 
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
         public void onJumpEdited(Uri uri) {
+        }
+        @Override
+        public void onDeleteJump(Uri uri) {
         }
     };
 
@@ -170,6 +177,22 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         mCallbacks = sDummyCallbacks;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.jump_edit, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_jump_edit_delete:
+                deleteJump();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void loadJump() {
         Cursor jumpCursor = mJumpCursor;
         if (jumpCursor.moveToFirst()) {
@@ -198,6 +221,13 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         int rowsUpdate = getActivity().getContentResolver().update(mJumpUri, values, null, null);
         if (rowsUpdate > 0) {
             mCallbacks.onJumpEdited(mJumpUri);
+        }
+    }
+
+    private void deleteJump() {
+        int rowsDeleted = getActivity().getContentResolver().delete(mJumpUri, null, null);
+        if (rowsDeleted > 0) {
+            mCallbacks.onDeleteJump(mJumpUri);
         }
     }
 
