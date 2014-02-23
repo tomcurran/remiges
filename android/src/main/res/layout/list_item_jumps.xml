@@ -20,6 +20,16 @@
             tools:text="@string/tools_text_jump_time_ago" />
 
         <TextView
+            android:id="@+id/list_item_jump_way"
+            style="@style/ListItemJump.Way"
+            tools:text="@string/tools_text_jump_way" />
+
+        <TextView
+            android:id="@+id/list_item_jump_type"
+            style="@style/ListItemJump.Type"
+            tools:text="@string/tools_text_jump_type" />
+
+        <TextView
             android:id="@+id/list_item_jump_description"
             style="@style/ListItemJump.Description"
             tools:text="@string/tools_text_jump_description" />

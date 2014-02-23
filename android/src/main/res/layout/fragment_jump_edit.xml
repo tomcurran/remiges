@@ -37,6 +37,10 @@
         android:inputType="textMultiLine"
         style="@style/EditJump.Description" />
 
+    <Spinner
+        android:id="@+id/edit_jump_type"
+        style="@style/EditJump.Type" />
+
     <TextView
         android:id="@+id/label_edit_jump_number"
         style="@style/EditJumpLabel.Number"
@@ -51,6 +55,11 @@
         android:id="@+id/label_edit_jump_way"
         style="@style/EditJumpLabel.Way"
         android:text="@string/label_edit_jump_way" />
+
+    <TextView
+        android:id="@+id/label_edit_jump_type"
+        style="@style/EditJumpLabel.Type"
+        android:text="@string/label_edit_jump_type" />
 
     <TextView
         android:id="@+id/label_edit_jump_exit_altitude"

@@ -25,6 +25,11 @@
             tools:text="@string/tools_text_jump_way" />
 
         <TextView
+            android:id="@+id/detail_jump_type"
+            style="@style/JumpDetail.Type"
+            tools:text="@string/tools_text_jump_type" />
+
+        <TextView
             android:id="@+id/detail_jump_description"
             style="@style/JumpDetail.Description"
             tools:text="@string/tools_text_jump_description" />

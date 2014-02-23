@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
+import org.tomcurran.remiges.provider.RemigesContract.JumpTypes;
 import org.tomcurran.remiges.provider.RemigesContract.Jumps;
 import org.tomcurran.remiges.provider.RemigesDatabase.Tables;
 import org.tomcurran.remiges.util.SelectionBuilder;
@@ -28,6 +29,9 @@ public class RemigesProvider extends ContentProvider {
     private static final int JUMPS = 100;
     private static final int JUMPS_ID = 101;
 
+    private static final int JUMPTYPES = 200;
+    private static final int JUMPTYPES_ID = 201;
+
     public RemigesProvider() {
     }
 
@@ -41,6 +45,9 @@ public class RemigesProvider extends ContentProvider {
 
         matcher.addURI(authority, "jumps", JUMPS);
         matcher.addURI(authority, "jumps/#", JUMPS_ID);
+
+        matcher.addURI(authority, "jumptypes", JUMPTYPES);
+        matcher.addURI(authority, "jumptypes/#", JUMPTYPES_ID);
 
         return matcher;
     }
@@ -60,6 +67,10 @@ public class RemigesProvider extends ContentProvider {
                 return Jumps.CONTENT_TYPE;
             case JUMPS_ID:
                 return Jumps.CONTENT_ITEM_TYPE;
+            case JUMPTYPES:
+                return JumpTypes.CONTENT_TYPE;
+            case JUMPTYPES_ID:
+                return JumpTypes.CONTENT_ITEM_TYPE;
 
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -93,6 +104,11 @@ public class RemigesProvider extends ContentProvider {
                 long jump_id = db.insertOrThrow(Tables.JUMPS, null, values);
                 notifyChange(uri);
                 return Jumps.buildJumpUri(String.valueOf(jump_id));
+            }
+            case JUMPTYPES: {
+                long jumptype_id = db.insertOrThrow(Tables.JUMPTYPES, null, values);
+                notifyChange(uri);
+                return JumpTypes.buildJumpTypeUri(String.valueOf(jumptype_id));
             }
             default: {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -159,6 +175,13 @@ public class RemigesProvider extends ContentProvider {
                 final String jumpId = Jumps.getJumpId(uri);
                 return builder.table(Tables.JUMPS).where(Jumps._ID + "=?", jumpId);
             }
+            case JUMPTYPES: {
+                return builder.table(Tables.JUMPTYPES);
+            }
+            case JUMPTYPES_ID: {
+                final String jumpTypeId = JumpTypes.getJumpTypeId(uri);
+                return builder.table(Tables.JUMPTYPES).where(JumpTypes._ID + "=?", jumpTypeId);
+            }
             default: {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
             }
@@ -169,16 +192,32 @@ public class RemigesProvider extends ContentProvider {
         final SelectionBuilder builder = new SelectionBuilder();
         switch (match) {
             case JUMPS: {
-                return builder.table(Tables.JUMPS);
+                return builder.table(Tables.JUMPS_JOIN_JUMPTYPES)
+                        .mapToTable(Jumps._ID, Tables.JUMPS)
+                        .mapToTable(Jumps.JUMPTYPE_ID, Tables.JUMPTYPES);
             }
             case JUMPS_ID: {
                 final String jumpId = Jumps.getJumpId(uri);
-                return builder.table(Tables.JUMPS).where(Jumps._ID + "=?", jumpId);
+                return builder.table(Tables.JUMPS_JOIN_JUMPTYPES)
+                        .mapToTable(Jumps._ID, Tables.JUMPS)
+                        .mapToTable(Jumps.JUMPTYPE_ID, Tables.JUMPS)
+                        .where(Qualified.JUMPS_JUMP_ID + "=?", jumpId);
+            }
+            case JUMPTYPES: {
+                return builder.table(Tables.JUMPTYPES);
+            }
+            case JUMPTYPES_ID: {
+                final String jumpTypeId = JumpTypes.getJumpTypeId(uri);
+                return builder.table(Tables.JUMPTYPES).where(JumpTypes._ID + "=?", jumpTypeId);
             }
             default: {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
             }
         }
+    }
+
+    private interface Qualified {
+        String JUMPS_JUMP_ID = Tables.JUMPS + "." + Jumps._ID;
     }
 
 }

@@ -2,9 +2,11 @@ package org.tomcurran.remiges.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -109,10 +111,20 @@ public class JumpListFragment extends ListFragment implements
                     LOGE(TAG, String.format("Test data JSON error: %s", e.getMessage()));
                 } catch (ParseException e) {
                     LOGE(TAG, String.format("Test data JSON parse error: %s", e.getMessage()));
+                } catch (RemoteException e) {
+                    LOGE(TAG, String.format("Test data provider communication error: %s", e.getMessage()));
+                } catch (OperationApplicationException e) {
+                    LOGE(TAG, String.format("Test data insertion error: %s", e.getMessage()));
                 }
                 return true;
             case R.id.menu_debug_delete_data:
-                mTestData.delete();
+                try {
+                    mTestData.delete();
+                } catch (RemoteException e) {
+                    LOGE(TAG, String.format("Test data provider communication error: %s", e.getMessage()));
+                } catch (OperationApplicationException e) {
+                    LOGE(TAG, String.format("Test data deletion error: %s", e.getMessage()));
+                }
                 return true;
             case R.id.menu_jump_list_insert:
                 insertJump();
@@ -226,12 +238,16 @@ public class JumpListFragment extends ListFragment implements
         private static final String[] FROM = {
                 RemigesContract.Jumps.JUMP_NUMBER,
                 RemigesContract.Jumps.JUMP_DATE,
+                RemigesContract.Jumps.JUMP_WAY,
+                RemigesContract.JumpTypes.JUMPTPYE_NAME,
                 RemigesContract.Jumps.JUMP_DESCRIPTION
         };
 
         private static final int[] TO = {
                 R.id.list_item_jump_number,
                 R.id.list_item_jump_date,
+                R.id.list_item_jump_way,
+                R.id.list_item_jump_type,
                 R.id.list_item_jump_description
         };
 
@@ -250,6 +266,16 @@ public class JumpListFragment extends ListFragment implements
                     );
                     return true;
                 }
+                case JumpsQuery.WAY: {
+                    ViewHolder holder = getViewHolder(view);
+                    int way = cursor.getInt(JumpsQuery.WAY);
+                    if (way > 1) {
+                        holder.way.setText(view.getContext().getString(R.string.list_jump_way, way));
+                    } else {
+                        holder.way.setText(view.getContext().getString(R.string.list_jump_solo));
+                    }
+                    return true;
+                }
                 default:
                     return false;
             }
@@ -260,6 +286,7 @@ public class JumpListFragment extends ListFragment implements
             if (holder == null) {
                 holder = new ViewHolder();
                 holder.date = (TextView) view.findViewById(R.id.list_item_jump_date);
+                holder.way = (TextView) view.findViewById(R.id.list_item_jump_way);
                 view.setTag(holder);
             }
             return holder;
@@ -267,6 +294,7 @@ public class JumpListFragment extends ListFragment implements
 
         static class ViewHolder {
             TextView date;
+            TextView way;
         }
 
     }
@@ -276,13 +304,17 @@ public class JumpListFragment extends ListFragment implements
         String[] PROJECTION = {
                 RemigesContract.Jumps.JUMP_NUMBER,
                 RemigesContract.Jumps.JUMP_DATE,
+                RemigesContract.Jumps.JUMP_WAY,
+                RemigesContract.JumpTypes.JUMPTPYE_NAME,
                 RemigesContract.Jumps.JUMP_DESCRIPTION,
                 RemigesContract.Jumps._ID
         };
 
         int NUMBER = 0;
         int DATE = 1;
-        int DESCRIPTION = 2;
+        int WAY = 2;
+        int TYPE = 3;
+        int DESCRIPTION = 4;
 
     }
 

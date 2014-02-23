@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -22,8 +23,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.tomcurran.remiges.R;
@@ -32,6 +36,7 @@ import org.tomcurran.remiges.util.DbAdapter;
 import org.tomcurran.remiges.util.UIUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
+import static org.tomcurran.remiges.util.LogUtils.LOGV;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
@@ -41,6 +46,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     private static final int STATE_INSERT = 0;
     private static final int STATE_EDIT = 1;
 
+    private static final int LOADER_JUMP = 0;
+    private static final int LOADER_JUMPTYPES = 1;
+
     private static final String SAVE_STATE_JUMP_URI = "jump_uri";
     private static final String SAVE_STATE_JUMP_STATE = "jump_state";
     private static final String SAVE_SATE_JUMP_TIME = "jump_time";
@@ -48,11 +56,13 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     private int mState;
     private Uri mJumpUri;
     private Cursor mJumpCursor;
+    private Long mJumpTypeId;
 
     private EditText mJumpNumber;
     private TextView mJumpDate;
     private EditText mJumpDescription;
     private EditText mJumpWay;
+    private Spinner mJumpType;
     private EditText mJumpExitAltitude;
     private EditText mJumpDeploymentAltitude;
     private EditText mJumpDelay;
@@ -105,6 +115,8 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
                 values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
                 values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, "");
                 values.put(RemigesContract.Jumps.JUMP_WAY, 1);
+                // TODO: default value for jump type
+                values.put(RemigesContract.Jumps.JUMPTYPE_ID, 0);
                 values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, 0);
                 values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, 0);
                 values.put(RemigesContract.Jumps.JUMP_DELAY, 0);
@@ -130,7 +142,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             mTime.set(savedInstanceState.getLong(SAVE_SATE_JUMP_TIME));
         }
         activity.setResult(FragmentActivity.RESULT_OK, (new Intent()).setAction(mJumpUri.toString()));
-        getLoaderManager().initLoader(0, null, this);
+        getLoaderManager().initLoader(LOADER_JUMP, null, this);
     }
 
     @Override
@@ -141,11 +153,16 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         mJumpDate = (TextView) rootView.findViewById(R.id.edit_jump_date);
         mJumpDescription = (EditText) rootView.findViewById(R.id.edit_jump_description);
         mJumpWay = (EditText) rootView.findViewById(R.id.edit_jump_way);
+        mJumpType = (Spinner) rootView.findViewById(R.id.edit_jump_type);
         mJumpExitAltitude = (EditText) rootView.findViewById(R.id.edit_jump_exit_altitude);
         mJumpDeploymentAltitude = (EditText) rootView.findViewById(R.id.edit_jump_deployment_altitude);
         mJumpDelay = (EditText) rootView.findViewById(R.id.edit_jump_delay);
 
         mJumpDate.setOnClickListener(mDateClickedListener);
+
+        mJumpType.setAdapter(new JumpTypeAdapter(getActivity(), JumpTypeQuery.PROJECTION));
+        mJumpType.setOnItemSelectedListener(new JumpTypeOnItemSelectedListener());
+        getLoaderManager().initLoader(LOADER_JUMPTYPES, null, this);
 
         return rootView;
     }
@@ -204,6 +221,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             updateDate();
             mJumpDescription.setText(jumpCursor.getString(JumpQuery.DESCRIPTION));
             mJumpWay.setText(jumpCursor.getString(JumpQuery.WAY));
+            mJumpTypeId = jumpCursor.getLong(JumpQuery.TYPE);
+            LOGV(TAG, String.format("mJumpTypeId -> %d", mJumpTypeId));
+            updateJumpTypeSpinner();
             UIUtils.setTextViewInt(mJumpExitAltitude, jumpCursor.getInt(JumpQuery.EXIT_ALTITUDE));
             UIUtils.setTextViewInt(mJumpDeploymentAltitude, jumpCursor.getInt(JumpQuery.DEPLOYMENT_ALTITUDE));
             UIUtils.setTextViewInt(mJumpDelay, jumpCursor.getInt(JumpQuery.DELAY));
@@ -221,6 +241,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, mJumpDescription.getText().toString());
         int way = UIUtils.parseTextViewInt(mJumpWay);
         values.put(RemigesContract.Jumps.JUMP_WAY, way > 1 ? way : 1);
+        values.put(RemigesContract.Jumps.JUMPTYPE_ID, mJumpTypeId);
         values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, UIUtils.parseTextViewInt(mJumpExitAltitude));
         values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, UIUtils.parseTextViewInt(mJumpDeploymentAltitude));
         values.put(RemigesContract.Jumps.JUMP_DELAY, UIUtils.parseTextViewInt(mJumpDelay));
@@ -239,25 +260,54 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(
-                getActivity(),
-                mJumpUri,
-                JumpQuery.PROJECTION,
-                null,
-                null,
-                RemigesContract.Jumps.DEFAULT_SORT
-        );
+        switch (id) {
+            case LOADER_JUMP:
+                return new CursorLoader(
+                        getActivity(),
+                        mJumpUri,
+                        JumpQuery.PROJECTION,
+                        null,
+                        null,
+                        RemigesContract.Jumps.DEFAULT_SORT
+                );
+            case LOADER_JUMPTYPES:
+                return new CursorLoader(
+                        getActivity(),
+                        RemigesContract.JumpTypes.CONTENT_URI,
+                        JumpTypeQuery.PROJECTION,
+                        null,
+                        null,
+                        RemigesContract.JumpTypes.DEFAULT_SORT
+                );
+            default:
+                return null;
+        }
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        mJumpCursor = cursor;
-        loadJump();
+        switch (cursorLoader.getId()) {
+            case LOADER_JUMP:
+                mJumpCursor = cursor;
+                loadJump();
+                break;
+            case LOADER_JUMPTYPES:
+                ((SimpleCursorAdapter)mJumpType.getAdapter()).swapCursor(cursor);
+                updateJumpTypeSpinner();
+                break;
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
-        mJumpCursor = null;
+        switch (cursorLoader.getId()) {
+            case LOADER_JUMP:
+                mJumpCursor = null;
+                break;
+            case LOADER_JUMPTYPES:
+                ((SimpleCursorAdapter)mJumpType.getAdapter()).swapCursor(null);
+                break;
+        }
     }
 
     private interface JumpQuery {
@@ -267,6 +317,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
                 RemigesContract.Jumps.JUMP_DATE,
                 RemigesContract.Jumps.JUMP_DESCRIPTION,
                 RemigesContract.Jumps.JUMP_WAY,
+                RemigesContract.Jumps.JUMPTYPE_ID,
                 RemigesContract.Jumps.JUMP_EXIT_ALTITUDE,
                 RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE,
                 RemigesContract.Jumps.JUMP_DELAY
@@ -276,9 +327,60 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         int DATE = 1;
         int DESCRIPTION = 2;
         int WAY = 3;
-        int EXIT_ALTITUDE = 4;
-        int DEPLOYMENT_ALTITUDE = 5;
-        int DELAY = 6;
+        int TYPE = 4;
+        int EXIT_ALTITUDE = 5;
+        int DEPLOYMENT_ALTITUDE = 6;
+        int DELAY = 7;
+
+    }
+
+    private interface JumpTypeQuery {
+
+        String[] PROJECTION = {
+                RemigesContract.JumpTypes.JUMPTPYE_NAME,
+                RemigesContract.JumpTypes._ID
+        };
+
+        int NAME = 0;
+        int _ID = 1;
+
+    }
+
+    public static class JumpTypeAdapter extends SimpleCursorAdapter {
+
+        private final static int[] TO = {
+                android.R.id.text1
+        };
+
+        public JumpTypeAdapter(Context context, final String[] projection) {
+            super(context, android.R.layout.simple_spinner_item, null, projection, JumpTypeAdapter.TO, 0);
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        }
+
+    }
+
+    private void updateJumpTypeSpinner() {
+        if (mJumpTypeId == null) {
+            return;
+        }
+        for (int i = 0; i < mJumpType.getCount(); i++) {
+            if (mJumpTypeId == ((Cursor) mJumpType.getItemAtPosition(i)).getLong(JumpTypeQuery._ID)) {
+                mJumpType.setSelection(i);
+                break;
+            }
+        }
+    }
+
+    public class JumpTypeOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            mJumpTypeId = id;
+            updateJumpTypeSpinner();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {}
 
     }
 

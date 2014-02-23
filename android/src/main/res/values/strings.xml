@@ -12,6 +12,9 @@
 
     <string name="menu_jump_list_insert">Log Jump</string>
 
+    <string name="list_jump_solo">Solo</string>
+    <string name="list_jump_way">%d Way</string>
+
 
     <!-- Jump Detail -->
 
@@ -37,19 +40,20 @@
 
     <string name="label_edit_jump_number">Jump Number</string>
     <string name="label_edit_jump_date">Date</string>
+    <string name="label_edit_jump_way">Way</string>
+    <string name="label_edit_jump_type">Jump Type</string>
     <string name="label_edit_jump_exit_altitude">Exit Altitude</string>
     <string name="label_edit_jump_deployment_altitude">Deployment Altitude</string>
     <string name="label_edit_jump_delay">Delay</string>
     <string name="label_edit_jump_description">Description</string>
-    <string name="label_edit_jump_way">Way</string>
 
     <string name="hint_edit_jump_number">Jump Number</string>
     <string name="hint_edit_jump_date">Date</string>
-    <string name="hint_edit_jump_description">Description</string>
     <string name="hint_edit_jump_way">Way</string>
     <string name="hint_edit_jump_exit_altitude">Exit Altitude</string>
     <string name="hint_edit_jump_deployment_altitude">Deployment Altitude</string>
     <string name="hint_edit_jump_delay">Delay (seconds)</string>
+    <string name="hint_edit_jump_description">Description</string>
 
     <string name="format_edit_jump_date">EEEE, d MMMM, yyyy</string>
 
@@ -91,6 +95,7 @@
     <string name="tools_text_jump_detail_date">Tuesday, 11 February, 2014</string>
     <string name="tools_text_jump_description">jumped out of the plane and deployed parachute some time later</string>
     <string name="tools_text_jump_way">4 way</string>
+    <string name="tools_text_jump_type">Freefly</string>
     <string name="tools_text_jump_exit_altitude">12,460</string>
     <string name="tools_text_jump_deployment_altitude">3,500</string>
     <string name="tools_text_jump_delay">59</string>

@@ -43,9 +43,19 @@
         <item name="android:layout_alignParentRight">true</item>
     </style>
 
+    <style name="ListItemJump.Way">
+        <item name="android:layout_below">@id/list_item_jump_number</item>
+    </style>
+
+    <style name="ListItemJump.Type">
+        <item name="android:layout_toRightOf">@id/list_item_jump_way</item>
+        <item name="android:layout_below">@id/list_item_jump_number</item>
+        <item name="android:paddingLeft">4dp</item>
+    </style>
+
     <style name="ListItemJump.Description">
         <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_below">@id/list_item_jump_number</item>
+        <item name="android:layout_below">@id/list_item_jump_way</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
     </style>
@@ -84,6 +94,12 @@
 
     <style name="JumpDetail.Way">
         <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_below">@id/detail_jump_number</item>
+    </style>
+
+    <style name="JumpDetail.Type">
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:layout_toRightOf">@id/detail_jump_way</item>
         <item name="android:layout_below">@id/detail_jump_number</item>
     </style>
 
@@ -163,6 +179,10 @@
         <item name="android:layout_below">@id/label_edit_jump_way</item>
     </style>
 
+    <style name="EditJump.Type">
+        <item name="android:layout_below">@id/label_edit_jump_type</item>
+    </style>
+
     <style name="EditJump.ExitAltitude">
         <item name="android:hint">@string/hint_edit_jump_exit_altitude</item>
         <item name="android:layout_below">@id/label_edit_jump_exit_altitude</item>
@@ -209,8 +229,12 @@
         <item name="android:layout_below">@id/edit_jump_date</item>
     </style>
 
-    <style name="EditJumpLabel.ExitAltitude">
+    <style name="EditJumpLabel.Type">
         <item name="android:layout_below">@id/edit_jump_way</item>
+    </style>
+
+    <style name="EditJumpLabel.ExitAltitude">
+        <item name="android:layout_below">@id/edit_jump_type</item>
     </style>
 
     <style name="EditJumpLabel.DeploymentAltitude">
