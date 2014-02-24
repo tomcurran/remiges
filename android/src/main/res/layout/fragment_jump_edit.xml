@@ -1,84 +1,92 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/EditJumpContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="org.tomcurran.remiges.ui.JumpEditFragment">
 
-    <EditText
-        android:id="@+id/edit_jump_number"
-        android:inputType="number"
-        style="@style/EditJump.Number" />
+    <RelativeLayout
+        style="@style/EditJumpContainer">
 
-    <TextView
-        android:id="@+id/edit_jump_date"
-        style="@style/EditJump.Date" />
+        <EditText
+            android:id="@+id/edit_jump_number"
+            android:inputType="number"
+            style="@style/EditJump.Number" />
 
-    <EditText
-        android:id="@+id/edit_jump_way"
-        android:inputType="number"
-        style="@style/EditJump.Way" />
+        <TextView
+            android:id="@+id/edit_jump_date"
+            style="@style/EditJump.Date" />
 
-    <EditText
-        android:id="@+id/edit_jump_exit_altitude"
-        android:inputType="number"
-        style="@style/EditJump.ExitAltitude" />
+        <EditText
+            android:id="@+id/edit_jump_way"
+            android:inputType="number"
+            style="@style/EditJump.Way" />
 
-    <EditText
-        android:id="@+id/edit_jump_deployment_altitude"
-        android:inputType="number"
-        style="@style/EditJump.DeploymentAltitude" />
+        <EditText
+            android:id="@+id/edit_jump_exit_altitude"
+            android:inputType="number"
+            style="@style/EditJump.ExitAltitude" />
 
-    <EditText
-        android:id="@+id/edit_jump_delay"
-        android:inputType="number"
-        style="@style/EditJump.Delay" />
+        <EditText
+            android:id="@+id/edit_jump_deployment_altitude"
+            android:inputType="number"
+            style="@style/EditJump.DeploymentAltitude" />
 
-    <EditText
-        android:id="@+id/edit_jump_description"
-        android:inputType="textMultiLine"
-        style="@style/EditJump.Description" />
+        <EditText
+            android:id="@+id/edit_jump_delay"
+            android:inputType="number"
+            style="@style/EditJump.Delay" />
 
-    <Spinner
-        android:id="@+id/edit_jump_type"
-        style="@style/EditJump.Type" />
+        <EditText
+            android:id="@+id/edit_jump_description"
+            android:inputType="textMultiLine"
+            style="@style/EditJump.Description" />
 
-    <TextView
-        android:id="@+id/label_edit_jump_number"
-        style="@style/EditJumpLabel.Number"
-        android:text="@string/label_edit_jump_number" />
+        <Spinner
+            android:id="@+id/edit_jump_type"
+            style="@style/EditJump.Type" />
 
-    <TextView
-        android:id="@+id/label_edit_jump_date"
-        style="@style/EditJumpLabel.Date"
-        android:text="@string/label_edit_jump_date" />
+        <TextView
+            android:id="@+id/label_edit_jump_number"
+            style="@style/EditJumpLabel.Number"
+            android:text="@string/label_edit_jump_number" />
 
-    <TextView
-        android:id="@+id/label_edit_jump_way"
-        style="@style/EditJumpLabel.Way"
-        android:text="@string/label_edit_jump_way" />
+        <TextView
+            android:id="@+id/label_edit_jump_date"
+            style="@style/EditJumpLabel.Date"
+            android:text="@string/label_edit_jump_date" />
 
-    <TextView
-        android:id="@+id/label_edit_jump_type"
-        style="@style/EditJumpLabel.Type"
-        android:text="@string/label_edit_jump_type" />
+        <TextView
+            android:id="@+id/label_edit_jump_way"
+            style="@style/EditJumpLabel.Way"
+            android:text="@string/label_edit_jump_way" />
 
-    <TextView
-        android:id="@+id/label_edit_jump_exit_altitude"
-        style="@style/EditJumpLabel.ExitAltitude"
-        android:text="@string/label_edit_jump_exit_altitude" />
+        <TextView
+            android:id="@+id/label_edit_jump_type"
+            style="@style/EditJumpLabel.Type"
+            android:text="@string/label_edit_jump_type" />
 
-    <TextView
-        android:id="@+id/label_edit_deployment_altitude"
-        style="@style/EditJumpLabel.DeploymentAltitude"
-        android:text="@string/label_edit_jump_deployment_altitude" />
+        <TextView
+            android:id="@+id/label_edit_jump_exit_altitude"
+            style="@style/EditJumpLabel.ExitAltitude"
+            android:text="@string/label_edit_jump_exit_altitude" />
 
-    <TextView
-        android:id="@+id/label_edit_jump_delay"
-        style="@style/EditJumpLabel.Delay"
-        android:text="@string/label_edit_jump_delay" />
+        <TextView
+            android:id="@+id/label_edit_deployment_altitude"
+            style="@style/EditJumpLabel.DeploymentAltitude"
+            android:text="@string/label_edit_jump_deployment_altitude" />
 
-    <TextView
-        android:id="@+id/label_edit_jump_description"
-        style="@style/EditJumpLabel.Description"
-        android:text="@string/label_edit_jump_description" />
+        <TextView
+            android:id="@+id/label_edit_jump_delay"
+            style="@style/EditJumpLabel.Delay"
+            android:text="@string/label_edit_jump_delay" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/label_edit_jump_description"
+            style="@style/EditJumpLabel.Description"
+            android:text="@string/label_edit_jump_description" />
+
+    </RelativeLayout>
+
+</ScrollView>

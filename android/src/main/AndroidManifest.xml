@@ -60,7 +60,8 @@
         <activity
             android:name="org.tomcurran.remiges.ui.JumpEditActivity"
             android:label="@string/title_jump_edit"
-            android:parentActivityName="org.tomcurran.remiges.ui.JumpDetailActivity" >
+            android:parentActivityName="org.tomcurran.remiges.ui.JumpDetailActivity"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.tomcurran.remiges.ui.JumpDetailActivity" />

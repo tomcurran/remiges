@@ -1,80 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/JumpDetailContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="org.tomcurran.remiges.ui.JumpDetailFragment">
 
-    <RelativeLayout
-        android:id="@+id/jump"
-        style="@style/JumpDetailContainerDetail">
+    <LinearLayout
+        style="@style/JumpDetailContainer">
 
-        <TextView
-            android:id="@+id/detail_jump_number"
-            style="@style/JumpDetail.Number"
-            tools:text="@string/tools_text_jump_number" />
+        <RelativeLayout
+            android:id="@+id/jump"
+            style="@style/JumpDetailContainerDetail">
 
-        <TextView
-            android:id="@+id/detail_jump_date"
-            style="@style/JumpDetail.Date"
-            tools:text="@string/tools_text_jump_detail_date" />
+            <TextView
+                android:id="@+id/detail_jump_number"
+                style="@style/JumpDetail.Number"
+                tools:text="@string/tools_text_jump_number" />
 
-        <TextView
-            android:id="@+id/detail_jump_way"
-            style="@style/JumpDetail.Way"
-            tools:text="@string/tools_text_jump_way" />
+            <TextView
+                android:id="@+id/detail_jump_date"
+                style="@style/JumpDetail.Date"
+                tools:text="@string/tools_text_jump_detail_date" />
 
-        <TextView
-            android:id="@+id/detail_jump_type"
-            style="@style/JumpDetail.Type"
-            tools:text="@string/tools_text_jump_type" />
+            <TextView
+                android:id="@+id/detail_jump_way"
+                style="@style/JumpDetail.Way"
+                tools:text="@string/tools_text_jump_way" />
 
-        <TextView
-            android:id="@+id/detail_jump_description"
-            style="@style/JumpDetail.Description"
-            tools:text="@string/tools_text_jump_description" />
+            <TextView
+                android:id="@+id/detail_jump_type"
+                style="@style/JumpDetail.Type"
+                tools:text="@string/tools_text_jump_type" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/detail_jump_description"
+                style="@style/JumpDetail.Description"
+                tools:text="@string/tools_text_jump_description" />
 
-    <RelativeLayout
-        android:id="@+id/detail_jump_profile_container"
-        style="@style/JumpDetailProfileContainer">
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/detail_jump_profile_header"
-            android:text="@string/label_detail_jump_profile_header"
-            style="@style/JumpDetailProfileHeader"/>
+        <RelativeLayout
+            android:id="@+id/detail_jump_profile_container"
+            style="@style/JumpDetailProfileContainer">
 
-        <TextView
-            android:id="@+id/label_detail_jump_exit_altitude"
-            android:text="@string/label_detail_jump_exit_altitude"
-            style="@style/JumpDetailLabel.ExitAltitude"/>
+            <TextView
+                android:id="@+id/detail_jump_profile_header"
+                android:text="@string/label_detail_jump_profile_header"
+                style="@style/JumpDetailProfileHeader"/>
 
-        <TextView
-            android:id="@+id/detail_jump_exit_altitude"
-            style="@style/JumpDetail.ExitAltitude"
-            tools:text="@string/tools_text_jump_exit_altitude" />
+            <TextView
+                android:id="@+id/label_detail_jump_exit_altitude"
+                android:text="@string/label_detail_jump_exit_altitude"
+                style="@style/JumpDetailLabel.ExitAltitude"/>
 
-        <TextView
-            android:id="@+id/label_detail_jump_deployment_altitude"
-            android:text="@string/label_detail_jump_deployment_altitude"
-            style="@style/JumpDetailLabel.DeploymentAltitude"/>
+            <TextView
+                android:id="@+id/detail_jump_exit_altitude"
+                style="@style/JumpDetail.ExitAltitude"
+                tools:text="@string/tools_text_jump_exit_altitude" />
 
-        <TextView
-            android:id="@+id/detail_jump_deployment_altitude"
-            style="@style/JumpDetail.DeploymentAltitude"
-            tools:text="@string/tools_text_jump_deployment_altitude" />
+            <TextView
+                android:id="@+id/label_detail_jump_deployment_altitude"
+                android:text="@string/label_detail_jump_deployment_altitude"
+                style="@style/JumpDetailLabel.DeploymentAltitude"/>
 
-        <TextView
-            android:id="@+id/label_detail_jump_delay"
-            android:text="@string/label_detail_jump_delay"
-            style="@style/JumpDetailLabel.Delay"/>
+            <TextView
+                android:id="@+id/detail_jump_deployment_altitude"
+                style="@style/JumpDetail.DeploymentAltitude"
+                tools:text="@string/tools_text_jump_deployment_altitude" />
 
-        <TextView
-            android:id="@+id/detail_jump_delay"
-            style="@style/JumpDetail.Delay"
-            tools:text="@string/tools_text_jump_delay" />
+            <TextView
+                android:id="@+id/label_detail_jump_delay"
+                android:text="@string/label_detail_jump_delay"
+                style="@style/JumpDetailLabel.Delay"/>
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/detail_jump_delay"
+                style="@style/JumpDetail.Delay"
+                tools:text="@string/tools_text_jump_delay" />
 
-</LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>
