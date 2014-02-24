@@ -10,21 +10,10 @@
     android:showDividers="middle"
     tools:context="org.tomcurran.remiges.ui.JumpListActivity">
 
-    <!--
-    This layout is a two-pane layout for the Jumps
-    master/detail flow. See res/values-large/refs.xml and
-    res/values-sw600dp/refs.xml for an example of layout aliases
-    that replace the single-pane version of the layout with
-    this two-pane version.
-
-    For more on layout aliases, see:
-    http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
-    -->
-
     <fragment
         android:id="@+id/jump_list"
         android:name="org.tomcurran.remiges.ui.JumpListFragment"
-        android:layout_width="0dp"
+        android:layout_width="96dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         tools:layout="@android:layout/list_content" />
