@@ -152,7 +152,9 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
         if (jumpCursor.moveToFirst()) {
             mJumpNumber.setText(jumpCursor.getString(JumpQuery.NUMBER));
             mJumpDate.setText(DateFormat.format(getString(R.string.format_detail_jump_date), jumpCursor.getLong(JumpQuery.DATE)));
-            mJumpDescription.setText(jumpCursor.getString(JumpQuery.DESCRIPTION));
+            String description = jumpCursor.getString(JumpQuery.DESCRIPTION);
+            mJumpDescription.setText(description);
+            mJumpDescription.setVisibility(description.isEmpty() ? View.GONE : View.VISIBLE);
             int way = jumpCursor.getInt(JumpQuery.WAY);
             mJumpWay.setText(way > 1 ? getString(R.string.detail_jump_way, way) : getString(R.string.detail_jump_solo));
             mJumpType.setText(jumpCursor.getString(JumpQuery.TYPE));

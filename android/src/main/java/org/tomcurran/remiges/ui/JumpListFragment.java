@@ -276,6 +276,13 @@ public class JumpListFragment extends ListFragment implements
                     }
                     return true;
                 }
+                case JumpsQuery.DESCRIPTION: {
+                    ViewHolder holder = getViewHolder(view);
+                    String description = cursor.getString(JumpsQuery.DESCRIPTION);
+                    holder.description.setText(description);
+                    holder.description.setVisibility(description.isEmpty() ? View.GONE : View.VISIBLE);
+                    return true;
+                }
                 default:
                     return false;
             }
@@ -287,6 +294,7 @@ public class JumpListFragment extends ListFragment implements
                 holder = new ViewHolder();
                 holder.date = (TextView) view.findViewById(R.id.list_item_jump_date);
                 holder.way = (TextView) view.findViewById(R.id.list_item_jump_way);
+                holder.description = (TextView) view.findViewById(R.id.list_item_jump_description);
                 view.setTag(holder);
             }
             return holder;
@@ -295,6 +303,7 @@ public class JumpListFragment extends ListFragment implements
         static class ViewHolder {
             TextView date;
             TextView way;
+            TextView description;
         }
 
     }
