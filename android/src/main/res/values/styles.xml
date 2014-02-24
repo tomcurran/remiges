@@ -1,10 +1,7 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light">
-        <!-- Customize your theme here. -->
+    <style name="RemigesTheme" parent="@android:style/Theme.DeviceDefault.Light">
     </style>
-
 
     <style name="card">
         <item name="android:layout_height">wrap_content</item>
