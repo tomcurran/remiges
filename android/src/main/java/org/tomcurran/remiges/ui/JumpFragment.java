@@ -1,38 +1,28 @@
 package org.tomcurran.remiges.ui;
 
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
+import org.tomcurran.remiges.ui.singlepane.JumpDetailActivity;
+import org.tomcurran.remiges.ui.singlepane.JumpEditActivity;
 
+import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-
-/**
- * An activity representing a list of Jumps. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link JumpDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
- * <p>
- * The activity makes heavy use of fragments. The list of items is a
- * {@link JumpListFragment} and the item details
- * (if present) is a {@link JumpDetailFragment}.
- * <p>
- * This activity also implements the required
- * {@link org.tomcurran.remiges.ui.JumpListFragment.Callbacks} interface
- * to listen for item selections.
- */
-public class JumpListActivity extends BaseActivity
-        implements JumpListFragment.Callbacks, JumpDetailFragment.Callbacks, JumpEditFragment.Callbacks {
-    private static final String TAG = makeLogTag(JumpListActivity.class);
+public class JumpFragment extends Fragment implements
+        JumpListFragment.Callbacks, JumpDetailFragment.Callbacks, JumpEditFragment.Callbacks {
+    private static final String TAG = makeLogTag(JumpFragment.class);
 
     private static final int ACTIVITY_INSERT = 0;
     private static final int ACTIVITY_VIEW = 1;
@@ -44,30 +34,37 @@ public class JumpListActivity extends BaseActivity
      */
     private boolean mTwoPane;
 
+    public JumpFragment() {
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jump_list);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_jump, container, false);
+    }
 
-        if (findViewById(R.id.jump_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-large and
-            // res/values-sw600dp). If this view is present, then the
-            // activity should be in two-pane mode.
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        FragmentActivity activity = getActivity();
+
+        if (activity.findViewById(R.id.jump_detail_container) != null) {
             mTwoPane = true;
-
-            // In two-pane mode, list items should be given the
-            // 'activated' state when touched.
-            ((JumpListFragment) getSupportFragmentManager()
+            ((JumpListFragment) activity.getSupportFragmentManager()
                     .findFragmentById(R.id.jump_list))
                     .setActivateOnItemClick(true);
         }
 
-        final Intent intent = getIntent();
+        final Intent intent = activity.getIntent();
         final String action = intent.getAction();
         final Uri uri = intent.getData();
+        LOGD(TAG, String.format("uri=%s action=%s", uri, action));
         if (uri != null) {
-            String uriType = getContentResolver().getType(uri);
+            String uriType = activity.getContentResolver().getType(uri);
+            if (action == null) {
+                unknownAction(action);
+                return;
+            }
             if (uri.equals(RemigesContract.Jumps.CONTENT_URI)) {
                 if (action.equals(Intent.ACTION_VIEW)) {
                     // normal activity behaviour is to view jumps
@@ -92,14 +89,11 @@ public class JumpListActivity extends BaseActivity
 
     private void unknownAction(String action) {
         LOGE(TAG, String.format("Unknown action (%s). Exiting", action));
-        setResult(FragmentActivity.RESULT_CANCELED);
-        finish();
+        FragmentActivity activity = getActivity();
+        activity.setResult(FragmentActivity.RESULT_CANCELED);
+        activity.finish();
     }
 
-    /**
-     * Callback method from {@link org.tomcurran.remiges.ui.JumpListFragment.Callbacks}
-     * indicating that the item with the given ID was selected.
-     */
     @Override
     public void onJumpSelected(Uri uri) {
         viewJump(uri);
@@ -130,11 +124,11 @@ public class JumpListActivity extends BaseActivity
         if (mTwoPane) {
             JumpDetailFragment fragment = new JumpDetailFragment();
             fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-            getSupportFragmentManager().beginTransaction()
+            getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.jump_detail_container, fragment)
                     .commit();
         } else {
-            intent.setClass(this, JumpDetailActivity.class);
+            intent.setClass(getActivity(), JumpDetailActivity.class);
             startActivityForResult(intent, ACTIVITY_VIEW);
         }
     }
@@ -146,11 +140,11 @@ public class JumpListActivity extends BaseActivity
         if (mTwoPane) {
             JumpEditFragment fragment = new JumpEditFragment();
             fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-            getSupportFragmentManager().beginTransaction()
+            getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.jump_detail_container, fragment)
                     .commit();
         } else {
-            intent.setClass(this, JumpEditActivity.class);
+            intent.setClass(getActivity(), JumpEditActivity.class);
             startActivityForResult(intent, ACTIVITY_EDIT);
         }
     }
@@ -162,21 +156,21 @@ public class JumpListActivity extends BaseActivity
         if (mTwoPane) {
             JumpEditFragment fragment = new JumpEditFragment();
             fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-            getSupportFragmentManager().beginTransaction()
+            getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.jump_detail_container, fragment)
                     .commit();
         } else {
-            intent.setClass(this, JumpEditActivity.class);
+            intent.setClass(getActivity(), JumpEditActivity.class);
             startActivityForResult(intent, ACTIVITY_INSERT);
         }
     }
 
     private void deleteJump() {
         if (mTwoPane) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             Fragment fragment = fragmentManager.findFragmentById(R.id.jump_detail_container);
             if (fragment != null) {
-                getSupportFragmentManager().beginTransaction()
+                fragmentManager.beginTransaction()
                         .remove(fragment)
                         .commit();
             }

@@ -23,12 +23,7 @@ import org.tomcurran.remiges.provider.RemigesContract;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-/**
- * A fragment representing a single Jump detail screen.
- * This fragment is either contained in a {@link JumpListActivity}
- * in two-pane mode (on tablets) or a {@link JumpDetailActivity}
- * on handsets.
- */
+
 public class JumpDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = makeLogTag(JumpDetailFragment.class);
 

@@ -1,5 +1,5 @@
 <resources>
 
-    <item type="layout" name="activity_jump_list">@layout/activity_jump_twopane</item>
+    <item type="layout" name="fragment_jump">@layout/fragment_jump_twopane</item>
 
 </resources>

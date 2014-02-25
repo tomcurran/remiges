@@ -8,7 +8,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="org.tomcurran.remiges.ui.JumpListActivity">
+    tools:context="org.tomcurran.remiges.ui.MainActivity">
 
     <fragment
         android:id="@+id/jump_list"
@@ -23,6 +23,6 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
-        tools:layout="@layout/fragment_jump_edit"/>
+        tools:layout="@layout/fragment_jump_detail"/>
 
 </LinearLayout>

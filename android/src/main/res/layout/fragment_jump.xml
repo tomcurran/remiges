@@ -4,5 +4,5 @@
     android:name="org.tomcurran.remiges.ui.JumpListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.JumpListActivity"
+    tools:context="org.tomcurran.remiges.ui.MainActivity"
     tools:layout="@android:layout/list_content" />

@@ -32,28 +32,13 @@ import java.text.ParseException;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-/**
- * A list fragment representing a list of Jumps. This fragment
- * also supports tablet devices by allowing list items to be given an
- * 'activated' state upon selection. This helps indicate which item is
- * currently being viewed in a {@link JumpDetailFragment}.
- * <p>
- * Activities containing this fragment MUST implement the {@link org.tomcurran.remiges.ui.JumpListFragment.Callbacks}
- * interface.
- */
+
 public class JumpListFragment extends ListFragment implements
         LoaderManager.LoaderCallbacks<Cursor>, JumpDetailFragment.Callbacks {
     private static final String TAG = makeLogTag(JumpListFragment.class);
 
-    /**
-     * The serialization (saved instance state) Bundle key representing the
-     * activated item position. Only used on tablets.
-     */
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
 
-    /**
-     * The current activated item position. Only used on tablets.
-     */
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
     private TestData mTestData;
@@ -141,9 +126,7 @@ public class JumpListFragment extends ListFragment implements
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Restore the previously serialized activated item position.
-        if (savedInstanceState != null
-                && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
         }
     }
@@ -167,8 +150,6 @@ public class JumpListFragment extends ListFragment implements
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
 
-        // Notify the active callbacks interface (the activity, if the
-        // fragment is attached to one) that an item has been selected.
         mCallbacks.onJumpSelected(RemigesContract.Jumps.buildJumpUri(id));
     }
 
@@ -176,21 +157,12 @@ public class JumpListFragment extends ListFragment implements
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (mActivatedPosition != ListView.INVALID_POSITION) {
-            // Serialize and persist the activated item position.
             outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
         }
     }
 
-    /**
-     * Turns on activate-on-click mode. When this mode is on, list items will be
-     * given the 'activated' state when touched.
-     */
     public void setActivateOnItemClick(boolean activateOnItemClick) {
-        // When setting CHOICE_MODE_SINGLE, ListView will automatically
-        // give items the 'activated' state when touched.
-        getListView().setChoiceMode(activateOnItemClick
-                ? ListView.CHOICE_MODE_SINGLE
-                : ListView.CHOICE_MODE_NONE);
+        getListView().setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
     }
 
     private void setActivatedPosition(int position) {
@@ -199,7 +171,6 @@ public class JumpListFragment extends ListFragment implements
         } else {
             getListView().setItemChecked(position, true);
         }
-
         mActivatedPosition = position;
     }
 
