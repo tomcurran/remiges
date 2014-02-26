@@ -20,13 +20,10 @@ import org.tomcurran.remiges.util.TestData;
 
 import java.text.ParseException;
 
-import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-public class MainActivity extends BaseActivity implements NavigationDrawerFragment.Callbacks,
-        JumpListFragment.Callbacks, JumpDetailFragment.Callbacks, JumpEditFragment.Callbacks,
-        JumpTypeListFragment.Callbacks {
+public class MainActivity extends BaseActivity implements NavigationDrawerFragment.Callbacks {
     private static final String TAG = makeLogTag(MainActivity.class);
 
     private static final String FRAGMENT_JUMPS = "fragment_tag_jumps";
@@ -74,57 +71,46 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        try {
+            switch (position) {
+                case SECTION_JUMPS:
+                    attachFragment(JumpFragment.class, FRAGMENT_JUMPS);
+                    mTitle = mSectionTitles[SECTION_JUMPS];
+                    mSection = SECTION_JUMPS;
+                    break;
+                case SECTION_JUMPTYPES:
+                    attachFragment(JumpTypeFragment.class, FRAGMENT_JUMPTYPES);
+                    mTitle = mSectionTitles[SECTION_JUMPTYPES];
+                    mSection = SECTION_JUMPTYPES;
+                    break;
+            }
+        } catch (IllegalAccessException e) {
+            LOGE(TAG, String.format("Fragment field or method not accessible: %s", e.getMessage()));
+        } catch (InstantiationException e) {
+            LOGE(TAG, String.format("Fragment constructor not accessible: %s", e.getMessage()));
+        }
+    }
+
+    private void attachFragment(Class<? extends Fragment> clazz, String tag) throws IllegalAccessException, InstantiationException {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.container);
-        switch (position) {
-            case SECTION_JUMPS: {
-                if (fragment != null) {
-                    fragmentManager.beginTransaction()
-                            .detach(fragment)
-                            .commit();
-                }
+        if (fragment != null) {
+            fragmentManager.beginTransaction()
+                    .detach(fragment)
+                    .commit();
+        }
 
-                fragment = fragmentManager.findFragmentByTag(FRAGMENT_JUMPS);
-                if (fragment == null) {
-                    fragment = new JumpFragment();
-                    fragment.setArguments(BaseActivity.intentToFragmentArguments(getIntent()));
-                    fragmentManager.beginTransaction()
-                            .add(R.id.container, fragment, FRAGMENT_JUMPS)
-                            .commit();
-                } else {
-                    fragmentManager.beginTransaction()
-                            .attach(fragment)
-                            .commit();
-                }
-
-                mTitle = mSectionTitles[SECTION_JUMPS];
-                mSection = SECTION_JUMPS;
-                break;
-            }
-            case SECTION_JUMPTYPES: {
-                if (fragment != null) {
-                    fragmentManager.beginTransaction()
-                            .detach(fragment)
-                            .commit();
-                }
-
-                fragment = fragmentManager.findFragmentByTag(FRAGMENT_JUMPTYPES);
-                if (fragment == null) {
-                    fragment = new JumpTypeFragment();
-                    fragment.setArguments(BaseActivity.intentToFragmentArguments(getIntent()));
-                    fragmentManager.beginTransaction()
-                            .add(R.id.container, fragment, FRAGMENT_JUMPTYPES)
-                            .commit();
-                } else {
-                    fragmentManager.beginTransaction()
-                            .attach(fragment)
-                            .commit();
-                }
-
-                mTitle = mSectionTitles[SECTION_JUMPTYPES];
-                mSection = SECTION_JUMPTYPES;
-                break;
-            }
+        fragment = fragmentManager.findFragmentByTag(tag);
+        if (fragment == null) {
+            fragment = clazz.newInstance();
+            fragment.setArguments(BaseActivity.intentToFragmentArguments(getIntent()));
+            fragmentManager.beginTransaction()
+                    .add(R.id.container, fragment, tag)
+                    .commit();
+        } else {
+            fragmentManager.beginTransaction()
+                    .attach(fragment)
+                    .commit();
         }
     }
 
@@ -176,50 +162,6 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    // pass call backs to containing fragment
-
-    @Override
-    public void onJumpSelected(Uri uri) {
-        LOGD(TAG, String.format("onJumpSelected(%s)", uri));
-        ((JumpFragment)getSupportFragmentManager().findFragmentById(R.id.container)).onJumpSelected(uri);
-    }
-
-    @Override
-    public void onInsertJump() {
-        LOGD(TAG, "onInsertJump()");
-        ((JumpFragment)getSupportFragmentManager().findFragmentById(R.id.container)).onInsertJump();
-    }
-
-    @Override
-    public void onEditJump(Uri uri) {
-        LOGD(TAG, String.format("onEditJump(%s)", uri));
-        ((JumpFragment)getSupportFragmentManager().findFragmentById(R.id.container)).onEditJump(uri);
-    }
-
-    @Override
-    public void onJumpEdited(Uri uri) {
-        LOGD(TAG, String.format("onJumpEdited(%s)", uri));
-        ((JumpFragment)getSupportFragmentManager().findFragmentById(R.id.container)).onJumpEdited(uri);
-    }
-
-    @Override
-    public void onDeleteJump(Uri uri) {
-        LOGD(TAG, String.format("onDeleteJump(%s)", uri));
-        ((JumpFragment)getSupportFragmentManager().findFragmentById(R.id.container)).onDeleteJump(uri);
-    }
-
-    @Override
-    public void onJumpTypeSelected(Uri uri) {
-        LOGD(TAG, String.format("onJumpTypeSelected(%s)", uri));
-        ((JumpTypeFragment)getSupportFragmentManager().findFragmentById(R.id.container)).onJumpTypeSelected(uri);
-    }
-
-    @Override
-    public void onInsertJumpType() {
-        LOGD(TAG, "onInsertJumpType()");
-        ((JumpTypeFragment)getSupportFragmentManager().findFragmentById(R.id.container)).onInsertJumpType();
     }
 
 }
