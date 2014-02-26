@@ -2,11 +2,9 @@ package org.tomcurran.remiges.ui;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.RemoteException;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -20,17 +18,11 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.json.JSONException;
-import org.tomcurran.remiges.BuildConfig;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
-import org.tomcurran.remiges.util.TestData;
 import org.tomcurran.remiges.util.TimeUtils;
 
-import java.text.ParseException;
-
-import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
@@ -42,7 +34,6 @@ public class JumpListFragment extends ListFragment implements
 
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
-    private TestData mTestData;
     private CursorAdapter mAdapter;
 
     public interface Callbacks {
@@ -74,44 +65,17 @@ public class JumpListFragment extends ListFragment implements
         setListAdapter(mAdapter);
 
         getLoaderManager().initLoader(0, null, this);
-
-        mTestData = new TestData(getActivity());
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.jump_list, menu);
-        if (BuildConfig.DEBUG) {
-            inflater.inflate(R.menu.debug, menu);
-        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_debug_insert_data:
-                try {
-                    mTestData.insert();
-                } catch (JSONException e) {
-                    LOGE(TAG, String.format("Test data JSON error: %s", e.getMessage()));
-                } catch (ParseException e) {
-                    LOGE(TAG, String.format("Test data JSON parse error: %s", e.getMessage()));
-                } catch (RemoteException e) {
-                    LOGE(TAG, String.format("Test data provider communication error: %s", e.getMessage()));
-                } catch (OperationApplicationException e) {
-                    LOGE(TAG, String.format("Test data insertion error: %s", e.getMessage()));
-                }
-                return true;
-            case R.id.menu_debug_delete_data:
-                try {
-                    mTestData.delete();
-                } catch (RemoteException e) {
-                    LOGE(TAG, String.format("Test data provider communication error: %s", e.getMessage()));
-                } catch (OperationApplicationException e) {
-                    LOGE(TAG, String.format("Test data deletion error: %s", e.getMessage()));
-                }
-                return true;
             case R.id.menu_jump_list_insert:
                 insertJump();
                 return true;

@@ -2,17 +2,26 @@ package org.tomcurran.remiges.ui;
 
 
 import android.app.ActionBar;
+import android.content.OperationApplicationException;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
+import android.view.MenuItem;
 
+import org.json.JSONException;
+import org.tomcurran.remiges.BuildConfig;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
+import org.tomcurran.remiges.util.TestData;
+
+import java.text.ParseException;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGD;
+import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 public class MainActivity extends BaseActivity implements NavigationDrawerFragment.Callbacks,
@@ -25,6 +34,8 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
     private static final int SECTION_JUMPS = 0;
     private static final int SECTION_JUMPTYPES = 1;
+
+    private TestData mTestData;
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
@@ -57,6 +68,8 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         }
 
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), section);
+
+        mTestData = new TestData(this);
     }
 
     @Override
@@ -126,12 +139,44 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.main, menu);
+            if (BuildConfig.DEBUG) {
+                getMenuInflater().inflate(R.menu.debug, menu);
+            }
             restoreActionBar();
             return true;
         }
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_debug_insert_data:
+                try {
+                    mTestData.insert();
+                } catch (JSONException e) {
+                    LOGE(TAG, String.format("Test data JSON error: %s", e.getMessage()));
+                } catch (ParseException e) {
+                    LOGE(TAG, String.format("Test data JSON parse error: %s", e.getMessage()));
+                } catch (RemoteException e) {
+                    LOGE(TAG, String.format("Test data provider communication error: %s", e.getMessage()));
+                } catch (OperationApplicationException e) {
+                    LOGE(TAG, String.format("Test data insertion error: %s", e.getMessage()));
+                }
+                return true;
+            case R.id.menu_debug_delete_data:
+                try {
+                    mTestData.delete();
+                } catch (RemoteException e) {
+                    LOGE(TAG, String.format("Test data provider communication error: %s", e.getMessage()));
+                } catch (OperationApplicationException e) {
+                    LOGE(TAG, String.format("Test data deletion error: %s", e.getMessage()));
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     // pass call backs to containing fragment
 
