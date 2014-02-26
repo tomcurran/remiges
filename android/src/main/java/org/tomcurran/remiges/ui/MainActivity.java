@@ -4,6 +4,8 @@ package org.tomcurran.remiges.ui;
 import android.app.ActionBar;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 
@@ -14,8 +16,12 @@ import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 public class MainActivity extends BaseActivity implements NavigationDrawerFragment.Callbacks,
-        JumpListFragment.Callbacks, JumpDetailFragment.Callbacks, JumpEditFragment.Callbacks {
+        JumpListFragment.Callbacks, JumpDetailFragment.Callbacks, JumpEditFragment.Callbacks,
+        JumpTypeListFragment.Callbacks {
     private static final String TAG = makeLogTag(MainActivity.class);
+
+    private static final String FRAGMENT_JUMPS = "fragment_tag_jumps";
+    private static final String FRAGMENT_JUMPTYPES = "fragment_tag_jumptypes";
 
     private static final int SECTION_JUMPS = 0;
     private static final int SECTION_JUMPTYPES = 1;
@@ -55,24 +61,57 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.container);
         switch (position) {
-            case SECTION_JUMPS:
-                LOGD(TAG, "jumps");
-                if (!(getSupportFragmentManager().findFragmentById(R.id.container) instanceof JumpFragment)) {
-                    JumpFragment fragment = new JumpFragment();
-                    fragment.setArguments(BaseActivity.intentToFragmentArguments(getIntent()));
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container, fragment)
+            case SECTION_JUMPS: {
+                if (fragment != null) {
+                    fragmentManager.beginTransaction()
+                            .detach(fragment)
                             .commit();
                 }
+
+                fragment = fragmentManager.findFragmentByTag(FRAGMENT_JUMPS);
+                if (fragment == null) {
+                    fragment = new JumpFragment();
+                    fragment.setArguments(BaseActivity.intentToFragmentArguments(getIntent()));
+                    fragmentManager.beginTransaction()
+                            .add(R.id.container, fragment, FRAGMENT_JUMPS)
+                            .commit();
+                } else {
+                    fragmentManager.beginTransaction()
+                            .attach(fragment)
+                            .commit();
+                }
+
                 mTitle = mSectionTitles[SECTION_JUMPS];
                 mSection = SECTION_JUMPS;
                 break;
-            case SECTION_JUMPTYPES:
-                LOGD(TAG, "jump types");
+            }
+            case SECTION_JUMPTYPES: {
+                if (fragment != null) {
+                    fragmentManager.beginTransaction()
+                            .detach(fragment)
+                            .commit();
+                }
+
+                fragment = fragmentManager.findFragmentByTag(FRAGMENT_JUMPTYPES);
+                if (fragment == null) {
+                    fragment = new JumpTypeFragment();
+                    fragment.setArguments(BaseActivity.intentToFragmentArguments(getIntent()));
+                    fragmentManager.beginTransaction()
+                            .add(R.id.container, fragment, FRAGMENT_JUMPTYPES)
+                            .commit();
+                } else {
+                    fragmentManager.beginTransaction()
+                            .attach(fragment)
+                            .commit();
+                }
+
                 mTitle = mSectionTitles[SECTION_JUMPTYPES];
                 mSection = SECTION_JUMPTYPES;
                 break;
+            }
         }
     }
 
@@ -124,6 +163,18 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     public void onDeleteJump(Uri uri) {
         LOGD(TAG, String.format("onDeleteJump(%s)", uri));
         ((JumpFragment)getSupportFragmentManager().findFragmentById(R.id.container)).onDeleteJump(uri);
+    }
+
+    @Override
+    public void onJumpTypeSelected(Uri uri) {
+        LOGD(TAG, String.format("onJumpTypeSelected(%s)", uri));
+        ((JumpTypeFragment)getSupportFragmentManager().findFragmentById(R.id.container)).onJumpTypeSelected(uri);
+    }
+
+    @Override
+    public void onInsertJumpType() {
+        LOGD(TAG, "onInsertJumpType()");
+        ((JumpTypeFragment)getSupportFragmentManager().findFragmentById(R.id.container)).onInsertJumpType();
     }
 
 }

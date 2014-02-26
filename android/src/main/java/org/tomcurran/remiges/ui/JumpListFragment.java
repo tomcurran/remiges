@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.tomcurran.remiges.BuildConfig;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
+import org.tomcurran.remiges.util.FragmentUtils;
 import org.tomcurran.remiges.util.TestData;
 import org.tomcurran.remiges.util.TimeUtils;
 
@@ -134,10 +135,10 @@ public class JumpListFragment extends ListFragment implements
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (!(activity instanceof Callbacks)) {
-            throw new IllegalStateException("Activity must implement fragment's callbacks.");
+        mCallbacks = FragmentUtils.getParent(this, Callbacks.class);
+        if (mCallbacks == null) {
+            throw new IllegalStateException("Parent must implement fragment's callbacks.");
         }
-        mCallbacks = (Callbacks) activity;
     }
 
     @Override

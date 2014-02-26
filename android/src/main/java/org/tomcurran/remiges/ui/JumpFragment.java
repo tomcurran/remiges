@@ -28,10 +28,8 @@ public class JumpFragment extends Fragment implements
     private static final int ACTIVITY_VIEW = 1;
     private static final int ACTIVITY_EDIT = 2;
 
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
+    private static final String FRAGMENT_JUMP_LIST = "fragment_tag_jump_list";
+
     private boolean mTwoPane;
 
     public JumpFragment() {
@@ -39,7 +37,21 @@ public class JumpFragment extends Fragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_jump, container, false);
+        View view = inflater.inflate(R.layout.fragment_jump, container, false);
+
+        Fragment jumpListFragment = getChildFragmentManager().findFragmentByTag(FRAGMENT_JUMP_LIST);
+        if (jumpListFragment == null) {
+            jumpListFragment = new JumpListFragment();
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.jump_list_container, jumpListFragment, FRAGMENT_JUMP_LIST)
+                    .commit();
+        }
+
+        if (view.findViewById(R.id.jump_detail_container) != null) {
+            mTwoPane = true;
+        }
+
+        return view;
     }
 
     @Override
@@ -47,13 +59,6 @@ public class JumpFragment extends Fragment implements
         super.onActivityCreated(savedInstanceState);
 
         FragmentActivity activity = getActivity();
-
-        if (activity.findViewById(R.id.jump_detail_container) != null) {
-            mTwoPane = true;
-            ((JumpListFragment) activity.getSupportFragmentManager()
-                    .findFragmentById(R.id.jump_list))
-                    .setActivateOnItemClick(true);
-        }
 
         final Intent intent = activity.getIntent();
         final String action = intent.getAction();
@@ -124,7 +129,7 @@ public class JumpFragment extends Fragment implements
         if (mTwoPane) {
             JumpDetailFragment fragment = new JumpDetailFragment();
             fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-            getActivity().getSupportFragmentManager().beginTransaction()
+            getChildFragmentManager().beginTransaction()
                     .replace(R.id.jump_detail_container, fragment)
                     .commit();
         } else {
@@ -140,7 +145,7 @@ public class JumpFragment extends Fragment implements
         if (mTwoPane) {
             JumpEditFragment fragment = new JumpEditFragment();
             fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-            getActivity().getSupportFragmentManager().beginTransaction()
+            getChildFragmentManager().beginTransaction()
                     .replace(R.id.jump_detail_container, fragment)
                     .commit();
         } else {
@@ -156,7 +161,7 @@ public class JumpFragment extends Fragment implements
         if (mTwoPane) {
             JumpEditFragment fragment = new JumpEditFragment();
             fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-            getActivity().getSupportFragmentManager().beginTransaction()
+            getChildFragmentManager().beginTransaction()
                     .replace(R.id.jump_detail_container, fragment)
                     .commit();
         } else {
@@ -167,7 +172,7 @@ public class JumpFragment extends Fragment implements
 
     private void deleteJump() {
         if (mTwoPane) {
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentManager fragmentManager = getChildFragmentManager();
             Fragment fragment = fragmentManager.findFragmentById(R.id.jump_detail_container);
             if (fragment != null) {
                 fragmentManager.beginTransaction()

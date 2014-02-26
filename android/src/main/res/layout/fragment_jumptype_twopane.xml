@@ -11,17 +11,17 @@
     tools:context="org.tomcurran.remiges.ui.MainActivity">
 
     <FrameLayout
-        android:id="@+id/jump_list_container"
+        android:id="@+id/jumptype_list_container"
         android:layout_width="96dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         tools:layout="@android:layout/list_content"/>
 
     <FrameLayout
-        android:id="@+id/jump_detail_container"
+        android:id="@+id/jumptype_detail_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
-        tools:layout="@layout/fragment_jump_detail"/>
+        tools:layout="@layout/fragment_jumptype_detail"/>
 
 </LinearLayout>

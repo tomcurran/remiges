@@ -73,6 +73,11 @@
     <string name="menu_jump_edit_delete">Delete</string>
 
 
+    <!-- Jump Tyep List -->
+
+    <string name="menu_jumptype_list_insert">Add Jump Type</string>
+
+
     <!-- Time Utility -->
 
     <string name="time_ago_today">today</string>

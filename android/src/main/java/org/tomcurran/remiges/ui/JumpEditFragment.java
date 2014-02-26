@@ -33,6 +33,7 @@ import android.widget.TextView;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.DbAdapter;
+import org.tomcurran.remiges.util.FragmentUtils;
 import org.tomcurran.remiges.util.UIUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
@@ -185,10 +186,10 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (!(activity instanceof Callbacks)) {
-            throw new IllegalStateException("Activity must implement fragment's callbacks.");
+        mCallbacks = FragmentUtils.getParent(this, Callbacks.class);
+        if (mCallbacks == null) {
+            throw new IllegalStateException("Parent must implement fragment's callbacks.");
         }
-        mCallbacks = (Callbacks) activity;
     }
 
     @Override
