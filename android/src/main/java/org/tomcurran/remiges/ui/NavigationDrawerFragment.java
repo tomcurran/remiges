@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -22,6 +23,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import org.tomcurran.remiges.R;
+import org.tomcurran.remiges.provider.RemigesContract;
+import org.tomcurran.remiges.util.FragmentUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
@@ -34,25 +37,24 @@ import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 public class NavigationDrawerFragment extends Fragment {
     private static final String TAG = makeLogTag(NavigationDrawerFragment.class);
 
-    /**
-     * Remember the position of the selected item.
-     */
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
-
-    /**
-     * Per the design guidelines, you should show the drawer on launch until the user manually
-     * expands it. This shared preference tracks this.
-     */
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
 
-    /**
-     * A pointer to the current callbacks instance (the Activity).
-     */
-    private Callbacks mCallbacks;
+    private static final int SECTION_JUMPS = 0;
+    private static final int SECTION_JUMPTYPES = 1;
 
-    /**
-     * Helper component that ties the action bar to the navigation drawer.
-     */
+    public static interface Callbacks {
+        void onNavigationDrawerItemSelected(int position);
+    }
+
+    private static Callbacks sDummyCallbacks = new Callbacks() {
+        @Override
+        public void onNavigationDrawerItemSelected(int position) {
+        }
+    };
+
+    private Callbacks mCallbacks = sDummyCallbacks;
+
     private ActionBarDrawerToggle mDrawerToggle;
 
     private DrawerLayout mDrawerLayout;
@@ -60,7 +62,7 @@ public class NavigationDrawerFragment extends Fragment {
     private View mFragmentContainerView;
     private String[] mDrawerTitles;
 
-    private int mCurrentSelectedPosition = 0;
+    private int mCurrentSelectedPosition = SECTION_JUMPS;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
@@ -70,6 +72,7 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
@@ -77,21 +80,23 @@ public class NavigationDrawerFragment extends Fragment {
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
         if (savedInstanceState == null) {
-            // TODO: apply
+            Uri uri = getActivity().getIntent().getData();
+            if (uri != null) {
+                String uriType = getActivity().getContentResolver().getType(uri);
+                if (uriType != null) {
+                    if (uriType.equals(RemigesContract.Jumps.CONTENT_TYPE) || uriType.equals(RemigesContract.Jumps.CONTENT_ITEM_TYPE)) {
+                        mCurrentSelectedPosition = SECTION_JUMPS;
+                    } else if (uriType.equals(RemigesContract.JumpTypes.CONTENT_TYPE) || uriType.equals(RemigesContract.JumpTypes.CONTENT_ITEM_TYPE)) {
+                        mCurrentSelectedPosition = SECTION_JUMPTYPES;
+                    }
+                }
+            }
         } else {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
 
-        // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
-    }
-
-    @Override
-    public void onActivityCreated (Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        // Indicate that this fragment would like to influence the set of actions in the action bar.
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -124,7 +129,7 @@ public class NavigationDrawerFragment extends Fragment {
      * @param fragmentId   The android:id of this fragment in its activity's layout.
      * @param drawerLayout The DrawerLayout containing this fragment's UI.
      */
-    public void setUp(int fragmentId, DrawerLayout drawerLayout, int section) {
+    public void setUp(int fragmentId, DrawerLayout drawerLayout) {
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
 
@@ -175,8 +180,6 @@ public class NavigationDrawerFragment extends Fragment {
             }
         };
 
-        mCurrentSelectedPosition = section;
-
         // If the user hasn't 'learned' about the drawer, open it to introduce them to the drawer,
         // per the navigation drawer design guidelines.
         if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
@@ -202,25 +205,22 @@ public class NavigationDrawerFragment extends Fragment {
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
-        if (mCallbacks != null) {
-            mCallbacks.onNavigationDrawerItemSelected(position);
-        }
+        mCallbacks.onNavigationDrawerItemSelected(position);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try {
-            mCallbacks = (Callbacks) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException("Activity must implement NavigationDrawer.Callbacks.");
+        mCallbacks = FragmentUtils.getParent(this, Callbacks.class);
+        if (mCallbacks == null) {
+            throw new IllegalStateException("Parent must implement fragment's callbacks.");
         }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mCallbacks = null;
+        mCallbacks = sDummyCallbacks;
     }
 
     @Override
@@ -272,13 +272,4 @@ public class NavigationDrawerFragment extends Fragment {
         return getActivity().getActionBar();
     }
 
-    /**
-     * Callbacks interface that all activities using this fragment must implement.
-     */
-    public static interface Callbacks {
-        /**
-         * Called when an item in the navigation drawer is selected.
-         */
-        void onNavigationDrawerItemSelected(int position);
-    }
 }

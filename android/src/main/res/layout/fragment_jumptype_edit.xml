@@ -1,0 +1,22 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.tomcurran.remiges.ui.JumpTypeEditFragment">
+
+    <RelativeLayout
+        style="@style/EditJumpContainer">
+
+        <TextView
+            android:id="@+id/label_edit_jumptype_name"
+            style="@style/EditJumpTypeLabel.Name"
+            android:text="@string/label_edit_jumptype_name" />
+
+        <EditText
+            android:id="@+id/edit_jumptype_name"
+            android:inputType="text"
+            style="@style/EditJumpType.Name" />
+
+    </RelativeLayout>
+
+</ScrollView>

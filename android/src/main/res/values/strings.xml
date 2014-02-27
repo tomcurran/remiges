@@ -3,11 +3,9 @@
 
     <string name="app_name">Remiges</string>
 
-
     <!-- Permissions -->
 
     <string name="permission_write">Modify Remiges logbook data</string>
-
 
     <!-- Navigation Drawer -->
 
@@ -15,42 +13,34 @@
         <item>Jumps</item>
         <item>Jump Types</item>
     </string-array>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
 
-
     <!-- Jump List -->
 
     <string name="menu_jump_list_insert">Log Jump</string>
-
     <string name="list_jump_solo">Solo</string>
     <string name="list_jump_way">%d Way</string>
-
 
     <!-- Jump Detail -->
 
     <string name="title_jump_detail">Jump Detail</string>
-
     <string name="detail_jump_solo">Solo</string>
     <string name="detail_jump_way">%d Way</string>
-
     <string name="label_detail_jump_profile_header">Jump Profile</string>
     <string name="label_detail_jump_exit_altitude">Exit Altitude:</string>
     <string name="label_detail_jump_deployment_altitude">Deployment Altitude:</string>
     <string name="label_detail_jump_delay">Delay:</string>
-
     <string name="format_detail_jump_date">EEEE, d MMMM, yyyy</string>
-
     <string name="menu_jump_detail_edit">Edit</string>
     <string name="menu_jump_detail_delete">Delete</string>
-
 
     <!-- Jump Edit -->
 
     <string name="title_jump_edit">Jump Edit</string>
-
     <string name="label_edit_jump_number">Jump Number</string>
     <string name="label_edit_jump_date">Date</string>
     <string name="label_edit_jump_way">Way</string>
@@ -59,7 +49,6 @@
     <string name="label_edit_jump_deployment_altitude">Deployment Altitude</string>
     <string name="label_edit_jump_delay">Delay</string>
     <string name="label_edit_jump_description">Description</string>
-
     <string name="hint_edit_jump_number">Jump Number</string>
     <string name="hint_edit_jump_date">Date</string>
     <string name="hint_edit_jump_way">Way</string>
@@ -67,20 +56,24 @@
     <string name="hint_edit_jump_deployment_altitude">Deployment Altitude</string>
     <string name="hint_edit_jump_delay">Delay (seconds)</string>
     <string name="hint_edit_jump_description">Description</string>
-
     <string name="format_edit_jump_date">EEEE, d MMMM, yyyy</string>
-
     <string name="menu_jump_edit_delete">Delete</string>
 
-
-    <!-- Jump Tyep List -->
+    <!-- Jump Type List -->
 
     <string name="menu_jumptype_list_insert">Add Jump Type</string>
 
+    <!-- Jump Type Edit -->
+
+    <string name="title_jumptype_edit">Jump Type Edit</string>
+    <string name="label_edit_jumptype_name">Jump Type</string>
+    <string name="hint_edit_jumptype_name">Jump Type</string>
+    <string name="menu_jumptype_edit_delete">Delete</string>
 
     <!-- Time Utility -->
 
     <string name="time_ago_today">today</string>
+
     <plurals name="time_ago_days">
         <item quantity="one">%d day ago</item>
         <item quantity="other">%d days ago</item>
@@ -98,13 +91,11 @@
         <item quantity="other">%d years ago</item>
     </plurals>
 
-
     <!-- Debug Menu -->
 
     <string name="menu_debug">Debug</string>
     <string name="menu_debug_insert_data">Insert Test Data</string>
     <string name="menu_debug_delete_data">Delete All Data</string>
-
 
     <!-- Layout Preview Text -->
 

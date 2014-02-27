@@ -46,12 +46,46 @@
                 <data android:mimeType="vnd.android.cursor.item/vnd.remiges.jump" />
             </intent-filter>
 
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.remiges.jumptype" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.INSERT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.remiges.jumptype" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.remiges.jumptype" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.remiges.jumptype" />
+            </intent-filter>
+
         </activity>
 
         <activity
             android:name=".ui.singlepane.JumpDetailActivity"
             android:label="@string/title_jump_detail"
             android:parentActivityName=".ui.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.tomcurran.remiges.ui.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.singlepane.JumpTypeEditActivity"
+            android:label="@string/title_jumptype_edit"
+            android:parentActivityName=".ui.MainActivity"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.tomcurran.remiges.ui.MainActivity" />

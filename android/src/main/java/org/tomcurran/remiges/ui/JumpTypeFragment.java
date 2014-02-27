@@ -6,19 +6,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
+import org.tomcurran.remiges.ui.singlepane.JumpTypeEditActivity;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-public class JumpTypeFragment extends Fragment implements JumpTypeListFragment.Callbacks {
+public class JumpTypeFragment extends Fragment implements JumpTypeListFragment.Callbacks, JumpTypeEditFragment.Callbacks {
     private static final String TAG = makeLogTag(JumpTypeFragment.class);
 
     private static final int ACTIVITY_INSERT = 0;
@@ -98,6 +99,7 @@ public class JumpTypeFragment extends Fragment implements JumpTypeListFragment.C
     @Override
     public void onJumpTypeSelected(Uri uri) {
         viewJumpType(uri);
+
     }
 
     @Override
@@ -105,20 +107,60 @@ public class JumpTypeFragment extends Fragment implements JumpTypeListFragment.C
         insertJumpType();
     }
 
+    @Override
+    public void onDeleteJumpType(Uri uri) {
+        deleteJumpType();
+    }
+
+    @Override
+    public void onJumpTypeEdited(Uri uri) {
+    }
+
     private void viewJumpType(Uri uri) {
-        Toast.makeText(getActivity(), String.format("viewJumpType(%s)", uri), Toast.LENGTH_SHORT).show();
+        editJumpType(uri);
     }
 
     private void editJumpType(Uri uri) {
-        Toast.makeText(getActivity(), String.format("editJumpType(%s)", uri), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.setData(uri);
+        intent.setAction(Intent.ACTION_EDIT);
+        if (mTwoPane) {
+            JumpTypeEditFragment fragment = new JumpTypeEditFragment();
+            fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.jumptype_detail_container, fragment)
+                    .commit();
+        } else {
+            intent.setClass(getActivity(), JumpTypeEditActivity.class);
+            startActivityForResult(intent, ACTIVITY_EDIT);
+        }
     }
 
     private void insertJumpType() {
-        Toast.makeText(getActivity(), "insertJumpType()", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.setData(RemigesContract.JumpTypes.CONTENT_URI);
+        intent.setAction(Intent.ACTION_INSERT);
+        if (mTwoPane) {
+            JumpTypeEditFragment fragment = new JumpTypeEditFragment();
+            fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.jumptype_detail_container, fragment)
+                    .commit();
+        } else {
+            intent.setClass(getActivity(), JumpTypeEditActivity.class);
+            startActivityForResult(intent, ACTIVITY_INSERT);
+        }
     }
 
     private void deleteJumpType() {
-        Toast.makeText(getActivity(), "deleteJumpType()", Toast.LENGTH_SHORT).show();
+        if (mTwoPane) {
+            FragmentManager fragmentManager = getChildFragmentManager();
+            Fragment fragment = fragmentManager.findFragmentById(R.id.jumptype_detail_container);
+            if (fragment != null) {
+                fragmentManager.beginTransaction()
+                        .remove(fragment)
+                        .commit();
+            }
+        }
     }
-
 }

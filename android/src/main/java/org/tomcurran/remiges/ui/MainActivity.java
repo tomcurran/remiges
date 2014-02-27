@@ -3,7 +3,6 @@ package org.tomcurran.remiges.ui;
 
 import android.app.ActionBar;
 import android.content.OperationApplicationException;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.app.Fragment;
@@ -15,11 +14,11 @@ import android.view.MenuItem;
 import org.json.JSONException;
 import org.tomcurran.remiges.BuildConfig;
 import org.tomcurran.remiges.R;
-import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.TestData;
 
 import java.text.ParseException;
 
+import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
@@ -50,27 +49,14 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
-
-        int section = SECTION_JUMPS;
-        Uri uri = getIntent().getData();
-        if (uri != null) {
-            String uriType = getContentResolver().getType(uri);
-            if (uriType != null) {
-                if (uriType.equals(RemigesContract.Jumps.CONTENT_TYPE) || uriType.equals(RemigesContract.Jumps.CONTENT_ITEM_TYPE)) {
-                    section = SECTION_JUMPS;
-                } else if (uriType.equals(RemigesContract.JumpTypes.CONTENT_TYPE) || uriType.equals(RemigesContract.JumpTypes.CONTENT_ITEM_TYPE)) {
-                    section = SECTION_JUMPTYPES;
-                }
-            }
-        }
-
-        mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), section);
+        mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
         mTestData = new TestData(this);
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        LOGD(TAG, String.format("onNavigationDrawerItemSelected(%d)", position));
         try {
             switch (position) {
                 case SECTION_JUMPS:
@@ -115,6 +101,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     }
 
     public void restoreActionBar() {
+        LOGD(TAG, "restoreActionBar()");
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);

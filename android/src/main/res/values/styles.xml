@@ -242,4 +242,38 @@
         <item name="android:layout_below">@id/edit_jump_deployment_altitude</item>
     </style>
 
+
+    <!-- Jump Type Edit -->
+
+    <style name="EditJumpTypeContainer">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <style name="EditJumpType">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="EditJumpType.Name">
+        <item name="android:hint">@string/hint_edit_jumptype_name</item>
+        <item name="android:layout_below">@id/label_edit_jumptype_name</item>
+    </style>
+
+    <style name="EditJumpTypeLabel">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">-8dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">#a9a9a9</item>
+    </style>
+
+    <style name="EditJumpTypeLabel.Name">
+    </style>
+
 </resources>
