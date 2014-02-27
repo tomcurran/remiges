@@ -55,6 +55,7 @@ public class JumpTypeListFragment extends ListFragment implements LoaderManager.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         mAdapter = new JumpTypeListAdapter(getActivity());
         setListAdapter(mAdapter);
         getLoaderManager().initLoader(0, null, this);
@@ -62,7 +63,6 @@ public class JumpTypeListFragment extends ListFragment implements LoaderManager.
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.jumptype_list, menu);
     }
 
