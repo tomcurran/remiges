@@ -74,7 +74,12 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
         if (savedInstanceState == null) {
             final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
             final String action = intent.getAction();
-            if (action.equals(Intent.ACTION_INSERT)) {
+            if (action == null) {
+                LOGE(TAG, "No action provided for jump type");
+                activity.setResult(FragmentActivity.RESULT_CANCELED);
+                activity.finish();
+                return;
+            } else if (action.equals(Intent.ACTION_INSERT)) {
                 mState = STATE_INSERT;
                 // TODO: incorporate values passed in ?
                 ContentValues values = new ContentValues();
@@ -99,7 +104,15 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
             mJumpTypeUri = savedInstanceState.getParcelable(SAVE_STATE_JUMPTYPE_URI);
             mState = savedInstanceState.getInt(SAVE_STATE_JUMPTYPE_STATE);
         }
-        activity.setResult(FragmentActivity.RESULT_OK, (new Intent()).setAction(mJumpTypeUri.toString()));
+
+        Intent intent = new Intent();
+        switch (mState) {
+            case STATE_INSERT: intent.setAction(Intent.ACTION_INSERT); break;
+            case STATE_EDIT:   intent.setAction(Intent.ACTION_EDIT);   break;
+        }
+        intent.setData(mJumpTypeUri);
+        activity.setResult(FragmentActivity.RESULT_OK, intent);
+
         getLoaderManager().initLoader(0, null, this);
     }
 

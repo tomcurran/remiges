@@ -21,7 +21,8 @@ import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 public class JumpFragment extends Fragment implements
-        JumpListFragment.Callbacks, JumpDetailFragment.Callbacks, JumpEditFragment.Callbacks {
+        JumpListFragment.Callbacks, JumpDetailFragment.Callbacks, JumpEditFragment.Callbacks,
+        JumpTypeEditFragment.Callbacks {
     private static final String TAG = makeLogTag(JumpFragment.class);
 
     private static final int ACTIVITY_INSERT = 0;
@@ -29,6 +30,7 @@ public class JumpFragment extends Fragment implements
     private static final int ACTIVITY_EDIT = 2;
 
     private static final String FRAGMENT_JUMP_LIST = "fragment_tag_jump_list";
+    private static final String FRAGMENT_JUMP_EDIT = "fragment_tag_jump_edit";
 
     private boolean mTwoPane;
 
@@ -120,6 +122,11 @@ public class JumpFragment extends Fragment implements
     }
 
     @Override
+    public void onAddJumpType() {
+        addJumpType();
+    }
+
+    @Override
     public void onJumpEdited(Uri uri) {
     }
 
@@ -146,7 +153,7 @@ public class JumpFragment extends Fragment implements
             JumpEditFragment fragment = new JumpEditFragment();
             fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
             getChildFragmentManager().beginTransaction()
-                    .replace(R.id.jump_detail_container, fragment)
+                    .replace(R.id.jump_detail_container, fragment, FRAGMENT_JUMP_EDIT)
                     .commit();
         } else {
             intent.setClass(getActivity(), JumpEditActivity.class);
@@ -162,7 +169,7 @@ public class JumpFragment extends Fragment implements
             JumpEditFragment fragment = new JumpEditFragment();
             fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
             getChildFragmentManager().beginTransaction()
-                    .replace(R.id.jump_detail_container, fragment)
+                    .replace(R.id.jump_detail_container, fragment, FRAGMENT_JUMP_EDIT)
                     .commit();
         } else {
             intent.setClass(getActivity(), JumpEditActivity.class);
@@ -180,6 +187,32 @@ public class JumpFragment extends Fragment implements
                         .commit();
             }
         }
+    }
+
+    private void addJumpType() {
+        Intent intent = new Intent();
+        intent.setData(RemigesContract.JumpTypes.CONTENT_URI);
+        intent.setAction(Intent.ACTION_INSERT);
+        JumpTypeEditFragment fragment = new JumpTypeEditFragment();
+        fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
+
+        FragmentManager fragmentManager = getChildFragmentManager();
+        fragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .detach(fragmentManager.findFragmentById(R.id.jump_detail_container))
+                .add(R.id.jump_detail_container, fragment)
+                .commit();
+    }
+
+    @Override
+    public void onJumpTypeEdited(Uri uri) {
+        ((JumpEditFragment) getChildFragmentManager()
+                .findFragmentByTag(FRAGMENT_JUMP_EDIT))
+                        .setJumpType(uri);
+    }
+
+    @Override
+    public void onDeleteJumpType(Uri uri) {
     }
 
 }

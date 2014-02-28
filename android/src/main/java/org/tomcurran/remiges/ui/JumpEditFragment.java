@@ -29,7 +29,6 @@ import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
@@ -87,6 +86,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     public interface Callbacks {
         public void onJumpEdited(Uri uri);
         public void onDeleteJump(Uri uri);
+        public void onAddJumpType();
     }
 
     private static Callbacks sDummyCallbacks = new Callbacks() {
@@ -95,6 +95,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         }
         @Override
         public void onDeleteJump(Uri uri) {
+        }
+        @Override
+        public void onAddJumpType() {
         }
     };
 
@@ -115,7 +118,12 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         if (savedInstanceState == null) {
             final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
             final String action = intent.getAction();
-            if (action.equals(Intent.ACTION_INSERT)) {
+            if (action == null) {
+                LOGE(TAG, "No action provided for jump");
+                activity.setResult(FragmentActivity.RESULT_CANCELED);
+                activity.finish();
+                return;
+            } else if (action.equals(Intent.ACTION_INSERT)) {
                 mState = STATE_INSERT;
                 // TODO: incorporate values passed in ?
                 mTime.setToNow();
@@ -150,7 +158,15 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             mState = savedInstanceState.getInt(SAVE_STATE_JUMP_STATE);
             mTime.set(savedInstanceState.getLong(SAVE_SATE_JUMP_TIME));
         }
-        activity.setResult(FragmentActivity.RESULT_OK, (new Intent()).setAction(mJumpUri.toString()));
+
+        Intent intent = new Intent();
+        switch (mState) {
+            case STATE_INSERT: intent.setAction(Intent.ACTION_INSERT); break;
+            case STATE_EDIT:   intent.setAction(Intent.ACTION_EDIT);   break;
+        }
+        intent.setData(mJumpUri);
+        activity.setResult(FragmentActivity.RESULT_OK, intent);
+
         getLoaderManager().initLoader(LOADER_JUMP, null, this);
     }
 
@@ -270,12 +286,13 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void addJumpType(View view) {
-        Toast.makeText(getActivity(), "Add jump tpye", Toast.LENGTH_SHORT).show();
+        mCallbacks.onAddJumpType();
     }
 
     public void setJumpType(Uri jumpTypeUri) {
         mJumpTypeId = Long.valueOf(RemigesContract.JumpTypes.getJumpTypeId(jumpTypeUri));
         updateJumpTypeSpinner();
+        updateJump();
     }
 
     @Override
