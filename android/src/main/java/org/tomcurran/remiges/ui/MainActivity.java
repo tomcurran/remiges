@@ -18,7 +18,6 @@ import org.tomcurran.remiges.util.TestData;
 
 import java.text.ParseException;
 
-import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
@@ -56,7 +55,6 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        LOGD(TAG, String.format("onNavigationDrawerItemSelected(%d)", position));
         try {
             switch (position) {
                 case SECTION_JUMPS:
@@ -101,7 +99,6 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     }
 
     public void restoreActionBar() {
-        LOGD(TAG, "restoreActionBar()");
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
@@ -148,6 +145,17 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    // API workaround. Issue https://code.google.com/p/android/issues/detail?id=40323
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+        if (fragment != null && fragment.getChildFragmentManager().getBackStackEntryCount() > 0) {
+            fragment.getChildFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
         }
     }
 

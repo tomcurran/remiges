@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="edit_label">#ffaaaaaa</color>
+    <color name="edit_add_label">#ff777777</color>
+
+</resources>

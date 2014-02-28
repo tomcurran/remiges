@@ -56,6 +56,7 @@
     <string name="hint_edit_jump_deployment_altitude">Deployment Altitude</string>
     <string name="hint_edit_jump_delay">Delay (seconds)</string>
     <string name="hint_edit_jump_description">Description</string>
+    <string name="edit_jump_add_type">Add jump type</string>
     <string name="format_edit_jump_date">EEEE, d MMMM, yyyy</string>
     <string name="menu_jump_edit_delete">Delete</string>
 

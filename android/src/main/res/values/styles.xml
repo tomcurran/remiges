@@ -200,6 +200,21 @@
         <item name="android:layout_below">@id/label_edit_jump_description</item>
     </style>
 
+    <style name="EditJumpAdd" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">-8dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textColor">@color/edit_add_label</item>
+    </style>
+
+    <style name="EditJumpAdd.Type">
+        <item name="android:layout_below">@id/edit_jump_type</item>
+    </style>
+
     <style name="EditJumpLabel">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -208,7 +223,7 @@
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">#a9a9a9</item>
+        <item name="android:textColor">@color/edit_label</item>
     </style>
 
     <style name="EditJumpLabel.Number">
@@ -231,7 +246,7 @@
     </style>
 
     <style name="EditJumpLabel.ExitAltitude">
-        <item name="android:layout_below">@id/edit_jump_type</item>
+        <item name="android:layout_below">@id/edit_jump_add_type</item>
     </style>
 
     <style name="EditJumpLabel.DeploymentAltitude">
@@ -270,7 +285,7 @@
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">#a9a9a9</item>
+        <item name="android:textColor">@color/edit_label</item>
     </style>
 
     <style name="EditJumpTypeLabel.Name">

@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
@@ -64,6 +65,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     private EditText mJumpDescription;
     private EditText mJumpWay;
     private Spinner mJumpType;
+    private TextView mJumpAddType;
     private EditText mJumpExitAltitude;
     private EditText mJumpDeploymentAltitude;
     private EditText mJumpDelay;
@@ -73,6 +75,12 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         @Override
         public void onClick(View view) {
             showDatePickerDialog(view);
+        }
+    };
+    private View.OnClickListener mAddTypeClickedListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            addJumpType(view);
         }
     };
 
@@ -121,7 +129,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
                 values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, 0);
                 values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, 0);
                 values.put(RemigesContract.Jumps.JUMP_DELAY, 0);
-                mJumpUri = activity.getContentResolver().insert(intent.getData(), values);
+                mJumpUri = activity.getContentResolver().insert(RemigesContract.Jumps.CONTENT_URI, values);
                 if (mJumpUri == null) {
                     LOGE(TAG, "Failed to insert new jump into " + intent.getData());
                     activity.setResult(FragmentActivity.RESULT_CANCELED);
@@ -155,11 +163,13 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         mJumpDescription = (EditText) rootView.findViewById(R.id.edit_jump_description);
         mJumpWay = (EditText) rootView.findViewById(R.id.edit_jump_way);
         mJumpType = (Spinner) rootView.findViewById(R.id.edit_jump_type);
+        mJumpAddType = (TextView) rootView.findViewById(R.id.edit_jump_add_type);
         mJumpExitAltitude = (EditText) rootView.findViewById(R.id.edit_jump_exit_altitude);
         mJumpDeploymentAltitude = (EditText) rootView.findViewById(R.id.edit_jump_deployment_altitude);
         mJumpDelay = (EditText) rootView.findViewById(R.id.edit_jump_delay);
 
         mJumpDate.setOnClickListener(mDateClickedListener);
+        mJumpAddType.setOnClickListener(mAddTypeClickedListener);
 
         mJumpType.setAdapter(new JumpTypeAdapter(getActivity(), JumpTypeQuery.PROJECTION));
         mJumpType.setOnItemSelectedListener(new JumpTypeOnItemSelectedListener());
@@ -257,6 +267,15 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         if (rowsDeleted > 0) {
             mCallbacks.onDeleteJump(mJumpUri);
         }
+    }
+
+    private void addJumpType(View view) {
+        Toast.makeText(getActivity(), "Add jump tpye", Toast.LENGTH_SHORT).show();
+    }
+
+    public void setJumpType(Uri jumpTypeUri) {
+        mJumpTypeId = Long.valueOf(RemigesContract.JumpTypes.getJumpTypeId(jumpTypeUri));
+        updateJumpTypeSpinner();
     }
 
     @Override

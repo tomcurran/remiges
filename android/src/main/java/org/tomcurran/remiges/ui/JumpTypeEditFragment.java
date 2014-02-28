@@ -79,7 +79,7 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
                 // TODO: incorporate values passed in ?
                 ContentValues values = new ContentValues();
                 values.put(RemigesContract.JumpTypes.JUMPTPYE_NAME, "");
-                mJumpTypeUri = activity.getContentResolver().insert(intent.getData(), values);
+                mJumpTypeUri = activity.getContentResolver().insert(RemigesContract.JumpTypes.CONTENT_URI, values);
                 if (mJumpTypeUri == null) {
                     LOGE(TAG, "Failed to insert new jump type into " + intent.getData());
                     activity.setResult(FragmentActivity.RESULT_CANCELED);
