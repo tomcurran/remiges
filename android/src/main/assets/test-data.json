@@ -4,12 +4,52 @@
     },
     "jumps" : [
         {
+            "number": 294,
+            "date": "2014-03-02T00:00:00.000Z",
+            "way": 1,
+            "typeJump": 3,
+            "exitAltitude": 3470,
+            "deploymentAltitude": 2940,
+            "delay": 5,
+            "description": ""
+        },
+        {
+            "number": 293,
+            "date": "2014-03-01T00:00:00.000Z",
+            "way": 1,
+            "typeJump": 4,
+            "exitAltitude": 5140,
+            "deploymentAltitude": 2850,
+            "delay": 22,
+            "description": "Practiced tracking on my back"
+        },
+        {
+            "number": 292,
+            "date": "2014-03-01T00:00:00.000Z",
+            "way": 1,
+            "typeJump": 4,
+            "exitAltitude": 5910,
+            "deploymentAltitude": 2240,
+            "delay": 28,
+            "description": "Used CF guys as reference"
+        },
+        {
+            "number": 291,
+            "date": "2014-03-01T00:00:00.000Z",
+            "way": 3,
+            "typeJump": 6,
+            "exitAltitude": 5760,
+            "deploymentAltitude": 5560,
+            "delay": 4,
+            "description": "Flew about Sandy & Scott"
+        },
+        {
             "number": 290,
             "date": "2014-01-19T00:00:00.000Z",
             "way": 1,
             "typeJump": 2,
             "exitAltitude": 5060,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 3330,
             "delay": 14,
             "description": ""
         },
@@ -19,7 +59,7 @@
             "way": 4,
             "typeJump": 2,
             "exitAltitude": 10800,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2770,
             "delay": 48,
             "description": "with Scott, Stuart, Oscar\nOscar FS1!"
         },
@@ -29,7 +69,7 @@
             "way": 2,
             "typeJump": 4,
             "exitAltitude": 10000,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 3540,
             "delay": 41,
             "description": "with Stuart\nRotated him over and then tracked a bit"
         },
@@ -39,7 +79,7 @@
             "way": 2,
             "typeJump": 2,
             "exitAltitude": 5200,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2630,
             "delay": 19,
             "description": "with Stuart"
         },
@@ -49,7 +89,7 @@
             "way": 3,
             "typeJump": 6,
             "exitAltitude": 3450,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 3250,
             "delay": 4,
             "description": "with Sandy & Ceaser\nCeasers storm takes a lot longer to open so he was too slow to get involved. I docked on Sandy"
         },
@@ -59,7 +99,7 @@
             "way": 2,
             "typeJump": 6,
             "exitAltitude": 3300,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 3120,
             "delay": 4,
             "description": "with Sandy\nBusted an awesome turn to set up on Sandy. He wouldn't take the dock claiming it came in too low. He popped round and docked on me. Piloted about for a bit"
         },
@@ -69,7 +109,7 @@
             "way": 4,
             "typeJump": 2,
             "exitAltitude": 9530,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2390,
             "delay": 45,
             "description": "with Sandy, Greg & Oscar"
         },
@@ -79,7 +119,7 @@
             "way": 2,
             "typeJump": 6,
             "exitAltitude": 4430,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 4220,
             "delay": 4,
             "description": "with Sandy\nDocked on Sandy. Flew about. KB flew under us in the plane. Landed uncompressed in the pit."
         },
@@ -89,7 +129,7 @@
             "way": 2,
             "typeJump": 6,
             "exitAltitude": 3910,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 3680,
             "delay": 4,
             "description": "with Sandy\nDocked on Sandy. Flew it back to DZ. Sandy wanted to land it uncompressed but I couldn't hear what he was saying"
         },
@@ -99,7 +139,7 @@
             "way": 4,
             "typeJump": 2,
             "exitAltitude": 9640,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2280,
             "delay": 45,
             "description": "with Sandy, Scott & Oscar.\nOscar flipped under on exit. I then took out Sandy trying to dock."
         },
@@ -109,7 +149,7 @@
             "way": 2,
             "typeJump": 4,
             "exitAltitude": 8440,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2830,
             "delay": 35,
             "description": "with Sandy\nSandy back tracking but very steep so I struggled to keep level"
         },
@@ -119,7 +159,7 @@
             "way": 3,
             "typeJump": 2,
             "exitAltitude": 14600,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 3030,
             "delay": 68,
             "description": "with John & Briony"
         },
@@ -129,7 +169,7 @@
             "way": 3,
             "typeJump": 6,
             "exitAltitude": 4160,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 3950,
             "delay": 4,
             "description": "flew about Sandy and briony"
         },
@@ -139,7 +179,7 @@
             "way": 4,
             "typeJump": 2,
             "exitAltitude": 9770,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2560,
             "delay": 46,
             "description": "with Sandy, Ceaser & Oscar"
         },
@@ -149,7 +189,7 @@
             "way": 3,
             "typeJump": 2,
             "exitAltitude": 9610,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 3330,
             "delay": 40,
             "description": "with Scott & Oscar\n4 point 3 way"
         },
@@ -159,7 +199,7 @@
             "way": 4,
             "typeJump": 2,
             "exitAltitude": 9400,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2330,
             "delay": 44,
             "description": "with Sandy, Scott & Marwa\nExit funnelled. Marwa broke away. No points."
         },
@@ -169,7 +209,7 @@
             "way": 3,
             "typeJump": 2,
             "exitAltitude": 9860,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2810,
             "delay": 44,
             "description": "with Sandy & Oscar\n3 point 3 way - 6 points!"
         },
@@ -179,7 +219,7 @@
             "way": 3,
             "typeJump": 2,
             "exitAltitude": 9990,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2770,
             "delay": 45,
             "description": "with Stuart & Mark"
         },
@@ -189,7 +229,7 @@
             "way": 1,
             "typeJump": 3,
             "exitAltitude": 3260,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 3050,
             "delay": 4,
             "description": ""
         },
@@ -199,7 +239,7 @@
             "way": 1,
             "typeJump": 3,
             "exitAltitude": 3320,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 3100,
             "delay": 4,
             "description": ""
         },
@@ -209,7 +249,7 @@
             "way": 4,
             "typeJump": 2,
             "exitAltitude": 9680,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2610,
             "delay": 44,
             "description": "with Sandy, Scott, Marwa\nExit OK. Last minute coach slot swap confused Marwa"
         },
@@ -229,7 +269,7 @@
             "way": 4,
             "typeJump": 2,
             "exitAltitude": 8830,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2480,
             "delay": 40,
             "description": "with Sandy, Scott, Marwa\nExit funelled"
         },
@@ -239,7 +279,7 @@
             "way": 4,
             "typeJump": 6,
             "exitAltitude": 8380,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 8010,
             "delay": 5,
             "description": "with Sandy, Scott, Angela\nSandy had little bit of a pilot chute in tow which left him out of position. I pinned Scott, Sandy on third but not much altitude left"
         },
@@ -249,7 +289,7 @@
             "way": 4,
             "typeJump": 2,
             "exitAltitude": 9740,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2370,
             "delay": 48,
             "description": "with Sandy, Scott, Marwa\nExit funnelled"
         },
@@ -279,7 +319,7 @@
             "way": 3,
             "typeJump": 2,
             "exitAltitude": 9570,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2760,
             "delay": 43,
             "description": "with Sandy & Olwyn\nOlwyns 4 point attempt. 0 points, exit funnelled"
         },
@@ -309,7 +349,7 @@
             "way": 3,
             "typeJump": 2,
             "exitAltitude": 6810,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2360,
             "delay": 31,
             "description": "with Sandy & Olwyn\nOlwyns 3 point 3 way. Sandy coaching\n4 points"
         },
@@ -319,7 +359,7 @@
             "way": 3,
             "typeJump": 2,
             "exitAltitude": 6440,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2270,
             "delay": 30,
             "description": "with Sandy & Briony"
         },
@@ -359,7 +399,7 @@
             "way": 3,
             "typeJump": 2,
             "exitAltitude": 9760,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 3280,
             "delay": 45,
             "description": "with Sandy & marwa"
         },
@@ -378,8 +418,8 @@
             "date": "2013-08-05T23:00:00.000Z",
             "way": 3,
             "typeJump": 2,
-            "exitAltitude": 6000,
-            "deploymentAltitude": 0,
+            "exitAltitude": 6080,
+            "deploymentAltitude": 3280,
             "delay": 21,
             "description": "with Stuart & Ceaser"
         },
@@ -399,7 +439,7 @@
             "way": 3,
             "typeJump": 2,
             "exitAltitude": 9590,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2670,
             "delay": 45,
             "description": "with Scott & Angela\n4 points"
         },
@@ -409,7 +449,7 @@
             "way": 3,
             "typeJump": 2,
             "exitAltitude": 10000,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2750,
             "delay": 48,
             "description": "with Billy & Angela\n3 points"
         },
@@ -419,7 +459,7 @@
             "way": 4,
             "typeJump": 2,
             "exitAltitude": 9760,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2640,
             "delay": 45,
             "description": "Briony FS1 attempt with Sandy & mike"
         },
@@ -429,7 +469,7 @@
             "way": 4,
             "typeJump": 2,
             "exitAltitude": 9950,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 2300,
             "delay": 49,
             "description": "Briony FS1 attempt with Sandy & mike"
         },
@@ -439,7 +479,7 @@
             "way": 1,
             "typeJump": 3,
             "exitAltitude": 3960,
-            "deploymentAltitude": 0,
+            "deploymentAltitude": 3330,
             "delay": 8,
             "description": ""
         },
