@@ -103,6 +103,15 @@
                 android:value="org.tomcurran.remiges.ui.JumpDetailActivity" />
         </activity>
 
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:label="@string/title_settings"
+            android:parentActivityName=".ui.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.tomcurran.remiges.ui.MainActivity" />
+        </activity>
+
         <provider
             android:name="org.tomcurran.remiges.provider.RemigesProvider"
             android:authorities="org.tomcurran.remiges"

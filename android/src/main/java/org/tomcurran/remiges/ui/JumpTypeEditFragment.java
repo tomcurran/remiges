@@ -81,9 +81,10 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
                 return;
             } else if (action.equals(Intent.ACTION_INSERT)) {
                 mState = STATE_INSERT;
-                // TODO: incorporate values passed in ?
-                ContentValues values = new ContentValues();
-                values.put(RemigesContract.JumpTypes.JUMPTPYE_NAME, "");
+                ContentValues values = getDefaultValues();
+                if (intent.getExtras() != null) {
+                    passInExtras(intent.getExtras(), values);
+                }
                 mJumpTypeUri = activity.getContentResolver().insert(RemigesContract.JumpTypes.CONTENT_URI, values);
                 if (mJumpTypeUri == null) {
                     LOGE(TAG, "Failed to insert new jump type into " + intent.getData());
@@ -168,6 +169,17 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    
+    private ContentValues getDefaultValues() {
+        ContentValues values = new ContentValues();
+        values.put(RemigesContract.JumpTypes.JUMPTPYE_NAME, "");
+        return values;
+    }
+
+    private void passInExtras(Bundle extras, ContentValues values) {
+        if (extras.containsKey(RemigesContract.JumpTypes.JUMPTPYE_NAME))
+            values.put(RemigesContract.JumpTypes.JUMPTPYE_NAME, extras.getString(RemigesContract.JumpTypes.JUMPTPYE_NAME));
     }
 
     private void loadJumpType() {

@@ -6,9 +6,11 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -58,6 +60,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     private Uri mJumpUri;
     private Cursor mJumpCursor;
     private Long mJumpTypeId;
+    private Time mTime;
 
     private EditText mJumpNumber;
     private TextView mJumpDate;
@@ -69,7 +72,6 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     private EditText mJumpDeploymentAltitude;
     private EditText mJumpDelay;
 
-    private Time mTime;
     private View.OnClickListener mDateClickedListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -125,18 +127,10 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
                 return;
             } else if (action.equals(Intent.ACTION_INSERT)) {
                 mState = STATE_INSERT;
-                // TODO: incorporate values passed in ?
-                mTime.setToNow();
-                ContentValues values = new ContentValues();
-                values.put(RemigesContract.Jumps.JUMP_NUMBER, DbAdapter.getHighestJumpNumber(getActivity()) + 1);
-                values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
-                values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, "");
-                values.put(RemigesContract.Jumps.JUMP_WAY, 1);
-                // TODO: default value for jump type
-                values.put(RemigesContract.Jumps.JUMPTYPE_ID, 0);
-                values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, 0);
-                values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, 0);
-                values.put(RemigesContract.Jumps.JUMP_DELAY, 0);
+                ContentValues values = getDefaultValues();
+                if (intent.getExtras() != null) {
+                    passInExtras(intent.getExtras(), values);
+                }
                 mJumpUri = activity.getContentResolver().insert(RemigesContract.Jumps.CONTENT_URI, values);
                 if (mJumpUri == null) {
                     LOGE(TAG, "Failed to insert new jump into " + intent.getData());
@@ -238,6 +232,41 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private ContentValues getDefaultValues() {
+        FragmentActivity activity = getActivity();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
+        mTime.setToNow();
+        ContentValues values = new ContentValues();
+        values.put(RemigesContract.Jumps.JUMP_NUMBER, DbAdapter.getHighestJumpNumber(activity) + 1);
+        values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
+        values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, "");
+        values.put(RemigesContract.Jumps.JUMP_WAY, Integer.parseInt(preferences.getString(SettingsFragment.PREFERENCE_WAY, SettingsFragment.PREFERENCE_DEFAULT_WAY)));
+        values.put(RemigesContract.Jumps.JUMPTYPE_ID, Integer.parseInt(preferences.getString(SettingsFragment.PREFERENCE_JUMPTYPE, SettingsFragment.PREFERENCE_DEFAULT_JUMPTYPE)));
+        values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, Integer.parseInt(preferences.getString(SettingsFragment.PREFERENCE_EXIT_ALTITUDE, SettingsFragment.PREFERENCE_DEFAULT_EXIT_ALTITUDE)));
+        values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, Integer.parseInt(preferences.getString(SettingsFragment.PREFERENCE_DEPLOYMENT_ALTITUDE, SettingsFragment.PREFERENCE_DEFAULT_DEPLOYMENT_ALTITUDE)));
+        values.put(RemigesContract.Jumps.JUMP_DELAY, Integer.parseInt(preferences.getString(SettingsFragment.PREFERENCE_DELAY, SettingsFragment.PREFERENCE_DEFAULT_DELAY)));
+        return values;
+    }
+
+    private void passInExtras(Bundle extras, ContentValues values) {
+        if (extras.containsKey(RemigesContract.Jumps.JUMP_NUMBER))
+            values.put(RemigesContract.Jumps.JUMP_NUMBER, extras.getInt(RemigesContract.Jumps.JUMP_NUMBER));
+        if (extras.containsKey(RemigesContract.Jumps.JUMP_DATE))
+            values.put(RemigesContract.Jumps.JUMP_DATE, extras.getLong(RemigesContract.Jumps.JUMP_DATE));
+        if (extras.containsKey(RemigesContract.Jumps.JUMP_DESCRIPTION))
+            values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, extras.getString(RemigesContract.Jumps.JUMP_DESCRIPTION));
+        if (extras.containsKey(RemigesContract.Jumps.JUMP_WAY))
+            values.put(RemigesContract.Jumps.JUMP_WAY, extras.getInt(RemigesContract.Jumps.JUMP_WAY));
+        if (extras.containsKey(RemigesContract.Jumps.JUMPTYPE_ID))
+            values.put(RemigesContract.Jumps.JUMPTYPE_ID, extras.getLong(RemigesContract.Jumps.JUMPTYPE_ID));
+        if (extras.containsKey(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE))
+            values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, extras.getInt(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE));
+        if (extras.containsKey(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE))
+            values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, extras.getInt(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE));
+        if (extras.containsKey(RemigesContract.Jumps.JUMP_DELAY))
+            values.put(RemigesContract.Jumps.JUMP_DELAY, extras.getInt(RemigesContract.Jumps.JUMP_DELAY));
     }
 
     private void loadJump() {

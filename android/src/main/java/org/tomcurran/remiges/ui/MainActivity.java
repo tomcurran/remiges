@@ -2,9 +2,11 @@ package org.tomcurran.remiges.ui;
 
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -41,6 +43,8 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         mSectionTitles = getResources().getStringArray(R.array.navigation_drawer_titles);
 
@@ -121,6 +125,9 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
             case R.id.menu_debug_insert_data:
                 try {
                     mTestData.insert();

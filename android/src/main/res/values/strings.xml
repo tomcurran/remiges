@@ -16,8 +16,7 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
-    <string name="action_settings">Settings</string>
+    <string name="menu_settings">Settings</string>
 
     <!-- Jump List -->
 
@@ -70,6 +69,16 @@
     <string name="label_edit_jumptype_name">Jump Type</string>
     <string name="hint_edit_jumptype_name">Jump Type</string>
     <string name="menu_jumptype_edit_delete">Delete</string>
+
+    <!-- Settings -->
+
+    <string name="title_settings">Settings</string>
+    <string name="preference_title_defaults">Logbook defaults</string>
+    <string name="preference_title_defaults_jumptype">Jump type</string>
+    <string name="preference_title_defaults_way">Way</string>
+    <string name="preference_title_defaults_exit_altitude">Exit altitude</string>
+    <string name="preference_title_defaults_deployment_altitude">Deployment altitude</string>
+    <string name="preference_title_defaults_delay">Delay</string>
 
     <!-- Time Utility -->
 
