@@ -31,7 +31,7 @@ public class RemigesContract {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_JUMPTYPES).build();
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.remiges.jumptype";
         public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.remiges.jumptype";
-        public static final String DEFAULT_SORT = JumpTypesColumns.JUMPTPYE_NAME + " DESC";
+        public static final String DEFAULT_SORT = JumpTypesColumns.JUMPTPYE_NAME + " ASC";
 
         public static Uri buildJumpTypeUri(String jumpTypeId) {
             return CONTENT_URI.buildUpon().appendPath(jumpTypeId).build();
