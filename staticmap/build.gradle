@@ -1,0 +1,17 @@
+apply plugin: 'android-library'
+
+android {
+    compileSdkVersion 16
+    buildToolsVersion "19.0.2"
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 16
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
