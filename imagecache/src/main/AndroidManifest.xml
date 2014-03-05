@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="edu.mit.mobile.android.imagecache">
+
+	<uses-permission android:name="android.permission.INTERNET" />
+
+	<!-- needed to make the images less ugly -->
+	<supports-screens
+        android:largeScreens="true"
+        android:anyDensity="true" />
+
+</manifest>
