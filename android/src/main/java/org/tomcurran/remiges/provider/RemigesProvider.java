@@ -12,6 +12,7 @@ import android.net.Uri;
 
 import org.tomcurran.remiges.provider.RemigesContract.JumpTypes;
 import org.tomcurran.remiges.provider.RemigesContract.Jumps;
+import org.tomcurran.remiges.provider.RemigesContract.Places;
 import org.tomcurran.remiges.provider.RemigesDatabase.Tables;
 import org.tomcurran.remiges.util.SelectionBuilder;
 
@@ -32,6 +33,9 @@ public class RemigesProvider extends ContentProvider {
     private static final int JUMPTYPES = 200;
     private static final int JUMPTYPES_ID = 201;
 
+    private static final int PLACES = 300;
+    private static final int PLACES_ID = 301;
+
     public RemigesProvider() {
     }
 
@@ -48,6 +52,9 @@ public class RemigesProvider extends ContentProvider {
 
         matcher.addURI(authority, "jumptypes", JUMPTYPES);
         matcher.addURI(authority, "jumptypes/#", JUMPTYPES_ID);
+
+        matcher.addURI(authority, "places", PLACES);
+        matcher.addURI(authority, "places/#", PLACES_ID);
 
         return matcher;
     }
@@ -71,6 +78,10 @@ public class RemigesProvider extends ContentProvider {
                 return JumpTypes.CONTENT_TYPE;
             case JUMPTYPES_ID:
                 return JumpTypes.CONTENT_ITEM_TYPE;
+            case PLACES:
+                return Places.CONTENT_TYPE;
+            case PLACES_ID:
+                return Places.CONTENT_ITEM_TYPE;
 
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -109,6 +120,11 @@ public class RemigesProvider extends ContentProvider {
                 long jumptype_id = db.insertOrThrow(Tables.JUMPTYPES, null, values);
                 notifyChange(uri);
                 return JumpTypes.buildJumpTypeUri(String.valueOf(jumptype_id));
+            }
+            case PLACES: {
+                long place_id = db.insertOrThrow(Tables.PLACES, null, values);
+                notifyChange(uri);
+                return Places.buildPlaceUri(String.valueOf(place_id));
             }
             default: {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -182,6 +198,13 @@ public class RemigesProvider extends ContentProvider {
                 final String jumpTypeId = JumpTypes.getJumpTypeId(uri);
                 return builder.table(Tables.JUMPTYPES).where(JumpTypes._ID + "=?", jumpTypeId);
             }
+            case PLACES: {
+                return builder.table(Tables.PLACES);
+            }
+            case PLACES_ID: {
+                final String placeId = Places.getPlaceId(uri);
+                return builder.table(Tables.PLACES).where(Places._ID + "=?", placeId);
+            }
             default: {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
             }
@@ -192,15 +215,17 @@ public class RemigesProvider extends ContentProvider {
         final SelectionBuilder builder = new SelectionBuilder();
         switch (match) {
             case JUMPS: {
-                return builder.table(Tables.JUMPS_JOIN_JUMPTYPES)
+                return builder.table(Tables.JUMPS_JOIN_JUMPTYPES_PLACES)
                         .mapToTable(Jumps._ID, Tables.JUMPS)
-                        .mapToTable(Jumps.JUMPTYPE_ID, Tables.JUMPTYPES);
+                        .mapToTable(Jumps.JUMPTYPE_ID, Tables.JUMPS)
+                        .mapToTable(Jumps.PLACE_ID, Tables.JUMPS);
             }
             case JUMPS_ID: {
                 final String jumpId = Jumps.getJumpId(uri);
-                return builder.table(Tables.JUMPS_JOIN_JUMPTYPES)
+                return builder.table(Tables.JUMPS_JOIN_JUMPTYPES_PLACES)
                         .mapToTable(Jumps._ID, Tables.JUMPS)
                         .mapToTable(Jumps.JUMPTYPE_ID, Tables.JUMPS)
+                        .mapToTable(Jumps.PLACE_ID, Tables.JUMPS)
                         .where(Qualified.JUMPS_JUMP_ID + "=?", jumpId);
             }
             case JUMPTYPES: {
@@ -209,6 +234,13 @@ public class RemigesProvider extends ContentProvider {
             case JUMPTYPES_ID: {
                 final String jumpTypeId = JumpTypes.getJumpTypeId(uri);
                 return builder.table(Tables.JUMPTYPES).where(JumpTypes._ID + "=?", jumpTypeId);
+            }
+            case PLACES: {
+                return builder.table(Tables.PLACES);
+            }
+            case PLACES_ID: {
+                final String placeId = Places.getPlaceId(uri);
+                return builder.table(Tables.PLACES).where(Places._ID + "=?", placeId);
             }
             default: {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

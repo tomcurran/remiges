@@ -26,14 +26,20 @@ public class RemigesDatabase extends SQLiteOpenHelper {
     interface Tables {
         String JUMPS = "jumps";
         String JUMPTYPES = "jumptypes";
+        String PLACES = "places";
 
-        String JUMPS_JOIN_JUMPTYPES = Tables.JUMPS
-                + String.format(LEFT_OUTER_JOIN, Tables.JUMPS, Jumps.JUMPTYPE_ID, Tables.JUMPTYPES, BaseColumns._ID);
-
+        String JUMPS_JOIN_JUMPTYPES_PLACES = Tables.JUMPS
+                + String.format(LEFT_OUTER_JOIN, Tables.JUMPS, Jumps.JUMPTYPE_ID, Tables.JUMPTYPES, BaseColumns._ID)
+                + String.format(LEFT_OUTER_JOIN, Tables.JUMPS, Jumps.PLACE_ID, Tables.PLACES, BaseColumns._ID);
+        String JUMPTYPES_JOIN_JUMPS = Tables.JUMPTYPES
+                + String.format(LEFT_OUTER_JOIN, Tables.JUMPTYPES, BaseColumns._ID, Tables.JUMPS, Jumps.JUMPTYPE_ID);
+        String PLACES_JOIN_JUMPS = Tables.PLACES
+                + String.format(LEFT_OUTER_JOIN, Tables.PLACES, BaseColumns._ID, Tables.JUMPS, Jumps.PLACE_ID);
     }
 
     private interface References {
-        String JUMPTYPE_ID = "REFERENCES " + Tables.JUMPTYPES + "(" + BaseColumns._ID + ")";;
+        String JUMPTYPE_ID = "REFERENCES " + Tables.JUMPTYPES + "(" + BaseColumns._ID + ")";
+        String PLACE_ID = "REFERENCES " + Tables.PLACES + "(" + BaseColumns._ID + ")";
     }
 
     public RemigesDatabase(Context context) {
@@ -42,6 +48,13 @@ public class RemigesDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + Tables.PLACES + " ("
+                + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + RemigesContract.PlaceColumns.PLACE_NAME + " TEXT NOT NULL,"
+                + RemigesContract.PlaceColumns.PLACE_LONGITUDE + " REAL,"
+                + RemigesContract.PlaceColumns.PLACE_LATITUDE + " REAL)"
+        );
+
         db.execSQL("CREATE TABLE " + Tables.JUMPTYPES + " ("
                 + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + JumpTypesColumns.JUMPTPYE_NAME + " TEXT NOT NULL)"
@@ -50,6 +63,7 @@ public class RemigesDatabase extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + Tables.JUMPS + " ("
                 + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + Jumps.JUMPTYPE_ID + " INTEGER " + References.JUMPTYPE_ID + ","
+                + Jumps.PLACE_ID + " INTEGER " + References.PLACE_ID + ","
                 + JumpsColumns.JUMP_NUMBER + " INTEGER NOT NULL,"
                 + JumpsColumns.JUMP_DATE + " INTEGER NOT NULL,"
                 + JumpsColumns.JUMP_DESCRIPTION + " TEXT,"
@@ -80,4 +94,5 @@ public class RemigesDatabase extends SQLiteOpenHelper {
             onCreate(db);
         }
     }
+
 }

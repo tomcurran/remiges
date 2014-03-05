@@ -19,12 +19,40 @@ public class RemigesContract {
         String JUMP_DELAY = "jump_delay";
     }
 
+    interface PlaceColumns {
+        String PLACE_NAME = "place_name";
+        String PLACE_LATITUDE = "place_latitude";
+        String PLACE_LONGITUDE = "place_longitude";
+    }
+
     public static final String CONTENT_AUTHORITY = "org.tomcurran.remiges";
 
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
     private static final String PATH_JUMPTYPES = "jumptypes";
     private static final String PATH_JUMPS = "jumps";
+    private static final String PATH_PLACES = "places";
+
+    public static class Places implements PlaceColumns, BaseColumns {
+
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_PLACES).build();
+        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.remiges.place";
+        public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.remiges.place";
+        public static final String DEFAULT_SORT = PlaceColumns.PLACE_NAME + " ASC";
+
+        public static Uri buildPlaceUri(String placeId) {
+            return CONTENT_URI.buildUpon().appendPath(placeId).build();
+        }
+
+        public static Uri buildPlaceUri(long placeId) {
+            return buildPlaceUri(String.valueOf(placeId));
+        }
+
+        public static String getPlaceId(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+
+    }
 
     public static class JumpTypes implements JumpTypesColumns, BaseColumns {
 
@@ -55,6 +83,7 @@ public class RemigesContract {
         public static final String DEFAULT_SORT = Jumps.JUMP_NUMBER + " DESC, " + Jumps.JUMP_DATE + " DESC";
 
         public static final String JUMPTYPE_ID = "jumptype_id";
+        public static final String PLACE_ID = "place_id";
 
         public static Uri buildJumpUri(String jumpId) {
             return CONTENT_URI.buildUpon().appendPath(jumpId).build();
