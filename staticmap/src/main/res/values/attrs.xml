@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="GoogleStaticMapView">
+        <attr name="sensor" format="boolean" />
+        <attr name="zoom" format="integer" />
+        <attr name="latitude" format="float" />
+        <attr name="longitude" format="float" />
+        <attr name="marker" format="string" />
+        <attr name="maptype" format="string" />
+    </declare-styleable>
+
+</resources>

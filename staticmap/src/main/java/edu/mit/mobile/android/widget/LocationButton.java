@@ -19,10 +19,6 @@ package edu.mit.mobile.android.widget;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -36,6 +32,11 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import edu.mit.mobile.android.staticmap.R;
 import edu.mit.mobile.android.utils.AddressUtils;
 

@@ -17,9 +17,6 @@ package edu.mit.mobile.android.maps;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -28,7 +25,10 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.net.Uri.Builder;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * <p>

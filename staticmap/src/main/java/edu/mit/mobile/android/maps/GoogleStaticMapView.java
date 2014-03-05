@@ -17,16 +17,20 @@ package edu.mit.mobile.android.maps;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-import java.util.HashMap;
-import java.util.Map;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import edu.mit.mobile.android.staticmap.R;
 
 /**
  * <p>
@@ -48,12 +52,13 @@ public class GoogleStaticMapView extends ImageView {
 
     private static final String TAG = GoogleStaticMapView.class.getSimpleName();
     private GoogleStaticMaps mStaticMapUtil;
-    // XXX move the below to an xml attribute
-    private String mMarker = "size:mid|color:red";
+
+    private String mMarker;
     private boolean mSensor;
-    private float mLongitude;
     private float mLatitude;
-    private int mZoom = 14;
+    private float mLongitude;
+    private int mZoom;
+    private String mMapType;
 
     private boolean mHasReceivedSet = false;
 
@@ -63,12 +68,31 @@ public class GoogleStaticMapView extends ImageView {
 
     public GoogleStaticMapView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        TypedArray a = context.getTheme().obtainStyledAttributes(
+                attrs,
+                R.styleable.GoogleStaticMapView,
+                0, 0);
+        try {
+            mMarker = a.getString(R.styleable.GoogleStaticMapView_marker);
+            if (mMarker == null || mMarker.equals("")) {
+                mMarker = "size:mid|color:red";
+            }
+            mMapType = a.getString(R.styleable.GoogleStaticMapView_maptype);
+            if (mMapType == null || mMapType.equals("")) {
+                mMapType = "roadmap";
+            }
+            mSensor = a.getBoolean(R.styleable.GoogleStaticMapView_sensor, false);
+            mZoom = a.getInteger(R.styleable.GoogleStaticMapView_zoom, 14);
+            mLatitude = a.getFloat(R.styleable.GoogleStaticMapView_latitude, 0);
+            mLongitude = a.getInteger(R.styleable.GoogleStaticMapView_longitude, 0);
+        } finally {
+            a.recycle();
+        }
         init(context);
     }
 
     public GoogleStaticMapView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
+        this(context, attrs, 0);
     }
 
     public GoogleStaticMapView(Context context) {
@@ -77,13 +101,10 @@ public class GoogleStaticMapView extends ImageView {
     }
 
     private void init(Context context) {
-
         final Map<String, String> mapArgs = new HashMap<String, String>();
 
-        // XXX move this to xml attributes
-
         mapArgs.put(GoogleStaticMaps.PARAMETER_ZOOM, String.valueOf(mZoom));
-        mapArgs.put(GoogleStaticMaps.PARAMETER_MAPTYPE, "terrain");
+        mapArgs.put(GoogleStaticMaps.PARAMETER_MAPTYPE, mMapType);
 
         mStaticMapUtil = new GoogleStaticMaps(context, mapArgs);
         setOnClickListener(mOnClickListener);
@@ -115,10 +136,15 @@ public class GoogleStaticMapView extends ImageView {
         mHasReceivedSet = true;
 
         updateMap();
+
+        invalidate();
+        requestLayout();
     }
 
     public void clearMap() {
         mHasReceivedSet = false;
+        invalidate();
+        requestLayout();
     }
 
     /**
@@ -131,6 +157,9 @@ public class GoogleStaticMapView extends ImageView {
             mZoom = zoom;
 
             mStaticMapUtil.setExtraArg(GoogleStaticMaps.PARAMETER_ZOOM, String.valueOf(mZoom));
+
+            invalidate();
+            requestLayout();
         }
     }
 
@@ -148,6 +177,8 @@ public class GoogleStaticMapView extends ImageView {
         super.onLayout(changed, left, top, right, bottom);
         if (changed) {
             updateMap();
+            invalidate();
+            requestLayout();
         }
     }
 
