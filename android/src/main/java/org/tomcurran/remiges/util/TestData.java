@@ -5,6 +5,7 @@ import android.content.ContentProviderOperation;
 import android.content.Context;
 import android.content.OperationApplicationException;
 import android.os.RemoteException;
+import android.util.SparseIntArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,12 +13,11 @@ import org.json.JSONObject;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.provider.RemigesContract.JumpTypes;
 import org.tomcurran.remiges.provider.RemigesContract.Jumps;
+import org.tomcurran.remiges.provider.RemigesContract.Places;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
@@ -44,8 +44,24 @@ public class TestData {
         JSONObject jsonDateFormats = json.getJSONObject("dateFormats");
         SimpleDateFormat jumpDateFormatter = new SimpleDateFormat(jsonDateFormats.getString("jump"));
 
+        // Places
+        SparseIntArray placesBackRefs = new SparseIntArray();
+        JSONArray jsonPlaces = json.getJSONArray("places");
+        for (int i = 0; i < jsonPlaces.length(); i++) {
+            JSONObject jsonPlace = jsonPlaces.getJSONObject(i);
+
+            operations.add(ContentProviderOperation
+                    .newInsert(Places.CONTENT_URI)
+                    .withValue(Places.PLACE_NAME, jsonPlace.getString("name"))
+                    .withValue(Places.PLACE_LONGITUDE, jsonPlace.getDouble("longitude"))
+                    .withValue(Places.PLACE_LATITUDE, jsonPlace.getDouble("latitude"))
+                    .build());
+
+            placesBackRefs.put(jsonPlace.getInt("id"), operations.size() - 1);
+        }
+
         // Jump Types
-        Map<Integer, Integer> jumpTypeBackRefs = new HashMap<Integer, Integer>();
+        SparseIntArray jumpTypeBackRefs = new SparseIntArray();
         JSONArray jsonJumpTypes = json.getJSONArray("jumpTypes");
         for (int i = 0; i < jsonJumpTypes.length(); i++) {
             JSONObject jsonJumpType = jsonJumpTypes.getJSONObject(i);
@@ -72,6 +88,7 @@ public class TestData {
                     .withValue(Jumps.JUMP_DEPLOYMENT_ALTITUDE, jsonJump.getInt("deploymentAltitude"))
                     .withValue(Jumps.JUMP_DELAY, jsonJump.getInt("delay"))
                     .withValueBackReference(Jumps.JUMPTYPE_ID, jumpTypeBackRefs.get(jsonJump.getInt("typeJump")))
+                    .withValueBackReference(Jumps.PLACE_ID, placesBackRefs.get(jsonJump.getInt("place")))
                     .build());
         }
 
