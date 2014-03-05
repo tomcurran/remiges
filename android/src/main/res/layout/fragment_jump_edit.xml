@@ -16,6 +16,15 @@
             android:id="@+id/edit_jump_date"
             style="@style/EditJump.Date" />
 
+        <Spinner
+            android:id="@+id/edit_jump_type"
+            style="@style/EditJump.Type" />
+
+        <TextView
+            android:id="@+id/edit_jump_add_type"
+            android:text="@string/edit_jump_add_type"
+            style="@style/EditJumpAdd.Type" />
+
         <EditText
             android:id="@+id/edit_jump_way"
             android:inputType="number"
@@ -42,13 +51,13 @@
             style="@style/EditJump.Description" />
 
         <Spinner
-            android:id="@+id/edit_jump_type"
-            style="@style/EditJump.Type" />
+            android:id="@+id/edit_jump_place"
+            style="@style/EditJump.Place" />
 
         <TextView
-            android:id="@+id/edit_jump_add_type"
-            android:text="@string/edit_jump_add_type"
-            style="@style/EditJumpAdd.Type" />
+            android:id="@+id/edit_jump_add_place"
+            android:text="@string/edit_jump_add_place"
+            style="@style/EditJumpAdd.Place" />
 
         <TextView
             android:id="@+id/label_edit_jump_number"
@@ -59,6 +68,11 @@
             android:id="@+id/label_edit_jump_date"
             style="@style/EditJumpLabel.Date"
             android:text="@string/label_edit_jump_date" />
+
+        <TextView
+            android:id="@+id/label_edit_jump_place"
+            style="@style/EditJumpLabel.Place"
+            android:text="@string/label_edit_jump_place" />
 
         <TextView
             android:id="@+id/label_edit_jump_way"

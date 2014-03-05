@@ -1,6 +1,5 @@
 package org.tomcurran.remiges.ui;
 
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,41 +9,42 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
-import org.tomcurran.remiges.ui.singlepane.JumpTypeEditActivity;
+import org.tomcurran.remiges.ui.singlepane.PlaceDetailActivity;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-public class JumpTypeFragment extends Fragment implements JumpTypeListFragment.Callbacks, JumpTypeEditFragment.Callbacks {
-    private static final String TAG = makeLogTag(JumpTypeFragment.class);
+
+public class PlaceFragment extends Fragment implements
+        PlaceListFragment.Callbacks, PlaceDetailFragment.Callbacks {
+    private static final String TAG = makeLogTag(PlaceFragment.class);
 
     private static final int ACTIVITY_INSERT = 0;
     private static final int ACTIVITY_VIEW = 1;
     private static final int ACTIVITY_EDIT = 2;
 
-    private static final String FRAGMENT_JUMPTYPE_LIST = "fragment_tag_jumptype_list";
+    private static final String FRAGMENT_PLACE_LIST = "fragment_tag_place_list";
 
     private boolean mTwoPane;
 
-    public JumpTypeFragment() {
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_jumptype, container, false);
+        View view = inflater.inflate(R.layout.fragment_place, container, false);
 
-        if (getChildFragmentManager().findFragmentByTag(FRAGMENT_JUMPTYPE_LIST) == null) {
-            JumpTypeListFragment jumpTypeListFragment = new JumpTypeListFragment();
+        Fragment placeListFragment = getChildFragmentManager().findFragmentByTag(FRAGMENT_PLACE_LIST);
+        if (placeListFragment == null) {
+            placeListFragment = new PlaceListFragment();
             getChildFragmentManager().beginTransaction()
-                    .replace(R.id.jumptype_list_container, jumpTypeListFragment, FRAGMENT_JUMPTYPE_LIST)
+                    .replace(R.id.place_list_container, placeListFragment, FRAGMENT_PLACE_LIST)
                     .commit();
         }
 
-        if (view.findViewById(R.id.jumptype_detail_container) != null) {
+        if (view.findViewById(R.id.place_detail_container) != null) {
             mTwoPane = true;
         }
 
@@ -67,20 +67,20 @@ public class JumpTypeFragment extends Fragment implements JumpTypeListFragment.C
                 unknownAction(action);
                 return;
             }
-            if (uri.equals(RemigesContract.JumpTypes.CONTENT_URI)) {
+            if (uri.equals(RemigesContract.Places.CONTENT_URI)) {
                 if (action.equals(Intent.ACTION_VIEW)) {
-                    // normal activity behaviour is to view jump type
+                    // normal activity behaviour is to view jumps
                 } else if (action.equals(Intent.ACTION_INSERT)) {
-                    insertJumpType();
+                    insertPlace();
                 } else {
                     unknownAction(action);
                     return;
                 }
-            } else if (uriType.equals(RemigesContract.JumpTypes.CONTENT_ITEM_TYPE)) {
+            } else if (uriType.equals(RemigesContract.Places.CONTENT_ITEM_TYPE)) {
                 if (action.equals(Intent.ACTION_VIEW)) {
-                    viewJumpType(uri);
+                    viewPlace(uri);
                 } else if (action.equals(Intent.ACTION_EDIT)) {
-                    editJumpType(uri);
+                    editPlace(uri);
                 } else {
                     unknownAction(action);
                     return;
@@ -97,65 +97,53 @@ public class JumpTypeFragment extends Fragment implements JumpTypeListFragment.C
     }
 
     @Override
-    public void onJumpTypeSelected(Uri uri) {
-        viewJumpType(uri);
-
+    public void onPlaceSelected(Uri uri) {
+        viewPlace(uri);
     }
 
     @Override
-    public void onInsertJumpType() {
-        insertJumpType();
+    public void onInsertPlace() {
+        insertPlace();
     }
 
     @Override
-    public void onDeleteJumpType(String jumpTypeId) {
-        deleteJumpType();
+    public void onEditPlace(Uri uri) {
+        editPlace(uri);
     }
 
     @Override
-    public void onJumpTypeEdited(String jumpTypeId) {
+    public void onDeletePlace(Uri uri) {
+        deletePlace();
     }
 
-    private void viewJumpType(Uri uri) {
-        editJumpType(uri);
-    }
-
-    private void editJumpType(Uri uri) {
+    private void viewPlace(Uri uri) {
         Intent intent = new Intent();
         intent.setData(uri);
-        intent.setAction(Intent.ACTION_EDIT);
         if (mTwoPane) {
-            JumpTypeEditFragment fragment = new JumpTypeEditFragment();
+            PlaceDetailFragment fragment = new PlaceDetailFragment();
             fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
             getChildFragmentManager().beginTransaction()
-                    .replace(R.id.jumptype_detail_container, fragment)
+                    .replace(R.id.place_detail_container, fragment)
                     .commit();
         } else {
-            intent.setClass(getActivity(), JumpTypeEditActivity.class);
-            startActivityForResult(intent, ACTIVITY_EDIT);
+            intent.setClass(getActivity(), PlaceDetailActivity.class);
+            startActivityForResult(intent, ACTIVITY_VIEW);
         }
     }
 
-    private void insertJumpType() {
-        Intent intent = new Intent();
-        intent.setData(RemigesContract.JumpTypes.CONTENT_URI);
-        intent.setAction(Intent.ACTION_INSERT);
-        if (mTwoPane) {
-            JumpTypeEditFragment fragment = new JumpTypeEditFragment();
-            fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-            getChildFragmentManager().beginTransaction()
-                    .replace(R.id.jumptype_detail_container, fragment)
-                    .commit();
-        } else {
-            intent.setClass(getActivity(), JumpTypeEditActivity.class);
-            startActivityForResult(intent, ACTIVITY_INSERT);
-        }
+    private void editPlace(Uri uri) {
+        Toast.makeText(getActivity(), String.format("editPlace(%s)", uri), Toast.LENGTH_SHORT).show();
     }
 
-    private void deleteJumpType() {
+    private void insertPlace() {
+        Toast.makeText(getActivity(), "insertPlace()", Toast.LENGTH_SHORT).show();
+    }
+
+    private void deletePlace() {
+        Toast.makeText(getActivity(), "deletePlace()", Toast.LENGTH_SHORT).show();
         if (mTwoPane) {
             FragmentManager fragmentManager = getChildFragmentManager();
-            Fragment fragment = fragmentManager.findFragmentById(R.id.jumptype_detail_container);
+            Fragment fragment = fragmentManager.findFragmentById(R.id.place_detail_container);
             if (fragment != null) {
                 fragmentManager.beginTransaction()
                         .remove(fragment)
@@ -163,4 +151,5 @@ public class JumpTypeFragment extends Fragment implements JumpTypeListFragment.C
             }
         }
     }
+
 }

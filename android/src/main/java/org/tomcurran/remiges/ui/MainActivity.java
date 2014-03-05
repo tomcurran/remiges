@@ -27,10 +27,8 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     private static final String TAG = makeLogTag(MainActivity.class);
 
     private static final String FRAGMENT_JUMPS = "fragment_tag_jumps";
+    private static final String FRAGMENT_PLACES = "fragment_tag_places";
     private static final String FRAGMENT_JUMPTYPES = "fragment_tag_jumptypes";
-
-    private static final int SECTION_JUMPS = 0;
-    private static final int SECTION_JUMPTYPES = 1;
 
     private TestData mTestData;
 
@@ -61,15 +59,20 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     public void onNavigationDrawerItemSelected(int position) {
         try {
             switch (position) {
-                case SECTION_JUMPS:
+                case NavigationDrawerFragment.SECTION_JUMPS:
                     attachFragment(JumpFragment.class, FRAGMENT_JUMPS);
-                    mTitle = mSectionTitles[SECTION_JUMPS];
-                    mSection = SECTION_JUMPS;
+                    mTitle = mSectionTitles[NavigationDrawerFragment.SECTION_JUMPS];
+                    mSection = NavigationDrawerFragment.SECTION_JUMPS;
                     break;
-                case SECTION_JUMPTYPES:
+                case NavigationDrawerFragment.SECTION_PLACES:
+                    attachFragment(PlaceFragment.class, FRAGMENT_PLACES);
+                    mTitle = mSectionTitles[NavigationDrawerFragment.SECTION_PLACES];
+                    mSection = NavigationDrawerFragment.SECTION_PLACES;
+                    break;
+                case NavigationDrawerFragment.SECTION_JUMPTYPES:
                     attachFragment(JumpTypeFragment.class, FRAGMENT_JUMPTYPES);
-                    mTitle = mSectionTitles[SECTION_JUMPTYPES];
-                    mSection = SECTION_JUMPTYPES;
+                    mTitle = mSectionTitles[NavigationDrawerFragment.SECTION_JUMPTYPES];
+                    mSection = NavigationDrawerFragment.SECTION_JUMPTYPES;
                     break;
             }
         } catch (IllegalAccessException e) {

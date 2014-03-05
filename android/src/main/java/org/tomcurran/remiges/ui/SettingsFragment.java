@@ -14,30 +14,37 @@ import org.tomcurran.remiges.provider.RemigesContract;
 
 public class SettingsFragment extends PreferenceFragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    public static final String PREFERENCE_PLACE = "preference_key_default_place";
     public static final String PREFERENCE_JUMPTYPE = "preference_key_default_jumptype";
     public static final String PREFERENCE_WAY = "preference_key_default_way";
     public static final String PREFERENCE_EXIT_ALTITUDE = "preference_key_default_exit_altitude";
     public static final String PREFERENCE_DEPLOYMENT_ALTITUDE = "preference_key_default_deployment_altitude";
     public static final String PREFERENCE_DELAY = "preference_key_default_delay";
 
+    public static final String PREFERENCE_DEFAULT_PLACE = "0";
     public static final String PREFERENCE_DEFAULT_JUMPTYPE = "0";
     public static final String PREFERENCE_DEFAULT_WAY = "1";
     public static final String PREFERENCE_DEFAULT_EXIT_ALTITUDE = "0";
     public static final String PREFERENCE_DEFAULT_DEPLOYMENT_ALTITUDE = "0";
     public static final String PREFERENCE_DEFAULT_DELAY = "0";
 
-    private static final int LOADER_JUMPTYPE = 0;
+    private static final int LOADER_PLACE = 0;
+    private static final int LOADER_JUMPTYPE = 1;
 
-    private ListPreference mJumpType;
+    private ListPreference mJumpTypePreference;
     private Cursor mJumpTypeCursor;
     private ListPreferenceAdapter mJumpTypeAdapter;
+
+    private ListPreference mPlacePreference;
+    private Cursor mPlaceCursor;
+    private ListPreferenceAdapter mPlaceAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
 
-        mJumpType = (ListPreference) findPreference(PREFERENCE_JUMPTYPE);
+        mJumpTypePreference = (ListPreference) findPreference(PREFERENCE_JUMPTYPE);
         mJumpTypeAdapter = new ListPreferenceAdapter() {
             @Override
             public CharSequence getEntry(Cursor data) {
@@ -49,18 +56,40 @@ public class SettingsFragment extends PreferenceFragment implements LoaderManage
             }
         };
 
+        mPlacePreference = (ListPreference) findPreference(PREFERENCE_PLACE);
+        mPlaceAdapter = new ListPreferenceAdapter() {
+            @Override
+            public CharSequence getEntry(Cursor data) {
+                return data.getString(PlaceQuery.NAME);
+            }
+            @Override
+            public CharSequence getEntryValue(Cursor data) {
+                return data.getString(PlaceQuery._ID);
+            }
+        };
+
         SettingsActivity.bindPreferenceSummaryToValue(findPreference(PREFERENCE_WAY));
         SettingsActivity.bindPreferenceSummaryToValue(findPreference(PREFERENCE_EXIT_ALTITUDE));
         SettingsActivity.bindPreferenceSummaryToValue(findPreference(PREFERENCE_DEPLOYMENT_ALTITUDE));
         SettingsActivity.bindPreferenceSummaryToValue(findPreference(PREFERENCE_DELAY));
 
         LoaderManager loaderManager = getActivity().getLoaderManager();
+        loaderManager.initLoader(LOADER_PLACE, null, this);
         loaderManager.initLoader(LOADER_JUMPTYPE, null, this);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
+            case LOADER_PLACE:
+                return new CursorLoader(
+                        getActivity(),
+                        RemigesContract.Places.CONTENT_URI,
+                        PlaceQuery.PROJECTION,
+                        null,
+                        null,
+                        RemigesContract.Places.DEFAULT_SORT
+                );
             case LOADER_JUMPTYPE:
                 return new CursorLoader(
                         getActivity(),
@@ -78,9 +107,13 @@ public class SettingsFragment extends PreferenceFragment implements LoaderManage
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         switch (loader.getId()) {
+            case LOADER_PLACE:
+                mPlaceCursor = data;
+                loadCursor(mPlacePreference, mPlaceCursor, mPlaceAdapter);
+                break;
             case LOADER_JUMPTYPE:
                 mJumpTypeCursor = data;
-                loadCursor(mJumpType, mJumpTypeCursor, mJumpTypeAdapter);
+                loadCursor(mJumpTypePreference, mJumpTypeCursor, mJumpTypeAdapter);
                 break;
         }
     }
@@ -88,10 +121,25 @@ public class SettingsFragment extends PreferenceFragment implements LoaderManage
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         switch (loader.getId()) {
+            case LOADER_PLACE:
+                mPlaceCursor = null;
+                break;
             case LOADER_JUMPTYPE:
                 mJumpTypeCursor = null;
                 break;
         }
+    }
+
+    private interface PlaceQuery {
+
+        String[] PROJECTION = {
+                RemigesContract.Places.PLACE_NAME,
+                RemigesContract.Places._ID
+        };
+
+        int NAME = 0;
+        int _ID = 1;
+
     }
 
     private interface JumpTypeQuery {
@@ -128,7 +176,7 @@ public class SettingsFragment extends PreferenceFragment implements LoaderManage
         list.setEntryValues(entryValues);
 
         if (list.getOnPreferenceChangeListener() == null) {
-            SettingsActivity.bindPreferenceSummaryToValue(mJumpType);
+            SettingsActivity.bindPreferenceSummaryToValue(list);
         }
     }
 

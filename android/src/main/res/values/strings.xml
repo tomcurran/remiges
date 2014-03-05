@@ -11,6 +11,7 @@
 
     <string-array name="navigation_drawer_titles">
         <item>Jumps</item>
+        <item>Places</item>
         <item>Jump Types</item>
     </string-array>
 
@@ -42,6 +43,7 @@
     <string name="title_jump_edit">Jump Edit</string>
     <string name="label_edit_jump_number">Jump Number</string>
     <string name="label_edit_jump_date">Date</string>
+    <string name="label_edit_jump_place">Place</string>
     <string name="label_edit_jump_way">Way</string>
     <string name="label_edit_jump_type">Jump Type</string>
     <string name="label_edit_jump_exit_altitude">Exit Altitude</string>
@@ -55,9 +57,20 @@
     <string name="hint_edit_jump_deployment_altitude">Deployment Altitude</string>
     <string name="hint_edit_jump_delay">Delay (seconds)</string>
     <string name="hint_edit_jump_description">Description</string>
+    <string name="edit_jump_add_place">Add place</string>
     <string name="edit_jump_add_type">Add jump type</string>
     <string name="format_edit_jump_date">EEEE, d MMMM, yyyy</string>
     <string name="menu_jump_edit_delete">Delete</string>
+
+    <!-- Place List -->
+
+    <string name="menu_place_list_insert">Add Place</string>
+
+    <!-- Place Detail -->
+
+    <string name="title_place_detail">Place Detail</string>
+    <string name="menu_place_detail_edit">Edit</string>
+    <string name="menu_place_detail_delete">Delete</string>
 
     <!-- Jump Type List -->
 
@@ -74,6 +87,7 @@
 
     <string name="title_settings">Settings</string>
     <string name="preference_title_defaults">Logbook defaults</string>
+    <string name="preference_title_defaults_place">Place</string>
     <string name="preference_title_defaults_jumptype">Jump type</string>
     <string name="preference_title_defaults_way">Way</string>
     <string name="preference_title_defaults_exit_altitude">Exit altitude</string>
@@ -118,5 +132,8 @@
     <string name="tools_text_jump_exit_altitude">12,460</string>
     <string name="tools_text_jump_deployment_altitude">3,500</string>
     <string name="tools_text_jump_delay">59</string>
+    <string name="tools_text_place_name">Strathallan</string>
+    <string name="tools_text_place_longitude">-3.750835</string>
+    <string name="tools_text_place_latitude">56.326013</string>
 
 </resources>

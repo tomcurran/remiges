@@ -171,6 +171,10 @@
         <item name="android:paddingLeft">12dp</item>
     </style>
 
+    <style name="EditJump.Place">
+        <item name="android:layout_below">@id/label_edit_jump_place</item>
+    </style>
+
     <style name="EditJump.Way">
         <item name="android:hint">@string/hint_edit_jump_way</item>
         <item name="android:layout_below">@id/label_edit_jump_way</item>
@@ -215,6 +219,10 @@
         <item name="android:layout_below">@id/edit_jump_type</item>
     </style>
 
+    <style name="EditJumpAdd.Place">
+        <item name="android:layout_below">@id/edit_jump_place</item>
+    </style>
+
     <style name="EditJumpLabel">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -237,8 +245,12 @@
         <item name="android:layout_below">@id/edit_jump_delay</item>
     </style>
 
-    <style name="EditJumpLabel.Way">
+    <style name="EditJumpLabel.Place">
         <item name="android:layout_below">@id/edit_jump_date</item>
+    </style>
+
+    <style name="EditJumpLabel.Way">
+        <item name="android:layout_below">@id/edit_jump_add_place</item>
     </style>
 
     <style name="EditJumpLabel.Type">
@@ -257,6 +269,37 @@
         <item name="android:layout_below">@id/edit_jump_deployment_altitude</item>
     </style>
 
+    <!-- Place Detail -->
+
+    <style name="PlaceDetailContainer" parent="card">
+    </style>
+
+    <style name="PlaceDetail">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="PlaceDetail.Name">
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+
+    <style name="PlaceDetail.Latitude">
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_below">@id/detail_place_name</item>
+    </style>
+
+    <style name="PlaceDetail.Longitude">
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_below">@id/detail_place_latitude</item>
+    </style>
+
+    <style name="PlaceDetail.StaticMap">
+        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_below">@id/detail_place_longitude</item>
+    </style>
 
     <!-- Jump Type Edit -->
 

@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
@@ -122,12 +123,27 @@ public class JumpFragment extends Fragment implements
     }
 
     @Override
+    public void onJumpEdited(Uri uri) {
+    }
+
+    @Override
+    public void onAddPlace() {
+        addPlace();
+    }
+
+    @Override
     public void onAddJumpType() {
         addJumpType();
     }
 
     @Override
-    public void onJumpEdited(Uri uri) {
+    public void onJumpTypeEdited(String jumpTypeId) {
+        ((JumpEditFragment) getChildFragmentManager().findFragmentByTag(FRAGMENT_JUMP_EDIT))
+                .setJumpType(jumpTypeId);
+    }
+
+    @Override
+    public void onDeleteJumpType(String jumpTypeId) {
     }
 
     private void viewJump(Uri uri) {
@@ -204,15 +220,8 @@ public class JumpFragment extends Fragment implements
                 .commit();
     }
 
-    @Override
-    public void onJumpTypeEdited(Uri uri) {
-        ((JumpEditFragment) getChildFragmentManager()
-                .findFragmentByTag(FRAGMENT_JUMP_EDIT))
-                        .setJumpType(uri);
-    }
-
-    @Override
-    public void onDeleteJumpType(Uri uri) {
+    private void addPlace() {
+        Toast.makeText(getActivity(), "add place", Toast.LENGTH_SHORT).show();
     }
 
 }

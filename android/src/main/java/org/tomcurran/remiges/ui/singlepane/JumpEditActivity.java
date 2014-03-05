@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
 
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.ui.JumpEditFragment;
@@ -13,7 +14,8 @@ import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 public class JumpEditActivity extends SimpleSinglePaneActivity implements JumpEditFragment.Callbacks {
     private static final String TAG = makeLogTag(JumpEditActivity.class);
 
-    private static final int ACTIVITY_JUMPTYPE = 0;
+    private static final int ACTIVITY_PLACE = 0;
+    private static final int ACTIVITY_JUMPTYPE = 1;
 
     @Override
     protected Fragment onCreatePane() {
@@ -31,6 +33,11 @@ public class JumpEditActivity extends SimpleSinglePaneActivity implements JumpEd
     }
 
     @Override
+    public void onAddPlace() {
+        Toast.makeText(this, "add place", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onAddJumpType() {
         Intent intent = new Intent();
         intent.setData(RemigesContract.JumpTypes.CONTENT_URI);
@@ -45,7 +52,7 @@ public class JumpEditActivity extends SimpleSinglePaneActivity implements JumpEd
             if (resultCode == FragmentActivity.RESULT_OK) {
                 if (data.getAction().equals(Intent.ACTION_INSERT)) {
                     JumpEditFragment fragment = (JumpEditFragment) getFragment();
-                    fragment.setJumpType(data.getData());
+                    fragment.setJumpType(RemigesContract.JumpTypes.getJumpTypeId(data.getData()));
                 }
             }
         }

@@ -6,6 +6,12 @@
         android:title="@string/preference_title_defaults">
 
         <ListPreference
+            android:key="preference_key_default_place"
+            android:title="@string/preference_title_defaults_place"
+            android:dialogTitle="@string/preference_title_defaults_place"
+            android:defaultValue="0" />
+
+        <ListPreference
             android:key="preference_key_default_jumptype"
             android:title="@string/preference_title_defaults_jumptype"
             android:dialogTitle="@string/preference_title_defaults_jumptype"

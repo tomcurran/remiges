@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.tomcurran.remiges.ui.PlaceDetailFragment">
+
+    <RelativeLayout
+        android:id="@+id/place"
+        style="@style/PlaceDetailContainer">
+
+        <TextView
+            android:id="@+id/detail_place_name"
+            style="@style/PlaceDetail.Name"/>
+
+        <TextView
+            android:id="@+id/detail_place_latitude"
+            style="@style/PlaceDetail.Latitude"
+            tools:text="@string/tools_text_place_latitude" />
+
+        <TextView
+            android:id="@+id/detail_place_longitude"
+            style="@style/PlaceDetail.Longitude"
+            tools:text="@string/tools_text_place_longitude" />
+
+        <edu.mit.mobile.android.maps.GoogleStaticMapView
+            android:id="@+id/detail_place_staticmap"
+            style="@style/PlaceDetail.StaticMap" />
+
+    </RelativeLayout>
+
+</ScrollView>

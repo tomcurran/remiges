@@ -39,8 +39,9 @@ public class NavigationDrawerFragment extends Fragment {
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
 
-    private static final int SECTION_JUMPS = 0;
-    private static final int SECTION_JUMPTYPES = 1;
+    public static final int SECTION_JUMPS = 0;
+    public static final int SECTION_PLACES = 1;
+    public static final int SECTION_JUMPTYPES = 2;
 
     public static interface Callbacks {
         void onNavigationDrawerItemSelected(int position);
@@ -85,6 +86,8 @@ public class NavigationDrawerFragment extends Fragment {
                 if (uriType != null) {
                     if (uriType.equals(RemigesContract.Jumps.CONTENT_TYPE) || uriType.equals(RemigesContract.Jumps.CONTENT_ITEM_TYPE)) {
                         mCurrentSelectedPosition = SECTION_JUMPS;
+                    } else if (uriType.equals(RemigesContract.Places.CONTENT_TYPE) || uriType.equals(RemigesContract.Places.CONTENT_ITEM_TYPE)) {
+                        mCurrentSelectedPosition = SECTION_PLACES;
                     } else if (uriType.equals(RemigesContract.JumpTypes.CONTENT_TYPE) || uriType.equals(RemigesContract.JumpTypes.CONTENT_ITEM_TYPE)) {
                         mCurrentSelectedPosition = SECTION_JUMPTYPES;
                     }

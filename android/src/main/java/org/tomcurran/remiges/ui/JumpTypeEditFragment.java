@@ -45,16 +45,16 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
     private EditText mJumpTypeName;
 
     public interface Callbacks {
-        public void onJumpTypeEdited(Uri uri);
-        public void onDeleteJumpType(Uri uri);
+        public void onJumpTypeEdited(String jumpTypeId);
+        public void onDeleteJumpType(String jumpTypeId);
     }
 
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
-        public void onJumpTypeEdited(Uri uri) {
+        public void onJumpTypeEdited(String jumpTypeId) {
         }
         @Override
-        public void onDeleteJumpType(Uri uri) {
+        public void onDeleteJumpType(String jumpTypeId) {
         }
     };
 
@@ -194,14 +194,14 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
         values.put(RemigesContract.JumpTypes.JUMPTPYE_NAME, mJumpTypeName.getText().toString());
         int rowsUpdate = getActivity().getContentResolver().update(mJumpTypeUri, values, null, null);
         if (rowsUpdate > 0) {
-            mCallbacks.onJumpTypeEdited(mJumpTypeUri);
+            mCallbacks.onJumpTypeEdited(RemigesContract.JumpTypes.getJumpTypeId(mJumpTypeUri));
         }
     }
 
     private void deleteJump() {
         int rowsDeleted = getActivity().getContentResolver().delete(mJumpTypeUri, null, null);
         if (rowsDeleted > 0) {
-            mCallbacks.onDeleteJumpType(mJumpTypeUri);
+            mCallbacks.onDeleteJumpType(RemigesContract.JumpTypes.getJumpTypeId(mJumpTypeUri));
         }
     }
 

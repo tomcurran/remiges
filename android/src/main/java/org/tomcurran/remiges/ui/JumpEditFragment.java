@@ -39,7 +39,6 @@ import org.tomcurran.remiges.util.FragmentUtils;
 import org.tomcurran.remiges.util.UIUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
-import static org.tomcurran.remiges.util.LogUtils.LOGV;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
@@ -50,7 +49,8 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     private static final int STATE_EDIT = 1;
 
     private static final int LOADER_JUMP = 0;
-    private static final int LOADER_JUMPTYPES = 1;
+    private static final int LOADER_PLACES = 1;
+    private static final int LOADER_JUMPTYPES = 2;
 
     private static final String SAVE_STATE_JUMP_URI = "jump_uri";
     private static final String SAVE_STATE_JUMP_STATE = "jump_state";
@@ -59,15 +59,16 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     private int mState;
     private Uri mJumpUri;
     private Cursor mJumpCursor;
+    private Long mPlaceId;
     private Long mJumpTypeId;
     private Time mTime;
 
     private EditText mJumpNumber;
     private TextView mJumpDate;
     private EditText mJumpDescription;
+    private Spinner mJumpPlace;
     private EditText mJumpWay;
     private Spinner mJumpType;
-    private TextView mJumpAddType;
     private EditText mJumpExitAltitude;
     private EditText mJumpDeploymentAltitude;
     private EditText mJumpDelay;
@@ -78,16 +79,42 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             showDatePickerDialog(view);
         }
     };
+    private View.OnClickListener mAddPlaceClickedListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            mCallbacks.onAddPlace();
+        }
+    };
     private View.OnClickListener mAddTypeClickedListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            addJumpType(view);
+            mCallbacks.onAddJumpType();
+        }
+    };
+
+    private AdapterView.OnItemSelectedListener mPlaceOnItemSelectedListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            setPlace(id);
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+        }
+    };
+    private AdapterView.OnItemSelectedListener mJumpTypeOnItemSelectedListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            setJumpType(id);
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
         }
     };
 
     public interface Callbacks {
         public void onJumpEdited(Uri uri);
         public void onDeleteJump(Uri uri);
+        public void onAddPlace();
         public void onAddJumpType();
     }
 
@@ -97,6 +124,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         }
         @Override
         public void onDeleteJump(Uri uri) {
+        }
+        @Override
+        public void onAddPlace() {
         }
         @Override
         public void onAddJumpType() {
@@ -114,7 +144,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
         setHasOptionsMenu(true);
 
-        FragmentActivity activity = (FragmentActivity) getActivity();
+        FragmentActivity activity = getActivity();
         mTime = new Time();
 
         if (savedInstanceState == null) {
@@ -171,18 +201,23 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         mJumpNumber = (EditText) rootView.findViewById(R.id.edit_jump_number);
         mJumpDate = (TextView) rootView.findViewById(R.id.edit_jump_date);
         mJumpDescription = (EditText) rootView.findViewById(R.id.edit_jump_description);
+        mJumpPlace = (Spinner) rootView.findViewById(R.id.edit_jump_place);
         mJumpWay = (EditText) rootView.findViewById(R.id.edit_jump_way);
         mJumpType = (Spinner) rootView.findViewById(R.id.edit_jump_type);
-        mJumpAddType = (TextView) rootView.findViewById(R.id.edit_jump_add_type);
         mJumpExitAltitude = (EditText) rootView.findViewById(R.id.edit_jump_exit_altitude);
         mJumpDeploymentAltitude = (EditText) rootView.findViewById(R.id.edit_jump_deployment_altitude);
         mJumpDelay = (EditText) rootView.findViewById(R.id.edit_jump_delay);
 
         mJumpDate.setOnClickListener(mDateClickedListener);
-        mJumpAddType.setOnClickListener(mAddTypeClickedListener);
+        ((TextView) rootView.findViewById(R.id.edit_jump_add_place)).setOnClickListener(mAddPlaceClickedListener);
+        ((TextView) rootView.findViewById(R.id.edit_jump_add_type)).setOnClickListener(mAddTypeClickedListener);
 
-        mJumpType.setAdapter(new JumpTypeAdapter(getActivity(), JumpTypeQuery.PROJECTION));
-        mJumpType.setOnItemSelectedListener(new JumpTypeOnItemSelectedListener());
+        mJumpPlace.setAdapter(new SpinnerAdapter(getActivity(), PlaceQuery.PROJECTION));
+        mJumpPlace.setOnItemSelectedListener(mPlaceOnItemSelectedListener);
+        getLoaderManager().initLoader(LOADER_PLACES, null, this);
+
+        mJumpType.setAdapter(new SpinnerAdapter(getActivity(), JumpTypeQuery.PROJECTION));
+        mJumpType.setOnItemSelectedListener(mJumpTypeOnItemSelectedListener);
         getLoaderManager().initLoader(LOADER_JUMPTYPES, null, this);
 
         return rootView;
@@ -243,6 +278,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
         values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, "");
         values.put(RemigesContract.Jumps.JUMP_WAY, Integer.parseInt(preferences.getString(SettingsFragment.PREFERENCE_WAY, SettingsFragment.PREFERENCE_DEFAULT_WAY)));
+        values.put(RemigesContract.Jumps.PLACE_ID, Integer.parseInt(preferences.getString(SettingsFragment.PREFERENCE_PLACE, SettingsFragment.PREFERENCE_DEFAULT_PLACE)));
         values.put(RemigesContract.Jumps.JUMPTYPE_ID, Integer.parseInt(preferences.getString(SettingsFragment.PREFERENCE_JUMPTYPE, SettingsFragment.PREFERENCE_DEFAULT_JUMPTYPE)));
         values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, Integer.parseInt(preferences.getString(SettingsFragment.PREFERENCE_EXIT_ALTITUDE, SettingsFragment.PREFERENCE_DEFAULT_EXIT_ALTITUDE)));
         values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, Integer.parseInt(preferences.getString(SettingsFragment.PREFERENCE_DEPLOYMENT_ALTITUDE, SettingsFragment.PREFERENCE_DEFAULT_DEPLOYMENT_ALTITUDE)));
@@ -259,6 +295,8 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, extras.getString(RemigesContract.Jumps.JUMP_DESCRIPTION));
         if (extras.containsKey(RemigesContract.Jumps.JUMP_WAY))
             values.put(RemigesContract.Jumps.JUMP_WAY, extras.getInt(RemigesContract.Jumps.JUMP_WAY));
+        if (extras.containsKey(RemigesContract.Jumps.PLACE_ID))
+            values.put(RemigesContract.Jumps.PLACE_ID, extras.getLong(RemigesContract.Jumps.PLACE_ID));
         if (extras.containsKey(RemigesContract.Jumps.JUMPTYPE_ID))
             values.put(RemigesContract.Jumps.JUMPTYPE_ID, extras.getLong(RemigesContract.Jumps.JUMPTYPE_ID));
         if (extras.containsKey(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE))
@@ -273,21 +311,46 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         Cursor jumpCursor = mJumpCursor;
         if (jumpCursor.moveToFirst()) {
             mJumpNumber.setText(jumpCursor.getString(JumpQuery.NUMBER));
-            mTime.set(jumpCursor.getLong(JumpQuery.DATE));
-            updateDate();
-            mJumpDescription.setText(jumpCursor.getString(JumpQuery.DESCRIPTION));
+            setDate(jumpCursor.getLong(JumpQuery.DATE));
+            setPlace(jumpCursor.getLong(JumpQuery.PLACE));
             mJumpWay.setText(jumpCursor.getString(JumpQuery.WAY));
-            mJumpTypeId = jumpCursor.getLong(JumpQuery.TYPE);
-            LOGV(TAG, String.format("mJumpTypeId -> %d", mJumpTypeId));
-            updateJumpTypeSpinner();
+            setJumpType(jumpCursor.getLong(JumpQuery.TYPE));
             UIUtils.setTextViewInt(mJumpExitAltitude, jumpCursor.getInt(JumpQuery.EXIT_ALTITUDE));
             UIUtils.setTextViewInt(mJumpDeploymentAltitude, jumpCursor.getInt(JumpQuery.DEPLOYMENT_ALTITUDE));
             UIUtils.setTextViewInt(mJumpDelay, jumpCursor.getInt(JumpQuery.DELAY));
+            mJumpDescription.setText(jumpCursor.getString(JumpQuery.DESCRIPTION));
         }
     }
 
-    private void updateDate() {
+    private void setDate(long millis) {
+        mTime.set(millis);
         mJumpDate.setText(DateFormat.format(getString(R.string.format_edit_jump_date), mTime.toMillis(false)));
+    }
+
+    public void setPlace(String placeId) {
+        try {
+            setPlace(Long.parseLong(placeId));
+        } catch (NumberFormatException e) {
+            LOGE(TAG, String.format("Invalid place id: %s", e.getMessage()));
+        }
+    }
+
+    private void setPlace(long placeId) {
+        mPlaceId = placeId;
+        updatePlaceSpinner();
+    }
+
+    public void setJumpType(String jumpTypeId) {
+        try {
+            setJumpType(Long.parseLong(jumpTypeId));
+        } catch (NumberFormatException e) {
+            LOGE(TAG, String.format("Invalid jump type id: %s", e.getMessage()));
+        }
+    }
+
+    private void setJumpType(long jumpTypeId) {
+        mJumpTypeId = jumpTypeId;
+        updateJumpTypeSpinner();
     }
 
     private void updateJump() {
@@ -295,6 +358,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         values.put(RemigesContract.Jumps.JUMP_NUMBER, UIUtils.parseTextViewInt(mJumpNumber));
         values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
         values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, mJumpDescription.getText().toString());
+        values.put(RemigesContract.Jumps.PLACE_ID, mPlaceId);
         int way = UIUtils.parseTextViewInt(mJumpWay);
         values.put(RemigesContract.Jumps.JUMP_WAY, way > 1 ? way : 1);
         values.put(RemigesContract.Jumps.JUMPTYPE_ID, mJumpTypeId);
@@ -314,16 +378,6 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         }
     }
 
-    private void addJumpType(View view) {
-        mCallbacks.onAddJumpType();
-    }
-
-    public void setJumpType(Uri jumpTypeUri) {
-        mJumpTypeId = Long.valueOf(RemigesContract.JumpTypes.getJumpTypeId(jumpTypeUri));
-        updateJumpTypeSpinner();
-        updateJump();
-    }
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
@@ -335,6 +389,15 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
                         null,
                         null,
                         RemigesContract.Jumps.DEFAULT_SORT
+                );
+            case LOADER_PLACES:
+                return new CursorLoader(
+                        getActivity(),
+                        RemigesContract.Places.CONTENT_URI,
+                        PlaceQuery.PROJECTION,
+                        null,
+                        null,
+                        RemigesContract.Places.DEFAULT_SORT
                 );
             case LOADER_JUMPTYPES:
                 return new CursorLoader(
@@ -357,8 +420,12 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
                 mJumpCursor = cursor;
                 loadJump();
                 break;
+            case LOADER_PLACES:
+                ((SimpleCursorAdapter) mJumpPlace.getAdapter()).swapCursor(cursor);
+                updatePlaceSpinner();
+                break;
             case LOADER_JUMPTYPES:
-                ((SimpleCursorAdapter)mJumpType.getAdapter()).swapCursor(cursor);
+                ((SimpleCursorAdapter) mJumpType.getAdapter()).swapCursor(cursor);
                 updateJumpTypeSpinner();
                 break;
         }
@@ -370,8 +437,11 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             case LOADER_JUMP:
                 mJumpCursor = null;
                 break;
+            case LOADER_PLACES:
+                ((SimpleCursorAdapter) mJumpPlace.getAdapter()).swapCursor(null);
+                break;
             case LOADER_JUMPTYPES:
-                ((SimpleCursorAdapter)mJumpType.getAdapter()).swapCursor(null);
+                ((SimpleCursorAdapter) mJumpType.getAdapter()).swapCursor(null);
                 break;
         }
     }
@@ -382,6 +452,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
                 RemigesContract.Jumps.JUMP_NUMBER,
                 RemigesContract.Jumps.JUMP_DATE,
                 RemigesContract.Jumps.JUMP_DESCRIPTION,
+                RemigesContract.Jumps.PLACE_ID,
                 RemigesContract.Jumps.JUMP_WAY,
                 RemigesContract.Jumps.JUMPTYPE_ID,
                 RemigesContract.Jumps.JUMP_EXIT_ALTITUDE,
@@ -392,11 +463,24 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         int NUMBER = 0;
         int DATE = 1;
         int DESCRIPTION = 2;
-        int WAY = 3;
-        int TYPE = 4;
-        int EXIT_ALTITUDE = 5;
-        int DEPLOYMENT_ALTITUDE = 6;
-        int DELAY = 7;
+        int PLACE = 3;
+        int WAY = 4;
+        int TYPE = 5;
+        int EXIT_ALTITUDE = 6;
+        int DEPLOYMENT_ALTITUDE = 7;
+        int DELAY = 8;
+
+    }
+
+    private interface PlaceQuery {
+
+        String[] PROJECTION = {
+                RemigesContract.Places.PLACE_NAME,
+                RemigesContract.Places._ID
+        };
+
+        int NAME = 0;
+        int _ID = 1;
 
     }
 
@@ -412,42 +496,37 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
     }
 
-    public static class JumpTypeAdapter extends SimpleCursorAdapter {
+    public static class SpinnerAdapter extends SimpleCursorAdapter {
 
         private final static int[] TO = {
                 android.R.id.text1
         };
 
-        public JumpTypeAdapter(Context context, final String[] projection) {
-            super(context, android.R.layout.simple_spinner_item, null, projection, JumpTypeAdapter.TO, 0);
+        public SpinnerAdapter(Context context, final String[] projection) {
+            super(context, android.R.layout.simple_spinner_item, null, projection, TO, 0);
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         }
 
     }
 
+    private void updatePlaceSpinner() {
+        updateSpinner(mJumpPlace, mPlaceId, PlaceQuery._ID);
+    }
+
     private void updateJumpTypeSpinner() {
-        if (mJumpTypeId == null) {
+        updateSpinner(mJumpType, mJumpTypeId, JumpTypeQuery._ID);
+    }
+
+    private void updateSpinner(Spinner spinner, Long id, int column) {
+        if (id == null) {
             return;
         }
-        for (int i = 0; i < mJumpType.getCount(); i++) {
-            if (mJumpTypeId == ((Cursor) mJumpType.getItemAtPosition(i)).getLong(JumpTypeQuery._ID)) {
-                mJumpType.setSelection(i);
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (id == ((Cursor) spinner.getItemAtPosition(i)).getLong(column)) {
+                spinner.setSelection(i);
                 break;
             }
         }
-    }
-
-    public class JumpTypeOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
-
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            mJumpTypeId = id;
-            updateJumpTypeSpinner();
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {}
-
     }
 
     public void showDatePickerDialog(View view) {
@@ -457,8 +536,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     public void setDate(int year, int month, int day) {
-        mTime.set(day, month, year);
-        updateDate();
+        Time time = new Time();
+        time.set(day, month, year);
+        setDate(time.toMillis(false));
     }
 
     public Time getDate() {
