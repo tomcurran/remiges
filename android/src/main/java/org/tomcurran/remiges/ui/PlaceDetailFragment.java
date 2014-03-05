@@ -135,7 +135,6 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         mPlaceLongitude = (TextView) rootView.findViewById(R.id.detail_place_longitude);
         mPlaceStaticMap = (GoogleStaticMapView) rootView.findViewById(R.id.detail_place_staticmap);
 
-        mPlaceStaticMap.setZoom(7);
         mPlaceStaticMap.setOnMapUpdateListener(mOnMapUpdateListener);
 
         return rootView;
