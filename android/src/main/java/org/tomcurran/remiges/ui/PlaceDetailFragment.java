@@ -3,6 +3,7 @@ package org.tomcurran.remiges.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -45,6 +46,7 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
     private TextView mPlaceName;
     private TextView mPlaceLatitude;
     private TextView mPlaceLongitude;
+    private Typeface mRoboto;
 
     private ImageCache mCache;
     private GoogleStaticMapView mPlaceStaticMap;
@@ -123,6 +125,8 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         mCache = ImageCache.getInstance(getActivity());
         mCache.setCacheMaxSize(1024 * 1024);
 
+        mRoboto = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Thin.ttf");
+
         getLoaderManager().restartLoader(0, null, this);
     }
 
@@ -136,6 +140,8 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         mPlaceStaticMap = (GoogleStaticMapView) rootView.findViewById(R.id.detail_place_staticmap);
 
         mPlaceStaticMap.setOnMapUpdateListener(mOnMapUpdateListener);
+
+        mPlaceName.setTypeface(mRoboto);
 
         return rootView;
     }

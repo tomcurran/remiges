@@ -31,9 +31,9 @@
     <string name="detail_jump_solo">Solo</string>
     <string name="detail_jump_way">%d Way</string>
     <string name="label_detail_jump_profile_header">Jump Profile</string>
-    <string name="label_detail_jump_exit_altitude">Exit Altitude:</string>
-    <string name="label_detail_jump_deployment_altitude">Deployment Altitude:</string>
-    <string name="label_detail_jump_delay">Delay:</string>
+    <string name="label_detail_jump_exit_altitude">Exit Altitude</string>
+    <string name="label_detail_jump_deployment_altitude">Deployment Altitude</string>
+    <string name="label_detail_jump_delay">Delay</string>
     <string name="format_detail_jump_date">EEEE, d MMMM, yyyy</string>
     <string name="menu_jump_detail_edit">Edit</string>
     <string name="menu_jump_detail_delete">Delete</string>
@@ -69,6 +69,12 @@
     <!-- Place Detail -->
 
     <string name="title_place_detail">Place Detail</string>
+    <string name="detail_place_location_header">Location</string>
+    <string name="detail_place_stats_header">Statistics</string>
+    <string name="label_detail_place_latitude">Latitude</string>
+    <string name="label_detail_place_longitude">Longitude</string>
+    <string name="label_detail_place_jump_count">Jumps</string>
+    <string name="label_detail_place_jump_last">Last jump</string>
     <string name="menu_place_detail_edit">Edit</string>
     <string name="menu_place_detail_delete">Delete</string>
 
@@ -135,5 +141,7 @@
     <string name="tools_text_place_name">Strathallan</string>
     <string name="tools_text_place_longitude">-3.750835</string>
     <string name="tools_text_place_latitude">56.326013</string>
+    <string name="tools_text_place_jump_count">121</string>
+    <string name="tools_text_place_jump_last">4 days ago</string>
 
 </resources>

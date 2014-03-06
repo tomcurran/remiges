@@ -3,16 +3,54 @@
     <style name="RemigesTheme" parent="@android:style/Theme.DeviceDefault.Light">
     </style>
 
-    <style name="card">
+    <style name="Card">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_marginLeft">6dp</item>
-        <item name="android:layout_marginRight">6dp</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:padding">12dp</item>
         <item name="android:background">@drawable/bg_card</item>
     </style>
 
+    <style name="CardTitle" parent="@android:style/TextAppearance.Large">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/card_title</item>
+    </style>
+
+    <style name="CardHeading">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+    </style>
+
+    <style name="CardDivider">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/card_divider</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="CardTable">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="CardTableLabel">
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingRight">50dp</item>
+        <item name="android:textColor">@color/card_table_label</item>
+    </style>
+
+    <style name="CardTableContent">
+        <item name="android:textColor">@color/card_table_content</item>
+    </style>
 
     <!-- Jump List -->
 
@@ -66,7 +104,7 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="JumpDetailContainerDetail" parent="card">
+    <style name="JumpDetailContainerDetail" parent="Card">
     </style>
 
     <style name="JumpDetail">
@@ -100,49 +138,9 @@
         <item name="android:layout_below">@id/detail_jump_number</item>
     </style>
 
-    <style name="JumpDetail.ExitAltitude">
-        <item name="android:layout_below">@id/detail_jump_profile_header</item>
-        <item name="android:layout_toRightOf">@id/label_detail_jump_exit_altitude</item>
+    <style name="JumpDetailProfileContainer" parent="Card">
+        <item name="android:orientation">vertical</item>
     </style>
-
-    <style name="JumpDetail.DeploymentAltitude">
-        <item name="android:layout_below">@id/label_detail_jump_exit_altitude</item>
-        <item name="android:layout_toRightOf">@id/label_detail_jump_deployment_altitude</item>
-    </style>
-
-    <style name="JumpDetail.Delay">
-        <item name="android:layout_below">@id/label_detail_jump_deployment_altitude</item>
-        <item name="android:layout_toRightOf">@id/label_detail_jump_delay</item>
-    </style>
-
-    <style name="JumpDetailProfileContainer" parent="card">
-    </style>
-
-    <style name="JumpDetailProfileHeader">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_alignParentTop">true</item>
-    </style>
-
-    <style name="JumpDetailLabel">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:paddingRight">6dp</item>
-    </style>
-
-    <style name="JumpDetailLabel.ExitAltitude">
-        <item name="android:layout_below">@id/detail_jump_profile_header</item>
-    </style>
-
-    <style name="JumpDetailLabel.DeploymentAltitude">
-        <item name="android:layout_below">@id/label_detail_jump_exit_altitude</item>
-    </style>
-
-    <style name="JumpDetailLabel.Delay">
-        <item name="android:layout_below">@id/label_detail_jump_deployment_altitude</item>
-    </style>
-
 
     <!-- Jump Edit -->
 
@@ -271,34 +269,16 @@
 
     <!-- Place Detail -->
 
-    <style name="PlaceDetailContainer" parent="card">
+    <style name="PlaceDetailContainer" parent="Card">
+        <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="PlaceDetail">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-    </style>
-
-    <style name="PlaceDetail.Name">
-        <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_alignParentLeft">true</item>
-    </style>
-
-    <style name="PlaceDetail.Latitude">
-        <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_below">@id/detail_place_name</item>
-    </style>
-
-    <style name="PlaceDetail.Longitude">
-        <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_below">@id/detail_place_latitude</item>
-    </style>
-
-    <style name="PlaceDetail.StaticMap">
+    <style name="PlaceDetailStaticMap">
         <item name="android:layout_height">200dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_centerInParent">true</item>
-        <item name="android:layout_below">@id/detail_place_longitude</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
     </style>
 
     <!-- Jump Type Edit -->

@@ -40,46 +40,54 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/detail_jump_profile_container"
             style="@style/JumpDetailProfileContainer">
 
             <TextView
                 android:id="@+id/detail_jump_profile_header"
                 android:text="@string/label_detail_jump_profile_header"
-                style="@style/JumpDetailProfileHeader"/>
+                style="@style/CardHeading"/>
 
-            <TextView
-                android:id="@+id/label_detail_jump_exit_altitude"
-                android:text="@string/label_detail_jump_exit_altitude"
-                style="@style/JumpDetailLabel.ExitAltitude"/>
+            <View
+                style="@style/CardDivider" />
 
-            <TextView
-                android:id="@+id/detail_jump_exit_altitude"
-                style="@style/JumpDetail.ExitAltitude"
-                tools:text="@string/tools_text_jump_exit_altitude" />
+            <TableLayout
+                style="@style/CardTable">
 
-            <TextView
-                android:id="@+id/label_detail_jump_deployment_altitude"
-                android:text="@string/label_detail_jump_deployment_altitude"
-                style="@style/JumpDetailLabel.DeploymentAltitude"/>
+                <TableRow>
+                    <TextView
+                        android:text="@string/label_detail_jump_exit_altitude"
+                        style="@style/CardTableLabel" />
+                    <TextView
+                        android:id="@+id/detail_jump_exit_altitude"
+                        style="@style/CardTableContent"
+                        tools:text="@string/tools_text_jump_exit_altitude" />
+                </TableRow>
 
-            <TextView
-                android:id="@+id/detail_jump_deployment_altitude"
-                style="@style/JumpDetail.DeploymentAltitude"
-                tools:text="@string/tools_text_jump_deployment_altitude" />
+                <TableRow>
+                    <TextView
+                        android:text="@string/label_detail_jump_deployment_altitude"
+                        style="@style/CardTableLabel" />
+                    <TextView
+                        android:id="@+id/detail_jump_deployment_altitude"
+                        style="@style/CardTableContent"
+                        tools:text="@string/tools_text_jump_deployment_altitude" />
+                </TableRow>
 
-            <TextView
-                android:id="@+id/label_detail_jump_delay"
-                android:text="@string/label_detail_jump_delay"
-                style="@style/JumpDetailLabel.Delay"/>
+                <TableRow>
+                    <TextView
+                        android:text="@string/label_detail_jump_delay"
+                        style="@style/CardTableLabel" />
+                    <TextView
+                        android:id="@+id/detail_jump_delay"
+                        style="@style/CardTableContent"
+                        tools:text="@string/tools_text_jump_delay" />
+                </TableRow>
 
-            <TextView
-                android:id="@+id/detail_jump_delay"
-                style="@style/JumpDetail.Delay"
-                tools:text="@string/tools_text_jump_delay" />
+            </TableLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
