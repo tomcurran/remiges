@@ -120,13 +120,22 @@
         </activity>
 
         <activity
-            android:name=".ui.singlepane.JumpTypeEditActivity"
-            android:label="@string/title_jumptype_edit"
-            android:parentActivityName=".ui.MainActivity"
-            android:windowSoftInputMode="stateHidden">
+            android:name=".ui.singlepane.JumpTypeDetailActivity"
+            android:label="@string/title_jumptype_detail"
+            android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.tomcurran.remiges.ui.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.singlepane.JumpTypeEditActivity"
+            android:label="@string/title_jumptype_edit"
+            android:parentActivityName=".ui.singlepane.JumpTypeDetailActivity"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.tomcurran.remiges.ui.singlepane.JumpTypeDetailActivity" />
         </activity>
 
         <activity
@@ -136,7 +145,7 @@
             android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.tomcurran.remiges.ui.JumpDetailActivity" />
+                android:value="org.tomcurran.remiges.ui.singlepane.JumpDetailActivity" />
         </activity>
 
         <activity

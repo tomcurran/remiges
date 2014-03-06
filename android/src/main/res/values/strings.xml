@@ -82,6 +82,13 @@
 
     <string name="menu_jumptype_list_insert">Add Jump Type</string>
 
+    <!-- Jump Type Detail -->
+
+    <string name="title_jumptype_detail">Jump Type Detail</string>
+    <string name="detail_jumptype_stats_header">Statistics</string>
+    <string name="label_detail_jumptype_jump_count">Jumps</string>
+    <string name="label_detail_jumptype_jump_last">Last jump</string>
+
     <!-- Jump Type Edit -->
 
     <string name="title_jumptype_edit">Jump Type Edit</string>
@@ -143,5 +150,8 @@
     <string name="tools_text_place_latitude">56.326013</string>
     <string name="tools_text_place_jump_count">121</string>
     <string name="tools_text_place_jump_last">4 days ago</string>
+    <string name="tools_text_jumptype_name">Formation Skydiving</string>
+    <string name="tools_text_jumptype_jump_count">73</string>
+    <string name="tools_text_jumptype_jump_last">2 months ago</string>
 
 </resources>

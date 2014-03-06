@@ -169,6 +169,7 @@ public class JumpFragment extends Fragment implements
             JumpEditFragment fragment = new JumpEditFragment();
             fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
             getChildFragmentManager().beginTransaction()
+                    .addToBackStack(null)
                     .replace(R.id.jump_detail_container, fragment, FRAGMENT_JUMP_EDIT)
                     .commit();
         } else {
@@ -185,6 +186,7 @@ public class JumpFragment extends Fragment implements
             JumpEditFragment fragment = new JumpEditFragment();
             fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
             getChildFragmentManager().beginTransaction()
+                    .addToBackStack(null)
                     .replace(R.id.jump_detail_container, fragment, FRAGMENT_JUMP_EDIT)
                     .commit();
         } else {

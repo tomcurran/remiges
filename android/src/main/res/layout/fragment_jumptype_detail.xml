@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:staticmap="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.tomcurran.remiges.ui.JumpTypeDetailFragment">
+
+    <LinearLayout
+        android:id="@+id/jumptype"
+        style="@style/PlaceDetailContainer">
+
+        <TextView
+            android:id="@+id/detail_jumptype_name"
+            style="@style/CardTitle"
+            tools:text="@string/tools_text_jumptype_name" />
+
+        <TextView
+            android:id="@+id/detail_place_stats_header"
+            android:text="@string/detail_jumptype_stats_header"
+            style="@style/CardHeading"/>
+
+        <View
+            style="@style/CardDivider" />
+
+        <TableLayout
+            style="@style/CardTable">
+
+            <TableRow>
+                <TextView
+                    android:text="@string/label_detail_jumptype_jump_count"
+                    style="@style/CardTableLabel" />
+                <TextView
+                    android:id="@+id/detail_jumptype_jump_count"
+                    style="@style/CardTableContent"
+                    tools:text="@string/tools_text_jumptype_jump_count" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="@string/label_detail_jumptype_jump_last"
+                    style="@style/CardTableLabel" />
+                <TextView
+                    android:id="@+id/detail_jumptype_jump_last"
+                    style="@style/CardTableContent"
+                    tools:text="@string/tools_text_jumptype_jump_last" />
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+</ScrollView>

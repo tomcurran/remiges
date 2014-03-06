@@ -3,7 +3,6 @@ package org.tomcurran.remiges.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
@@ -32,13 +31,13 @@ public class JumpTypeListFragment extends ListFragment implements LoaderManager.
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
     public interface Callbacks {
-        public void onJumpTypeSelected(Uri uri);
+        public void onJumpTypeSelected(String jumpTypeId);
         public void onInsertJumpType();
     }
 
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
-        public void onJumpTypeSelected(Uri uri) {
+        public void onJumpTypeSelected(String jumpTypeId) {
         }
         @Override
         public void onInsertJumpType() {
@@ -106,7 +105,7 @@ public class JumpTypeListFragment extends ListFragment implements LoaderManager.
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        mCallbacks.onJumpTypeSelected(RemigesContract.JumpTypes.buildJumpTypeUri(id));
+        mCallbacks.onJumpTypeSelected(String.valueOf(id));
     }
 
     @Override

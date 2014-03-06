@@ -13,13 +13,15 @@ import android.view.ViewGroup;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
+import org.tomcurran.remiges.ui.singlepane.JumpTypeDetailActivity;
 import org.tomcurran.remiges.ui.singlepane.JumpTypeEditActivity;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-public class JumpTypeFragment extends Fragment implements JumpTypeListFragment.Callbacks, JumpTypeEditFragment.Callbacks {
+public class JumpTypeFragment extends Fragment implements
+        JumpTypeListFragment.Callbacks, JumpTypeDetailFragment.Callbacks, JumpTypeEditFragment.Callbacks {
     private static final String TAG = makeLogTag(JumpTypeFragment.class);
 
     private static final int ACTIVITY_INSERT = 0;
@@ -97,14 +99,18 @@ public class JumpTypeFragment extends Fragment implements JumpTypeListFragment.C
     }
 
     @Override
-    public void onJumpTypeSelected(Uri uri) {
-        viewJumpType(uri);
-
+    public void onJumpTypeSelected(String jumpTypeId) {
+        viewJumpType(RemigesContract.JumpTypes.buildJumpTypeUri(jumpTypeId));
     }
 
     @Override
     public void onInsertJumpType() {
         insertJumpType();
+    }
+
+    @Override
+    public void onEditJumpType(String jumpTypeId) {
+        editJumpType(RemigesContract.JumpTypes.buildJumpTypeUri(jumpTypeId));
     }
 
     @Override
@@ -117,7 +123,18 @@ public class JumpTypeFragment extends Fragment implements JumpTypeListFragment.C
     }
 
     private void viewJumpType(Uri uri) {
-        editJumpType(uri);
+        Intent intent = new Intent();
+        intent.setData(uri);
+        if (mTwoPane) {
+            JumpTypeDetailFragment fragment = new JumpTypeDetailFragment();
+            fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.jumptype_detail_container, fragment)
+                    .commit();
+        } else {
+            intent.setClass(getActivity(), JumpTypeDetailActivity.class);
+            startActivityForResult(intent, ACTIVITY_EDIT);
+        }
     }
 
     private void editJumpType(Uri uri) {
@@ -128,6 +145,7 @@ public class JumpTypeFragment extends Fragment implements JumpTypeListFragment.C
             JumpTypeEditFragment fragment = new JumpTypeEditFragment();
             fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
             getChildFragmentManager().beginTransaction()
+                    .addToBackStack(null)
                     .replace(R.id.jumptype_detail_container, fragment)
                     .commit();
         } else {
@@ -144,6 +162,7 @@ public class JumpTypeFragment extends Fragment implements JumpTypeListFragment.C
             JumpTypeEditFragment fragment = new JumpTypeEditFragment();
             fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
             getChildFragmentManager().beginTransaction()
+                    .addToBackStack(null)
                     .replace(R.id.jumptype_detail_container, fragment)
                     .commit();
         } else {
@@ -163,4 +182,5 @@ public class JumpTypeFragment extends Fragment implements JumpTypeListFragment.C
             }
         }
     }
+
 }
