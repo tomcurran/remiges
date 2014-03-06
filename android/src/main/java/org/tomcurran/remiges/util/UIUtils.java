@@ -1,8 +1,12 @@
 package org.tomcurran.remiges.util;
 
 
+import android.content.Context;
+import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.widget.TextView;
+
+import java.io.File;
 
 public class UIUtils {
 
@@ -30,6 +34,14 @@ public class UIUtils {
         } else {
             view.setText("");
         }
+    }
+
+    private static final String FONTS = "fonts";
+
+    public static final String FONT_ROBOTO_THIN = "Roboto-Thin.ttf";
+
+    public static Typeface loadFont(Context context, String font) {
+        return Typeface.createFromAsset(context.getAssets(), FONTS + File.separator + font);
     }
 
 }

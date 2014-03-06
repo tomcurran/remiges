@@ -24,6 +24,7 @@ import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
 import org.tomcurran.remiges.util.TimeUtils;
+import org.tomcurran.remiges.util.UIUtils;
 
 import java.io.IOException;
 
@@ -134,7 +135,7 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         mCache = ImageCache.getInstance(getActivity());
         mCache.setCacheMaxSize(1024 * 1024);
 
-        mRoboto = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Thin.ttf");
+        mRoboto = UIUtils.loadFont(getActivity(), UIUtils.FONT_ROBOTO_THIN);
 
         getLoaderManager().initLoader(LOADER_PLACE_DETAIL, null, this);
         getLoaderManager().initLoader(LOADER_PLACE_STAT_JUMP_COUNT, null, this);
