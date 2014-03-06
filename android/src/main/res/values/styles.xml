@@ -3,12 +3,20 @@
     <style name="RemigesTheme" parent="@android:style/Theme.DeviceDefault.Light">
     </style>
 
-    <style name="Card">
-        <item name="android:layout_height">wrap_content</item>
+    <style name="CardContainer">
+        <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">vertical</item>
         <item name="android:layout_marginLeft">12dp</item>
         <item name="android:layout_marginRight">12dp</item>
         <item name="android:layout_marginTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+    </style>
+
+    <style name="Card">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginBottom">12dp</item>
         <item name="android:padding">12dp</item>
         <item name="android:background">@drawable/bg_card</item>
     </style>
@@ -143,7 +151,7 @@
         <item name="android:paddingBottom">4dp</item>
     </style>
 
-    <style name="JumpDetailProfileContainer" parent="Card">
+    <style name="JumpDetailCard" parent="Card">
         <item name="android:orientation">vertical</item>
     </style>
 
@@ -274,7 +282,7 @@
 
     <!-- Place Detail -->
 
-    <style name="PlaceDetailContainer" parent="Card">
+    <style name="PlaceDetailCard" parent="Card">
         <item name="android:orientation">vertical</item>
     </style>
 

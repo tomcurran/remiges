@@ -8,86 +8,90 @@
     tools:context="org.tomcurran.remiges.ui.PlaceDetailFragment">
 
     <LinearLayout
-        android:id="@+id/place"
-        style="@style/PlaceDetailContainer">
+        style="@style/CardContainer">
 
-        <TextView
-            android:id="@+id/detail_place_name"
-            style="@style/CardTitle"
-            tools:text="@string/tools_text_place_name" />
+        <LinearLayout
+            style="@style/PlaceDetailCard">
 
-        <TextView
-            android:id="@+id/detail_place_location_header"
-            android:text="@string/detail_place_location_header"
-            style="@style/CardHeading"/>
+            <TextView
+                android:id="@+id/detail_place_name"
+                style="@style/CardTitle"
+                tools:text="@string/tools_text_place_name" />
 
-        <View
-            style="@style/CardDivider" />
+            <TextView
+                android:id="@+id/detail_place_location_header"
+                android:text="@string/detail_place_location_header"
+                style="@style/CardHeading"/>
 
-        <edu.mit.mobile.android.maps.GoogleStaticMapView
-            android:id="@+id/detail_place_staticmap"
-            staticmap:maptype="roadmap"
-            staticmap:zoom="7"
-            staticmap:sensor="true"
-            style="@style/PlaceDetailStaticMap" />
+            <View
+                style="@style/CardDivider" />
 
-        <TableLayout
-            style="@style/CardTable">
+            <edu.mit.mobile.android.maps.GoogleStaticMapView
+                android:id="@+id/detail_place_staticmap"
+                staticmap:maptype="roadmap"
+                staticmap:zoom="7"
+                staticmap:sensor="true"
+                style="@style/PlaceDetailStaticMap" />
 
-            <TableRow>
-                <TextView
-                    android:text="@string/label_detail_place_latitude"
-                    style="@style/CardTableLabel" />
-                <TextView
-                    android:id="@+id/detail_place_latitude"
-                    style="@style/CardTableContent"
-                    tools:text="@string/tools_text_place_latitude" />
-            </TableRow>
+            <TableLayout
+                style="@style/CardTable">
 
-            <TableRow>
-                <TextView
-                    android:text="@string/label_detail_place_longitude"
-                    style="@style/CardTableLabel" />
-                <TextView
-                    android:id="@+id/detail_place_longitude"
-                    style="@style/CardTableContent"
-                    tools:text="@string/tools_text_place_longitude" />
-            </TableRow>
+                <TableRow>
+                    <TextView
+                        android:text="@string/label_detail_place_latitude"
+                        style="@style/CardTableLabel" />
+                    <TextView
+                        android:id="@+id/detail_place_latitude"
+                        style="@style/CardTableContent"
+                        tools:text="@string/tools_text_place_latitude" />
+                </TableRow>
 
-        </TableLayout>
+                <TableRow>
+                    <TextView
+                        android:text="@string/label_detail_place_longitude"
+                        style="@style/CardTableLabel" />
+                    <TextView
+                        android:id="@+id/detail_place_longitude"
+                        style="@style/CardTableContent"
+                        tools:text="@string/tools_text_place_longitude" />
+                </TableRow>
 
-        <TextView
-            android:id="@+id/detail_place_stats_header"
-            android:text="@string/detail_place_stats_header"
-            style="@style/CardHeading"/>
+            </TableLayout>
 
-        <View
-            style="@style/CardDivider" />
+            <TextView
+                android:id="@+id/detail_place_stats_header"
+                android:text="@string/detail_place_stats_header"
+                style="@style/CardHeading"/>
 
-        <TableLayout
-            style="@style/CardTable">
+            <View
+                style="@style/CardDivider" />
 
-            <TableRow>
-                <TextView
-                    android:text="@string/label_detail_place_jump_count"
-                    style="@style/CardTableLabel" />
-                <TextView
-                    android:id="@+id/detail_place_jump_count"
-                    style="@style/CardTableContent"
-                    tools:text="@string/tools_text_place_jump_count" />
-            </TableRow>
+            <TableLayout
+                style="@style/CardTable">
 
-            <TableRow>
-                <TextView
-                    android:text="@string/label_detail_place_jump_last"
-                    style="@style/CardTableLabel" />
-                <TextView
-                    android:id="@+id/detail_place_jump_last"
-                    style="@style/CardTableContent"
-                    tools:text="@string/tools_text_place_jump_last" />
-            </TableRow>
+                <TableRow>
+                    <TextView
+                        android:text="@string/label_detail_place_jump_count"
+                        style="@style/CardTableLabel" />
+                    <TextView
+                        android:id="@+id/detail_place_jump_count"
+                        style="@style/CardTableContent"
+                        tools:text="@string/tools_text_place_jump_count" />
+                </TableRow>
 
-        </TableLayout>
+                <TableRow>
+                    <TextView
+                        android:text="@string/label_detail_place_jump_last"
+                        style="@style/CardTableLabel" />
+                    <TextView
+                        android:id="@+id/detail_place_jump_last"
+                        style="@style/CardTableContent"
+                        tools:text="@string/tools_text_place_jump_last" />
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

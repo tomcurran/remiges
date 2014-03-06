@@ -8,7 +8,7 @@
     tools:context="org.tomcurran.remiges.ui.JumpDetailFragment">
 
     <LinearLayout
-        style="@style/JumpDetailContainer">
+        style="@style/CardContainer">
 
         <RelativeLayout
             android:id="@+id/jump"
@@ -43,7 +43,7 @@
 
         <LinearLayout
             android:id="@+id/detail_jump_profile_container"
-            style="@style/JumpDetailProfileContainer">
+            style="@style/JumpDetailCard">
 
             <TextView
                 android:id="@+id/detail_jump_place_header"
