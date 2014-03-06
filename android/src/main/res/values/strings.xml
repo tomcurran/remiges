@@ -31,6 +31,7 @@
     <string name="detail_jump_solo">Solo</string>
     <string name="detail_jump_way">%d Way</string>
     <string name="label_detail_jump_place_header">Place</string>
+    <string name="label_detail_jump_description">Description</string>
     <string name="label_detail_jump_profile_header">Jump Profile</string>
     <string name="label_detail_jump_exit_altitude">Exit Altitude</string>
     <string name="label_detail_jump_deployment_altitude">Deployment Altitude</string>
@@ -137,6 +138,7 @@
 
     <!-- Layout Preview Text -->
 
+    <string name="tools_text_jump_title">4 Way Freefly</string>
     <string name="tools_text_jump_number">391</string>
     <string name="tools_text_jump_time_ago">4 weeks ago</string>
     <string name="tools_text_jump_detail_date">Tuesday, 11 February, 2014</string>

@@ -10,40 +10,35 @@
     <LinearLayout
         style="@style/CardContainer">
 
-        <RelativeLayout
-            android:id="@+id/jump"
-            style="@style/JumpDetailContainerDetail">
+        <LinearLayout
+            android:id="@+id/detail_jump_profile_container"
+            style="@style/JumpDetailCard">
 
             <TextView
-                android:id="@+id/detail_jump_number"
-                style="@style/JumpDetail.Number"
-                tools:text="@string/tools_text_jump_number" />
+                android:id="@+id/detail_jump_title"
+                style="@style/CardTitle"
+                tools:text="@string/tools_text_jump_title" />
 
             <TextView
                 android:id="@+id/detail_jump_date"
                 style="@style/JumpDetail.Date"
                 tools:text="@string/tools_text_jump_detail_date" />
 
-            <TextView
-                android:id="@+id/detail_jump_way"
-                style="@style/JumpDetail.Way"
-                tools:text="@string/tools_text_jump_way" />
+            <LinearLayout
+                android:id="@+id/detail_jump_layout_description"
+                style="@style/JumpDetailDescriptionLayout">
 
-            <TextView
-                android:id="@+id/detail_jump_type"
-                style="@style/JumpDetail.Type"
-                tools:text="@string/tools_text_jump_type" />
+                <TextView
+                    android:id="@+id/detail_jump_label_description"
+                    android:text="@string/label_detail_jump_description"
+                    style="@style/CardItemLabel"/>
 
-            <TextView
-                android:id="@+id/detail_jump_description"
-                style="@style/JumpDetail.Description"
-                tools:text="@string/tools_text_jump_description" />
+                <TextView
+                    android:id="@+id/detail_jump_description"
+                    style="@style/CardItemContent"
+                    tools:text="@string/tools_text_jump_description" />
 
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/detail_jump_profile_container"
-            style="@style/JumpDetailCard">
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/detail_jump_place_header"

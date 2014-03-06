@@ -44,6 +44,24 @@
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
+    <style name="CardItem">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="CardItemLabel">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CardItemContent">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
     <style name="CardTable">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
@@ -106,13 +124,8 @@
 
     <!-- Jump Detail -->
 
-    <style name="JumpDetailContainer">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">match_parent</item>
+    <style name="JumpDetailCard" parent="Card">
         <item name="android:orientation">vertical</item>
-    </style>
-
-    <style name="JumpDetailContainerDetail" parent="Card">
     </style>
 
     <style name="JumpDetail">
@@ -120,30 +133,8 @@
         <item name="android:layout_width">wrap_content</item>
     </style>
 
-    <style name="JumpDetail.Number">
-        <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_alignParentLeft">true</item>
-    </style>
-
     <style name="JumpDetail.Date">
-        <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_alignParentRight">true</item>
-    </style>
-
-    <style name="JumpDetail.Description">
-        <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_below">@id/detail_jump_way</item>
-    </style>
-
-    <style name="JumpDetail.Way">
-        <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_below">@id/detail_jump_number</item>
-    </style>
-
-    <style name="JumpDetail.Type">
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:layout_toRightOf">@id/detail_jump_way</item>
-        <item name="android:layout_below">@id/detail_jump_number</item>
+        <item name="android:paddingBottom">8dp</item>
     </style>
 
     <style name="JumpDetail.PlaceName">
@@ -151,7 +142,7 @@
         <item name="android:paddingBottom">4dp</item>
     </style>
 
-    <style name="JumpDetailCard" parent="Card">
+    <style name="JumpDetailDescriptionLayout" parent="CardItem">
         <item name="android:orientation">vertical</item>
     </style>
 

@@ -3,6 +3,7 @@ package org.tomcurran.remiges.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,12 +17,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
 import org.tomcurran.remiges.util.GoogleStaticMapLoader;
+import org.tomcurran.remiges.util.UIUtils;
 
 import edu.mit.mobile.android.maps.GoogleStaticMapView;
 
@@ -36,15 +39,15 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     private Uri mJumpUri;
     private Cursor mJumpCursor;
 
-    private TextView mJumpNumber;
+    private TextView mJumpTitle;
     private TextView mJumpDate;
+    private LinearLayout mJumpDescriptionLayout;
     private TextView mJumpDescription;
-    private TextView mJumpWay;
-    private TextView mJumpType;
     private TextView mJumpExitAltitude;
     private TextView mJumpDeploymentAltitude;
     private TextView mJumpDelay;
     private TextView mPlaceName;
+    private Typeface mRoboto;
     private GoogleStaticMapView mPlaceStaticMap;
     private GoogleStaticMapLoader mGoogleStaticMapLoader;
 
@@ -80,6 +83,8 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
             mJumpUri = savedInstanceState.getParcelable(SAVE_STATE_JUMP_URI);
         }
 
+        mRoboto = UIUtils.loadFont(getActivity(), UIUtils.FONT_ROBOTO_THIN);
+
         mGoogleStaticMapLoader = new GoogleStaticMapLoader(getActivity());
 
         getLoaderManager().restartLoader(0, null, this);
@@ -89,11 +94,10 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_jump_detail, container, false);
 
-        mJumpNumber = (TextView) rootView.findViewById(R.id.detail_jump_number);
+        mJumpTitle = (TextView) rootView.findViewById(R.id.detail_jump_title);
         mJumpDate = (TextView) rootView.findViewById(R.id.detail_jump_date);
         mJumpDescription = (TextView) rootView.findViewById(R.id.detail_jump_description);
-        mJumpWay = (TextView) rootView.findViewById(R.id.detail_jump_way);
-        mJumpType = (TextView) rootView.findViewById(R.id.detail_jump_type);
+        mJumpDescriptionLayout = (LinearLayout) rootView.findViewById(R.id.detail_jump_layout_description);
         mPlaceName = (TextView) rootView.findViewById(R.id.detail_jump_place_name);
         mPlaceStaticMap = (GoogleStaticMapView) rootView.findViewById(R.id.detail_jump_place_staticmap);
         mJumpExitAltitude = (TextView) rootView.findViewById(R.id.detail_jump_exit_altitude);
@@ -101,6 +105,8 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
         mJumpDelay = (TextView) rootView.findViewById(R.id.detail_jump_delay);
 
         mGoogleStaticMapLoader.setView(mPlaceStaticMap);
+
+        mJumpTitle.setTypeface(mRoboto);
 
         return rootView;
     }
@@ -159,14 +165,14 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     private void loadJump() {
         Cursor jumpCursor = mJumpCursor;
         if (jumpCursor.moveToFirst()) {
-            mJumpNumber.setText(jumpCursor.getString(JumpQuery.NUMBER));
             mJumpDate.setText(DateFormat.format(getString(R.string.format_detail_jump_date), jumpCursor.getLong(JumpQuery.DATE)));
             String description = jumpCursor.getString(JumpQuery.DESCRIPTION);
             mJumpDescription.setText(description);
-            mJumpDescription.setVisibility(description.isEmpty() ? View.GONE : View.VISIBLE);
-            int way = jumpCursor.getInt(JumpQuery.WAY);
-            mJumpWay.setText(way > 1 ? getString(R.string.detail_jump_way, way) : getString(R.string.detail_jump_solo));
-            mJumpType.setText(jumpCursor.getString(JumpQuery.TYPE));
+            mJumpDescriptionLayout.setVisibility(description.isEmpty() ? View.GONE : View.VISIBLE);
+            int way =  jumpCursor.getInt(JumpQuery.WAY);
+            mJumpTitle.setText(String.format("%s %s",
+                    way > 1 ? getString(R.string.detail_jump_way, way) : getString(R.string.detail_jump_solo),
+                    jumpCursor.getString(JumpQuery.TYPE)));
             mPlaceName.setText(jumpCursor.getString(JumpQuery.PLACE));
             mPlaceStaticMap.setMap(jumpCursor.getFloat(JumpQuery.LATITUDE), jumpCursor.getFloat(JumpQuery.LONGITUDE), true);
             mJumpExitAltitude.setText(jumpCursor.getString(JumpQuery.EXIT_ALTITUDE));
