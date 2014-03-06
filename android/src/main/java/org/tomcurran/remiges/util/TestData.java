@@ -15,6 +15,7 @@ import org.tomcurran.remiges.provider.RemigesContract.JumpTypes;
 import org.tomcurran.remiges.provider.RemigesContract.Jumps;
 import org.tomcurran.remiges.provider.RemigesContract.Places;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,14 +23,17 @@ import java.util.ArrayList;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 public class TestData {
-    private static final String TAG = makeLogTag(SelectionBuilder.class);
+    private static final String TAG = makeLogTag(TestData.class);
 
-    private static final String TEST_DATA_ASSET = "test-data.json";
+    private static final String TEST_DATA_ASSETS = "testdata"  + File.separator;
 
     private Context mContext;
+    private String mAsset;
+    private JSONObject mJson;
 
-    public TestData(Context context) {
+    public TestData(Context context, String testDataAsset) {
         mContext = context;
+        mAsset = TEST_DATA_ASSETS + testDataAsset;
     }
 
     public void insert() throws JSONException, ParseException, RemoteException, OperationApplicationException {
@@ -97,12 +101,16 @@ public class TestData {
     }
 
     private JSONObject loadJSON() throws JSONException {
-        return new JSONObject(Utils.readAsset(mContext, TEST_DATA_ASSET));
+        if (mJson == null) {
+            mJson = new JSONObject(Utils.readAsset(mContext, mAsset));
+        }
+        return mJson;
     }
 
     public void delete() throws RemoteException, OperationApplicationException {
         ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>();
         operations.add(ContentProviderOperation.newDelete(Jumps.CONTENT_URI).build());
+        operations.add(ContentProviderOperation.newDelete(Places.CONTENT_URI).build());
         operations.add(ContentProviderOperation.newDelete(JumpTypes.CONTENT_URI).build());
         mContext.getContentResolver().applyBatch(RemigesContract.CONTENT_AUTHORITY, operations);
     }

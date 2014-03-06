@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         mTitle = getTitle();
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        mTestData = new TestData(this);
+        mTestData = new TestData(this, "tc.json");
     }
 
     @Override
