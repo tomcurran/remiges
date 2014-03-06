@@ -30,6 +30,7 @@
     <string name="title_jump_detail">Jump Detail</string>
     <string name="detail_jump_solo">Solo</string>
     <string name="detail_jump_way">%d Way</string>
+    <string name="label_detail_jump_place_header">Place</string>
     <string name="label_detail_jump_profile_header">Jump Profile</string>
     <string name="label_detail_jump_exit_altitude">Exit Altitude</string>
     <string name="label_detail_jump_deployment_altitude">Deployment Altitude</string>

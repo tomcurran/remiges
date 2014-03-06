@@ -21,6 +21,9 @@ import android.widget.TextView;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
+import org.tomcurran.remiges.util.GoogleStaticMapLoader;
+
+import edu.mit.mobile.android.maps.GoogleStaticMapView;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
@@ -41,6 +44,9 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     private TextView mJumpExitAltitude;
     private TextView mJumpDeploymentAltitude;
     private TextView mJumpDelay;
+    private TextView mPlaceName;
+    private GoogleStaticMapView mPlaceStaticMap;
+    private GoogleStaticMapLoader mGoogleStaticMapLoader;
 
     public interface Callbacks {
         public void onEditJump(Uri uri);
@@ -73,6 +79,9 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
         } else {
             mJumpUri = savedInstanceState.getParcelable(SAVE_STATE_JUMP_URI);
         }
+
+        mGoogleStaticMapLoader = new GoogleStaticMapLoader(getActivity());
+
         getLoaderManager().restartLoader(0, null, this);
     }
 
@@ -85,9 +94,13 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
         mJumpDescription = (TextView) rootView.findViewById(R.id.detail_jump_description);
         mJumpWay = (TextView) rootView.findViewById(R.id.detail_jump_way);
         mJumpType = (TextView) rootView.findViewById(R.id.detail_jump_type);
+        mPlaceName = (TextView) rootView.findViewById(R.id.detail_jump_place_name);
+        mPlaceStaticMap = (GoogleStaticMapView) rootView.findViewById(R.id.detail_jump_place_staticmap);
         mJumpExitAltitude = (TextView) rootView.findViewById(R.id.detail_jump_exit_altitude);
         mJumpDeploymentAltitude = (TextView) rootView.findViewById(R.id.detail_jump_deployment_altitude);
         mJumpDelay = (TextView) rootView.findViewById(R.id.detail_jump_delay);
+
+        mGoogleStaticMapLoader.setView(mPlaceStaticMap);
 
         return rootView;
     }
@@ -154,6 +167,8 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
             int way = jumpCursor.getInt(JumpQuery.WAY);
             mJumpWay.setText(way > 1 ? getString(R.string.detail_jump_way, way) : getString(R.string.detail_jump_solo));
             mJumpType.setText(jumpCursor.getString(JumpQuery.TYPE));
+            mPlaceName.setText(jumpCursor.getString(JumpQuery.PLACE));
+            mPlaceStaticMap.setMap(jumpCursor.getFloat(JumpQuery.LATITUDE), jumpCursor.getFloat(JumpQuery.LONGITUDE), true);
             mJumpExitAltitude.setText(jumpCursor.getString(JumpQuery.EXIT_ALTITUDE));
             mJumpDeploymentAltitude.setText(jumpCursor.getString(JumpQuery.DEPLOYMENT_ALTITUDE));
             mJumpDelay.setText(jumpCursor.getString(JumpQuery.DELAY));
@@ -191,6 +206,9 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
                 RemigesContract.Jumps.JUMP_DESCRIPTION,
                 RemigesContract.Jumps.JUMP_WAY,
                 RemigesContract.JumpTypes.JUMPTPYE_NAME,
+                RemigesContract.Places.PLACE_NAME,
+                RemigesContract.Places.PLACE_LONGITUDE,
+                RemigesContract.Places.PLACE_LATITUDE,
                 RemigesContract.Jumps.JUMP_EXIT_ALTITUDE,
                 RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE,
                 RemigesContract.Jumps.JUMP_DELAY,
@@ -202,9 +220,12 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
         int DESCRIPTION = 2;
         int WAY = 3;
         int TYPE = 4;
-        int EXIT_ALTITUDE = 5;
-        int DEPLOYMENT_ALTITUDE = 6;
-        int DELAY = 7;
+        int PLACE = 5;
+        int LONGITUDE = 6;
+        int LATITUDE = 7;
+        int EXIT_ALTITUDE = 8;
+        int DEPLOYMENT_ALTITUDE = 9;
+        int DELAY = 10;
 
     }
 

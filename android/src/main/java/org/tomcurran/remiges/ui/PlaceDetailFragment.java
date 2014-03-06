@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -23,17 +21,12 @@ import android.widget.TextView;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
+import org.tomcurran.remiges.util.GoogleStaticMapLoader;
 import org.tomcurran.remiges.util.TimeUtils;
 import org.tomcurran.remiges.util.UIUtils;
 
-import java.io.IOException;
-
-import edu.mit.mobile.android.imagecache.ImageCache;
-import edu.mit.mobile.android.imagecache.ImageCacheException;
 import edu.mit.mobile.android.maps.GoogleStaticMapView;
-import edu.mit.mobile.android.maps.OnMapUpdateListener;
 
-import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
@@ -58,47 +51,8 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
     private TextView mPlaceLastJump;
     private Typeface mRoboto;
 
-    private ImageCache mCache;
     private GoogleStaticMapView mPlaceStaticMap;
-
-    private OnMapUpdateListener mOnMapUpdateListener = new OnMapUpdateListener() {
-        @Override
-        public void onMapUpdate(GoogleStaticMapView view, Uri mapUrl) {
-            StaticMap staticMap = new StaticMap();
-            staticMap.uri = mapUrl;
-            staticMap.width = view.getWidth();
-            staticMap.height = view.getHeight();
-            new FetchStaticMapTask().execute(staticMap);
-        }
-    };
-
-    static class StaticMap {
-        Uri uri;
-        int width;
-        int height;
-    }
-
-    private class FetchStaticMapTask extends AsyncTask<StaticMap, Integer, Drawable> {
-
-        protected Drawable doInBackground(StaticMap... maps) {
-            Drawable drawable = null;
-            try {
-                drawable = mCache.getImage(maps[0].uri, maps[0].width, maps[0].height);
-            } catch (IOException e) {
-                LOGE(TAG, String.format("I/O error: %s", e.getMessage()));
-            } catch (ImageCacheException e) {
-                LOGE(TAG, String.format("Image cache error: %s", e.getMessage()));
-            }
-            return drawable;
-        }
-
-        protected void onPostExecute(Drawable result) {
-            if (result != null) {
-                mPlaceStaticMap.setImageDrawable(result);
-            }
-        }
-
-    }
+    private GoogleStaticMapLoader mGoogleStaticMapLoader;
 
     public interface Callbacks {
         public void onEditPlace(Uri uri);
@@ -132,10 +86,9 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
             mPlaceUri = savedInstanceState.getParcelable(SAVE_STATE_PLACE_URI);
         }
 
-        mCache = ImageCache.getInstance(getActivity());
-        mCache.setCacheMaxSize(1024 * 1024);
-
         mRoboto = UIUtils.loadFont(getActivity(), UIUtils.FONT_ROBOTO_THIN);
+
+        mGoogleStaticMapLoader = new GoogleStaticMapLoader(getActivity());
 
         getLoaderManager().initLoader(LOADER_PLACE_DETAIL, null, this);
         getLoaderManager().initLoader(LOADER_PLACE_STAT_JUMP_COUNT, null, this);
@@ -153,7 +106,7 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         mPlaceJumpCount = (TextView) rootView.findViewById(R.id.detail_place_jump_count);
         mPlaceLastJump = (TextView) rootView.findViewById(R.id.detail_place_jump_last);
 
-        mPlaceStaticMap.setOnMapUpdateListener(mOnMapUpdateListener);
+        mGoogleStaticMapLoader.setView(mPlaceStaticMap);
 
         mPlaceName.setTypeface(mRoboto);
 

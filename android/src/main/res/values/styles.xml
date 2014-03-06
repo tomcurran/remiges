@@ -138,6 +138,11 @@
         <item name="android:layout_below">@id/detail_jump_number</item>
     </style>
 
+    <style name="JumpDetail.PlaceName">
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+
     <style name="JumpDetailProfileContainer" parent="Card">
         <item name="android:orientation">vertical</item>
     </style>
