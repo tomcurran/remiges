@@ -23,6 +23,7 @@ import android.widget.TextView;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
+import org.tomcurran.remiges.util.TimeUtils;
 
 import java.io.IOException;
 
@@ -40,12 +41,20 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
 
     private static final String SAVE_STATE_PLACE_URI = "place_uri";
 
+    private static final int LOADER_PLACE_DETAIL = 0;
+    private static final int LOADER_PLACE_STAT_JUMP_COUNT = 1;
+    private static final int LOADER_PLACE_STAT_LAST_JUMP = 2;
+
     private Uri mPlaceUri;
     private Cursor mPlaceCursor;
+    private Cursor mPlaceJumpCountCursor;
+    private Cursor mPlaceLastJumpCursor;
 
     private TextView mPlaceName;
     private TextView mPlaceLatitude;
     private TextView mPlaceLongitude;
+    private TextView mPlaceJumpCount;
+    private TextView mPlaceLastJump;
     private Typeface mRoboto;
 
     private ImageCache mCache;
@@ -127,7 +136,9 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
 
         mRoboto = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Thin.ttf");
 
-        getLoaderManager().restartLoader(0, null, this);
+        getLoaderManager().initLoader(LOADER_PLACE_DETAIL, null, this);
+        getLoaderManager().initLoader(LOADER_PLACE_STAT_JUMP_COUNT, null, this);
+        getLoaderManager().initLoader(LOADER_PLACE_STAT_LAST_JUMP, null, this);
     }
 
     @Override
@@ -138,6 +149,8 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         mPlaceLatitude = (TextView) rootView.findViewById(R.id.detail_place_latitude);
         mPlaceLongitude = (TextView) rootView.findViewById(R.id.detail_place_longitude);
         mPlaceStaticMap = (GoogleStaticMapView) rootView.findViewById(R.id.detail_place_staticmap);
+        mPlaceJumpCount = (TextView) rootView.findViewById(R.id.detail_place_jump_count);
+        mPlaceLastJump = (TextView) rootView.findViewById(R.id.detail_place_jump_last);
 
         mPlaceStaticMap.setOnMapUpdateListener(mOnMapUpdateListener);
 
@@ -211,27 +224,82 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         }
     }
 
+    private void loadJumpCount() {
+        Cursor cursor = mPlaceJumpCountCursor;
+        if (cursor.moveToFirst()) {
+            mPlaceJumpCount.setText(cursor.getString(PlaceCountQuery.COUNT));
+        }
+    }
+
+    private void loadLastJump() {
+        Cursor cursor = mPlaceLastJumpCursor;
+        if (cursor.moveToFirst()) {
+            mPlaceLastJump.setText(TimeUtils.getTimeAgo(getActivity(), cursor.getLong(PlaceLastJumpQuery.DATE)));
+        }
+    }
+
     @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(
-                getActivity(),
-                mPlaceUri,
-                PlaceQuery.PROJECTION,
-                null,
-                null,
-                RemigesContract.Places.DEFAULT_SORT
-        );
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        switch (id) {
+            case LOADER_PLACE_DETAIL:
+                return new CursorLoader(
+                        getActivity(),
+                        mPlaceUri,
+                        PlaceQuery.PROJECTION,
+                        null,
+                        null,
+                        RemigesContract.Places.DEFAULT_SORT
+                );
+            case LOADER_PLACE_STAT_JUMP_COUNT:
+                return new CursorLoader(
+                        getActivity(),
+                        RemigesContract.Jumps.CONTENT_URI,
+                        PlaceCountQuery.PROJECTION,
+                        PlaceCountQuery.SELECTION,
+                        new String[] { RemigesContract.Places.getPlaceId(mPlaceUri) },
+                        PlaceCountQuery.SORT
+                );
+            case LOADER_PLACE_STAT_LAST_JUMP:
+                return new CursorLoader(
+                        getActivity(),
+                        RemigesContract.Jumps.CONTENT_URI,
+                        PlaceLastJumpQuery.PROJECTION,
+                        PlaceLastJumpQuery.SELECTION,
+                        new String[] { RemigesContract.Places.getPlaceId(mPlaceUri) },
+                        PlaceLastJumpQuery.SORT
+                );
+            default:
+                return null;
+        }
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        mPlaceCursor = cursor;
-        loadPlace();
+        switch (cursorLoader.getId()) {
+            case LOADER_PLACE_DETAIL:
+                mPlaceCursor = cursor;
+                loadPlace();
+                break;
+            case LOADER_PLACE_STAT_JUMP_COUNT:
+                mPlaceJumpCountCursor = cursor;
+                loadJumpCount();
+                break;
+            case LOADER_PLACE_STAT_LAST_JUMP:
+                mPlaceLastJumpCursor = cursor;
+                loadLastJump();
+                break;
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
-        mPlaceCursor = null;
+        switch (cursorLoader.getId()) {
+            case LOADER_PLACE_DETAIL:
+                mPlaceCursor = null;
+                break;
+            case LOADER_PLACE_STAT_JUMP_COUNT:
+                break;
+        }
     }
 
     private interface PlaceQuery {
@@ -247,6 +315,36 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         int LATITUDE = 1;
         int LONGITUDE = 2;
         int _ID = 3;
+
+    }
+
+    private interface PlaceCountQuery {
+
+        String[] PROJECTION = {
+                "count(" + RemigesContract.Jumps.JUMP_NUMBER + ")"
+        };
+
+        String SELECTION = RemigesContract.Jumps.PLACE_ID + "=?";
+
+        String SORT = "count(" + RemigesContract.Jumps.JUMP_NUMBER + ")";
+
+        int COUNT = 0;
+
+    }
+
+    private interface PlaceLastJumpQuery {
+
+        String[] PROJECTION = {
+                "max(" + RemigesContract.Jumps.JUMP_DATE + ")",
+                RemigesContract.Jumps.JUMP_DATE
+        };
+
+        String SELECTION = RemigesContract.Jumps.PLACE_ID + "=?";
+
+        String SORT = RemigesContract.Jumps.JUMP_DATE;
+
+        int MAX_DATE = 0;
+        int DATE = 1;
 
     }
 
