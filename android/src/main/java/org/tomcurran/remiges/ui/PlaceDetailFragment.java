@@ -298,6 +298,10 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
                 mPlaceCursor = null;
                 break;
             case LOADER_PLACE_STAT_JUMP_COUNT:
+                mPlaceJumpCountCursor = null;
+                break;
+            case LOADER_PLACE_STAT_LAST_JUMP:
+                mPlaceLastJumpCursor = null;
                 break;
         }
     }
