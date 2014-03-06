@@ -170,6 +170,10 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public String getJumpTypeId() {
+        return RemigesContract.JumpTypes.getJumpTypeId(mJumpTypeUri);
+    }
     
     private ContentValues getDefaultValues() {
         ContentValues values = new ContentValues();

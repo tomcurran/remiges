@@ -269,6 +269,10 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         }
     }
 
+    public String getJumpId() {
+        return RemigesContract.Jumps.getJumpId(mJumpUri);
+    }
+
     private ContentValues getDefaultValues() {
         FragmentActivity activity = getActivity();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);

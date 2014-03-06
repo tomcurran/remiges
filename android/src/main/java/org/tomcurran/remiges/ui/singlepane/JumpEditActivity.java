@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import org.tomcurran.remiges.provider.RemigesContract;
@@ -57,4 +60,24 @@ public class JumpEditActivity extends SimpleSinglePaneActivity implements JumpEd
             }
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent upIntent = NavUtils.getParentActivityIntent(this);
+                upIntent.setData(RemigesContract.Jumps.buildJumpUri(
+                        ((JumpEditFragment) getFragment()).getJumpId()));
+                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+                    TaskStackBuilder.create(this)
+                            .addNextIntentWithParentStack(upIntent)
+                            .startActivities();
+                } else {
+                    NavUtils.navigateUpTo(this, upIntent);
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
