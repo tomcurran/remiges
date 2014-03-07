@@ -285,6 +285,12 @@
         <item name="android:paddingBottom">8dp</item>
     </style>
 
+    <!-- Place Detail -->
+
+    <style name="JumpTypeDetailCard" parent="Card">
+        <item name="android:orientation">vertical</item>
+    </style>
+
     <!-- Jump Type Edit -->
 
     <style name="EditJumpTypeContainer">
