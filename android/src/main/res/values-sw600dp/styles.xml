@@ -146,6 +146,7 @@
     </style>
 
     <style name="EditJumpType.Name">
+        <item name="android:hint">@string/hint_edit_jumptype_name</item>
         <item name="android:layout_toRightOf">@id/label_edit_jumptype_name</item>
     </style>
 
