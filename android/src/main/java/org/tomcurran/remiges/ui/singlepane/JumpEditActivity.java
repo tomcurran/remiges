@@ -1,14 +1,16 @@
 package org.tomcurran.remiges.ui.singlepane;
 
+import android.app.ActionBar;
 import android.content.Intent;
-import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
+import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.ui.JumpEditFragment;
 
@@ -26,13 +28,34 @@ public class JumpEditActivity extends SimpleSinglePaneActivity implements JumpEd
     }
 
     @Override
-    public void onJumpEdited(Uri uri) {
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    @Override
-    public void onDeleteJump(Uri uri) {
-        setResult(RESULT_OK, new Intent(Intent.ACTION_DELETE, uri));
-        finish();
+        final LayoutInflater inflater = (LayoutInflater) getActionBar().getThemedContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View customActionBarView = inflater.inflate(R.layout.donebar_done_cancel, null);
+        customActionBarView.findViewById(R.id.actionbar_done).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        barDone();
+                    }
+                });
+        customActionBarView.findViewById(R.id.actionbar_cancel).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        barCancel();
+                    }
+                });
+
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayOptions(
+                ActionBar.DISPLAY_SHOW_CUSTOM,
+                ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
+        actionBar.setCustomView(customActionBarView,
+                new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        actionBar.setDisplayHomeAsUpEnabled(false);
     }
 
     @Override
@@ -51,33 +74,38 @@ public class JumpEditActivity extends SimpleSinglePaneActivity implements JumpEd
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ACTIVITY_JUMPTYPE) {
-            if (resultCode == FragmentActivity.RESULT_OK) {
-                if (data.getAction().equals(Intent.ACTION_INSERT)) {
-                    JumpEditFragment fragment = (JumpEditFragment) getFragment();
-                    fragment.setJumpType(RemigesContract.JumpTypes.getJumpTypeId(data.getData()));
+        switch (requestCode) {
+            case ACTIVITY_JUMPTYPE:
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    if (data.getAction().equals(Intent.ACTION_INSERT)) {
+                        ((JumpEditFragment) getFragment()).setJumpType(
+                                RemigesContract.JumpTypes.getJumpTypeId(data.getData()));
+                    }
                 }
-            }
+                break;
+            case ACTIVITY_PLACE:
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    if (data.getAction().equals(Intent.ACTION_INSERT)) {
+                        ((JumpEditFragment) getFragment()).setPlace(
+                                RemigesContract.Places.getPlaceId(data.getData()));
+                    }
+                }
+                break;
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent upIntent = NavUtils.getParentActivityIntent(this);
-                upIntent.setData(RemigesContract.Jumps.buildJumpUri(
-                        ((JumpEditFragment) getFragment()).getJumpId()));
-                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-                    TaskStackBuilder.create(this)
-                            .addNextIntentWithParentStack(upIntent)
-                            .startActivities();
-                } else {
-                    NavUtils.navigateUpTo(this, upIntent);
-                }
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+    private void barDone() {
+        Intent intent = getIntent();
+        String jumpId = ((JumpEditFragment)getFragment()).barDone();
+        intent.setData(RemigesContract.Jumps.buildJumpUri(jumpId));
+        setResult(FragmentActivity.RESULT_OK, intent);
+        finish();
+    }
+
+    private void barCancel() {
+        ((JumpEditFragment)getFragment()).barCancel();
+        setResult(FragmentActivity.RESULT_CANCELED, getIntent());
+        finish();
     }
 
 }

@@ -129,6 +129,20 @@ public class JumpListFragment extends ListFragment implements
         getListView().setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
     }
 
+    public void setSelectedJump(String jumpId) {
+        Long id = Long.parseLong(jumpId);
+        if (id == null) {
+            return;
+        }
+        ListView listView = getListView();
+        for (int i = 0; i < listView.getCount(); i++) {
+            if (id == ((Cursor) listView.getItemAtPosition(i)).getLong(JumpsQuery._ID)) {
+                listView.setSelection(i);
+                break;
+            }
+        }
+    }
+
     private void setActivatedPosition(int position) {
         if (position == ListView.INVALID_POSITION) {
             getListView().setItemChecked(mActivatedPosition, false);
@@ -259,6 +273,7 @@ public class JumpListFragment extends ListFragment implements
         int WAY = 2;
         int TYPE = 3;
         int DESCRIPTION = 4;
+        int _ID = 5;
 
     }
 

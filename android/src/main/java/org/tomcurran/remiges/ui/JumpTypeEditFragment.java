@@ -1,7 +1,6 @@
 package org.tomcurran.remiges.ui;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -15,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.SimpleCursorAdapter;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
@@ -110,13 +108,9 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
         outState.putInt(SAVE_STATE_JUMPTYPE_STATE, mState);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    public void barDone() {
+    public String barDone() {
         updateJump();
+        return RemigesContract.JumpTypes.getJumpTypeId(mJumpTypeUri);
     }
 
     public void barCancel() {
@@ -185,19 +179,6 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
 
         int NAME = 0;
         int _ID = 1;
-
-    }
-
-    public static class JumpTypeAdapter extends SimpleCursorAdapter {
-
-        private final static int[] TO = {
-                android.R.id.text1
-        };
-
-        public JumpTypeAdapter(Context context, final String[] projection) {
-            super(context, android.R.layout.simple_spinner_item, null, projection, JumpTypeAdapter.TO, 0);
-            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        }
 
     }
 

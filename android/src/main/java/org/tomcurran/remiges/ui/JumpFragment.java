@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
@@ -22,7 +21,7 @@ import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 public class JumpFragment extends Fragment implements
-        JumpListFragment.Callbacks, JumpDetailFragment.Callbacks, JumpEditFragment.Callbacks {
+        JumpListFragment.Callbacks, JumpDetailFragment.Callbacks {
     private static final String TAG = makeLogTag(JumpFragment.class);
 
     private static final int ACTIVITY_INSERT = 0;
@@ -30,7 +29,6 @@ public class JumpFragment extends Fragment implements
     private static final int ACTIVITY_EDIT = 2;
 
     private static final String FRAGMENT_JUMP_LIST = "fragment_tag_jump_list";
-    private static final String FRAGMENT_JUMP_EDIT = "fragment_tag_jump_edit";
 
     private boolean mTwoPane;
 
@@ -121,20 +119,6 @@ public class JumpFragment extends Fragment implements
         deleteJump();
     }
 
-    @Override
-    public void onJumpEdited(Uri uri) {
-    }
-
-    @Override
-    public void onAddPlace() {
-        addPlace();
-    }
-
-    @Override
-    public void onAddJumpType() {
-        addJumpType();
-    }
-
     private void viewJump(Uri uri) {
         Intent intent = new Intent();
         intent.setData(uri);
@@ -154,34 +138,16 @@ public class JumpFragment extends Fragment implements
         Intent intent = new Intent();
         intent.setData(uri);
         intent.setAction(Intent.ACTION_EDIT);
-        if (mTwoPane) {
-            JumpEditFragment fragment = new JumpEditFragment();
-            fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-            getChildFragmentManager().beginTransaction()
-                    .addToBackStack(null)
-                    .replace(R.id.jump_detail_container, fragment, FRAGMENT_JUMP_EDIT)
-                    .commit();
-        } else {
-            intent.setClass(getActivity(), JumpEditActivity.class);
-            startActivityForResult(intent, ACTIVITY_EDIT);
-        }
+        intent.setClass(getActivity(), JumpEditActivity.class);
+        startActivityForResult(intent, ACTIVITY_EDIT);
     }
 
     private void insertJump() {
         Intent intent = new Intent();
         intent.setData(RemigesContract.Jumps.CONTENT_URI);
         intent.setAction(Intent.ACTION_INSERT);
-        if (mTwoPane) {
-            JumpEditFragment fragment = new JumpEditFragment();
-            fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-            getChildFragmentManager().beginTransaction()
-                    .addToBackStack(null)
-                    .replace(R.id.jump_detail_container, fragment, FRAGMENT_JUMP_EDIT)
-                    .commit();
-        } else {
-            intent.setClass(getActivity(), JumpEditActivity.class);
-            startActivityForResult(intent, ACTIVITY_INSERT);
-        }
+        intent.setClass(getActivity(), JumpEditActivity.class);
+        startActivityForResult(intent, ACTIVITY_INSERT);
     }
 
     private void deleteJump() {
@@ -196,23 +162,16 @@ public class JumpFragment extends Fragment implements
         }
     }
 
-    private void addJumpType() {
-        Intent intent = new Intent();
-        intent.setData(RemigesContract.JumpTypes.CONTENT_URI);
-        intent.setAction(Intent.ACTION_INSERT);
-        JumpTypeEditFragment fragment = new JumpTypeEditFragment();
-        fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-
-        FragmentManager fragmentManager = getChildFragmentManager();
-        fragmentManager.beginTransaction()
-                .addToBackStack(null)
-                .detach(fragmentManager.findFragmentById(R.id.jump_detail_container))
-                .add(R.id.jump_detail_container, fragment)
-                .commit();
-    }
-
-    private void addPlace() {
-        Toast.makeText(getActivity(), "add place", Toast.LENGTH_SHORT).show();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case ACTIVITY_INSERT:
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    ((JumpListFragment)getChildFragmentManager().findFragmentByTag(FRAGMENT_JUMP_LIST))
+                            .setSelectedJump(RemigesContract.Jumps.getJumpId(data.getData()));
+                }
+                break;
+        }
     }
 
 }

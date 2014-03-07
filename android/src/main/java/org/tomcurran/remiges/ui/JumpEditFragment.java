@@ -20,9 +20,6 @@ import android.support.v4.content.Loader;
 import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -112,19 +109,11 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     };
 
     public interface Callbacks {
-        public void onJumpEdited(Uri uri);
-        public void onDeleteJump(Uri uri);
         public void onAddPlace();
         public void onAddJumpType();
     }
 
     private static Callbacks sDummyCallbacks = new Callbacks() {
-        @Override
-        public void onJumpEdited(Uri uri) {
-        }
-        @Override
-        public void onDeleteJump(Uri uri) {
-        }
         @Override
         public void onAddPlace() {
         }
@@ -226,16 +215,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        updateJump();
         outState.putParcelable(SAVE_STATE_JUMP_URI, mJumpUri);
         outState.putInt(SAVE_STATE_JUMP_STATE, mState);
         outState.putLong(SAVE_SATE_JUMP_TIME, mTime.toMillis(false));
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        updateJump();
     }
 
     @Override
@@ -253,24 +235,15 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         mCallbacks = sDummyCallbacks;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.jump_edit, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_jump_edit_delete:
-                deleteJump();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    public String getJumpId() {
+    public String barDone() {
+        updateJump();
         return RemigesContract.Jumps.getJumpId(mJumpUri);
+    }
+
+    public void barCancel() {
+        if (mState == STATE_INSERT) {
+            deleteJump();
+        }
     }
 
     private ContentValues getDefaultValues() {
@@ -357,7 +330,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         updateJumpTypeSpinner();
     }
 
-    private void updateJump() {
+    private boolean updateJump() {
         ContentValues values = new ContentValues();
         values.put(RemigesContract.Jumps.JUMP_NUMBER, UIUtils.parseTextViewInt(mJumpNumber));
         values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
@@ -369,17 +342,11 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, UIUtils.parseTextViewInt(mJumpExitAltitude));
         values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, UIUtils.parseTextViewInt(mJumpDeploymentAltitude));
         values.put(RemigesContract.Jumps.JUMP_DELAY, UIUtils.parseTextViewInt(mJumpDelay));
-        int rowsUpdate = getActivity().getContentResolver().update(mJumpUri, values, null, null);
-        if (rowsUpdate > 0) {
-            mCallbacks.onJumpEdited(mJumpUri);
-        }
+        return getActivity().getContentResolver().update(mJumpUri, values, null, null) > 0;
     }
 
-    private void deleteJump() {
-        int rowsDeleted = getActivity().getContentResolver().delete(mJumpUri, null, null);
-        if (rowsDeleted > 0) {
-            mCallbacks.onDeleteJump(mJumpUri);
-        }
+    private boolean deleteJump() {
+        return getActivity().getContentResolver().delete(mJumpUri, null, null) > 0;
     }
 
     @Override

@@ -1,24 +1,22 @@
 package org.tomcurran.remiges.ui.singlepane;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.tomcurran.remiges.R;
+import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.ui.JumpTypeEditFragment;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 public class JumpTypeEditActivity extends SimpleSinglePaneActivity {
     private static final String TAG = makeLogTag(JumpTypeEditActivity.class);
-
-    public interface Callbacks {
-        public void barDone();
-        public void barCancel();
-    }
 
     @Override
     protected Fragment onCreatePane() {
@@ -57,12 +55,16 @@ public class JumpTypeEditActivity extends SimpleSinglePaneActivity {
     }
 
     private void barDone() {
-        ((JumpTypeEditFragment)getFragment()).barDone();
+        Intent intent = getIntent();
+        String jumpTypeId = ((JumpTypeEditFragment)getFragment()).barDone();
+        intent.setData(RemigesContract.JumpTypes.buildJumpTypeUri(jumpTypeId));
+        setResult(FragmentActivity.RESULT_OK, intent);
         finish();
     }
 
     private void barCancel() {
         ((JumpTypeEditFragment)getFragment()).barCancel();
+        setResult(FragmentActivity.RESULT_CANCELED, getIntent());
         finish();
     }
 
