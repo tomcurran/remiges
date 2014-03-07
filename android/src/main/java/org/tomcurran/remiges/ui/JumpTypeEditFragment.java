@@ -1,6 +1,5 @@
 package org.tomcurran.remiges.ui;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +12,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -23,7 +19,6 @@ import android.widget.SimpleCursorAdapter;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
-import org.tomcurran.remiges.util.FragmentUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
@@ -44,22 +39,6 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
 
     private EditText mJumpTypeName;
 
-    public interface Callbacks {
-        public void onJumpTypeEdited(String jumpTypeId);
-        public void onDeleteJumpType(String jumpTypeId);
-    }
-
-    private static Callbacks sDummyCallbacks = new Callbacks() {
-        @Override
-        public void onJumpTypeEdited(String jumpTypeId) {
-        }
-        @Override
-        public void onDeleteJumpType(String jumpTypeId) {
-        }
-    };
-
-    private Callbacks mCallbacks = sDummyCallbacks;
-
     public JumpTypeEditFragment() {
     }
 
@@ -67,9 +46,7 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setHasOptionsMenu(true);
-
-        FragmentActivity activity = (FragmentActivity) getActivity();
+        FragmentActivity activity = getActivity();
 
         if (savedInstanceState == null) {
             final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
@@ -129,7 +106,6 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        updateJump();
         outState.putParcelable(SAVE_STATE_JUMPTYPE_URI, mJumpTypeUri);
         outState.putInt(SAVE_STATE_JUMPTYPE_STATE, mState);
     }
@@ -137,44 +113,18 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    public void barDone() {
         updateJump();
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mCallbacks = FragmentUtils.getParent(this, Callbacks.class);
-        if (mCallbacks == null) {
-            throw new IllegalStateException("Parent must implement fragment's callbacks.");
+    public void barCancel() {
+        if (mState == STATE_INSERT) {
+            deleteJumpType();
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mCallbacks = sDummyCallbacks;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.jumptype_edit, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_jumptype_edit_delete:
-                deleteJump();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    public String getJumpTypeId() {
-        return RemigesContract.JumpTypes.getJumpTypeId(mJumpTypeUri);
-    }
-    
     private ContentValues getDefaultValues() {
         ContentValues values = new ContentValues();
         values.put(RemigesContract.JumpTypes.JUMPTPYE_NAME, "");
@@ -193,20 +143,14 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
         }
     }
 
-    private void updateJump() {
+    private boolean updateJump() {
         ContentValues values = new ContentValues();
         values.put(RemigesContract.JumpTypes.JUMPTPYE_NAME, mJumpTypeName.getText().toString());
-        int rowsUpdate = getActivity().getContentResolver().update(mJumpTypeUri, values, null, null);
-        if (rowsUpdate > 0) {
-            mCallbacks.onJumpTypeEdited(RemigesContract.JumpTypes.getJumpTypeId(mJumpTypeUri));
-        }
+        return getActivity().getContentResolver().update(mJumpTypeUri, values, null, null) > 0;
     }
 
-    private void deleteJump() {
-        int rowsDeleted = getActivity().getContentResolver().delete(mJumpTypeUri, null, null);
-        if (rowsDeleted > 0) {
-            mCallbacks.onDeleteJumpType(RemigesContract.JumpTypes.getJumpTypeId(mJumpTypeUri));
-        }
+    private boolean deleteJumpType() {
+        return getActivity().getContentResolver().delete(mJumpTypeUri, null, null) > 0;
     }
 
     @Override

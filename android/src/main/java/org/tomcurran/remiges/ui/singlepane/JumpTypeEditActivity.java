@@ -1,18 +1,24 @@
 package org.tomcurran.remiges.ui.singlepane;
 
-import android.content.Intent;
+import android.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import org.tomcurran.remiges.provider.RemigesContract;
+import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.ui.JumpTypeEditFragment;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-public class JumpTypeEditActivity extends SimpleSinglePaneActivity implements JumpTypeEditFragment.Callbacks {
+public class JumpTypeEditActivity extends SimpleSinglePaneActivity {
     private static final String TAG = makeLogTag(JumpTypeEditActivity.class);
+
+    public interface Callbacks {
+        public void barDone();
+        public void barCancel();
+    }
 
     @Override
     protected Fragment onCreatePane() {
@@ -20,32 +26,44 @@ public class JumpTypeEditActivity extends SimpleSinglePaneActivity implements Ju
     }
 
     @Override
-    public void onJumpTypeEdited(String jumpTypeId) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        final LayoutInflater inflater = (LayoutInflater) getActionBar().getThemedContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View customActionBarView = inflater.inflate(R.layout.donebar_done_cancel, null);
+        customActionBarView.findViewById(R.id.actionbar_done).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        barDone();
+                    }
+                });
+        customActionBarView.findViewById(R.id.actionbar_cancel).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        barCancel();
+                    }
+                });
+
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayOptions(
+                ActionBar.DISPLAY_SHOW_CUSTOM,
+                ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
+        actionBar.setCustomView(customActionBarView,
+                new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        actionBar.setDisplayHomeAsUpEnabled(false);
     }
 
-    @Override
-    public void onDeleteJumpType(String jumpTypeId) {
-        setResult(RESULT_OK, new Intent(Intent.ACTION_DELETE, RemigesContract.JumpTypes.buildJumpTypeUri(jumpTypeId)));
+    private void barDone() {
+        ((JumpTypeEditFragment)getFragment()).barDone();
         finish();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent upIntent = NavUtils.getParentActivityIntent(this);
-                upIntent.setData(RemigesContract.JumpTypes.buildJumpTypeUri(
-                        ((JumpTypeEditFragment) getFragment()).getJumpTypeId()));
-                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-                    TaskStackBuilder.create(this)
-                            .addNextIntentWithParentStack(upIntent)
-                            .startActivities();
-                } else {
-                    NavUtils.navigateUpTo(this, upIntent);
-                }
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+    private void barCancel() {
+        ((JumpTypeEditFragment)getFragment()).barCancel();
+        finish();
     }
 
 }

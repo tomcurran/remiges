@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="EditJumpTypeLabel">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/edit_label</item>
+    </style>
+
+    <style name="EditJumpType">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_margin">12dp</item>
+    </style>
+
+    <style name="EditJumpType.Name">
+        <item name="android:layout_toRightOf">@id/label_edit_jumptype_name</item>
+    </style>
+
+</resources>

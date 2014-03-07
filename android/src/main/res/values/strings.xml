@@ -98,6 +98,11 @@
     <string name="hint_edit_jumptype_name">Jump Type</string>
     <string name="menu_jumptype_edit_delete">Delete</string>
 
+    <!-- Done Bar -->
+
+    <string name="donebar_done">Done</string>
+    <string name="donebar_cancel">Cancel</string>
+
     <!-- Settings -->
 
     <string name="title_settings">Settings</string>

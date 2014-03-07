@@ -22,8 +22,7 @@ import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 public class JumpFragment extends Fragment implements
-        JumpListFragment.Callbacks, JumpDetailFragment.Callbacks, JumpEditFragment.Callbacks,
-        JumpTypeEditFragment.Callbacks {
+        JumpListFragment.Callbacks, JumpDetailFragment.Callbacks, JumpEditFragment.Callbacks {
     private static final String TAG = makeLogTag(JumpFragment.class);
 
     private static final int ACTIVITY_INSERT = 0;
@@ -134,16 +133,6 @@ public class JumpFragment extends Fragment implements
     @Override
     public void onAddJumpType() {
         addJumpType();
-    }
-
-    @Override
-    public void onJumpTypeEdited(String jumpTypeId) {
-        ((JumpEditFragment) getChildFragmentManager().findFragmentByTag(FRAGMENT_JUMP_EDIT))
-                .setJumpType(jumpTypeId);
-    }
-
-    @Override
-    public void onDeleteJumpType(String jumpTypeId) {
     }
 
     private void viewJump(Uri uri) {

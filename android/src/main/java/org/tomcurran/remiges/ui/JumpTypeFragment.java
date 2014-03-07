@@ -21,7 +21,7 @@ import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 public class JumpTypeFragment extends Fragment implements
-        JumpTypeListFragment.Callbacks, JumpTypeDetailFragment.Callbacks, JumpTypeEditFragment.Callbacks {
+        JumpTypeListFragment.Callbacks, JumpTypeDetailFragment.Callbacks {
     private static final String TAG = makeLogTag(JumpTypeFragment.class);
 
     private static final int ACTIVITY_INSERT = 0;
@@ -118,10 +118,6 @@ public class JumpTypeFragment extends Fragment implements
         deleteJumpType();
     }
 
-    @Override
-    public void onJumpTypeEdited(String jumpTypeId) {
-    }
-
     private void viewJumpType(Uri uri) {
         Intent intent = new Intent();
         intent.setData(uri);
@@ -141,34 +137,16 @@ public class JumpTypeFragment extends Fragment implements
         Intent intent = new Intent();
         intent.setData(uri);
         intent.setAction(Intent.ACTION_EDIT);
-        if (mTwoPane) {
-            JumpTypeEditFragment fragment = new JumpTypeEditFragment();
-            fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-            getChildFragmentManager().beginTransaction()
-                    .addToBackStack(null)
-                    .replace(R.id.jumptype_detail_container, fragment)
-                    .commit();
-        } else {
-            intent.setClass(getActivity(), JumpTypeEditActivity.class);
-            startActivityForResult(intent, ACTIVITY_EDIT);
-        }
+        intent.setClass(getActivity(), JumpTypeEditActivity.class);
+        startActivityForResult(intent, ACTIVITY_EDIT);
     }
 
     private void insertJumpType() {
         Intent intent = new Intent();
         intent.setData(RemigesContract.JumpTypes.CONTENT_URI);
         intent.setAction(Intent.ACTION_INSERT);
-        if (mTwoPane) {
-            JumpTypeEditFragment fragment = new JumpTypeEditFragment();
-            fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-            getChildFragmentManager().beginTransaction()
-                    .addToBackStack(null)
-                    .replace(R.id.jumptype_detail_container, fragment)
-                    .commit();
-        } else {
-            intent.setClass(getActivity(), JumpTypeEditActivity.class);
-            startActivityForResult(intent, ACTIVITY_INSERT);
-        }
+        intent.setClass(getActivity(), JumpTypeEditActivity.class);
+        startActivityForResult(intent, ACTIVITY_INSERT);
     }
 
     private void deleteJumpType() {
