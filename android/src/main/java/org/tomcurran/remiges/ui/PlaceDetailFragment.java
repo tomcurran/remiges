@@ -188,7 +188,12 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
     private void loadLastJump() {
         Cursor cursor = mPlaceLastJumpCursor;
         if (cursor.moveToFirst()) {
-            mPlaceLastJump.setText(TimeUtils.getTimeAgo(getActivity(), cursor.getLong(PlaceLastJumpQuery.DATE)));
+            long date = cursor.getLong(PlaceLastJumpQuery.DATE);
+            if (date == 0) {
+                mPlaceLastJump.setText(R.string.detail_place_last_jump_none);
+            } else {
+                mPlaceLastJump.setText(TimeUtils.getTimeAgo(getActivity(), date));
+            }
         }
     }
 

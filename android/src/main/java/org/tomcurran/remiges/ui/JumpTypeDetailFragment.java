@@ -166,7 +166,12 @@ public class JumpTypeDetailFragment extends Fragment implements LoaderManager.Lo
     private void loadLastJump() {
         Cursor cursor = mJumpTypeLastJumpCursor;
         if (cursor.moveToFirst()) {
-            mJumpTypeLastJump.setText(TimeUtils.getTimeAgo(getActivity(), cursor.getLong(JumpTypeLastJumpQuery.DATE)));
+            long date = cursor.getLong(JumpTypeLastJumpQuery.DATE);
+            if (date == 0) {
+                mJumpTypeLastJump.setText(R.string.detail_place_last_jump_none);
+            } else {
+                mJumpTypeLastJump.setText(TimeUtils.getTimeAgo(getActivity(), date));
+            }
         }
     }
 
