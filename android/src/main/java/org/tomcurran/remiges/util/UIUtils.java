@@ -17,19 +17,45 @@ public class UIUtils {
     }
 
     public static int parseTextViewInt(TextView view, int alt) {
-        String text = view.getText().toString();
+        CharSequence text = view.getText();
         if (TextUtils.isEmpty(text)) {
             return alt;
         }
         try {
-            return Integer.parseInt(text);
+            return Integer.parseInt(text.toString());
         } catch (NumberFormatException e) {
             return alt;
         }
     }
 
     public static void setTextViewInt(TextView view, int value) {
-        if (value != 0) {
+        if (value != DEFAULT_PARSE_TEXTVIEW_INT) {
+            view.setText(String.valueOf(value));
+        } else {
+            view.setText("");
+        }
+    }
+
+    public final static double DEFAULT_PARSE_TEXTVIEW_DOUBLE = 0.0;
+
+    public static double parseTextViewDouble(TextView view) {
+        return parseTextViewDouble(view, DEFAULT_PARSE_TEXTVIEW_DOUBLE);
+    }
+
+    public static double parseTextViewDouble(TextView view, double alt) {
+        CharSequence text = view.getText();
+        if (TextUtils.isEmpty(text)) {
+            return alt;
+        }
+        try {
+            return Double.parseDouble(text.toString());
+        } catch (NumberFormatException e) {
+            return alt;
+        }
+    }
+
+    public static void setTextViewDouble(TextView view, double value) {
+        if (value != DEFAULT_PARSE_TEXTVIEW_DOUBLE) {
             view.setText(String.valueOf(value));
         } else {
             view.setText("");
