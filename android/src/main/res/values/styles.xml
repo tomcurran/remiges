@@ -324,4 +324,54 @@
     <style name="EditJumpTypeLabel.Name">
     </style>
 
+    <!-- Place Edit -->
+
+    <style name="EditPlaceContainer">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="EditPlace">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="EditPlace.Name">
+        <item name="android:hint">@string/hint_edit_place_name</item>
+        <item name="android:layout_below">@id/label_edit_place_name</item>
+    </style>
+
+    <style name="EditPlace.Latitude">
+        <item name="android:hint">@string/hint_edit_place_latitude</item>
+        <item name="android:layout_below">@id/label_edit_place_latitude</item>
+    </style>
+
+    <style name="EditPlace.Longitude">
+        <item name="android:hint">@string/hint_edit_place_longitude</item>
+        <item name="android:layout_below">@id/label_edit_place_longitude</item>
+    </style>
+
+    <style name="EditPlaceLabel">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">-8dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/edit_label</item>
+    </style>
+
+    <style name="EditPlaceLabel.Name">
+    </style>
+
+    <style name="EditPlaceLabel.Latitude">
+        <item name="android:layout_below">@id/edit_place_name</item>
+    </style>
+
+    <style name="EditPlaceLabel.Longitude">
+        <item name="android:layout_below">@id/edit_place_latitude</item>
+    </style>
+
 </resources>

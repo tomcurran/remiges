@@ -9,11 +9,11 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.ui.singlepane.PlaceDetailActivity;
+import org.tomcurran.remiges.ui.singlepane.PlaceEditActivity;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
@@ -132,15 +132,22 @@ public class PlaceFragment extends Fragment implements
     }
 
     private void editPlace(Uri uri) {
-        Toast.makeText(getActivity(), String.format("editPlace(%s)", uri), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.setData(uri);
+        intent.setAction(Intent.ACTION_EDIT);
+        intent.setClass(getActivity(), PlaceEditActivity.class);
+        startActivityForResult(intent, ACTIVITY_EDIT);
     }
 
     private void insertPlace() {
-        Toast.makeText(getActivity(), "insertPlace()", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.setData(RemigesContract.Places.CONTENT_URI);
+        intent.setAction(Intent.ACTION_INSERT);
+        intent.setClass(getActivity(), PlaceEditActivity.class);
+        startActivityForResult(intent, ACTIVITY_INSERT);
     }
 
     private void deletePlace() {
-        Toast.makeText(getActivity(), "deletePlace()", Toast.LENGTH_SHORT).show();
         if (mTwoPane) {
             FragmentManager fragmentManager = getChildFragmentManager();
             Fragment fragment = fragmentManager.findFragmentById(R.id.place_detail_container);

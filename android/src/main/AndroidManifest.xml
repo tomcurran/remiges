@@ -8,8 +8,8 @@
         android:label="@string/permission_write"
         android:protectionLevel="normal" />
 
-    <uses-permission
-        android:name="android.permission.INTERNET" />
+    <!-- Used to access google static maps API -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -146,6 +146,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.tomcurran.remiges.ui.singlepane.JumpDetailActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.singlepane.PlaceEditActivity"
+            android:label="@string/title_jump_edit"
+            android:parentActivityName=".ui.singlepane.PlaceDetailActivity"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.tomcurran.remiges.ui.singlepane.PlaceDetailActivity" />
         </activity>
 
         <activity

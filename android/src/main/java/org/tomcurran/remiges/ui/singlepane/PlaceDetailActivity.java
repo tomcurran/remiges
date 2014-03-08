@@ -3,7 +3,6 @@ package org.tomcurran.remiges.ui.singlepane;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 import org.tomcurran.remiges.ui.PlaceDetailFragment;
 
@@ -34,7 +33,11 @@ public class PlaceDetailActivity extends SimpleSinglePaneActivity implements Pla
 
     @Override
     public void onEditPlace(Uri uri) {
-        Toast.makeText(this, String.format("editPlace(%s)", uri), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.setData(uri);
+        intent.setAction(Intent.ACTION_EDIT);
+        intent.setClass(this, PlaceEditActivity.class);
+        startActivityForResult(intent, ACTIVITY_EDIT);
     }
 
     @Override

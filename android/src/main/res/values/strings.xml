@@ -98,6 +98,16 @@
     <string name="hint_edit_jumptype_name">Jump Type</string>
     <string name="menu_jumptype_edit_delete">Delete</string>
 
+    <!-- Place Edit -->
+
+    <string name="title_place_edit">Place Edit</string>
+    <string name="label_edit_place_name">Place name</string>
+    <string name="label_edit_place_latitude">Latitude</string>
+    <string name="label_edit_place_longitude">Longitude</string>
+    <string name="hint_edit_place_name">Place Name</string>
+    <string name="hint_edit_place_latitude">Latitude</string>
+    <string name="hint_edit_place_longitude">Longitude</string>
+
     <!-- Done Bar -->
 
     <string name="donebar_done">Done</string>

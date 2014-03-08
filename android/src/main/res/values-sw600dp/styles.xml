@@ -150,4 +150,48 @@
         <item name="android:layout_toRightOf">@id/label_edit_jumptype_name</item>
     </style>
 
+    <!-- Place Edit -->
+
+    <style name="EditPlace">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
+    <style name="EditPlace.Name">
+        <item name="android:hint">@string/hint_edit_place_name</item>
+        <item name="android:layout_toRightOf">@id/label_edit_place_name</item>
+    </style>
+
+    <style name="EditPlace.Latitude">
+        <item name="android:hint">@string/hint_edit_place_latitude</item>
+        <item name="android:layout_toRightOf">@id/label_edit_place_latitude</item>
+        <item name="android:layout_below">@id/edit_place_name</item>
+    </style>
+
+    <style name="EditPlace.Longitude">
+        <item name="android:hint">@string/hint_edit_place_longitude</item>
+        <item name="android:layout_toRightOf">@id/label_edit_place_longitude</item>
+        <item name="android:layout_below">@id/edit_place_latitude</item>
+    </style>
+
+    <style name="EditPlaceLabel">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">125dp</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:textColor">@color/edit_label</item>
+    </style>
+
+    <style name="EditPlaceLabel.Name">
+    </style>
+
+    <style name="EditPlaceLabel.Latitude">
+        <item name="android:layout_below">@id/edit_place_name</item>
+    </style>
+
+    <style name="EditPlaceLabel.Longitude">
+        <item name="android:layout_below">@id/edit_place_latitude</item>
+    </style>
+
 </resources>
