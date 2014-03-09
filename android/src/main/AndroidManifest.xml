@@ -167,6 +167,24 @@
                 android:value="org.tomcurran.remiges.ui.MainActivity" />
         </activity>
 
+        <activity
+            android:name=".ui.nopane.ImportDriveActivity"
+            android:label="@string/title_import"
+            android:parentActivityName=".ui.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.tomcurran.remiges.ui.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.nopane.ExportDriveActivity"
+            android:label="@string/title_export"
+            android:parentActivityName=".ui.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.tomcurran.remiges.ui.MainActivity" />
+        </activity>
+
         <provider
             android:name="org.tomcurran.remiges.provider.RemigesProvider"
             android:authorities="org.tomcurran.remiges"
@@ -177,6 +195,10 @@
         <meta-data
             android:name="edu.mit.mobile.android.maps.GOOGLE_STATIC_MAPS_API_KEY"
             android:value="AIzaSyCMOjfH7AKf1ZJWFWP2jAdcvWqUd4tu4wM" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
     </application>
 

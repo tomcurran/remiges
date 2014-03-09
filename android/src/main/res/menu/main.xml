@@ -4,6 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="org.tomcurran.remiges.ui.MainActivity">
 
+    <item android:id="@+id/menu_export"
+        android:title="@string/menu_export"
+        android:showAsAction="never" />
+
+    <item android:id="@+id/menu_import"
+        android:title="@string/menu_import"
+        android:showAsAction="never" />
+
     <item android:id="@+id/menu_settings"
         android:title="@string/menu_settings"
         android:orderInCategory="100"

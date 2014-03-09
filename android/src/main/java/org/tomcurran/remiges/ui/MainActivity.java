@@ -13,11 +13,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.json.JSONException;
 import org.tomcurran.remiges.BuildConfig;
 import org.tomcurran.remiges.R;
-import org.tomcurran.remiges.util.TestData;
+import org.tomcurran.remiges.liberation.RemigesLiberation;
+import org.tomcurran.remiges.provider.RemigesContract;
+import org.tomcurran.remiges.ui.nopane.ExportDriveActivity;
+import org.tomcurran.remiges.ui.nopane.ImportDriveActivity;
+import org.tomcurran.remiges.util.Utils;
 
+import java.io.File;
 import java.text.ParseException;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
@@ -29,8 +33,6 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     private static final String FRAGMENT_JUMPS = "fragment_tag_jumps";
     private static final String FRAGMENT_PLACES = "fragment_tag_places";
     private static final String FRAGMENT_JUMPTYPES = "fragment_tag_jumptypes";
-
-    private TestData mTestData;
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
@@ -51,8 +53,6 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
-
-        mTestData = new TestData(this, "tc.json");
     }
 
     @Override
@@ -128,14 +128,21 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_export:
+                startActivity(new Intent(this, ExportDriveActivity.class));
+                return true;
+            case R.id.menu_import:
+                startActivity(new Intent(this, ImportDriveActivity.class));
+                return true;
             case R.id.menu_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             case R.id.menu_debug_insert_data:
                 try {
-                    mTestData.insert();
-                } catch (JSONException e) {
-                    LOGE(TAG, String.format("Test data JSON error: %s", e.getMessage()));
+                    getContentResolver().applyBatch(
+                            RemigesContract.CONTENT_AUTHORITY,
+                            RemigesLiberation.getImportOperations(
+                                    Utils.readAsset(this, "testdata" + File.separator + "tc.json")));
                 } catch (ParseException e) {
                     LOGE(TAG, String.format("Test data JSON parse error: %s", e.getMessage()));
                 } catch (RemoteException e) {
@@ -146,7 +153,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 return true;
             case R.id.menu_debug_delete_data:
                 try {
-                    mTestData.delete();
+                    getContentResolver().applyBatch(RemigesContract.CONTENT_AUTHORITY, RemigesLiberation.getDeleteOperations());
                 } catch (RemoteException e) {
                     LOGE(TAG, String.format("Test data provider communication error: %s", e.getMessage()));
                 } catch (OperationApplicationException e) {
