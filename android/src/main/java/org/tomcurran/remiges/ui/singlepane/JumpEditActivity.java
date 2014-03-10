@@ -67,7 +67,11 @@ public class JumpEditActivity extends SimpleSinglePaneActivity implements JumpEd
 
     @Override
     public void onAddPlace() {
-        Toast.makeText(this, "add place", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.setData(RemigesContract.Places.CONTENT_URI);
+        intent.setAction(Intent.ACTION_INSERT);
+        intent.setClass(this, PlaceEditActivity.class);
+        startActivityForResult(intent, ACTIVITY_PLACE);
     }
 
     @Override
