@@ -127,8 +127,6 @@
     <string name="preference_title_defaults_delay">Delay</string>
 
     <!-- Data Liberation -->
-    <string name="title_export">Export</string>
-    <string name="title_import">Import</string>
     <string name="menu_export">Export</string>
     <string name="menu_import">Import</string>
 

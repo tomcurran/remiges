@@ -2,32 +2,54 @@ package org.tomcurran.remiges.ui;
 
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.OperationApplicationException;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.drive.Drive;
+import com.google.android.gms.drive.DriveApi;
+import com.google.android.gms.drive.DriveFile;
+import com.google.android.gms.drive.DriveId;
+import com.google.android.gms.drive.MetadataChangeSet;
+import com.google.android.gms.drive.OpenFileActivityBuilder;
 
 import org.tomcurran.remiges.BuildConfig;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.liberation.RemigesLiberation;
 import org.tomcurran.remiges.provider.RemigesContract;
-import org.tomcurran.remiges.ui.nopane.ExportDriveActivity;
-import org.tomcurran.remiges.ui.nopane.ImportDriveActivity;
+import org.tomcurran.remiges.util.GoogleApiClientAsyncTask;
 import org.tomcurran.remiges.util.Utils;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.ParseException;
 
+import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
+import static org.tomcurran.remiges.util.LogUtils.LOGI;
+import static org.tomcurran.remiges.util.LogUtils.LOGW;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-public class MainActivity extends BaseActivity implements NavigationDrawerFragment.Callbacks {
+public class MainActivity extends BaseActivity implements
+        NavigationDrawerFragment.Callbacks,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = makeLogTag(MainActivity.class);
 
     private static final String FRAGMENT_JUMPS = "fragment_tag_jumps";
@@ -129,10 +151,10 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_export:
-                startActivity(new Intent(this, ExportDriveActivity.class));
+                exportToDrive();
                 return true;
             case R.id.menu_import:
-                startActivity(new Intent(this, ImportDriveActivity.class));
+                importFromDrive();
                 return true;
             case R.id.menu_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
@@ -173,6 +195,187 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
             fragment.getChildFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    // Data Liberation
+
+    private static final int REQUEST_RESOLUTION = 1;
+    private static final int REQUEST_EXPORT = 2;
+    private static final int REQUEST_IMPORT = 3;
+
+    private static final String MIME_TYPE_PLAIN_TEXT = "text/plain";
+    private static final String MIME_TYPE_JAVASCRIPT = "application/javascript";
+
+    private GoogleApiClient mGoogleApiClient;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addApi(Drive.API)
+                    .addScope(Drive.SCOPE_FILE)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .build();
+        }
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_RESOLUTION:
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    mGoogleApiClient.connect();
+                }
+                break;
+            case REQUEST_EXPORT:
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    DriveId driveId = data.getParcelableExtra(OpenFileActivityBuilder.EXTRA_RESPONSE_DRIVE_ID);
+                    showMessage("File created with ID: " + driveId);
+                }
+                break;
+            case REQUEST_IMPORT:
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    DriveId driveId = data.getParcelableExtra(OpenFileActivityBuilder.EXTRA_RESPONSE_DRIVE_ID);
+                    showMessage("Selected file's ID: " + driveId);
+                    new RetrieveDriveFileContentsAsyncTaskGoogle(this).execute(driveId);
+                }
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+                break;
+        }
+    }
+
+    @Override
+    public void onPause() {
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.disconnect();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        LOGI(TAG, "GoogleApiClient connected");
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        LOGI(TAG, "GoogleApiClient connection suspended");
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        LOGI(TAG, "GoogleApiClient connection failed: " + result.toString());
+        if (!result.hasResolution()) {
+            GooglePlayServicesUtil.getErrorDialog(result.getErrorCode(), this, 0).show();
+            return;
+        }
+        try {
+            result.startResolutionForResult(this, REQUEST_RESOLUTION);
+        } catch (IntentSender.SendIntentException e) {
+            LOGE(TAG, "Exception while starting resolution activity", e);
+        }
+    }
+
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        LOGD(TAG, message);
+    }
+
+    public GoogleApiClient getGoogleApiClient() {
+        return mGoogleApiClient;
+    }
+
+
+
+    final ResultCallback<DriveApi.ContentsResult> exportCallback = new ResultCallback<DriveApi.ContentsResult>() {
+        @Override
+        public void onResult(DriveApi.ContentsResult result) {
+            MetadataChangeSet metadataChangeSet = new MetadataChangeSet.Builder()
+                    .setMimeType(MIME_TYPE_JAVASCRIPT)
+                    .build();
+            OutputStream outputStream = result.getContents().getOutputStream();
+            try {
+                outputStream.write(RemigesLiberation.getExportJson(getContentResolver()).getBytes());
+            } catch (IOException e) {
+                LOGE(TAG, String.format("I/O error exporting data: %s", e.getMessage()));
+            }
+            IntentSender intentSender = Drive.DriveApi
+                    .newCreateFileActivityBuilder()
+                    .setInitialMetadata(metadataChangeSet)
+                    .setInitialContents(result.getContents())
+                    .build(getGoogleApiClient());
+            try {
+                startIntentSenderForResult(intentSender, REQUEST_EXPORT, null, 0, 0, 0);
+            } catch (IntentSender.SendIntentException e) {
+                LOGW(TAG, "Unable to send intent", e);
+            }
+        }
+    };
+
+    final private class RetrieveDriveFileContentsAsyncTaskGoogle extends GoogleApiClientAsyncTask<DriveId, Boolean, String> {
+
+        public RetrieveDriveFileContentsAsyncTaskGoogle(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected String doInBackgroundConnected(DriveId... params) {
+            String contents = null;
+            DriveFile file = Drive.DriveApi.getFile(getGoogleApiClient(), params[0]);
+            DriveApi.ContentsResult contentsResult = file.openContents(getGoogleApiClient(), DriveFile.MODE_READ_ONLY, null).await();
+            if (!contentsResult.getStatus().isSuccess()) {
+                return null;
+            }
+            try {
+                contents = Utils.readFromInputStream(contentsResult.getContents().getInputStream());
+            } catch (IOException e) {
+                LOGE(TAG, "IOException while reading from the stream", e);
+            }
+            file.discardContents(getGoogleApiClient(), contentsResult.getContents()).await();
+            return contents;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if (result == null) {
+                showMessage("Error while reading from the file");
+                return;
+            }
+            try {
+                getContentResolver().applyBatch(
+                        RemigesContract.CONTENT_AUTHORITY,
+                        RemigesLiberation.getImportOperations(result)
+                );
+            } catch (ParseException e) {
+                LOGE(TAG, String.format("Import data JSON parse error: %s", e.getMessage()));
+            } catch (RemoteException e) {
+                LOGE(TAG, String.format("Import data provider communication error: %s", e.getMessage()));
+            } catch (OperationApplicationException e) {
+                LOGE(TAG, String.format("Import data insertion error: %s", e.getMessage()));
+            }
+        }
+    }
+
+    public void exportToDrive() {
+        Drive.DriveApi.newContents(getGoogleApiClient()).setResultCallback(exportCallback);
+    }
+
+    public void importFromDrive() {
+        IntentSender intentSender = Drive.DriveApi
+                .newOpenFileActivityBuilder()
+                .setMimeType(new String[] { MIME_TYPE_PLAIN_TEXT, MIME_TYPE_JAVASCRIPT })
+                .build(getGoogleApiClient());
+        try {
+            startIntentSenderForResult(intentSender, REQUEST_IMPORT, null, 0, 0, 0);
+        } catch (IntentSender.SendIntentException e) {
+            LOGW(TAG, "Unable to send intent", e);
         }
     }
 

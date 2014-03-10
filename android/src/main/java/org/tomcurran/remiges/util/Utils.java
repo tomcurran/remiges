@@ -3,8 +3,10 @@ package org.tomcurran.remiges.util;
 
 import android.content.Context;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class Utils {
 
@@ -22,6 +24,16 @@ public class Utils {
             return null;
         }
         return asset;
+    }
+
+    public static String readFromInputStream(InputStream is) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder builder = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            builder.append(line);
+        }
+        return builder.toString();
     }
 
 }

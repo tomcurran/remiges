@@ -1,6 +1,6 @@
 // Copyright 2013 Google Inc. All Rights Reserved.
 
-package org.tomcurran.remiges.ui.nopane;
+package org.tomcurran.remiges.util;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -14,18 +14,17 @@ import com.google.android.gms.drive.Drive;
 
 import java.util.concurrent.CountDownLatch;
 
-import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 /**
  * An AsyncTask that maintains a connected client.
  */
-public abstract class ApiClientAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
-    private static final String TAG = makeLogTag(ApiClientAsyncTask.class);
+public abstract class GoogleApiClientAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
+    private static final String TAG = makeLogTag(GoogleApiClientAsyncTask.class);
 
     private GoogleApiClient mClient;
 
-    public ApiClientAsyncTask(Context context) {
+    public GoogleApiClientAsyncTask(Context context) {
         GoogleApiClient.Builder builder = new GoogleApiClient.Builder(context)
                 .addApi(Drive.API)
                 .addScope(Drive.SCOPE_FILE);
@@ -34,7 +33,7 @@ public abstract class ApiClientAsyncTask<Params, Progress, Result> extends Async
 
     @Override
     protected final Result doInBackground(Params... params) {
-        LOGD(TAG, "in background");
+//        LOGD(TAG, "in background");
         final CountDownLatch latch = new CountDownLatch(1);
         mClient.registerConnectionCallbacks(new ConnectionCallbacks() {
             @Override
