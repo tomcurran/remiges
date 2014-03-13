@@ -2,7 +2,7 @@ apply plugin: 'android'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.2'
+    buildToolsVersion '19.0.3'
 
     defaultConfig {
         minSdkVersion 14
@@ -26,4 +26,8 @@ dependencies {
     compile files('libs/joda-time-2.3.jar')
     compile project(':staticmap')
     compile project(':imagecache')
+
+    androidTestCompile 'junit:junit:4.11'
+    androidTestCompile files('libs/uiautomator.jar')
+    androidTestCompile files('libs/android.jar')
 }
