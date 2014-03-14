@@ -43,6 +43,28 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
         return new UiScrollable(list).getChildByText(getTextView(), text);
     }
 
+    public static void clickListItem(UiSelector list, String item) throws UiObjectNotFoundException {
+        assertInList(list, item);
+        getListItem(list, item).click();
+    }
+
+    public static void assertInList(UiSelector list, String item) {
+        assertTrue(String.format("%s not found in list", item), hasListItem(list, item));
+    }
+
+    public static void assertNotInList(UiSelector list, String item) {
+        assertFalse(String.format("%s found in list", item), hasListItem(list, item));
+    }
+
+    private static boolean hasListItem(UiSelector list, String item) {
+        try {
+            getListItem(list, item);
+            return true;
+        } catch (UiObjectNotFoundException e) {
+            return false;
+        }
+    }
+
     public static String getActionBarTitle() throws UiObjectNotFoundException {
         return new UiObject(new UiSelector().resourceId(RESOURCE_ACTIONBAR_TITLE)).getText();
     }

@@ -29,30 +29,30 @@ public class NavigationDrawerTestCase extends RemigesUiAutomatorTestCase {
         openDrawer(navigateFrom);
 
         // ensure correct navigation
-        assertTrue(getActionBarTitle().equals(TEXT_NAVIGATION_TITLE));
+        assertEquals(TEXT_NAVIGATION_TITLE, getActionBarTitle());
 
         // select navigation
         selectNavigation(navigateTo);
 
         // ensure title correct
-        assertTrue(getActionBarTitle().equals(navigateToTitle));
+        assertEquals(navigateToTitle, getActionBarTitle());
     }
 
     public void testOpenCloseNavigationDrawer() throws UiObjectNotFoundException {
         // ensure correct navigation
-        assertTrue(getActionBarTitle().equals(TEXT_HOME_TITLE));
+        assertEquals(TEXT_HOME_TITLE, getActionBarTitle());
 
         // open navigation drawer
         openDrawer(DESCRIPTION_HOME_OPEN_DRAWER);
 
         // ensure correct navigation
-        assertTrue(getActionBarTitle().equals(TEXT_NAVIGATION_TITLE));
+        assertEquals(TEXT_NAVIGATION_TITLE, getActionBarTitle());
 
         // close navigation drawer
         closeDrawer();
 
         // ensure correct navigation
-        assertTrue(getActionBarTitle().equals(TEXT_HOME_TITLE));
+        assertEquals(TEXT_HOME_TITLE, getActionBarTitle());
     }
 
 }
