@@ -86,7 +86,33 @@
          In all cases you must update the value of version-tag below to read 'custom' instead of an integer,
          in order to avoid having your file be overridden by tools such as "android update project"
     -->
-    <!-- version-tag: VERSION_TAG -->
+
+    <target name="test" depends="install" description="Runs all tests">
+        <exec executable="${adb}" failonerror="true">
+            <arg line="${adb.device.arg}" />
+            <arg value="shell" />
+            <arg value="uiautomator" />
+            <arg value="runtest" />
+            <arg value="${out.filename}" />
+        </exec>
+    </target>
+
+    <target name="testclass" depends="install, input-testclass" description="Runs all tests in a class or single method">
+        <exec executable="${adb}" failonerror="true">
+            <arg line="${adb.device.arg}" />
+            <arg value="shell" />
+            <arg value="uiautomator" />
+            <arg value="runtest" />
+            <arg value="${out.filename}" />
+            <arg value="-c" />
+            <arg value="org.tomcurran.remiges.test.ui.${class}" />
+        </exec>
+    </target>
+    <target name="input-testclass" unless="class" description="prompts for command line arguments if necessary">
+        <input addProperty="class" message="Type the desired class name or optionally specify a specific method:"/>
+    </target>
+
+    <!-- version-tag: custom -->
     <import file="${sdk.dir}/tools/ant/uibuild.xml" />
 
 </project>
