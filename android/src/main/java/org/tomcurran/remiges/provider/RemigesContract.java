@@ -3,6 +3,9 @@ package org.tomcurran.remiges.provider;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+/**
+ * {@link android.content.ContentProvider} contract provided by {@link org.tomcurran.remiges.provider.RemigesProvider}
+ */
 public class RemigesContract {
 
     interface JumpTypesColumns {

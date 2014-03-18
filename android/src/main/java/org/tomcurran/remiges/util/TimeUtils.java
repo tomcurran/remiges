@@ -10,10 +10,20 @@ import org.joda.time.Weeks;
 import org.joda.time.Years;
 import org.tomcurran.remiges.R;
 
+/**
+ * Utility class for time functions
+ */
 public class TimeUtils {
 
-    public static String getTimeAgo(Context context, long time) {
-        DateTime then = new DateTime(time);
+    /**
+     * Formats a previous time as string representing a relative time ago
+     *
+     * @param context  android {@link android.content.Context}
+     * @param pastTime epoch milliseconds
+     * @return pastTime ago formatted string
+     */
+    public static String getTimeAgo(Context context, long pastTime) {
+        DateTime then = new DateTime(pastTime);
         DateTime now = new DateTime();
 
         int days = Days.daysBetween(then, now).getDays();

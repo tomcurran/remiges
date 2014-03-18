@@ -20,6 +20,9 @@ import java.util.ArrayList;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
+/**
+ * {@link android.content.ContentProvider} for the application
+ */
 public class RemigesProvider extends ContentProvider {
     private static final String TAG = makeLogTag(RemigesProvider.class);
 
@@ -40,8 +43,8 @@ public class RemigesProvider extends ContentProvider {
     }
 
     /**
-     * Build and return a {@link UriMatcher} that catches all {@link Uri}
-     * variations supported by this {@link ContentProvider}.
+     * Build and return a {@link UriMatcher} that catches all {@link Uri} variations supported by
+     * this {@link ContentProvider}.
      */
     private static UriMatcher buildUriMatcher() {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -90,8 +93,7 @@ public class RemigesProvider extends ContentProvider {
 
     /** {@inheritDoc} */
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection,
-                        String[] selectionArgs, String sortOrder) {
+    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         final SQLiteDatabase db = mOpenHelper.getReadableDatabase();
         final int match = sUriMatcher.match(uri);
         switch (match) {
@@ -134,8 +136,7 @@ public class RemigesProvider extends ContentProvider {
 
     /** {@inheritDoc} */
     @Override
-    public int update(Uri uri, ContentValues values, String selection,
-            String[] selectionArgs) {
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         final SelectionBuilder builder = buildSimpleSelection(uri);
         int retVal = builder.where(selection, selectionArgs).update(db, values);
@@ -154,13 +155,17 @@ public class RemigesProvider extends ContentProvider {
     }
 
     /**
-     * Apply the given set of {@link ContentProviderOperation}, executing inside
-     * a {@link SQLiteDatabase} transaction. All changes will be rolled back if
-     * any single one fails.
+     * Apply the given set of {@link ContentProviderOperation}, executing inside a {@link
+     * SQLiteDatabase} transaction. All changes will be rolled back if any single one fails.
+     *
+     * @param operations {@link java.util.ArrayList} of {@link android.content
+     * .ContentProviderOperation}s, cannot be null
+     * @return
+     * @throws OperationApplicationException when a {@link android.content
+     * .ContentProviderOperation} fails
      */
     @Override
-    public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations)
-            throws OperationApplicationException {
+    public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations) throws OperationApplicationException {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         db.beginTransaction();
         try {
@@ -176,10 +181,22 @@ public class RemigesProvider extends ContentProvider {
         }
     }
 
+    /**
+     * wrapper for {@link android.content.ContentResolver#notifyChange(android.net.Uri,
+     * android.database.ContentObserver)}
+     *
+     * @param uri The uri of the content that was changed.
+     */
     private void notifyChange(Uri uri) {
         getContext().getContentResolver().notifyChange(uri, null);
     }
 
+    /**
+     * Returns {@link org.tomcurran.remiges.util.SelectionBuilder} for the specified URI
+     *
+     * @param uri URI to return the {@link org.tomcurran.remiges.util.SelectionBuilder} for
+     * @return {@link org.tomcurran.remiges.util.SelectionBuilder} for the specified URI
+     */
     private SelectionBuilder buildSimpleSelection(Uri uri) {
         final SelectionBuilder builder = new SelectionBuilder();
         final int match = sUriMatcher.match(uri);
@@ -189,21 +206,24 @@ public class RemigesProvider extends ContentProvider {
             }
             case JUMPS_ID: {
                 final String jumpId = Jumps.getJumpId(uri);
-                return builder.table(Tables.JUMPS).where(Jumps._ID + "=?", jumpId);
+                return builder.table(Tables.JUMPS)
+                        .where(Jumps._ID + "=?", jumpId);
             }
             case JUMPTYPES: {
                 return builder.table(Tables.JUMPTYPES);
             }
             case JUMPTYPES_ID: {
                 final String jumpTypeId = JumpTypes.getJumpTypeId(uri);
-                return builder.table(Tables.JUMPTYPES).where(JumpTypes._ID + "=?", jumpTypeId);
+                return builder.table(Tables.JUMPTYPES)
+                        .where(JumpTypes._ID + "=?", jumpTypeId);
             }
             case PLACES: {
                 return builder.table(Tables.PLACES);
             }
             case PLACES_ID: {
                 final String placeId = Places.getPlaceId(uri);
-                return builder.table(Tables.PLACES).where(Places._ID + "=?", placeId);
+                return builder.table(Tables.PLACES)
+                        .where(Places._ID + "=?", placeId);
             }
             default: {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -211,6 +231,14 @@ public class RemigesProvider extends ContentProvider {
         }
     }
 
+    /**
+     * Returns {@link org.tomcurran.remiges.util.SelectionBuilder} for the specified URI. Field
+     * names are fully qualified
+     *
+     * @param uri URI to return the {@link org.tomcurran.remiges.util.SelectionBuilder} for
+     * @return {@link org.tomcurran.remiges.util.SelectionBuilder} for the specified URI. Field
+     * names are fully qualified
+     */
     private SelectionBuilder buildExpandedSelection(Uri uri, int match) {
         final SelectionBuilder builder = new SelectionBuilder();
         switch (match) {
@@ -233,14 +261,16 @@ public class RemigesProvider extends ContentProvider {
             }
             case JUMPTYPES_ID: {
                 final String jumpTypeId = JumpTypes.getJumpTypeId(uri);
-                return builder.table(Tables.JUMPTYPES).where(JumpTypes._ID + "=?", jumpTypeId);
+                return builder.table(Tables.JUMPTYPES)
+                        .where(JumpTypes._ID + "=?", jumpTypeId);
             }
             case PLACES: {
                 return builder.table(Tables.PLACES);
             }
             case PLACES_ID: {
                 final String placeId = Places.getPlaceId(uri);
-                return builder.table(Tables.PLACES).where(Places._ID + "=?", placeId);
+                return builder.table(Tables.PLACES)
+                        .where(Places._ID + "=?", placeId);
             }
             default: {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -248,6 +278,9 @@ public class RemigesProvider extends ContentProvider {
         }
     }
 
+    /**
+     * Fully qualified field references
+     */
     private interface Qualified {
         String JUMPS_JUMP_ID = Tables.JUMPS + "." + Jumps._ID;
     }

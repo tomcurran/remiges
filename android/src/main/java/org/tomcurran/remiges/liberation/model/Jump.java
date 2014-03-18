@@ -1,6 +1,8 @@
 package org.tomcurran.remiges.liberation.model;
 
-
+/**
+ * Data model for exporting and importing jump data
+ */
 public class Jump {
     public int number;
     public long date;

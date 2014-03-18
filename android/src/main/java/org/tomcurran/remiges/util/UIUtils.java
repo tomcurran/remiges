@@ -8,14 +8,33 @@ import android.widget.TextView;
 
 import java.io.File;
 
+/**
+ * User interface utilities
+ */
 public class UIUtils {
 
     public final static int DEFAULT_PARSE_TEXTVIEW_INT = 0;
 
+    /**
+     * Parses and returns the integer value in view or returns DEFAULT_PARSE_TEXTVIEW_INT if view
+     * is empty or an error occurs parsing
+     *
+     * @param view {@link android.widget.TextView} to parse
+     * @return the integer value in view or DEFAULT_PARSE_TEXTVIEW_INT if view is empty or an
+     * error occurs parsing
+     */
     public static int parseTextViewInt(TextView view) {
         return parseTextViewInt(view, DEFAULT_PARSE_TEXTVIEW_INT);
     }
 
+    /**
+     * Parses and returns the integer value in view or returns alt if view is empty or an error
+     * occurs parsing
+     *
+     * @param view {@link android.widget.TextView} to parse
+     * @param alt  default value that will be returned if view is empty or an error occurs parsing
+     * @return the integer value in view or alt if view is empty or an error occurs parsing
+     */
     public static int parseTextViewInt(TextView view, int alt) {
         CharSequence text = view.getText();
         if (TextUtils.isEmpty(text)) {
@@ -28,6 +47,11 @@ public class UIUtils {
         }
     }
 
+    /**
+     * Sets the text of view to value
+     * @param view {@link android.widget.TextView}
+     * @param value integer to set as view text
+     */
     public static void setTextViewInt(TextView view, int value) {
         if (value != DEFAULT_PARSE_TEXTVIEW_INT) {
             view.setText(String.valueOf(value));
@@ -38,10 +62,26 @@ public class UIUtils {
 
     public final static double DEFAULT_PARSE_TEXTVIEW_DOUBLE = 0.0;
 
+    /**
+     * Parses and returns the double value in view or returns DEFAULT_PARSE_TEXTVIEW_INT if view
+     * is empty or an error occurs parsing
+     *
+     * @param view {@link android.widget.TextView} to parse
+     * @return the double value in view or DEFAULT_PARSE_TEXTVIEW_INT if view is empty or an
+     * error occurs parsing
+     */
     public static double parseTextViewDouble(TextView view) {
         return parseTextViewDouble(view, DEFAULT_PARSE_TEXTVIEW_DOUBLE);
     }
 
+    /**
+     * Parses and returns the double value in view or returns alt if view is empty or an error
+     * occurs parsing
+     *
+     * @param view {@link android.widget.TextView} to parse
+     * @param alt  default value that will be returned if view is empty or an error occurs parsing
+     * @return the double value in view or alt if view is empty or an error occurs parsing
+     */
     public static double parseTextViewDouble(TextView view, double alt) {
         CharSequence text = view.getText();
         if (TextUtils.isEmpty(text)) {
@@ -54,6 +94,11 @@ public class UIUtils {
         }
     }
 
+    /**
+     * Sets the text of view to value
+     * @param view {@link android.widget.TextView}
+     * @param value double to set as view text
+     */
     public static void setTextViewDouble(TextView view, double value) {
         if (value != DEFAULT_PARSE_TEXTVIEW_DOUBLE) {
             view.setText(String.valueOf(value));
@@ -62,10 +107,21 @@ public class UIUtils {
         }
     }
 
+    // location of fonts
     private static final String FONTS = "fonts";
 
+    /**
+     * Roboto thin font
+     */
     public static final String FONT_ROBOTO_THIN = "Roboto-Thin.ttf";
 
+    /**
+     * Loads a font asset
+     *
+     * @param context android {@link android.content.Context}
+     * @param font asset file name
+     * @return font {@link android.graphics.Typeface}
+     */
     public static Typeface loadFont(Context context, String font) {
         return Typeface.createFromAsset(context.getAssets(), FONTS + File.separator + font);
     }

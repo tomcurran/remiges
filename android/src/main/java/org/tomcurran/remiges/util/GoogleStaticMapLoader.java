@@ -15,7 +15,10 @@ import edu.mit.mobile.android.maps.OnMapUpdateListener;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-
+/**
+ * Loads images for {@link edu.mit.mobile.android.maps.GoogleStaticMapView} from URLs. A cache is
+ * maintained and checked before making a call over the network.
+ */
 public class GoogleStaticMapLoader {
     private static final String TAG = makeLogTag(GoogleStaticMapLoader.class);
 
@@ -68,6 +71,13 @@ public class GoogleStaticMapLoader {
         };
     }
 
+    /**
+     * Must be called to set the {@link edu.mit.mobile.android.maps.GoogleStaticMapView} that is
+     * updated by this loader
+     *
+     * @param view the {@link edu.mit.mobile.android.maps.GoogleStaticMapView} that is updated by
+     *             this loader
+     */
     public void setView(GoogleStaticMapView view) {
         mView = view;
         mView.setOnMapUpdateListener(mMapUpdateListener);

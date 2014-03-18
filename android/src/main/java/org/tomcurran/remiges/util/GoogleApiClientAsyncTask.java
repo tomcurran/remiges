@@ -33,7 +33,6 @@ public abstract class GoogleApiClientAsyncTask<Params, Progress, Result> extends
 
     @Override
     protected final Result doInBackground(Params... params) {
-//        LOGD(TAG, "in background");
         final CountDownLatch latch = new CountDownLatch(1);
         mClient.registerConnectionCallbacks(new ConnectionCallbacks() {
             @Override

@@ -13,11 +13,15 @@ import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGW;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
+/**
+ * {@link android.database.sqlite.SQLiteOpenHelper} for the application
+ */
 public class RemigesDatabase extends SQLiteOpenHelper {
     private static final String TAG = makeLogTag(RemigesDatabase.class);
 
     private static final String DATABASE_NAME = "remiges.db";
 
+    // DATABASE_VERSION should be updated with each new database version
     private static final int VER_INIT = 1;
     private static final int DATABASE_VERSION = VER_INIT;
 
@@ -31,10 +35,6 @@ public class RemigesDatabase extends SQLiteOpenHelper {
         String JUMPS_JOIN_JUMPTYPES_PLACES = Tables.JUMPS
                 + String.format(LEFT_OUTER_JOIN, Tables.JUMPS, Jumps.JUMPTYPE_ID, Tables.JUMPTYPES, BaseColumns._ID)
                 + String.format(LEFT_OUTER_JOIN, Tables.JUMPS, Jumps.PLACE_ID, Tables.PLACES, BaseColumns._ID);
-        String JUMPTYPES_JOIN_JUMPS = Tables.JUMPTYPES
-                + String.format(LEFT_OUTER_JOIN, Tables.JUMPTYPES, BaseColumns._ID, Tables.JUMPS, Jumps.JUMPTYPE_ID);
-        String PLACES_JOIN_JUMPS = Tables.PLACES
-                + String.format(LEFT_OUTER_JOIN, Tables.PLACES, BaseColumns._ID, Tables.JUMPS, Jumps.PLACE_ID);
     }
 
     private interface References {
@@ -48,6 +48,7 @@ public class RemigesDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // Place
         db.execSQL("CREATE TABLE " + Tables.PLACES + " ("
                 + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + RemigesContract.PlaceColumns.PLACE_NAME + " TEXT NOT NULL,"
@@ -55,11 +56,13 @@ public class RemigesDatabase extends SQLiteOpenHelper {
                 + RemigesContract.PlaceColumns.PLACE_LATITUDE + " REAL)"
         );
 
+        // JumpType
         db.execSQL("CREATE TABLE " + Tables.JUMPTYPES + " ("
                 + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + JumpTypesColumns.JUMPTPYE_NAME + " TEXT NOT NULL)"
         );
 
+        // Jump
         db.execSQL("CREATE TABLE " + Tables.JUMPS + " ("
                 + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + Jumps.JUMPTYPE_ID + " INTEGER " + References.JUMPTYPE_ID + ","
@@ -79,6 +82,7 @@ public class RemigesDatabase extends SQLiteOpenHelper {
         LOGD(TAG, "onUpgrade() from " + oldVersion + " to " + newVersion);
         int version = oldVersion;
 
+        // implement upgrade code when first new database version exists
 //        switch (version) {
 //            case VER_LAUNCH:
 //                version = VER_nextcase...
@@ -89,6 +93,7 @@ public class RemigesDatabase extends SQLiteOpenHelper {
             LOGW(TAG, "Destroying old data during upgrade");
 
             db.execSQL("DROP TABLE IF EXISTS " + Tables.JUMPS);
+            db.execSQL("DROP TABLE IF EXISTS " + Tables.PLACES);
             db.execSQL("DROP TABLE IF EXISTS " + Tables.JUMPTYPES);
 
             onCreate(db);

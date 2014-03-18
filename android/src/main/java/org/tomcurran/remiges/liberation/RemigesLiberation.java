@@ -22,10 +22,20 @@ import java.util.LinkedHashMap;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-
+/**
+ * RemigesLiberation contains all the functions for mass operations across the applications data
+ */
 public class RemigesLiberation {
     private static final String TAG = makeLogTag(RemigesLiberation.class);
 
+    /**
+     * Returns list of {@link android.content.ContentProviderOperation}s that can be passed to
+     * {@link android.content.ContentResolver#applyBatch(String, java.util.ArrayList)} to delete
+     * all application data
+     *
+     * @return list of {@link android.content.ContentProviderOperation}s to delete all
+     * application data
+     */
     public static ArrayList<ContentProviderOperation> getDeleteOperations() {
         ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>();
         operations.add(ContentProviderOperation.newDelete(Jumps.CONTENT_URI).build());
@@ -34,6 +44,18 @@ public class RemigesLiberation {
         return operations;
     }
 
+    /**
+     * Returns list of {@link android.content.ContentProviderOperation}s that can be passed to
+     * {@link android.content.ContentResolver#applyBatch(String, java.util.ArrayList)} to insert
+     * data into the application read from {@link org.tomcurran.remiges.liberation.model
+     * .LiberationModel} formatted JSON string
+     *
+     * @param json JSON string in {@link org.tomcurran.remiges.liberation.model.LiberationModel}
+     *             format
+     * @return list of {@link android.content.ContentProviderOperation}s to insert data into the
+     * application
+     * @throws ParseException Thrown when the JSON string being parsed is not in the correct form
+     */
     public static ArrayList<ContentProviderOperation> getImportOperations(String json) throws ParseException {
         ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>();
         LiberationModel model = new Gson().fromJson(json, LiberationModel.class);
@@ -83,6 +105,14 @@ public class RemigesLiberation {
         return operations;
     }
 
+    /**
+     * Returns a string with all the application data in in the format {@link org.tomcurran
+     * .remiges.liberation.model.LiberationModel}
+     *
+     * @param resolver {@link android.content.ContentResolver} used to extract data
+     * @return a string with all the application data in the format {@link org.tomcurran.remiges
+     * .liberation.model.LiberationModel}
+     */
     public static String getExportJson(ContentResolver resolver) {
         Cursor jumps = resolver.query(Jumps.CONTENT_URI, null, null, null, null);
         Cursor jumpTypes = resolver.query(JumpTypes.CONTENT_URI, null, null, null, null);
