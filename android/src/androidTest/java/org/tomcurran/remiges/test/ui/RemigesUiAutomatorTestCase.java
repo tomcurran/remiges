@@ -6,6 +6,10 @@ import com.android.uiautomator.core.UiScrollable;
 import com.android.uiautomator.core.UiSelector;
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 
 public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
 
@@ -18,6 +22,8 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
     private static final String APP_PACKAGE = "org.tomcurran.remiges";
     private static final String RESOURCE_ACTIONBAR_TITLE = "android:id/action_bar_title";
     private static final String RESOURCE_MASTER_DETAIL_CONTAINER = "org.tomcurran.remiges:id/container";
+
+    private static final int SMALLEST_WIDTH_TWO_PANE = 600;
 
     public static UiSelector getTextView() {
         return new UiSelector().className(CLASS_TEXTVIEW);
@@ -79,6 +85,20 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
 
     public static int getMasterDetailListCount() throws UiObjectNotFoundException {
         return new UiObject(getMasterDetailList()).getChildCount();
+    }
+
+    public boolean isTwoPane() {
+        try {
+            double dpi = Double.parseDouble(new BufferedReader(new InputStreamReader(
+                    Runtime.getRuntime().exec("getprop ro.sf.lcd_density").getInputStream()
+            )).readLine());
+            double width = getUiDevice().getDisplayWidth() / (dpi / 160);
+            double height = getUiDevice().getDisplayHeight() / (dpi / 160);
+            return Math.min(width, height) >= SMALLEST_WIDTH_TWO_PANE;
+        } catch (IOException e) {
+            System.err.println("I/O error: " + e.getMessage());
+            return false;
+        }
     }
 
     private void openApp() throws UiObjectNotFoundException {
