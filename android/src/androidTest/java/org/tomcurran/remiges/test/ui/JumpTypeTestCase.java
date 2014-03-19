@@ -3,7 +3,6 @@ package org.tomcurran.remiges.test.ui;
 
 import com.android.uiautomator.core.UiObject;
 import com.android.uiautomator.core.UiObjectNotFoundException;
-import com.android.uiautomator.core.UiSelector;
 
 public class JumpTypeTestCase extends RemigesUiAutomatorTestCase {
 
@@ -21,6 +20,7 @@ public class JumpTypeTestCase extends RemigesUiAutomatorTestCase {
     private static final String NAME_HINT = "Jump Type";
     private static final String NAME1 = "jump type tester 1";
     private static final String NAME2 = "jump type tester 2";
+    private static final String NAME3 = "jump type tester 3";
 
     public static void navigateToJumpType(String navigateFrom) throws UiObjectNotFoundException {
         NavigationDrawerTestCase.navigateTo(navigateFrom, TEXT_NAVIGATION, TEXT_TITLE);
@@ -28,6 +28,35 @@ public class JumpTypeTestCase extends RemigesUiAutomatorTestCase {
 
     private static void navigateToJumpType() throws UiObjectNotFoundException {
         navigateToJumpType(NavigationDrawerTestCase.DESCRIPTION_HOME_OPEN_DRAWER);
+    }
+
+    private static void addJumpType(String jumpTypeName) throws UiObjectNotFoundException {
+        // navigate to jump type
+        navigateToJumpType();
+
+        // get current amount of jump types available
+        int listItemCount = getMasterDetailListCount();
+
+        // ensure jump type name not present in list
+        assertNotInList(getMasterDetailList(), jumpTypeName);
+
+        // click add jump type action
+        getByDescription(DESCRIPTION_ADD).clickAndWaitForNewWindow();
+
+        // ensure jump type name is set to the hint then change it
+        UiObject name = getByResource(RESOURCE_EDIT_NAME);
+        assertEquals(NAME_HINT, name.getText());
+        name.setText(jumpTypeName);
+        assertEquals(jumpTypeName, name.getText());
+
+        // action bar done
+        getByResource(RESOURCE_ACTIONBAR_DONE).clickAndWaitForNewWindow();
+
+        // ensure new jump type in list
+        assertEquals(listItemCount + 1, getMasterDetailListCount());
+
+        // ensure jump type name present in list
+        assertInList(getMasterDetailList(), jumpTypeName);
     }
 
     public void test010NavigateTo() throws UiObjectNotFoundException {
@@ -67,29 +96,7 @@ public class JumpTypeTestCase extends RemigesUiAutomatorTestCase {
     }
 
     public void test013Add() throws UiObjectNotFoundException {
-        // navigate to jump type
-        navigateToJumpType();
-
-        // get current amount of jump types available
-        int listItemCount = getMasterDetailListCount();
-
-        // click add jump type action
-        getByDescription(DESCRIPTION_ADD).clickAndWaitForNewWindow();
-
-        // ensure jump type name is set to the hint then change it
-        UiObject name = getByResource(RESOURCE_EDIT_NAME);
-        assertEquals(NAME_HINT, name.getText());
-        name.setText(NAME1);
-        assertEquals(NAME1, name.getText());
-
-        // action bar done
-        getByResource(RESOURCE_ACTIONBAR_DONE).clickAndWaitForNewWindow();
-
-        // ensure new jump type in list
-        assertEquals(listItemCount + 1, getMasterDetailListCount());
-
-        // ensure jump type name present in list
-        assertInList(getMasterDetailList(), NAME1);
+        addJumpType(NAME1);
     }
 
     public void test014EditCancel() throws UiObjectNotFoundException {
@@ -100,7 +107,7 @@ public class JumpTypeTestCase extends RemigesUiAutomatorTestCase {
         clickListItem(getMasterDetailList(), NAME1);
 
         // ensure correct page
-        assertEquals(TEXT_DETAIL_TITLE, getActionBarTitle());
+        assertEquals(isTwoPane() ? TEXT_TITLE : TEXT_DETAIL_TITLE, getActionBarTitle());
 
         // ensure detail name
         assertEquals(NAME1, getByResource(RESOURCE_DETAIL_NAME).getText());
@@ -123,7 +130,7 @@ public class JumpTypeTestCase extends RemigesUiAutomatorTestCase {
         clickListItem(getMasterDetailList(), NAME1);
 
         // ensure correct page
-        assertEquals(TEXT_DETAIL_TITLE, getActionBarTitle());
+        assertEquals(isTwoPane() ? TEXT_TITLE : TEXT_DETAIL_TITLE, getActionBarTitle());
 
         // ensure detail name
         assertEquals(NAME1, getByResource(RESOURCE_DETAIL_NAME).getText());
@@ -144,24 +151,23 @@ public class JumpTypeTestCase extends RemigesUiAutomatorTestCase {
     }
 
     public void test016Delete() throws UiObjectNotFoundException {
-        // navigate to jump type
-        navigateToJumpType();
+        addJumpType(NAME3);
 
         // get current amount of jump types available
         int listItemsBefore = getMasterDetailListCount();
 
         // click jump type
-        clickListItem(getMasterDetailList(), NAME2);
+        clickListItem(getMasterDetailList(), NAME3);
 
         // ensure correct page
-        assertEquals(TEXT_DETAIL_TITLE, getActionBarTitle());
+        assertEquals(isTwoPane() ? TEXT_TITLE : TEXT_DETAIL_TITLE, getActionBarTitle());
 
         // click delete jump type action
         getByResource(RESOURCE_ACTION_DELETE).clickAndWaitForNewWindow();
 
         // ensure jump type removed from list
         assertEquals(listItemsBefore - 1, getMasterDetailListCount());
-        assertNotInList(getMasterDetailList(), NAME2);
+        assertNotInList(getMasterDetailList(), NAME3);
     }
 
 }
