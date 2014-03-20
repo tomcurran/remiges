@@ -13,6 +13,9 @@ import java.io.InputStreamReader;
 
 public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
 
+    private static final String LAUNCHER_ANDROID = "com.android.launcher";
+    private static final String LAUNCHER_GOOGLE_NOW = "com.google.android.googlequicksearchbox";
+
     public static final String CLASS_LISTVIEW = "android.widget.ListView";
     public static final String CLASS_TEXTVIEW = "android.widget.TextView";
     public static final String RESOURCE_ACTIONBAR_DONE = "org.tomcurran.remiges:id/actionbar_done";
@@ -118,8 +121,10 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
         // the Apps tab. To simulate the user bringing up the Apps tab,
         // we create a UiSelector to find a tab with the text
         // label “Apps”.
-        // Simulate a click to enter the Apps tab.
-        getByText("Apps").click();
+        // Simulate a click to enter the Apps tab on the default android launcher
+        if (getUiDevice().getCurrentPackageName().equals(LAUNCHER_ANDROID)) {
+            getByText("Apps").click();
+        }
 
         // Next, in the apps tabs, we can simulate a user swiping until
         // they come to the Settings app icon.  Since the container view
