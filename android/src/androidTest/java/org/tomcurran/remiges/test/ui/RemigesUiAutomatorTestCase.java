@@ -10,21 +10,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-
 public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
 
     private static final String LAUNCHER_ANDROID = "com.android.launcher";
     private static final String LAUNCHER_GOOGLE_NOW = "com.google.android.googlequicksearchbox";
 
+    public static final String APP_PACKAGE = "org.tomcurran.remiges";
+
     public static final String CLASS_LISTVIEW = "android.widget.ListView";
     public static final String CLASS_TEXTVIEW = "android.widget.TextView";
-    public static final String RESOURCE_ACTIONBAR_DONE = "org.tomcurran.remiges:id/actionbar_done";
-    public static final String RESOURCE_ACTIONBAR_CANCEL = "org.tomcurran.remiges:id/actionbar_cancel";
+    public static final String RESOURCE_ACTIONBAR_DONE = APP_PACKAGE + ":id/actionbar_done";
+    public static final String RESOURCE_ACTIONBAR_CANCEL = APP_PACKAGE + ":id/actionbar_cancel";
 
     private static final String APP_TITLE = "Remiges";
-    private static final String APP_PACKAGE = "org.tomcurran.remiges";
     private static final String RESOURCE_ACTIONBAR_TITLE = "android:id/action_bar_title";
-    private static final String RESOURCE_MASTER_DETAIL_CONTAINER = "org.tomcurran.remiges:id/container";
+    private static final String RESOURCE_MASTER_DETAIL_CONTAINER = APP_PACKAGE + ":id/container";
 
     private static final int SMALLEST_WIDTH_TWO_PANE = 600;
 
@@ -163,4 +163,5 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
         super.tearDown();
         closeApp();
     }
+
 }
