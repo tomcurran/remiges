@@ -39,11 +39,9 @@ import org.tomcurran.remiges.util.Utils;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.LOGI;
 import static org.tomcurran.remiges.util.LogUtils.LOGW;
