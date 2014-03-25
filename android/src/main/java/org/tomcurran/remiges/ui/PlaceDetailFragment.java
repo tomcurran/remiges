@@ -168,8 +168,8 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         Cursor placeCursor = mPlaceCursor;
         if (placeCursor.moveToFirst()) {
             mPlaceName.setText(placeCursor.getString(PlaceQuery.NAME));
-            mPlaceLatitude.setText(placeCursor.getString(PlaceQuery.LATITUDE));
-            mPlaceLongitude.setText(placeCursor.getString(PlaceQuery.LONGITUDE));
+            mPlaceLatitude.setText(String.valueOf(placeCursor.getDouble(PlaceQuery.LATITUDE)));
+            mPlaceLongitude.setText(String.valueOf(placeCursor.getDouble(PlaceQuery.LONGITUDE)));
             mPlaceStaticMap.setMap(
                     placeCursor.getFloat(PlaceQuery.LATITUDE),
                     placeCursor.getFloat(PlaceQuery.LONGITUDE),
