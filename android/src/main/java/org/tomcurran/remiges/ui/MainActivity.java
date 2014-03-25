@@ -27,6 +27,7 @@ import com.google.android.gms.drive.DriveFile;
 import com.google.android.gms.drive.DriveId;
 import com.google.android.gms.drive.MetadataChangeSet;
 import com.google.android.gms.drive.OpenFileActivityBuilder;
+import com.google.gson.JsonSyntaxException;
 
 import org.tomcurran.remiges.BuildConfig;
 import org.tomcurran.remiges.R;
@@ -39,6 +40,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
@@ -165,7 +168,7 @@ public class MainActivity extends BaseActivity implements
                             RemigesContract.CONTENT_AUTHORITY,
                             RemigesLiberation.getImportOperations(
                                     Utils.readAsset(this, "testdata" + File.separator + "tc.json")));
-                } catch (ParseException e) {
+                } catch (JsonSyntaxException e) {
                     LOGE(TAG, String.format("Test data JSON parse error: %s", e.getMessage()));
                 } catch (RemoteException e) {
                     LOGE(TAG, String.format("Test data provider communication error: %s", e.getMessage()));
@@ -234,13 +237,11 @@ public class MainActivity extends BaseActivity implements
             case REQUEST_EXPORT:
                 if (resultCode == FragmentActivity.RESULT_OK) {
                     DriveId driveId = data.getParcelableExtra(OpenFileActivityBuilder.EXTRA_RESPONSE_DRIVE_ID);
-                    showMessage("File created with ID: " + driveId);
                 }
                 break;
             case REQUEST_IMPORT:
                 if (resultCode == FragmentActivity.RESULT_OK) {
                     DriveId driveId = data.getParcelableExtra(OpenFileActivityBuilder.EXTRA_RESPONSE_DRIVE_ID);
-                    showMessage("Selected file's ID: " + driveId);
                     new RetrieveDriveFileContentsAsyncTaskGoogle(this).execute(driveId);
                 }
                 break;
@@ -282,21 +283,15 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
-    public void showMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        LOGD(TAG, message);
-    }
-
     public GoogleApiClient getGoogleApiClient() {
         return mGoogleApiClient;
     }
 
-
-
-    final ResultCallback<DriveApi.ContentsResult> exportCallback = new ResultCallback<DriveApi.ContentsResult>() {
+    final ResultCallback<DriveApi.ContentsResult> mExportCallback = new ResultCallback<DriveApi.ContentsResult>() {
         @Override
         public void onResult(DriveApi.ContentsResult result) {
             MetadataChangeSet metadataChangeSet = new MetadataChangeSet.Builder()
+                    .setTitle("remiges-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + ".json")
                     .setMimeType(MIME_TYPE_JAVASCRIPT)
                     .build();
             OutputStream outputStream = result.getContents().getOutputStream();
@@ -320,8 +315,11 @@ public class MainActivity extends BaseActivity implements
 
     final private class RetrieveDriveFileContentsAsyncTaskGoogle extends GoogleApiClientAsyncTask<DriveId, Boolean, String> {
 
+        private Context mContext;
+
         public RetrieveDriveFileContentsAsyncTaskGoogle(Context context) {
             super(context);
+            mContext = context;
         }
 
         @Override
@@ -345,7 +343,9 @@ public class MainActivity extends BaseActivity implements
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             if (result == null) {
-                showMessage("Error while reading from the file");
+                String error = "Import data JSON parse error";
+                LOGE(TAG, String.format("%s", error));
+                Toast.makeText(mContext, error, Toast.LENGTH_LONG).show();
                 return;
             }
             try {
@@ -353,18 +353,24 @@ public class MainActivity extends BaseActivity implements
                         RemigesContract.CONTENT_AUTHORITY,
                         RemigesLiberation.getImportOperations(result)
                 );
-            } catch (ParseException e) {
-                LOGE(TAG, String.format("Import data JSON parse error: %s", e.getMessage()));
+            } catch (JsonSyntaxException e) {
+                String error = "Import data JSON parse error";
+                LOGE(TAG, String.format("%s: %s", error, e.getMessage()));
+                Toast.makeText(mContext, error, Toast.LENGTH_LONG).show();
             } catch (RemoteException e) {
-                LOGE(TAG, String.format("Import data provider communication error: %s", e.getMessage()));
+                String error = "Import data provider communication error";
+                LOGE(TAG, String.format("%s: %s", error, e.getMessage()));
+                Toast.makeText(mContext, error, Toast.LENGTH_LONG).show();
             } catch (OperationApplicationException e) {
-                LOGE(TAG, String.format("Import data insertion error: %s", e.getMessage()));
+                String error = "Import data insertion error";
+                LOGE(TAG, String.format("%s: %s", error, e.getMessage()));
+                Toast.makeText(mContext, error, Toast.LENGTH_LONG).show();
             }
         }
     }
 
     public void exportToDrive() {
-        Drive.DriveApi.newContents(getGoogleApiClient()).setResultCallback(exportCallback);
+        Drive.DriveApi.newContents(getGoogleApiClient()).setResultCallback(mExportCallback);
     }
 
     public void importFromDrive() {
