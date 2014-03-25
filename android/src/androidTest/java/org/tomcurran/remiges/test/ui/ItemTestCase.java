@@ -58,7 +58,7 @@ public abstract class ItemTestCase extends RemigesUiAutomatorTestCase {
         assertEquals(getTitle(), getActionBarTitle());
 
         // click delete action
-        getByResource(getDeleteAction()).clickAndWaitForNewWindow();
+        getByDescription(getDeleteAction()).clickAndWaitForNewWindow();
 
         // ensure item removed from list
         assertEquals(listItemsBefore - 1, getMasterDetailListCount());
@@ -115,7 +115,7 @@ public abstract class ItemTestCase extends RemigesUiAutomatorTestCase {
         assertDetail(values);
 
         // click edit action
-        getByResource(getEditAction()).clickAndWaitForNewWindow();
+        getByDescription(getEditAction()).clickAndWaitForNewWindow();
 
         // action bar cancel
         getByResource(RESOURCE_ACTIONBAR_CANCEL).clickAndWaitForNewWindow();
@@ -148,7 +148,7 @@ public abstract class ItemTestCase extends RemigesUiAutomatorTestCase {
         assertDetail(values);
 
         // click edit action
-        getByResource(getEditAction()).clickAndWaitForNewWindow();
+        getByDescription(getEditAction()).clickAndWaitForNewWindow();
 
         // change values
         values = getNewValues();

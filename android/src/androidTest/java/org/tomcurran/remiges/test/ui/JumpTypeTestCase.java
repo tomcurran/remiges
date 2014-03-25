@@ -7,20 +7,22 @@ import com.android.uiautomator.core.UiObjectNotFoundException;
 
 public class JumpTypeTestCase extends ItemTestCase {
 
+    public static final String JUMPTYPE_NAME = "jumptype_name";
+
     public static final String DESCRIPTION_OPEN_DRAWER = "Jump Types, Open navigation drawer";
     public static final String TEXT_NAVIGATION = "Jump Types";
     public static final String TEXT_TITLE = "Jump Types";
 
     private static final String DESCRIPTION_ADD = "Add Jump Type";
+    private static final String DESCRIPTION_EDIT = "Edit";
+    private static final String DESCRIPTION_DELETE = "Delete";
+
     private static final String TEXT_DETAIL_TITLE = "Jump Type Detail";
+
     private static final String RESOURCE_EDIT_NAME = "org.tomcurran.remiges:id/edit_jumptype_name";
     private static final String RESOURCE_DETAIL_NAME = "org.tomcurran.remiges:id/detail_jumptype_name";
-    private static final String RESOURCE_ACTION_EDIT = "org.tomcurran.remiges:id/menu_jumptype_detail_edit";
-    private static final String RESOURCE_ACTION_DELETE = "org.tomcurran.remiges:id/menu_jumptype_detail_delete";
 
     private static final String NAME_HINT = "Jump Type";
-
-    public static final String JUMPTYPE_NAME = "jumptype_name";
 
     private static int nameCount = 0;
 
@@ -66,12 +68,12 @@ public class JumpTypeTestCase extends ItemTestCase {
 
     @Override
     public String getEditAction() {
-        return RESOURCE_ACTION_EDIT;
+        return DESCRIPTION_EDIT;
     }
 
     @Override
     public String getDeleteAction() {
-        return RESOURCE_ACTION_DELETE;
+        return DESCRIPTION_DELETE;
     }
 
     @Override

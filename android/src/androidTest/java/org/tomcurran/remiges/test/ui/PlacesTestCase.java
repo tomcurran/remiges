@@ -7,28 +7,30 @@ import com.android.uiautomator.core.UiObjectNotFoundException;
 
 public class PlacesTestCase extends ItemTestCase {
 
+    public static final String PLACE_NAME = "place_name";
+    public static final String PLACE_LATITUDE = "place_latitude";
+    public static final String PLACE_LONGITUDE = "place_longitude";
+
     public static final String DESCRIPTION_OPEN_DRAWER = "Places, Open navigation drawer";
     public static final String TEXT_NAVIGATION = "Places";
     public static final String TEXT_TITLE = "Places";
 
     private static final String DESCRIPTION_ADD = "Add Place";
+    private static final String DESCRIPTION_EDIT = "Edit";
+    private static final String DESCRIPTION_DELETE = "Delete";
+
     private static final String TEXT_DETAIL_TITLE = "Place Detail";
+
     private static final String RESOURCE_EDIT_NAME = APP_PACKAGE + ":id/edit_place_name";
     private static final String RESOURCE_EDIT_LATITUDE = APP_PACKAGE + ":id/edit_place_latitude";
     private static final String RESOURCE_EDIT_LONGITUDE = APP_PACKAGE + ":id/edit_place_longitude";
     private static final String RESOURCE_DETAIL_NAME = APP_PACKAGE + ":id/detail_place_name";
     private static final String RESOURCE_DETAIL_LATITUDE = APP_PACKAGE + ":id/detail_place_latitude";
     private static final String RESOURCE_DETAIL_LONGITUDE = APP_PACKAGE + ":id/detail_place_longitude";
-    private static final String RESOURCE_ACTION_EDIT = APP_PACKAGE + ":id/menu_place_detail_edit";
-    private static final String RESOURCE_ACTION_DELETE = APP_PACKAGE + ":id/menu_place_detail_delete";
 
     private static final String NAME_HINT = "Place Name";
     private static final String LATITUDE_HINT = "Latitude";
     private static final String LONGITUDE_HINT = "Longitude";
-
-    public static final String PLACE_NAME = "place_name";
-    public static final String PLACE_LATITUDE = "place_latitude";
-    public static final String PLACE_LONGITUDE = "place_longitude";
 
     private static int nameCount = 0;
 
@@ -94,12 +96,12 @@ public class PlacesTestCase extends ItemTestCase {
 
     @Override
     public String getEditAction() {
-        return RESOURCE_ACTION_EDIT;
+        return DESCRIPTION_EDIT;
     }
 
     @Override
     public String getDeleteAction() {
-        return RESOURCE_ACTION_DELETE;
+        return DESCRIPTION_DELETE;
     }
 
     @Override
