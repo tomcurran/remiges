@@ -6,6 +6,7 @@ import android.database.Cursor;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
 import org.tomcurran.remiges.liberation.model.Jump;
 import org.tomcurran.remiges.liberation.model.JumpType;
@@ -54,9 +55,9 @@ public class RemigesLiberation {
      *             format
      * @return list of {@link android.content.ContentProviderOperation}s to insert data into the
      * application
-     * @throws ParseException Thrown when the JSON string being parsed is not in the correct form
+     * @throws JsonSyntaxException Thrown when the JSON string being parsed is not in the correct form
      */
-    public static ArrayList<ContentProviderOperation> getImportOperations(String json) throws ParseException {
+    public static ArrayList<ContentProviderOperation> getImportOperations(String json) throws JsonSyntaxException {
         ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>();
         LiberationModel model = new Gson().fromJson(json, LiberationModel.class);
 
