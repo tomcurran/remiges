@@ -90,6 +90,12 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
         return new UiObject(getMasterDetailList()).getChildCount();
     }
 
+    public static void changeTextField(String resource, String value) throws  UiObjectNotFoundException {
+        getByResource(resource).clearTextField();
+        getByResource(resource).setText(value);
+        assertEquals(value, getByResource(resource).getText());
+    }
+
     public boolean isTwoPane() {
         try {
             double dpi = Double.parseDouble(new BufferedReader(new InputStreamReader(

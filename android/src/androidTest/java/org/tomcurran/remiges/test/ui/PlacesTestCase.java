@@ -53,21 +53,9 @@ public class PlacesTestCase extends ItemTestCase {
 
     @Override
     public void changeValues(ContentValues values) throws UiObjectNotFoundException {
-        String placeName = values.getAsString(PLACE_NAME);
-        String placeLatitude = values.getAsString(PLACE_LATITUDE);
-        String placeLongitude = values.getAsString(PLACE_LONGITUDE);
-
-        getByResource(RESOURCE_EDIT_NAME).clearTextField();
-        getByResource(RESOURCE_EDIT_NAME).setText(placeName);
-        assertEquals(placeName, getByResource(RESOURCE_EDIT_NAME).getText());
-
-        getByResource(RESOURCE_EDIT_LATITUDE).clearTextField();
-        getByResource(RESOURCE_EDIT_LATITUDE).setText(String.valueOf(placeLatitude));
-        assertEquals(placeLatitude, getByResource(RESOURCE_EDIT_LATITUDE).getText());
-
-        getByResource(RESOURCE_EDIT_LONGITUDE).clearTextField();
-        getByResource(RESOURCE_EDIT_LONGITUDE).setText(String.valueOf(placeLongitude));
-        assertEquals(placeLongitude, getByResource(RESOURCE_EDIT_LONGITUDE).getText());
+        changeTextField(RESOURCE_EDIT_NAME, values.getAsString(PLACE_NAME));
+        changeTextField(RESOURCE_EDIT_LATITUDE, values.getAsString(PLACE_LATITUDE));
+        changeTextField(RESOURCE_EDIT_LONGITUDE, values.getAsString(PLACE_LONGITUDE));
     }
 
     @Override

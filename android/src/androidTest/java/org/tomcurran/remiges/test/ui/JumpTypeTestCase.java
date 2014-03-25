@@ -39,11 +39,7 @@ public class JumpTypeTestCase extends ItemTestCase {
 
     @Override
     public void changeValues(ContentValues values) throws UiObjectNotFoundException {
-        String jumpTypeName = values.getAsString(JUMPTYPE_NAME);
-
-        getByResource(RESOURCE_EDIT_NAME).clearTextField();
-        getByResource(RESOURCE_EDIT_NAME).setText(jumpTypeName);
-        assertEquals(jumpTypeName, getByResource(RESOURCE_EDIT_NAME).getText());
+        changeTextField(RESOURCE_EDIT_NAME, values.getAsString(JUMPTYPE_NAME));
     }
 
     @Override
