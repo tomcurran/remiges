@@ -150,7 +150,7 @@
 
         <activity
             android:name=".ui.singlepane.PlaceEditActivity"
-            android:label="@string/title_jump_edit"
+            android:label="@string/title_place_edit"
             android:parentActivityName=".ui.singlepane.PlaceDetailActivity"
             android:windowSoftInputMode="stateHidden">
             <meta-data
