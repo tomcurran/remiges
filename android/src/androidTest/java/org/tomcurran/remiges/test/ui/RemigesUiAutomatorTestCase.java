@@ -12,11 +12,7 @@ import java.io.InputStreamReader;
 
 public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
 
-    private static final String LAUNCHER_ANDROID = "com.android.launcher";
-    private static final String LAUNCHER_GOOGLE_NOW = "com.google.android.googlequicksearchbox";
-
     public static final String APP_PACKAGE = "org.tomcurran.remiges";
-
     public static final String CLASS_LISTVIEW = "android.widget.ListView";
     public static final String CLASS_TEXTVIEW = "android.widget.TextView";
     public static final String RESOURCE_ACTIONBAR_DONE = APP_PACKAGE + ":id/actionbar_done";
@@ -25,7 +21,6 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
     private static final String APP_TITLE = "Remiges";
     private static final String RESOURCE_ACTIONBAR_TITLE = "android:id/action_bar_title";
     private static final String RESOURCE_MASTER_DETAIL_CONTAINER = APP_PACKAGE + ":id/container";
-
     private static final int SMALLEST_WIDTH_TWO_PANE = 600;
 
     public static UiSelector getTextView() {
@@ -90,12 +85,22 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
         return new UiObject(getMasterDetailList()).getChildCount();
     }
 
+    /**
+     * Sets the value of a text field to value
+     * @param resource resource id
+     * @param value string value to set
+     * @throws UiObjectNotFoundException
+     */
     public static void changeTextField(String resource, String value) throws  UiObjectNotFoundException {
         getByResource(resource).clearTextField();
         getByResource(resource).setText(value);
         assertEquals(value, getByResource(resource).getText());
     }
 
+    /**
+     * Returns true if the application is in two pane mode based on SMALLEST_WIDTH_TWO_PANE
+     * @return true if the application is in two pane mode based on SMALLEST_WIDTH_TWO_PANE
+     */
     public boolean isTwoPane() {
         try {
             double dpi = Double.parseDouble(new BufferedReader(new InputStreamReader(
@@ -110,6 +115,10 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
         }
     }
 
+    /**
+     * Opens the application regardless of where the UI current is
+     * @throws UiObjectNotFoundException
+     */
     private void openApp() throws UiObjectNotFoundException {
         // Simulate a short press on the HOME button.
         getUiDevice().pressHome();
@@ -128,8 +137,9 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
         // we create a UiSelector to find a tab with the text
         // label “Apps”.
         // Simulate a click to enter the Apps tab on the default android launcher
-        if (getUiDevice().getCurrentPackageName().equals(LAUNCHER_ANDROID)) {
-            getByText("Apps").click();
+        UiObject appsTab = getByText("Apps");
+        if (appsTab.exists()) {
+            appsTab.click();
         }
 
         // Next, in the apps tabs, we can simulate a user swiping until
@@ -151,6 +161,10 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
         assertTrue("Unable to detect " + APP_TITLE, appPackage.exists());
     }
 
+    /**
+     * Back out of the application
+     * @throws InterruptedException
+     */
     private void closeApp() throws InterruptedException {
         while (getUiDevice().getCurrentPackageName().equals(APP_PACKAGE)) {
             getUiDevice().pressBack();

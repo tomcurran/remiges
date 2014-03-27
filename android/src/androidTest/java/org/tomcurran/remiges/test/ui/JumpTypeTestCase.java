@@ -7,25 +7,36 @@ import com.android.uiautomator.core.UiObjectNotFoundException;
 
 public class JumpTypeTestCase extends ItemTestCase {
 
+    // content value keys
     public static final String JUMPTYPE_NAME = "jumptype_name";
 
+    // content description and text values used for navigation
     public static final String DESCRIPTION_OPEN_DRAWER = "Jump Types, Open navigation drawer";
     public static final String TEXT_NAVIGATION = "Jump Types";
     public static final String TEXT_TITLE = "Jump Types";
 
+    // content descriptions, text values and resource IDs
     private static final String DESCRIPTION_ADD = "Add Jump Type";
     private static final String DESCRIPTION_EDIT = "Edit";
     private static final String DESCRIPTION_DELETE = "Delete";
-
     private static final String TEXT_DETAIL_TITLE = "Jump Type Detail";
+    private static final String RESOURCE_EDIT_NAME = APP_PACKAGE + ":id/edit_jumptype_name";
+    private static final String RESOURCE_DETAIL_NAME = APP_PACKAGE + ":id/detail_jumptype_name";
 
-    private static final String RESOURCE_EDIT_NAME = "org.tomcurran.remiges:id/edit_jumptype_name";
-    private static final String RESOURCE_DETAIL_NAME = "org.tomcurran.remiges:id/detail_jumptype_name";
-
+    // edit field hint text values
     private static final String NAME_HINT = "Jump Type";
 
-    private static int nameCount = 0;
+    /**
+     * Navigate to this item type from another
+     * @param navigateFrom content description of the item navigating from
+     * @throws UiObjectNotFoundException
+     */
+    public static void navigateTo(String navigateFrom) throws UiObjectNotFoundException {
+        NavigationDrawerTestCase.navigateTo(navigateFrom, TEXT_NAVIGATION, TEXT_TITLE);
+    }
 
+    // generates unique names
+    private static int nameCount = 0;
     private String getNextJumpTypeName() {
         return String.format("jump type tester %d", ++nameCount);
     }
@@ -38,13 +49,14 @@ public class JumpTypeTestCase extends ItemTestCase {
     }
 
     @Override
-    public void changeValues(ContentValues values) throws UiObjectNotFoundException {
+    public void editValues(ContentValues values) throws UiObjectNotFoundException {
         changeTextField(RESOURCE_EDIT_NAME, values.getAsString(JUMPTYPE_NAME));
     }
 
     @Override
     public void assertDetail(ContentValues values) throws UiObjectNotFoundException {
-        assertEquals(values.getAsString(JUMPTYPE_NAME), getByResource(RESOURCE_DETAIL_NAME).getText());
+        assertEquals(values.getAsString(JUMPTYPE_NAME), getByResource(RESOURCE_DETAIL_NAME)
+                .getText());
     }
 
     @Override
@@ -53,7 +65,7 @@ public class JumpTypeTestCase extends ItemTestCase {
     }
 
     @Override
-    public String getClick(ContentValues values) {
+    public String getListClickTarget(ContentValues values) {
         return values.getAsString(JUMPTYPE_NAME);
     }
 
@@ -79,26 +91,19 @@ public class JumpTypeTestCase extends ItemTestCase {
 
     @Override
     public void navigateTo() throws UiObjectNotFoundException {
-        navigateToJumpType();
+        navigateTo(NavigationDrawerTestCase.DESCRIPTION_HOME_OPEN_DRAWER);
     }
 
-    public static void navigateToJumpType(String navigateFrom) throws UiObjectNotFoundException {
-        NavigationDrawerTestCase.navigateTo(navigateFrom, TEXT_NAVIGATION, TEXT_TITLE);
-    }
-
-    private static void navigateToJumpType() throws UiObjectNotFoundException {
-        navigateToJumpType(NavigationDrawerTestCase.DESCRIPTION_HOME_OPEN_DRAWER);
-    }
-
+    @Override
     public void testNavigateAwayAndBack() throws UiObjectNotFoundException {
         // navigate to jump type
-        JumpTypeTestCase.navigateToJumpType();
+        navigateTo();
 
         // navigate to places
-        PlacesTestCase.navigateToPlaces(JumpTypeTestCase.DESCRIPTION_OPEN_DRAWER);
+        PlacesTestCase.navigateTo(JumpTypeTestCase.DESCRIPTION_OPEN_DRAWER);
 
         // navigate to jump type
-        JumpTypeTestCase.navigateToJumpType(PlacesTestCase.DESCRIPTION_OPEN_DRAWER);
+        JumpTypeTestCase.navigateTo(PlacesTestCase.DESCRIPTION_OPEN_DRAWER);
     }
 
 }
