@@ -4,7 +4,22 @@ Remiges is a skydiving logbook application that aims to make the activity of mai
 
 ## Build
 
-Android Studio is required to build the application. Get Android Studo at http://developer.android.com/sdk/installing/studio.html. All other dependencies are included in the project or will be included in the build process by gradle. Run the `android` module from with in Android Studio to build the application.
+### Android Studio
+
+Click Build and select Make Project. Get Android Studo at http://developer.android.com/sdk/installing/studio.html
+
+### Command Line
+
+On Mac OS and Linux platforms
+```
+$ chmod +x gradlew
+$ ./gradlew assembleDebug
+```
+
+On Windows platforms
+```
+> gradlew.bat assembleDebug
+```
 
 ## Test
 
