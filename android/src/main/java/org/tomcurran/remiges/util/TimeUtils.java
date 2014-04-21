@@ -23,8 +23,8 @@ public class TimeUtils {
      * @return pastTime ago formatted string
      */
     public static String getTimeAgo(Context context, long pastTime) {
-        DateTime then = new DateTime(pastTime);
-        DateTime now = new DateTime();
+        DateTime then = new DateTime(pastTime).withTimeAtStartOfDay();
+        DateTime now = new DateTime().withTimeAtStartOfDay();
 
         int days = Days.daysBetween(then, now).getDays();
         int weeks = Weeks.weeksBetween(then, now).getWeeks();
