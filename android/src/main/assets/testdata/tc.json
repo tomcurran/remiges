@@ -1,6 +1,369 @@
 {
     "jumps" : [
         {
+            "number": 327,
+            "date": 1397948400000,
+            "way": 2,
+            "place": 1,
+            "jumpType": 4,
+            "exitAltitude": 10200,
+            "deploymentAltitude": 3190,
+            "delay": 48,
+            "description": "Rotations around each other"
+        },
+        {
+            "number": 326,
+            "date": 1397948400000,
+            "way": 1,
+            "place": 1,
+            "jumpType": 5,
+            "exitAltitude": 10100,
+            "deploymentAltitude": 3690,
+            "delay": 36,
+            "description": ""
+        },
+        {
+            "number": 325,
+            "date": 1397948400000,
+            "way": 1,
+            "place": 1,
+            "jumpType": 5,
+            "exitAltitude": 9980,
+            "deploymentAltitude": 3530,
+            "delay": 36,
+            "description": ""
+        },
+        {
+            "number": 324,
+            "date": 1397862000000,
+            "way": 2,
+            "place": 1,
+            "jumpType": 5,
+            "exitAltitude": 10200,
+            "deploymentAltitude": 1980,
+            "delay": 43,
+            "description": "with Sandy"
+        },
+        {
+            "number": 323,
+            "date": 1397862000000,
+            "way": 1,
+            "place": 1,
+            "jumpType": 5,
+            "exitAltitude": 6920,
+            "deploymentAltitude": 3110,
+            "delay": 23,
+            "description": ""
+        },
+        {
+            "number": 322,
+            "date": 1397862000000,
+            "way": 3,
+            "place": 1,
+            "jumpType": 2,
+            "exitAltitude": 9850,
+            "deploymentAltitude": 2970,
+            "delay": 43,
+            "description": "with Sandy & Olwyn\nOlwyns 4 point 3 way attempt"
+        },
+        {
+            "number": 321,
+            "date": 1397862000000,
+            "way": 4,
+            "place": 1,
+            "jumpType": 6,
+            "exitAltitude": 6870,
+            "deploymentAltitude": 6640,
+            "delay": 4,
+            "description": "Sandy pilot, me second, Gus third, Oscar fourth\nOscar CF1!\nBroke in down to two stack and landed it"
+        },
+        {
+            "number": 320,
+            "date": 1397084400000,
+            "way": 4,
+            "place": 10,
+            "jumpType": 5,
+            "exitAltitude": 14000,
+            "deploymentAltitude": 2160,
+            "delay": 59,
+            "description": "with Sandy, Stuary, Steve"
+        },
+        {
+            "number": 319,
+            "date": 1397084400000,
+            "way": 3,
+            "place": 10,
+            "jumpType": 8,
+            "exitAltitude": 14000,
+            "deploymentAltitude": 5000,
+            "delay": 90,
+            "description": "Jumping ghost suit. Box plus barrel rolls good. BPA WS coach 42"
+        },
+        {
+            "number": 318,
+            "date": 1397084400000,
+            "way": 2,
+            "place": 10,
+            "jumpType": 8,
+            "exitAltitude": 13700,
+            "deploymentAltitude": 4440,
+            "delay": 92,
+            "description": "Mega all over the show. WS1. BPA WS coach 42"
+        },
+        {
+            "number": 317,
+            "date": 1397084400000,
+            "way": 2,
+            "place": 10,
+            "jumpType": 8,
+            "exitAltitude": 13700,
+            "deploymentAltitude": 4290,
+            "delay": 83,
+            "description": "Good jump, box & deployment. BPA WS coach 42"
+        },
+        {
+            "number": 316,
+            "date": 1397084400000,
+            "way": 2,
+            "place": 10,
+            "jumpType": 8,
+            "exitAltitude": 13800,
+            "deploymentAltitude": 3910,
+            "delay": 91,
+            "description": "Good exit, box & deployment. BPA WS coach 42"
+        },
+        {
+            "number": 315,
+            "date": 1396911600000,
+            "way": 2,
+            "place": 10,
+            "jumpType": 8,
+            "exitAltitude": 14100,
+            "deploymentAltitude": 4580,
+            "delay": 80,
+            "description": "Stable exit, box pattern and good deployment. BPA WS coach 42"
+        },
+        {
+            "number": 314,
+            "date": 1396911600000,
+            "way": 2,
+            "place": 10,
+            "jumpType": 5,
+            "exitAltitude": 14100,
+            "deploymentAltitude": 3120,
+            "delay": 60,
+            "description": "with Stuart"
+        },
+        {
+            "number": 313,
+            "date": 1396825200000,
+            "way": 4,
+            "place": 10,
+            "jumpType": 6,
+            "exitAltitude": 10300,
+            "deploymentAltitude": 6790,
+            "delay": 24,
+            "description": "with Sandy, Angela, Kieran"
+        },
+        {
+            "number": 312,
+            "date": 1396825200000,
+            "way": 8,
+            "place": 10,
+            "jumpType": 2,
+            "exitAltitude": 13900,
+            "deploymentAltitude": 3120,
+            "delay": 66,
+            "description": "with Sandy, Steve, Stuart, Ann, Ralph, Paula, Oscar"
+        },
+        {
+            "number": 311,
+            "date": 1396825200000,
+            "way": 2,
+            "place": 10,
+            "jumpType": 5,
+            "exitAltitude": 14100,
+            "deploymentAltitude": 2320,
+            "delay": 63,
+            "description": "with Sandy"
+        },
+        {
+            "number": 310,
+            "date": 1396738800000,
+            "way": 3,
+            "place": 10,
+            "jumpType": 5,
+            "exitAltitude": 13900,
+            "deploymentAltitude": 4240,
+            "delay": 51,
+            "description": "with Stuart, Oscar"
+        },
+        {
+            "number": 309,
+            "date": 1396738800000,
+            "way": 3,
+            "place": 10,
+            "jumpType": 5,
+            "exitAltitude": 13900,
+            "deploymentAltitude": 3120,
+            "delay": 58,
+            "description": "with Sandy, Angela"
+        },
+        {
+            "number": 308,
+            "date": 1396652400000,
+            "way": 5,
+            "place": 10,
+            "jumpType": 4,
+            "exitAltitude": 13900,
+            "deploymentAltitude": 3120,
+            "delay": 58,
+            "description": "with Sandy, Stuart, Oscar, Bjoern"
+        },
+        {
+            "number": 307,
+            "date": 1396652400000,
+            "way": 4,
+            "place": 10,
+            "jumpType": 2,
+            "exitAltitude": 14200,
+            "deploymentAltitude": 3090,
+            "delay": 68,
+            "description": "with Sandy, Geraldine, Bjoern"
+        },
+        {
+            "number": 306,
+            "date": 1396566000000,
+            "way": 4,
+            "place": 10,
+            "jumpType": 5,
+            "exitAltitude": 14300,
+            "deploymentAltitude": 2850,
+            "delay": 58,
+            "description": "with Stuart, Mark, Oscar"
+        },
+        {
+            "number": 305,
+            "date": 1396566000000,
+            "way": 3,
+            "place": 10,
+            "jumpType": 2,
+            "exitAltitude": 13700,
+            "deploymentAltitude": 3100,
+            "delay": 60,
+            "description": "with Sandy, Geraldine"
+        },
+        {
+            "number": 304,
+            "date": 1396479600000,
+            "way": 3,
+            "place": 10,
+            "jumpType": 4,
+            "exitAltitude": 13500,
+            "deploymentAltitude": 3730,
+            "delay": 58,
+            "description": "with Sandy, Bjoern"
+        },
+        {
+            "number": 303,
+            "date": 1396479600000,
+            "way": 2,
+            "place": 10,
+            "jumpType": 5,
+            "exitAltitude": 13600,
+            "deploymentAltitude": 3300,
+            "delay": 55,
+            "description": "with Stuart"
+        },
+        {
+            "number": 302,
+            "date": 1396479600000,
+            "way": 6,
+            "place": 10,
+            "jumpType": 2,
+            "exitAltitude": 14300,
+            "deploymentAltitude": 2920,
+            "delay": 68,
+            "description": "with Stuart, Eddie, Joyce, Mark, Oscar\nRear dive, build first point, second open accordian didn't fully build"
+        },
+        {
+            "number": 301,
+            "date": 1396479600000,
+            "way": 1,
+            "place": 10,
+            "jumpType": 5,
+            "exitAltitude": 14200,
+            "deploymentAltitude": 3680,
+            "delay": 64,
+            "description": ""
+        },
+        {
+            "number": 300,
+            "date": 1396393200000,
+            "way": 2,
+            "place": 10,
+            "jumpType": 5,
+            "exitAltitude": 13900,
+            "deploymentAltitude": 3720,
+            "delay": 53,
+            "description": "with Sandy"
+        },
+        {
+            "number": 299,
+            "date": 1396393200000,
+            "way": 5,
+            "place": 10,
+            "jumpType": 6,
+            "exitAltitude": 13200,
+            "deploymentAltitude": 6790,
+            "delay": 38,
+            "description": "with Scott, Sandy, Angela, Kieran\nScott piloted, Sandy second, me third. Angela & Kieran didn't get on.\nLanding was shocking."
+        },
+        {
+            "number": 298,
+            "date": 1396393200000,
+            "way": 6,
+            "place": 10,
+            "jumpType": 2,
+            "exitAltitude": 13600,
+            "deploymentAltitude": 2610,
+            "delay": 65,
+            "description": ""
+        },
+        {
+            "number": 297,
+            "date": 1395446400000,
+            "way": 1,
+            "place": 1,
+            "jumpType": 3,
+            "exitAltitude": 3650,
+            "deploymentAltitude": 3210,
+            "delay": 6,
+            "description": ""
+        },
+        {
+            "number": 296,
+            "date": 1395446400000,
+            "way": 1,
+            "place": 1,
+            "jumpType": 3,
+            "exitAltitude": 4660,
+            "deploymentAltitude": 2960,
+            "delay": 14,
+            "description": ""
+        },
+        {
+            "number": 295,
+            "date": 1395446400000,
+            "way": 1,
+            "place": 1,
+            "jumpType": 3,
+            "exitAltitude": 3870,
+            "deploymentAltitude": 3460,
+            "delay": 6,
+            "description": ""
+        },
+        {
             "number": 294,
             "date": 1393718400000,
             "way": 1,
@@ -3263,6 +3626,10 @@
         {
             "id": 7,
             "name": "Hybrid"
+        },
+        {
+            "id": 8,
+            "name": "Wingsuit"
         }
     ],
     "places": [ 
@@ -3319,6 +3686,12 @@
             "name": "Hinton",
             "longitude": -1.211432,
             "latitude": 52.030863
+        },
+        {
+            "id": 10,
+            "name": "Algarve",
+            "longitude": -8.58015,
+            "latitude": 37.148345
         }
     ]
 }
