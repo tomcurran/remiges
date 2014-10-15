@@ -2,7 +2,7 @@ apply plugin: 'android-library'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.2"
+    buildToolsVersion '20'
 
     defaultConfig {
         minSdkVersion 4
@@ -13,6 +13,6 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:+'
+    compile 'com.android.support:support-v4:20.+'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
