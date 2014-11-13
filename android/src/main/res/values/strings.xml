@@ -125,10 +125,16 @@
     <string name="preference_title_defaults_exit_altitude">Exit altitude</string>
     <string name="preference_title_defaults_deployment_altitude">Deployment altitude</string>
     <string name="preference_title_defaults_delay">Delay</string>
+    <string name="preference_title_data_liberation">Data Liberation</string>
+    <string name="preference_title_data_liberation_export">Export data</string>
+    <string name="preference_summary_data_liberation_export">Export app data to Google Drive in JSON format</string>
+    <string name="preference_title_data_liberation_import">Import data</string>
+    <string name="preference_summary_data_liberation_import">Import app data from Google Drive in JSON format</string>
 
     <!-- Data Liberation -->
-    <string name="menu_export">Export</string>
-    <string name="menu_import">Import</string>
+
+    <string name="title_export">Export</string>
+    <string name="title_import">Import</string>
 
     <!-- Time Utility -->
 
