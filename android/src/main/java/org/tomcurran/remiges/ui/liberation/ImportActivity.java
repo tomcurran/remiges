@@ -2,17 +2,16 @@ package org.tomcurran.remiges.ui.liberation;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.OperationApplicationException;
-import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.google.android.gms.drive.Drive;
-import com.google.android.gms.drive.DriveApi;
+import com.google.android.gms.drive.DriveApi.DriveContentsResult;
+import com.google.android.gms.drive.DriveContents;
 import com.google.android.gms.drive.DriveFile;
 import com.google.android.gms.drive.DriveId;
 import com.google.android.gms.drive.OpenFileActivityBuilder;
@@ -25,8 +24,8 @@ import org.tomcurran.remiges.util.Utils;
 
 import java.io.IOException;
 
+import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
-import static org.tomcurran.remiges.util.LogUtils.LOGI;
 import static org.tomcurran.remiges.util.LogUtils.LOGW;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
@@ -44,6 +43,7 @@ public class ImportActivity extends DataLiberationActivity {
             case REQUEST_IMPORT:
                 if (resultCode == FragmentActivity.RESULT_OK) {
                     DriveId driveId = data.getParcelableExtra(OpenFileActivityBuilder.EXTRA_RESPONSE_DRIVE_ID);
+                    LOGD(TAG, String.format("import file selected: ", driveId));
                     new RetrieveDriveFileContentsAsyncTaskGoogle(this).execute(driveId);
                 }
                 if (resultCode == FragmentActivity.RESULT_CANCELED) {
@@ -81,16 +81,17 @@ public class ImportActivity extends DataLiberationActivity {
         protected String doInBackgroundConnected(DriveId... params) {
             String contents = null;
             DriveFile file = Drive.DriveApi.getFile(getGoogleApiClient(), params[0]);
-            DriveApi.ContentsResult contentsResult = file.openContents(getGoogleApiClient(), DriveFile.MODE_READ_ONLY, null).await();
+            DriveContentsResult contentsResult = file.open(getGoogleApiClient(), DriveFile.MODE_READ_ONLY, null).await();
             if (!contentsResult.getStatus().isSuccess()) {
                 return null;
             }
+            DriveContents driveContents = contentsResult.getDriveContents();
             try {
-                contents = Utils.readFromInputStream(contentsResult.getContents().getInputStream());
+                contents = Utils.readFromInputStream(driveContents.getInputStream());
             } catch (IOException e) {
                 LOGE(TAG, "IOException while reading from the stream", e);
             }
-            file.discardContents(getGoogleApiClient(), contentsResult.getContents()).await();
+            driveContents.discard(getGoogleApiClient());
             return contents;
         }
 
@@ -98,31 +99,29 @@ public class ImportActivity extends DataLiberationActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             if (result == null) {
-                String error = "Import data JSON parse error";
-                LOGE(TAG, String.format("%s", error));
-                Toast.makeText(mContext, error, Toast.LENGTH_LONG).show();
+                errorMessage("Import data read error");
             } else {
                 try {
                     getContentResolver().applyBatch(
                             RemigesContract.CONTENT_AUTHORITY,
                             RemigesLiberation.getImportOperations(result)
                     );
+                    Toast.makeText(mContext, "Data imported successfully", Toast.LENGTH_LONG).show();
                 } catch (JsonSyntaxException e) {
-                    String error = "Import data JSON parse error";
-                    LOGE(TAG, String.format("%s: %s", error, e.getMessage()));
-                    Toast.makeText(mContext, error, Toast.LENGTH_LONG).show();
+                    errorMessage(String.format("%s: %s", "Import data JSON parse error", e.getMessage()));
                 } catch (RemoteException e) {
-                    String error = "Import data provider communication error";
-                    LOGE(TAG, String.format("%s: %s", error, e.getMessage()));
-                    Toast.makeText(mContext, error, Toast.LENGTH_LONG).show();
+                    errorMessage(String.format("%s: %s", "Import data provider communication error", e.getMessage()));
                 } catch (OperationApplicationException e) {
-                    String error = "Import data insertion error";
-                    LOGE(TAG, String.format("%s: %s", error, e.getMessage()));
-                    Toast.makeText(mContext, error, Toast.LENGTH_LONG).show();
+                    errorMessage(String.format("%s: %s", "Import data insertion error", e.getMessage()));
                 }
             }
             endLiberation();
             mContext.finish();
+        }
+
+        private void errorMessage(String message) {
+            LOGE(TAG, message);
+            Toast.makeText(mContext, "Data import error", Toast.LENGTH_LONG).show();
         }
     }
 

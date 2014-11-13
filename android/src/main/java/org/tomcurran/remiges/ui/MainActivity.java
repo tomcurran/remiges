@@ -2,49 +2,28 @@ package org.tomcurran.remiges.ui;
 
 
 import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.OperationApplicationException;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.drive.Drive;
-import com.google.android.gms.drive.DriveApi;
-import com.google.android.gms.drive.DriveFile;
-import com.google.android.gms.drive.DriveId;
-import com.google.android.gms.drive.MetadataChangeSet;
-import com.google.android.gms.drive.OpenFileActivityBuilder;
 import com.google.gson.JsonSyntaxException;
 
 import org.tomcurran.remiges.BuildConfig;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.liberation.RemigesLiberation;
 import org.tomcurran.remiges.provider.RemigesContract;
-import org.tomcurran.remiges.util.GoogleApiClientAsyncTask;
 import org.tomcurran.remiges.util.Utils;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
-import static org.tomcurran.remiges.util.LogUtils.LOGI;
-import static org.tomcurran.remiges.util.LogUtils.LOGW;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 public class MainActivity extends BaseActivity implements NavigationDrawerFragment.Callbacks {
