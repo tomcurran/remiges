@@ -3,6 +3,7 @@ package org.tomcurran.remiges.ui;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -22,8 +23,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.JsonSyntaxException;
 
@@ -33,6 +36,7 @@ import org.tomcurran.remiges.liberation.RemigesLiberation;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
 import org.tomcurran.remiges.util.Utils;
+import org.tomcurran.remiges.util.ViewHolder;
 
 import java.io.File;
 
@@ -53,7 +57,8 @@ public class NavigationDrawerFragment extends Fragment {
     public static final int SECTION_JUMPS = 0;
     public static final int SECTION_PLACES = 1;
     public static final int SECTION_JUMPTYPES = 2;
-    public static final int SECTION_SETTINGS = 3;
+    public static final int SECTION_SEPARATOR = 3;
+    public static final int SECTION_SETTINGS = 4;
 
     public static interface Callbacks {
         void onNavigationDrawerItemSelected(int position);
@@ -72,7 +77,6 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
     private View mFragmentContainerView;
-    private String[] mDrawerTitles;
 
     private int mCurrentSelectedPosition = SECTION_JUMPS;
     private boolean mFromSavedInstanceState;
@@ -115,7 +119,6 @@ public class NavigationDrawerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mDrawerTitles = getResources().getStringArray(R.array.navigation_drawer_titles);
         mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -123,14 +126,85 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                mDrawerTitles
-        ));
+        mDrawerListView.setAdapter(new NavigationDrawerAdapter(getActionBar().getThemedContext()));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
+    }
+
+    private class NavigationDrawerAdapter extends BaseAdapter implements ListAdapter {
+
+        private static final int TYPE_COUNT = 3;
+        private static final int TYPE_NAVIGATE = 0;
+        private static final int TYPE_SEPARATE = 1;
+        private static final int TYPE_EXTRA = 2;
+
+        private final int[] TYPES = {
+                TYPE_NAVIGATE,
+                TYPE_NAVIGATE,
+                TYPE_NAVIGATE,
+                TYPE_SEPARATE,
+                TYPE_EXTRA
+        };
+
+        private final String[] ITEM_TITLES;
+
+        private final Context mContext;
+
+        public NavigationDrawerAdapter(Context context) {
+            mContext = context;
+            ITEM_TITLES = context.getResources().getStringArray(R.array.navigation_drawer_titles);
+        }
+
+        @Override
+        public int getCount() {
+            return TYPES.length;
+        }
+
+        @Override
+        public String getItem(int position) {
+            return ITEM_TITLES[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            switch (getItemViewType(position)) {
+                case TYPE_NAVIGATE:
+                    if (convertView == null) {
+                        convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_navigation_drawer_navigate, parent, false);
+                    }
+                    ((TextView) ViewHolder.get(convertView, R.id.navigation_drawer_navigate_text)).setText(getItem(position));
+                    break;
+                case TYPE_SEPARATE:
+                    if (convertView == null) {
+                        convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_navigation_drawer_separator, parent, false);
+                    }
+                    break;
+                case TYPE_EXTRA:
+                    if (convertView == null) {
+                        convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_navigation_drawer_extra, parent, false);
+                    }
+                    ((TextView) ViewHolder.get(convertView, R.id.navigation_drawer_extra_text)).setText(getItem(position));
+                    break;
+                default:
+                    return null;
+            }
+            return convertView;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return TYPE_COUNT;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return TYPES[position];
+        }
     }
 
     public boolean isDrawerOpen() {
@@ -212,7 +286,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void selectItem(int position) {
-        if (position < SECTION_SETTINGS) {
+        if (position < SECTION_SEPARATOR) {
             mCurrentSelectedPosition = position;
         }
         if (mDrawerListView != null) {
