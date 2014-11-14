@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -16,6 +18,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -138,31 +142,58 @@ public class NavigationDrawerFragment extends Fragment {
         private static final int TYPE_SEPARATE = 1;
         private static final int TYPE_EXTRA = 2;
 
-        private final int[] TYPES = {
-                TYPE_NAVIGATE,
-                TYPE_NAVIGATE,
-                TYPE_NAVIGATE,
-                TYPE_SEPARATE,
-                TYPE_EXTRA
-        };
-
-        private final String[] ITEM_TITLES;
+        private class NavigationItem {
+            int type;
+            String title;
+            Drawable icon;
+        }
 
         private final Context mContext;
+        private SparseArray<NavigationItem> mItems;
 
         public NavigationDrawerAdapter(Context context) {
             mContext = context;
-            ITEM_TITLES = context.getResources().getStringArray(R.array.navigation_drawer_titles);
+            mItems = new SparseArray<NavigationItem>();
+            Resources resources = context.getResources();
+            NavigationItem item;
+
+            item = new NavigationItem();
+            item.type = TYPE_NAVIGATE;
+            item.title = resources.getString(R.string.navigation_drawer_title_navigate_jumps);
+            item.icon = resources.getDrawable(R.drawable.ic_my_library_books_grey600_36dp);
+            mItems.put(0, item);
+
+            item = new NavigationItem();
+            item.type = TYPE_NAVIGATE;
+            item.title = resources.getString(R.string.navigation_drawer_title_navigate_places);
+            item.icon = resources.getDrawable(R.drawable.ic_map_grey600_36dp);
+            mItems.put(1, item);
+
+            item = new NavigationItem();
+            item.type = TYPE_NAVIGATE;
+            item.title = resources.getString(R.string.navigation_drawer_title_navigate_jumptypes);
+            item.icon = resources.getDrawable(R.drawable.ic_accessibility_grey600_36dp);
+            mItems.put(2, item);
+
+            item = new NavigationItem();
+            item.type = TYPE_SEPARATE;
+            mItems.put(3, item);
+
+            item = new NavigationItem();
+            item.type = TYPE_EXTRA;
+            item.title = resources.getString(R.string.navigation_drawer_title_extra_settings);
+            item.icon = resources.getDrawable(R.drawable.ic_settings_grey600_24dp);
+            mItems.put(4, item);
         }
 
         @Override
         public int getCount() {
-            return TYPES.length;
+            return mItems.size();
         }
 
         @Override
-        public String getItem(int position) {
-            return ITEM_TITLES[position];
+        public NavigationItem getItem(int position) {
+            return mItems.get(position);
         }
 
         @Override
@@ -172,12 +203,15 @@ public class NavigationDrawerFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            NavigationItem item;
             switch (getItemViewType(position)) {
                 case TYPE_NAVIGATE:
                     if (convertView == null) {
                         convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_navigation_drawer_navigate, parent, false);
                     }
-                    ((TextView) ViewHolder.get(convertView, R.id.navigation_drawer_navigate_text)).setText(getItem(position));
+                    item = getItem(position);
+                    ((TextView) ViewHolder.get(convertView, R.id.navigation_drawer_navigate_text)).setText(item.title);
+                    ((ImageView) ViewHolder.get(convertView, R.id.navigation_drawer_navigate_icon)).setImageDrawable(item.icon);
                     break;
                 case TYPE_SEPARATE:
                     if (convertView == null) {
@@ -188,7 +222,9 @@ public class NavigationDrawerFragment extends Fragment {
                     if (convertView == null) {
                         convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_navigation_drawer_extra, parent, false);
                     }
-                    ((TextView) ViewHolder.get(convertView, R.id.navigation_drawer_extra_text)).setText(getItem(position));
+                    item = getItem(position);
+                    ((TextView) ViewHolder.get(convertView, R.id.navigation_drawer_extra_text)).setText(item.title);
+                    ((ImageView) ViewHolder.get(convertView, R.id.navigation_drawer_extra_icon)).setImageDrawable(item.icon);
                     break;
                 default:
                     return null;
@@ -203,7 +239,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         @Override
         public int getItemViewType(int position) {
-            return TYPES[position];
+            return getItem(position).type;
         }
     }
 
