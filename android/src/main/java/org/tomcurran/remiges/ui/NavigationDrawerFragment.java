@@ -53,6 +53,7 @@ public class NavigationDrawerFragment extends Fragment {
     public static final int SECTION_JUMPS = 0;
     public static final int SECTION_PLACES = 1;
     public static final int SECTION_JUMPTYPES = 2;
+    public static final int SECTION_SETTINGS = 3;
 
     public static interface Callbacks {
         void onNavigationDrawerItemSelected(int position);
@@ -211,9 +212,11 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void selectItem(int position) {
-        mCurrentSelectedPosition = position;
+        if (position < SECTION_SETTINGS) {
+            mCurrentSelectedPosition = position;
+        }
         if (mDrawerListView != null) {
-            mDrawerListView.setItemChecked(position, true);
+            mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         }
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
@@ -254,7 +257,6 @@ public class NavigationDrawerFragment extends Fragment {
         // If the drawer is open, show the global app actions in the action bar. See also
         // showGlobalContextActionBar, which controls the top-left area of the action bar.
         if (mDrawerLayout != null && isDrawerOpen()) {
-            inflater.inflate(R.menu.global, menu);
             if (BuildConfig.DEBUG) {
                 inflater.inflate(R.menu.debug, menu);
             }

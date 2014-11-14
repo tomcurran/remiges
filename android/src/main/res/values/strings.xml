@@ -13,6 +13,7 @@
         <item>Jumps</item>
         <item>Places</item>
         <item>Jump Types</item>
+        <item>Settings</item>
     </string-array>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

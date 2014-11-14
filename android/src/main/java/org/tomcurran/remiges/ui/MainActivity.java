@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import org.tomcurran.remiges.R;
 
@@ -63,6 +62,9 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                     mTitle = mSectionTitles[NavigationDrawerFragment.SECTION_JUMPTYPES];
                     mSection = NavigationDrawerFragment.SECTION_JUMPTYPES;
                     break;
+                case NavigationDrawerFragment.SECTION_SETTINGS:
+                    startActivity(new Intent(this, SettingsActivity.class));
+                    break;
             }
         } catch (IllegalAccessException e) {
             LOGE(TAG, String.format("Fragment field or method not accessible: %s", e.getMessage()));
@@ -104,22 +106,10 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            getMenuInflater().inflate(R.menu.main, menu);
             restoreActionBar();
             return true;
         }
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     // API workaround. Issue https://code.google.com/p/android/issues/detail?id=40323
