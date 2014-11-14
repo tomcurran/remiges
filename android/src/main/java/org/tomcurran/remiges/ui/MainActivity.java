@@ -26,7 +26,6 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
     private CharSequence mTitle;
     private String[] mSectionTitles;
-    private int mSection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +49,14 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 case NavigationDrawerFragment.SECTION_JUMPS:
                     attachFragment(JumpFragment.class, FRAGMENT_JUMPS);
                     mTitle = mSectionTitles[NavigationDrawerFragment.SECTION_JUMPS];
-                    mSection = NavigationDrawerFragment.SECTION_JUMPS;
                     break;
                 case NavigationDrawerFragment.SECTION_PLACES:
                     attachFragment(PlaceFragment.class, FRAGMENT_PLACES);
                     mTitle = mSectionTitles[NavigationDrawerFragment.SECTION_PLACES];
-                    mSection = NavigationDrawerFragment.SECTION_PLACES;
                     break;
                 case NavigationDrawerFragment.SECTION_JUMPTYPES:
                     attachFragment(JumpTypeFragment.class, FRAGMENT_JUMPTYPES);
                     mTitle = mSectionTitles[NavigationDrawerFragment.SECTION_JUMPTYPES];
-                    mSection = NavigationDrawerFragment.SECTION_JUMPTYPES;
                     break;
                 case NavigationDrawerFragment.SECTION_SETTINGS:
                     startActivity(new Intent(this, SettingsActivity.class));
