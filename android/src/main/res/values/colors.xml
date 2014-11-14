@@ -8,6 +8,6 @@
     <color name="card_table_label">#ff747474</color>
     <color name="card_table_content">@android:color/primary_text_light</color>
     <color name="navigation_drawer">#E9E9E9</color>
-    <color name="navigation_drawer_separator">#ffe4e4e4</color>
+    <color name="navigation_drawer_separator">#D6D6D6</color>
 
 </resources>
