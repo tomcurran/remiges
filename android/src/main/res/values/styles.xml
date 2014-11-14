@@ -3,28 +3,23 @@
     <style name="RemigesTheme" parent="@android:style/Theme.DeviceDefault.Light">
     </style>
 
-    <style name="CardContainer">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:layout_marginLeft">12dp</item>
-        <item name="android:layout_marginRight">12dp</item>
-        <item name="android:layout_marginTop">12dp</item>
-        <item name="android:paddingBottom">12dp</item>
-    </style>
-
     <style name="Card">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_marginBottom">12dp</item>
-        <item name="android:padding">12dp</item>
-        <item name="android:background">@drawable/bg_card</item>
+        <item name="android:layout_margin">@dimen/margin_small</item>
+    </style>
+
+    <style name="CardDetail">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/margin_medium</item>
     </style>
 
     <style name="CardTitle" parent="@android:style/TextAppearance.Large">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingTop">4dp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/card_title</item>
     </style>
@@ -123,10 +118,6 @@
 
 
     <!-- Jump Detail -->
-
-    <style name="JumpDetailCard" parent="Card">
-        <item name="android:orientation">vertical</item>
-    </style>
 
     <style name="JumpDetail">
         <item name="android:layout_height">wrap_content</item>
@@ -273,22 +264,12 @@
 
     <!-- Place Detail -->
 
-    <style name="PlaceDetailCard" parent="Card">
-        <item name="android:orientation">vertical</item>
-    </style>
-
     <style name="PlaceDetailStaticMap">
         <item name="android:layout_height">200dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_centerInParent">true</item>
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
-    </style>
-
-    <!-- Place Detail -->
-
-    <style name="JumpTypeDetailCard" parent="Card">
-        <item name="android:orientation">vertical</item>
     </style>
 
     <!-- Jump Type Edit -->
