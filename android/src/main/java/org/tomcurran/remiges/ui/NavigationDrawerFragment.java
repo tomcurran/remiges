@@ -362,6 +362,13 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        if (mDrawerLayout != null && isDrawerOpen()) {
+            menu.clear();
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
