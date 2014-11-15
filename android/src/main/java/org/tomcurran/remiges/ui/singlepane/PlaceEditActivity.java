@@ -1,10 +1,10 @@
 package org.tomcurran.remiges.ui.singlepane;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +28,7 @@ public class PlaceEditActivity extends SimpleSinglePaneActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final LayoutInflater inflater = (LayoutInflater) getActionBar().getThemedContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        final LayoutInflater inflater = (LayoutInflater) getSupportActionBar().getThemedContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         final View customActionBarView = inflater.inflate(R.layout.donebar_done_cancel, null);
         customActionBarView.findViewById(R.id.actionbar_done).setOnClickListener(
                 new View.OnClickListener() {
@@ -55,7 +55,7 @@ public class PlaceEditActivity extends SimpleSinglePaneActivity {
             displayOptions |= ActionBar.DISPLAY_SHOW_TITLE;
         }
 
-        final ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM, displayOptions);
         actionBar.setCustomView(customActionBarView, layoutParams);
         actionBar.setDisplayHomeAsUpEnabled(false);

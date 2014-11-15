@@ -10,12 +10,14 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.drive.Drive;
 
+import org.tomcurran.remiges.ui.BaseActivity;
+
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.LOGI;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
-public abstract class DataLiberationActivity extends FragmentActivity implements
+public abstract class DataLiberationActivity extends BaseActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = makeLogTag(DataLiberationActivity.class);

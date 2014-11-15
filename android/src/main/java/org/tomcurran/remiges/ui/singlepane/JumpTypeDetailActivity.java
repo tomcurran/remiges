@@ -1,6 +1,7 @@
 package org.tomcurran.remiges.ui.singlepane;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import org.tomcurran.remiges.provider.RemigesContract;
@@ -17,6 +18,12 @@ public class JumpTypeDetailActivity extends SimpleSinglePaneActivity implements 
     @Override
     protected Fragment onCreatePane() {
         return new JumpTypeDetailFragment();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
