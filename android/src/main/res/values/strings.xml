@@ -135,6 +135,14 @@
     <string name="preference_title_data_liberation_import">Import data</string>
     <string name="preference_summary_data_liberation_import">Import app data from Google Drive in JSON format</string>
 
+    <!-- Debug Settings -->
+
+    <string name="preference_title_debug">Debug</string>
+    <string name="preference_title_debug_insert_data">Insert test data</string>
+    <string name="preference_summary_debug_insert_data">Test data provided with the app will be inserted</string>
+    <string name="preference_title_debug_delete_data">Delete all data</string>
+    <string name="preference_summary_debug_delete_data">All app data will be deleted</string>
+
     <!-- Data Liberation -->
 
     <string name="title_export">Export</string>
@@ -160,12 +168,6 @@
         <item quantity="one">1 year ago</item>
         <item quantity="other">%d years ago</item>
     </plurals>
-
-    <!-- Debug Menu -->
-
-    <string name="menu_debug">Debug</string>
-    <string name="menu_debug_insert_data">Insert Test Data</string>
-    <string name="menu_debug_delete_data">Delete All Data</string>
 
     <!-- Layout Preview Text -->
 

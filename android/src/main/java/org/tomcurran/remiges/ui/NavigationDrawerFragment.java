@@ -4,14 +4,12 @@ package org.tomcurran.remiges.ui;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
-import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -32,19 +30,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.gson.JsonSyntaxException;
-
-import org.tomcurran.remiges.BuildConfig;
 import org.tomcurran.remiges.R;
-import org.tomcurran.remiges.liberation.RemigesLiberation;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
-import org.tomcurran.remiges.util.Utils;
 import org.tomcurran.remiges.util.ViewHolder;
 
-import java.io.File;
-
-import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 /**
@@ -366,9 +356,6 @@ public class NavigationDrawerFragment extends Fragment {
         // If the drawer is open, show the global app actions in the action bar. See also
         // showGlobalContextActionBar, which controls the top-left area of the action bar.
         if (mDrawerLayout != null && isDrawerOpen()) {
-            if (BuildConfig.DEBUG) {
-                inflater.inflate(R.menu.debug, menu);
-            }
             showGlobalContextActionBar();
         }
         super.onCreateOptionsMenu(menu, inflater);
@@ -379,34 +366,7 @@ public class NavigationDrawerFragment extends Fragment {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        switch (item.getItemId()) {
-            case R.id.menu_debug_insert_data:
-                try {
-                    FragmentActivity activity = getActivity();
-                    activity.getContentResolver().applyBatch(
-                            RemigesContract.CONTENT_AUTHORITY,
-                            RemigesLiberation.getImportOperations(
-                                    Utils.readAsset(activity, "testdata" + File.separator + "tc.json")));
-                } catch (JsonSyntaxException e) {
-                    LOGE(TAG, String.format("Test data JSON parse error: %s", e.getMessage()));
-                } catch (RemoteException e) {
-                    LOGE(TAG, String.format("Test data provider communication error: %s", e.getMessage()));
-                } catch (OperationApplicationException e) {
-                    LOGE(TAG, String.format("Test data insertion error: %s", e.getMessage()));
-                }
-                return true;
-            case R.id.menu_debug_delete_data:
-                try {
-                    getActivity().getContentResolver().applyBatch(RemigesContract.CONTENT_AUTHORITY, RemigesLiberation.getDeleteOperations());
-                } catch (RemoteException e) {
-                    LOGE(TAG, String.format("Test data provider communication error: %s", e.getMessage()));
-                } catch (OperationApplicationException e) {
-                    LOGE(TAG, String.format("Test data deletion error: %s", e.getMessage()));
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

@@ -1,18 +1,36 @@
 package org.tomcurran.remiges.ui;
 
+import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.widget.Toast;
 
+import com.google.gson.JsonSyntaxException;
+
+import org.tomcurran.remiges.BuildConfig;
 import org.tomcurran.remiges.R;
+import org.tomcurran.remiges.liberation.RemigesLiberation;
 import org.tomcurran.remiges.provider.RemigesContract;
+import org.tomcurran.remiges.util.Utils;
+
+import java.io.File;
+
+import static org.tomcurran.remiges.util.LogUtils.LOGE;
+import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
 public class SettingsFragment extends PreferenceFragment implements LoaderManager.LoaderCallbacks<Cursor> {
+    private static final String TAG = makeLogTag(PreferenceFragment.class);
 
     public static final String PREFERENCE_PLACE = "preference_key_default_place";
     public static final String PREFERENCE_JUMPTYPE = "preference_key_default_jumptype";
@@ -76,6 +94,73 @@ public class SettingsFragment extends PreferenceFragment implements LoaderManage
         LoaderManager loaderManager = getActivity().getLoaderManager();
         loaderManager.initLoader(LOADER_PLACE, null, this);
         loaderManager.initLoader(LOADER_JUMPTYPE, null, this);
+
+        if (BuildConfig.DEBUG) {
+            enableDebugSettings();
+        }
+    }
+
+    private void enableDebugSettings() {
+        Context context = getActivity();
+
+        PreferenceCategory category = new PreferenceCategory(context);
+        category.setTitle(R.string.preference_title_debug);
+        getPreferenceScreen().addPreference(category);
+
+        Preference insertPreference = new Preference(context);
+        insertPreference.setTitle(R.string.preference_title_debug_insert_data);
+        insertPreference.setSummary(R.string.preference_summary_debug_insert_data);
+        insertPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Activity activity = getActivity();
+                try {
+                    activity.getContentResolver().applyBatch(
+                            RemigesContract.CONTENT_AUTHORITY,
+                            RemigesLiberation.getImportOperations(
+                                    Utils.readAsset(activity, "testdata" + File.separator + "tc.json")));
+                    Toast.makeText(activity, "Test data inserted successfully", Toast.LENGTH_SHORT).show();
+                } catch (JsonSyntaxException e) {
+                    String message = "Test data JSON parse error";
+                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                    LOGE(TAG, String.format("%s: %s", message, e.getMessage()));
+                } catch (RemoteException e) {
+                    String message = "Test data provider communication error";
+                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                    LOGE(TAG, String.format("%s: %s", message, e.getMessage()));
+                } catch (OperationApplicationException e) {
+                    String message = "Test data insertion error";
+                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                    LOGE(TAG, String.format("%s: %s", message, e.getMessage()));
+                }
+                return true;
+            }
+        });
+        category.addPreference(insertPreference);
+
+        Preference deletePreference = new Preference(context);
+        deletePreference.setTitle(R.string.preference_title_debug_delete_data);
+        deletePreference.setSummary(R.string.preference_summary_debug_delete_data);
+        deletePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Activity activity = getActivity();
+                try {
+                    activity.getContentResolver().applyBatch(RemigesContract.CONTENT_AUTHORITY, RemigesLiberation.getDeleteOperations());
+                    Toast.makeText(activity, "All data deleted successfully", Toast.LENGTH_SHORT).show();
+                } catch (RemoteException e) {
+                    String message = "Test data provider communication error";
+                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                    LOGE(TAG, String.format("%s: %s", message, e.getMessage()));
+                } catch (OperationApplicationException e) {
+                    String message = "Test data deletion error";
+                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                    LOGE(TAG, String.format("%s: %s", message, e.getMessage()));
+                }
+                return true;
+            }
+        });
+        category.addPreference(deletePreference);
     }
 
     @Override
