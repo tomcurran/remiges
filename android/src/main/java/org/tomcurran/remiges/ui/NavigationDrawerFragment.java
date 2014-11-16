@@ -120,9 +120,14 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+        return mDrawerListView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         mDrawerListView.setAdapter(new NavigationDrawerAdapter(getActionBar().getThemedContext()));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-        return mDrawerListView;
     }
 
     private class NavigationDrawerAdapter extends BaseAdapter implements ListAdapter {

@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="RemigesTheme" parent="@style/Theme.AppCompat.Light">
+    <style name="RemigesTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
     </style>
 
     <!-- Navigation Drawer -->

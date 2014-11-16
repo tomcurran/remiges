@@ -5,6 +5,8 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 
+import org.tomcurran.remiges.R;
+
 
 public class SettingsActivity extends BaseActivity {
 
@@ -12,10 +14,12 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_singlepane_empty);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new SettingsFragment())
+                .replace(R.id.root_container, new SettingsFragment())
                 .commit();
     }
 
