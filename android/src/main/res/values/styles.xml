@@ -207,8 +207,7 @@
     <style name="EditJumpContainer">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
+        <item name="android:padding">16dp</item>
     </style>
 
     <style name="EditJump">
@@ -221,16 +220,17 @@
         <item name="android:layout_below">@id/label_edit_jump_number</item>
     </style>
 
-    <style name="EditJump.Date" parent="@android:style/Widget.DeviceDefault.Light.Spinner">
+    <style name="EditJump.Date" parent="@style/Widget.AppCompat.Spinner">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:hint">@string/tools_text_jump_detail_date</item>
         <item name="android:layout_below">@id/label_edit_jump_date</item>
-        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingLeft">4dp</item>
     </style>
 
     <style name="EditJump.Place">
         <item name="android:layout_below">@id/label_edit_jump_place</item>
+        <item name="android:layout_marginLeft">-4dp</item>
     </style>
 
     <style name="EditJump.Way">
@@ -240,6 +240,7 @@
 
     <style name="EditJump.Type">
         <item name="android:layout_below">@id/label_edit_jump_type</item>
+        <item name="android:layout_marginLeft">-4dp</item>
     </style>
 
     <style name="EditJump.ExitAltitude">
@@ -265,11 +266,10 @@
     <style name="EditJumpAdd" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginBottom">-8dp</item>
-        <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:paddingLeft">4dp</item>
         <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingLeft">4dp</item>
         <item name="android:textColor">@color/edit_add_label</item>
     </style>
 
@@ -285,8 +285,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">-8dp</item>
-        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginBottom">-4dp</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/edit_label</item>
@@ -297,6 +296,8 @@
 
     <style name="EditJumpLabel.Date">
         <item name="android:layout_below">@id/edit_jump_number</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
     </style>
 
     <style name="EditJumpLabel.Description">
@@ -305,6 +306,8 @@
 
     <style name="EditJumpLabel.Place">
         <item name="android:layout_below">@id/edit_jump_date</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
     </style>
 
     <style name="EditJumpLabel.Way">
@@ -313,6 +316,8 @@
 
     <style name="EditJumpLabel.Type">
         <item name="android:layout_below">@id/edit_jump_way</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
     </style>
 
     <style name="EditJumpLabel.ExitAltitude">
@@ -360,8 +365,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">-8dp</item>
-        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginBottom">-4dp</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/edit_label</item>
@@ -402,8 +406,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">-8dp</item>
-        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginBottom">-4dp</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/edit_label</item>
