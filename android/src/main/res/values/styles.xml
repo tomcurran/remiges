@@ -1,6 +1,9 @@
 <resources>
 
-    <style name="RemigesTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    <style name="RemigesTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 
     <!-- Navigation Drawer -->
@@ -21,7 +24,7 @@
         <item name="android:background">?android:attr/activatedBackgroundIndicator</item>
     </style>
 
-    <style name="NavigationDrawerNavigateText" parent="android:TextAppearance.Medium">
+    <style name="NavigationDrawerNavigateText" parent="TextAppearance.AppCompat.Medium.Inverse">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:gravity">center_vertical</item>
@@ -51,7 +54,7 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
-    <style name="NavigationDrawerExtraText" parent="android:TextAppearance.Small">
+    <style name="NavigationDrawerExtraText" parent="TextAppearance.AppCompat.Small.Inverse">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:gravity">center_vertical</item>
@@ -81,7 +84,7 @@
         <item name="android:padding">@dimen/margin_medium</item>
     </style>
 
-    <style name="CardTitle" parent="@android:style/TextAppearance.Large">
+    <style name="CardTitle" parent="TextAppearance.AppCompat.Large">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:paddingTop">4dp</item>
@@ -220,7 +223,7 @@
         <item name="android:layout_below">@id/label_edit_jump_number</item>
     </style>
 
-    <style name="EditJump.Date" parent="@style/Widget.AppCompat.Spinner">
+    <style name="EditJump.Date" parent="Widget.AppCompat.Spinner">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:hint">@string/tools_text_jump_detail_date</item>
@@ -263,7 +266,7 @@
         <item name="android:layout_below">@id/label_edit_jump_description</item>
     </style>
 
-    <style name="EditJumpAdd" parent="@android:style/TextAppearance.Medium">
+    <style name="EditJumpAdd" parent="TextAppearance.AppCompat.Medium">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginBottom">-8dp</item>
