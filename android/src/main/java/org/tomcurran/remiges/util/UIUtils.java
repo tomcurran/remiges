@@ -2,6 +2,7 @@ package org.tomcurran.remiges.util;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.widget.TextView;
@@ -124,6 +125,11 @@ public class UIUtils {
      */
     public static Typeface loadFont(Context context, String font) {
         return Typeface.createFromAsset(context.getAssets(), FONTS + File.separator + font);
+    }
+
+    public static int parseIntPreference(SharedPreferences preferences, String key, String defValue) {
+        String pref = preferences.getString(key, defValue);
+        return Integer.parseInt(TextUtils.isEmpty(pref) ? defValue : pref);
     }
 
 }
