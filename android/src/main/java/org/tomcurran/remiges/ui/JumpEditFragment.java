@@ -198,8 +198,8 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         mJumpDelay = (EditText) rootView.findViewById(R.id.edit_jump_delay);
 
         mJumpDate.setOnClickListener(mDateClickedListener);
-        ((TextView) rootView.findViewById(R.id.edit_jump_add_place)).setOnClickListener(mAddPlaceClickedListener);
-        ((TextView) rootView.findViewById(R.id.edit_jump_add_type)).setOnClickListener(mAddTypeClickedListener);
+        rootView.findViewById(R.id.edit_jump_add_place).setOnClickListener(mAddPlaceClickedListener);
+        rootView.findViewById(R.id.edit_jump_add_type).setOnClickListener(mAddTypeClickedListener);
 
         mJumpPlace.setAdapter(new SpinnerAdapter(getActivity(), PlaceQuery.PROJECTION));
         mJumpPlace.setOnItemSelectedListener(mPlaceOnItemSelectedListener);
