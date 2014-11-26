@@ -40,25 +40,31 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/detail_jump_place_header"
-                android:text="@string/label_detail_jump_place_header"
-                style="@style/CardHeading"/>
+            <LinearLayout
+                android:id="@+id/detail_jump_place_container"
+                style="@style/JumpDetail.PlaceContainer">
 
-            <View
-                style="@style/CardDivider" />
+                <TextView
+                    android:id="@+id/detail_jump_place_header"
+                    android:text="@string/label_detail_jump_place_header"
+                    style="@style/CardHeading"/>
 
-            <TextView
-                android:id="@+id/detail_jump_place_name"
-                style="@style/JumpDetail.PlaceName"
-                tools:text="@string/tools_text_place_name" />
+                <View
+                    style="@style/CardDivider" />
 
-            <edu.mit.mobile.android.maps.GoogleStaticMapView
-                android:id="@+id/detail_jump_place_staticmap"
-                staticmap:maptype="roadmap"
-                staticmap:zoom="7"
-                staticmap:sensor="true"
-                style="@style/PlaceDetailStaticMap" />
+                <TextView
+                    android:id="@+id/detail_jump_place_name"
+                    style="@style/JumpDetail.PlaceName"
+                    tools:text="@string/tools_text_place_name" />
+
+                <edu.mit.mobile.android.maps.GoogleStaticMapView
+                    android:id="@+id/detail_jump_place_staticmap"
+                    staticmap:maptype="roadmap"
+                    staticmap:zoom="7"
+                    staticmap:sensor="true"
+                    style="@style/PlaceDetailStaticMap" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/detail_jump_profile_header"

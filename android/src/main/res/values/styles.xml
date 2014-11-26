@@ -196,6 +196,12 @@
         <item name="android:paddingBottom">8dp</item>
     </style>
 
+    <style name="JumpDetail.PlaceContainer">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
     <style name="JumpDetail.PlaceName">
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
@@ -336,6 +342,12 @@
     </style>
 
     <!-- Place Detail -->
+
+    <style name="PlaceDetailLocationContainer">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
 
     <style name="PlaceDetailStaticMap">
         <item name="android:layout_height">200dp</item>

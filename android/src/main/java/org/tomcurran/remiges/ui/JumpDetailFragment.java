@@ -46,6 +46,7 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     private TextView mJumpExitAltitude;
     private TextView mJumpDeploymentAltitude;
     private TextView mJumpDelay;
+    private LinearLayout mPlaceContainer;
     private TextView mPlaceName;
     private Typeface mRoboto;
     private GoogleStaticMapView mPlaceStaticMap;
@@ -98,6 +99,7 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
         mJumpDate = (TextView) rootView.findViewById(R.id.detail_jump_date);
         mJumpDescription = (TextView) rootView.findViewById(R.id.detail_jump_description);
         mJumpDescriptionLayout = (LinearLayout) rootView.findViewById(R.id.detail_jump_layout_description);
+        mPlaceContainer = (LinearLayout) rootView.findViewById(R.id.detail_jump_place_container);
         mPlaceName = (TextView) rootView.findViewById(R.id.detail_jump_place_name);
         mPlaceStaticMap = (GoogleStaticMapView) rootView.findViewById(R.id.detail_jump_place_staticmap);
         mJumpExitAltitude = (TextView) rootView.findViewById(R.id.detail_jump_exit_altitude);
@@ -169,12 +171,33 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
             String description = jumpCursor.getString(JumpQuery.DESCRIPTION);
             mJumpDescription.setText(description);
             mJumpDescriptionLayout.setVisibility(description.isEmpty() ? View.GONE : View.VISIBLE);
+            String title;
             int way =  jumpCursor.getInt(JumpQuery.WAY);
-            mJumpTitle.setText(String.format("%s %s",
-                    way > 1 ? getString(R.string.detail_jump_way, way) : getString(R.string.detail_jump_solo),
-                    jumpCursor.getString(JumpQuery.TYPE)));
-            mPlaceName.setText(jumpCursor.getString(JumpQuery.PLACE));
-            mPlaceStaticMap.setMap(jumpCursor.getFloat(JumpQuery.LATITUDE), jumpCursor.getFloat(JumpQuery.LONGITUDE), true);
+            if (way > 1) {
+                title = getString(R.string.detail_jump_way, way);
+            } else {
+                title = getString(R.string.detail_jump_solo);
+            }
+            String jumptype = jumpCursor.getString(JumpQuery.TYPE);
+            if (jumptype != null) {
+                title += " " + jumptype;
+            }
+            mJumpTitle.setText(title);
+            String place = jumpCursor.getString(JumpQuery.PLACE);
+            if (place != null) {
+                mPlaceContainer.setVisibility(View.VISIBLE);
+                mPlaceName.setText(place);
+                double latitude = jumpCursor.getFloat(JumpQuery.LATITUDE);
+                double longitude = jumpCursor.getFloat(JumpQuery.LONGITUDE);
+                if (latitude != 0 && longitude != 0) {
+                    mPlaceStaticMap.setVisibility(View.VISIBLE);
+                    mPlaceStaticMap.setMap((float)latitude, (float)longitude, true);
+                } else {
+                    mPlaceStaticMap.setVisibility(View.GONE);
+                }
+            } else {
+                mPlaceContainer.setVisibility(View.GONE);
+            }
             mJumpExitAltitude.setText(jumpCursor.getString(JumpQuery.EXIT_ALTITUDE));
             mJumpDeploymentAltitude.setText(jumpCursor.getString(JumpQuery.DEPLOYMENT_ALTITUDE));
             mJumpDelay.setText(jumpCursor.getString(JumpQuery.DELAY));

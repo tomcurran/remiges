@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.tomcurran.remiges.R;
@@ -45,6 +46,7 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
     private Cursor mPlaceLastJumpCursor;
 
     private TextView mPlaceName;
+    private LinearLayout mPlaceLocationContainer;
     private TextView mPlaceLatitude;
     private TextView mPlaceLongitude;
     private TextView mPlaceJumpCount;
@@ -102,6 +104,7 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         mPlaceName = (TextView) rootView.findViewById(R.id.detail_place_name);
         mPlaceLatitude = (TextView) rootView.findViewById(R.id.detail_place_latitude);
         mPlaceLongitude = (TextView) rootView.findViewById(R.id.detail_place_longitude);
+        mPlaceLocationContainer = (LinearLayout) rootView.findViewById(R.id.detail_place_location_container);
         mPlaceStaticMap = (GoogleStaticMapView) rootView.findViewById(R.id.detail_place_staticmap);
         mPlaceJumpCount = (TextView) rootView.findViewById(R.id.detail_place_jump_count);
         mPlaceLastJump = (TextView) rootView.findViewById(R.id.detail_place_jump_last);
@@ -168,13 +171,16 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         Cursor placeCursor = mPlaceCursor;
         if (placeCursor.moveToFirst()) {
             mPlaceName.setText(placeCursor.getString(PlaceQuery.NAME));
-            mPlaceLatitude.setText(String.valueOf(placeCursor.getDouble(PlaceQuery.LATITUDE)));
-            mPlaceLongitude.setText(String.valueOf(placeCursor.getDouble(PlaceQuery.LONGITUDE)));
-            mPlaceStaticMap.setMap(
-                    placeCursor.getFloat(PlaceQuery.LATITUDE),
-                    placeCursor.getFloat(PlaceQuery.LONGITUDE),
-                    true
-            );
+            double latitude = placeCursor.getDouble(PlaceQuery.LATITUDE);
+            double longitude = placeCursor.getDouble(PlaceQuery.LONGITUDE);
+            if (latitude != 0 && longitude != 0) {
+                mPlaceLocationContainer.setVisibility(View.VISIBLE);
+                mPlaceLatitude.setText(String.valueOf(latitude));
+                mPlaceLongitude.setText(String.valueOf(longitude));
+                mPlaceStaticMap.setMap((float) latitude, (float) longitude, true);
+            } else {
+                mPlaceLocationContainer.setVisibility(View.GONE);
+            }
         }
     }
 

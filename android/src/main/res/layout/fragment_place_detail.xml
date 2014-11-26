@@ -18,45 +18,51 @@
                 style="@style/CardTitle"
                 tools:text="@string/tools_text_place_name" />
 
-            <TextView
-                android:id="@+id/detail_place_location_header"
-                android:text="@string/detail_place_location_header"
-                style="@style/CardHeading"/>
+            <LinearLayout
+                android:id="@+id/detail_place_location_container"
+                style="@style/PlaceDetailLocationContainer">
 
-            <View
-                style="@style/CardDivider" />
+                <TextView
+                    android:id="@+id/detail_place_location_header"
+                    android:text="@string/detail_place_location_header"
+                    style="@style/CardHeading"/>
 
-            <edu.mit.mobile.android.maps.GoogleStaticMapView
-                android:id="@+id/detail_place_staticmap"
-                staticmap:maptype="roadmap"
-                staticmap:zoom="7"
-                staticmap:sensor="true"
-                style="@style/PlaceDetailStaticMap" />
+                <View
+                    style="@style/CardDivider" />
 
-            <TableLayout
-                style="@style/CardTable">
+                <edu.mit.mobile.android.maps.GoogleStaticMapView
+                    android:id="@+id/detail_place_staticmap"
+                    staticmap:maptype="roadmap"
+                    staticmap:zoom="7"
+                    staticmap:sensor="true"
+                    style="@style/PlaceDetailStaticMap" />
 
-                <TableRow>
-                    <TextView
-                        android:text="@string/label_detail_place_latitude"
-                        style="@style/CardTableLabel" />
-                    <TextView
-                        android:id="@+id/detail_place_latitude"
-                        style="@style/CardTableContent"
-                        tools:text="@string/tools_text_place_latitude" />
-                </TableRow>
+                <TableLayout
+                    style="@style/CardTable">
 
-                <TableRow>
-                    <TextView
-                        android:text="@string/label_detail_place_longitude"
-                        style="@style/CardTableLabel" />
-                    <TextView
-                        android:id="@+id/detail_place_longitude"
-                        style="@style/CardTableContent"
-                        tools:text="@string/tools_text_place_longitude" />
-                </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:text="@string/label_detail_place_latitude"
+                            style="@style/CardTableLabel" />
+                        <TextView
+                            android:id="@+id/detail_place_latitude"
+                            style="@style/CardTableContent"
+                            tools:text="@string/tools_text_place_latitude" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:text="@string/label_detail_place_longitude"
+                            style="@style/CardTableLabel" />
+                        <TextView
+                            android:id="@+id/detail_place_longitude"
+                            style="@style/CardTableContent"
+                            tools:text="@string/tools_text_place_longitude" />
+                    </TableRow>
 
             </TableLayout>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/detail_place_stats_header"
