@@ -489,6 +489,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateSpinner(Spinner spinner, Long id, int column) {
+        spinner.setVisibility(spinner.getCount() <= 0 ? View.GONE : View.VISIBLE);
         if (id == null) {
             return;
         }
