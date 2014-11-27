@@ -70,9 +70,8 @@ public class JumpTypeFragment extends Fragment implements
                 return;
             }
             if (uri.equals(RemigesContract.JumpTypes.CONTENT_URI)) {
-                if (action.equals(Intent.ACTION_VIEW)) {
-                    // normal activity behaviour is to view jump type
-                } else if (action.equals(Intent.ACTION_INSERT)) {
+                // default behaviour is to view jump types, we do not check for Intent.ACTION_VIEW
+                if (action.equals(Intent.ACTION_INSERT)) {
                     insertJumpType();
                 } else {
                     unknownAction(action);

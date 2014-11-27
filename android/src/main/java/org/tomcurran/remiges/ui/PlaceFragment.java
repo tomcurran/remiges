@@ -68,9 +68,8 @@ public class PlaceFragment extends Fragment implements
                 return;
             }
             if (uri.equals(RemigesContract.Places.CONTENT_URI)) {
-                if (action.equals(Intent.ACTION_VIEW)) {
-                    // normal activity behaviour is to view jumps
-                } else if (action.equals(Intent.ACTION_INSERT)) {
+                // default behaviour is to view places, we do not check for Intent.ACTION_VIEW
+                if (action.equals(Intent.ACTION_INSERT)) {
                     insertPlace();
                 } else {
                     unknownAction(action);
