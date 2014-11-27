@@ -63,7 +63,7 @@ public abstract class DataLiberationActivity extends BaseActivity implements
     @Override
     public void onConnected(Bundle bundle) {
         LOGI(TAG, "GoogleApiClient connected");
-        if (operation == false) {
+        if (!operation) {
             operation = true;
             liberation();
         }
