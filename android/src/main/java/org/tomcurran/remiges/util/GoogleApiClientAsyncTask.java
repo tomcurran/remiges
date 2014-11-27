@@ -73,7 +73,7 @@ public abstract class GoogleApiClientAsyncTask<Params, Progress, Result> extends
     protected abstract Result doInBackgroundConnected(Params... params);
 
     /**
-     * Gets the GoogleApliClient owned by this async task.
+     * Gets the GoogleApiClient owned by this async task.
      */
     protected GoogleApiClient getGoogleApiClient() {
         return mClient;
