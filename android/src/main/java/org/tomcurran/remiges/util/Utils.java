@@ -20,6 +20,7 @@ public class Utils {
      * @param fileName file name of the asset
      * @return asset as string, or null if any errors
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static String readAsset(Context context, String fileName) {
         String asset = null;
         try {
