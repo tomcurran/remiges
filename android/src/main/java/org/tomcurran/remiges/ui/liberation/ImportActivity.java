@@ -43,7 +43,7 @@ public class ImportActivity extends DataLiberationActivity {
             case REQUEST_IMPORT:
                 if (resultCode == FragmentActivity.RESULT_OK) {
                     DriveId driveId = data.getParcelableExtra(OpenFileActivityBuilder.EXTRA_RESPONSE_DRIVE_ID);
-                    LOGD(TAG, String.format("import file selected: ", driveId));
+                    LOGD(TAG, String.format("import file selected: %s", driveId));
                     new RetrieveDriveFileContentsAsyncTaskGoogle(this).execute(driveId);
                 }
                 if (resultCode == FragmentActivity.RESULT_CANCELED) {
