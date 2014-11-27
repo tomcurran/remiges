@@ -31,7 +31,6 @@ public class Utils {
             asset = new String(buffer, "UTF-8");
         } catch (IOException ex) {
             ex.printStackTrace();
-            return null;
         }
         return asset;
     }
