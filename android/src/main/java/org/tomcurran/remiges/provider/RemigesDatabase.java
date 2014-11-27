@@ -77,6 +77,7 @@ public class RemigesDatabase extends SQLiteOpenHelper {
         );
     }
 
+    @SuppressWarnings("UnnecessaryLocalVariable")
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         LOGD(TAG, "onUpgrade() from " + oldVersion + " to " + newVersion);
