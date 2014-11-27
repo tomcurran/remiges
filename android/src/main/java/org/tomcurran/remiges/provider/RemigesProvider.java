@@ -161,7 +161,7 @@ public class RemigesProvider extends ContentProvider {
      *
      * @param operations {@link java.util.ArrayList} of {@link android.content
      * .ContentProviderOperation}s, cannot be null
-     * @return
+     * @return the results of the applications
      * @throws OperationApplicationException when a {@link android.content
      * .ContentProviderOperation} fails
      */
