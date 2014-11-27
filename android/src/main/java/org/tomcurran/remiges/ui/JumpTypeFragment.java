@@ -75,7 +75,6 @@ public class JumpTypeFragment extends Fragment implements
                     insertJumpType();
                 } else {
                     unknownAction();
-                    return;
                 }
             } else if (uriType.equals(RemigesContract.JumpTypes.CONTENT_ITEM_TYPE)) {
                 if (action.equals(Intent.ACTION_VIEW)) {
@@ -84,7 +83,6 @@ public class JumpTypeFragment extends Fragment implements
                     editJumpType(uri);
                 } else {
                     unknownAction();
-                    return;
                 }
             }
         }

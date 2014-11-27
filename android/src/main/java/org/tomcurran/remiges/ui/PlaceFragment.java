@@ -73,7 +73,6 @@ public class PlaceFragment extends Fragment implements
                     insertPlace();
                 } else {
                     unknownAction();
-                    return;
                 }
             } else if (uriType.equals(RemigesContract.Places.CONTENT_ITEM_TYPE)) {
                 if (action.equals(Intent.ACTION_VIEW)) {
@@ -82,7 +81,6 @@ public class PlaceFragment extends Fragment implements
                     editPlace(uri);
                 } else {
                     unknownAction();
-                    return;
                 }
             }
         }
