@@ -131,9 +131,6 @@ public class JumpListFragment extends ListFragment implements
 
     public void setSelectedJump(String jumpId) {
         Long id = Long.parseLong(jumpId);
-        if (id == null) {
-            return;
-        }
         ListView listView = getListView();
         for (int i = 0; i < listView.getCount(); i++) {
             if (id == ((Cursor) listView.getItemAtPosition(i)).getLong(JumpsQuery._ID)) {

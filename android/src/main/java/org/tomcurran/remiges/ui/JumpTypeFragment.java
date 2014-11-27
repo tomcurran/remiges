@@ -66,7 +66,7 @@ public class JumpTypeFragment extends Fragment implements
         if (uri != null) {
             String uriType = activity.getContentResolver().getType(uri);
             if (action == null) {
-                unknownAction(action);
+                unknownAction();
                 return;
             }
             if (uri.equals(RemigesContract.JumpTypes.CONTENT_URI)) {
@@ -74,7 +74,7 @@ public class JumpTypeFragment extends Fragment implements
                 if (action.equals(Intent.ACTION_INSERT)) {
                     insertJumpType();
                 } else {
-                    unknownAction(action);
+                    unknownAction();
                     return;
                 }
             } else if (uriType.equals(RemigesContract.JumpTypes.CONTENT_ITEM_TYPE)) {
@@ -83,15 +83,15 @@ public class JumpTypeFragment extends Fragment implements
                 } else if (action.equals(Intent.ACTION_EDIT)) {
                     editJumpType(uri);
                 } else {
-                    unknownAction(action);
+                    unknownAction();
                     return;
                 }
             }
         }
     }
 
-    private void unknownAction(String action) {
-        LOGE(TAG, String.format("Unknown action (%s). Exiting", action));
+    private void unknownAction() {
+        LOGE(TAG, "Unknown action. Exiting");
         FragmentActivity activity = getActivity();
         activity.setResult(FragmentActivity.RESULT_CANCELED);
         activity.finish();

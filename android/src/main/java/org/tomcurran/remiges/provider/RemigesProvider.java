@@ -9,6 +9,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
 import org.tomcurran.remiges.provider.RemigesContract.JumpTypes;
 import org.tomcurran.remiges.provider.RemigesContract.Jumps;
@@ -165,7 +166,7 @@ public class RemigesProvider extends ContentProvider {
      * .ContentProviderOperation} fails
      */
     @Override
-    public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations) throws OperationApplicationException {
+    public ContentProviderResult[] applyBatch(@NonNull ArrayList<ContentProviderOperation> operations) throws OperationApplicationException {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         db.beginTransaction();
         try {
