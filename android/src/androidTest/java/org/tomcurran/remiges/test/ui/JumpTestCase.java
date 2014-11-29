@@ -14,7 +14,6 @@ public class JumpTestCase extends ItemTestCase {
     private static final String JUMP_DELAY = "jump_delay";
     private static final String JUMP_DESCRIPTION = "jump_description";
 
-    public static final String DESCRIPTION_OPEN_DRAWER = "Jumps, Open navigation drawer";
     public static final String TEXT_NAVIGATION = "Jumps";
     public static final String TEXT_TITLE = "Jumps";
 
@@ -80,7 +79,7 @@ public class JumpTestCase extends ItemTestCase {
 
     @Override
     public void navigateTo() throws UiObjectNotFoundException {
-        navigateToJumps();
+        NavigationDrawerTestCase.navigateTo(JumpTestCase.TEXT_NAVIGATION, JumpTestCase.TEXT_TITLE);
     }
 
     @Override
@@ -120,23 +119,15 @@ public class JumpTestCase extends ItemTestCase {
         return DESCRIPTION_DELETE;
     }
 
-    public static void navigateToJumps(String navigateFrom) throws UiObjectNotFoundException {
-        NavigationDrawerTestCase.navigateTo(navigateFrom, TEXT_NAVIGATION, TEXT_TITLE);
-    }
-
-    private static void navigateToJumps() throws UiObjectNotFoundException {
-        navigateToJumps(NavigationDrawerTestCase.DESCRIPTION_HOME_OPEN_DRAWER);
-    }
-
     public void testNavigateAwayAndBack() throws UiObjectNotFoundException {
         // navigate to jumps
-        JumpTestCase.navigateToJumps();
+        navigateTo();
 
         // navigate to places
-        PlacesTestCase.navigateTo(JumpTestCase.DESCRIPTION_OPEN_DRAWER);
+        NavigationDrawerTestCase.navigateTo(PlacesTestCase.TEXT_NAVIGATION, PlacesTestCase.TEXT_TITLE);
 
         // navigate to jumps
-        JumpTestCase.navigateToJumps(PlacesTestCase.DESCRIPTION_OPEN_DRAWER);
+        navigateTo();
     }
 
 }

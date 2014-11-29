@@ -19,7 +19,7 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
     public static final String RESOURCE_ACTIONBAR_CANCEL = APP_PACKAGE + ":id/actionbar_cancel";
 
     private static final String APP_TITLE = "Remiges";
-    private static final String RESOURCE_ACTIONBAR_TITLE = "android:id/action_bar_title";
+    private static final String RESOURCE_TOOLBAR = APP_PACKAGE + ":id/toolbar_actionbar";
     private static final String RESOURCE_MASTER_DETAIL_CONTAINER = APP_PACKAGE + ":id/container";
     private static final int SMALLEST_WIDTH_TWO_PANE = 600;
 
@@ -70,7 +70,7 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
     }
 
     public static String getActionBarTitle() throws UiObjectNotFoundException {
-        return new UiObject(new UiSelector().resourceId(RESOURCE_ACTIONBAR_TITLE)).getText();
+        return new UiObject(new UiSelector().resourceId(RESOURCE_TOOLBAR).childSelector(new UiSelector().index(1))).getText();
     }
 
     public static UiSelector getMasterDetailContainer() {

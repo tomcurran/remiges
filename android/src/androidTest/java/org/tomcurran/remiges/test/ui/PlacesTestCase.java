@@ -13,7 +13,6 @@ public class PlacesTestCase extends ItemTestCase {
     public static final String PLACE_LONGITUDE = "place_longitude";
 
     // content description and text values used for navigation
-    public static final String DESCRIPTION_OPEN_DRAWER = "Places, Open navigation drawer";
     public static final String TEXT_NAVIGATION = "Places";
     public static final String TEXT_TITLE = "Places";
 
@@ -33,15 +32,6 @@ public class PlacesTestCase extends ItemTestCase {
     private static final String NAME_HINT = "Place Name";
     private static final String LATITUDE_HINT = "Latitude";
     private static final String LONGITUDE_HINT = "Longitude";
-
-    /**
-     * Navigate to this item type from another
-     * @param navigateFrom content description of the item navigating from
-     * @throws UiObjectNotFoundException
-     */
-    public static void navigateTo(String navigateFrom) throws UiObjectNotFoundException {
-        NavigationDrawerTestCase.navigateTo(navigateFrom, TEXT_NAVIGATION, TEXT_TITLE);
-    }
 
     // generates unique names
     private static int nameCount = 0;
@@ -112,7 +102,7 @@ public class PlacesTestCase extends ItemTestCase {
 
     @Override
     public void navigateTo() throws UiObjectNotFoundException {
-        navigateTo(NavigationDrawerTestCase.DESCRIPTION_HOME_OPEN_DRAWER);
+        NavigationDrawerTestCase.navigateTo(PlacesTestCase.TEXT_NAVIGATION, PlacesTestCase.TEXT_TITLE);
     }
 
     @Override
@@ -121,10 +111,10 @@ public class PlacesTestCase extends ItemTestCase {
         navigateTo();
 
         // navigate to jump type
-        JumpTypeTestCase.navigateTo(PlacesTestCase.DESCRIPTION_OPEN_DRAWER);
+        NavigationDrawerTestCase.navigateTo(JumpTypeTestCase.TEXT_NAVIGATION, JumpTypeTestCase.TEXT_TITLE);
 
         // navigate to places
-        PlacesTestCase.navigateTo(JumpTypeTestCase.DESCRIPTION_OPEN_DRAWER);
+        navigateTo();
     }
 
 }

@@ -11,7 +11,6 @@ public class JumpTypeTestCase extends ItemTestCase {
     public static final String JUMPTYPE_NAME = "jumptype_name";
 
     // content description and text values used for navigation
-    public static final String DESCRIPTION_OPEN_DRAWER = "Jump Types, Open navigation drawer";
     public static final String TEXT_NAVIGATION = "Jump Types";
     public static final String TEXT_TITLE = "Jump Types";
 
@@ -25,15 +24,6 @@ public class JumpTypeTestCase extends ItemTestCase {
 
     // edit field hint text values
     private static final String NAME_HINT = "Jump Type";
-
-    /**
-     * Navigate to this item type from another
-     * @param navigateFrom content description of the item navigating from
-     * @throws UiObjectNotFoundException
-     */
-    public static void navigateTo(String navigateFrom) throws UiObjectNotFoundException {
-        NavigationDrawerTestCase.navigateTo(navigateFrom, TEXT_NAVIGATION, TEXT_TITLE);
-    }
 
     // generates unique names
     private static int nameCount = 0;
@@ -91,7 +81,7 @@ public class JumpTypeTestCase extends ItemTestCase {
 
     @Override
     public void navigateTo() throws UiObjectNotFoundException {
-        navigateTo(NavigationDrawerTestCase.DESCRIPTION_HOME_OPEN_DRAWER);
+        NavigationDrawerTestCase.navigateTo(JumpTypeTestCase.TEXT_NAVIGATION, JumpTypeTestCase.TEXT_TITLE);
     }
 
     @Override
@@ -100,10 +90,10 @@ public class JumpTypeTestCase extends ItemTestCase {
         navigateTo();
 
         // navigate to places
-        PlacesTestCase.navigateTo(JumpTypeTestCase.DESCRIPTION_OPEN_DRAWER);
+        NavigationDrawerTestCase.navigateTo(PlacesTestCase.TEXT_NAVIGATION, PlacesTestCase.TEXT_TITLE);
 
         // navigate to jump type
-        JumpTypeTestCase.navigateTo(PlacesTestCase.DESCRIPTION_OPEN_DRAWER);
+        navigateTo();
     }
 
 }
