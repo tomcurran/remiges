@@ -88,7 +88,9 @@ public class GoogleStaticMapView extends ImageView {
         } finally {
             a.recycle();
         }
-        init(context);
+        if (!isInEditMode()) {
+            init(context);
+        }
     }
 
     public GoogleStaticMapView(Context context, AttributeSet attrs) {
@@ -97,7 +99,9 @@ public class GoogleStaticMapView extends ImageView {
 
     public GoogleStaticMapView(Context context) {
         super(context);
-        init(context);
+        if (!isInEditMode()) {
+            init(context);
+        }
     }
 
     private void init(Context context) {
