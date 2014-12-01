@@ -7,9 +7,7 @@ import com.android.uiautomator.core.UiSelector;
 public class NavigationDrawerTestCase extends RemigesUiAutomatorTestCase {
 
     // content description and text values used for navigation
-    public static final String DESCRIPTION_HOME_OPEN_DRAWER = "Open navigation drawer";
-    public static final String DESCRIPTION_HOME_OPEN_DRAWER_UP = "Remiges, Navigate up";
-    public static final String DESCRIPTION_HOME_DRAWER_UP = "Navigate up";
+    public static final String DESCRIPTION_OPEN_DRAWER = "Open navigation drawer";
     public static final String DESCRIPTION_CLOSE_DRAWER = "Close navigation drawer";
     public static final String TEXT_HOME_TITLE = "Remiges";
     public static final String TEXT_NAVIGATION_TITLE = "Remiges";
@@ -21,13 +19,7 @@ public class NavigationDrawerTestCase extends RemigesUiAutomatorTestCase {
      * @throws UiObjectNotFoundException
      */
     public static void openDrawer() throws UiObjectNotFoundException {
-        if (getByDescription(DESCRIPTION_HOME_OPEN_DRAWER).exists()) {
-            getByDescription(DESCRIPTION_HOME_OPEN_DRAWER).click();
-        } else if (getByDescription(DESCRIPTION_HOME_OPEN_DRAWER_UP).exists()) {
-            getByDescription(DESCRIPTION_HOME_OPEN_DRAWER_UP).click();
-        } else if (getByDescription(DESCRIPTION_HOME_DRAWER_UP).exists()) {
-            getByDescription(DESCRIPTION_HOME_DRAWER_UP).click();
-        }
+        getByDescription(DESCRIPTION_OPEN_DRAWER).click();
     }
 
     /**
