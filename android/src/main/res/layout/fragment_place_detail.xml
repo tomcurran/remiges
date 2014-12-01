@@ -35,7 +35,8 @@
                     staticmap:maptype="roadmap"
                     staticmap:zoom="7"
                     staticmap:sensor="true"
-                    style="@style/PlaceDetailStaticMap" />
+                    style="@style/PlaceDetailStaticMap"
+                    tools:src="@drawable/tools_place_staticmap" />
 
                 <TableLayout
                     style="@style/CardTable">
