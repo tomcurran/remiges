@@ -12,7 +12,7 @@ public class NavigationDrawerTestCase extends RemigesUiAutomatorTestCase {
     public static final String TEXT_HOME_TITLE = "Remiges";
     public static final String TEXT_NAVIGATION_TITLE = "Remiges";
 
-    private static final String RESOURCE_NAVIGATION_DRAWER = "org.tomcurran.remiges:id/navigation_drawer";
+    private static final String RESOURCE_NAVIGATION_DRAWER = APP_PACKAGE + ":id/navigation_drawer";
 
     /**
      * Opens the navigation drawer
