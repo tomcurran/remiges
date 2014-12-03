@@ -1,6 +1,5 @@
 package org.tomcurran.remiges.test.ui;
 
-import com.android.uiautomator.core.UiObject;
 import com.android.uiautomator.core.UiObjectNotFoundException;
 import com.android.uiautomator.core.UiSelector;
 
@@ -12,7 +11,7 @@ public class NavigationDrawerTestCase extends RemigesUiAutomatorTestCase {
     public static final String TEXT_HOME_TITLE = "Remiges";
     public static final String TEXT_NAVIGATION_TITLE = "Remiges";
 
-    private static final String RESOURCE_NAVIGATION_DRAWER = APP_PACKAGE + ":id/navigation_drawer";
+    private static final String RESOURCE_NAVIGATION_DRAWER = APP_ID + "navigation_drawer";
 
     /**
      * Opens the navigation drawer

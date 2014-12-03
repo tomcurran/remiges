@@ -13,14 +13,15 @@ import java.io.InputStreamReader;
 public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
 
     public static final String APP_PACKAGE = "org.tomcurran.remiges";
+    public static final String APP_ID = APP_PACKAGE + ":id/";
     public static final String CLASS_LISTVIEW = "android.widget.ListView";
     public static final String CLASS_TEXTVIEW = "android.widget.TextView";
-    public static final String RESOURCE_ACTIONBAR_DONE = APP_PACKAGE + ":id/actionbar_done";
-    public static final String RESOURCE_ACTIONBAR_CANCEL = APP_PACKAGE + ":id/actionbar_cancel";
+    public static final String RESOURCE_ACTIONBAR_DONE = APP_ID + "actionbar_done";
+    public static final String RESOURCE_ACTIONBAR_CANCEL = APP_ID + "actionbar_cancel";
 
     private static final String APP_TITLE = "Remiges";
-    private static final String RESOURCE_TOOLBAR = APP_PACKAGE + ":id/toolbar_actionbar";
-    private static final String RESOURCE_MASTER_DETAIL_CONTAINER = APP_PACKAGE + ":id/container";
+    private static final String RESOURCE_TOOLBAR = APP_ID + "toolbar_actionbar";
+    private static final String RESOURCE_MASTER_DETAIL_CONTAINER = APP_ID + "container";
     private static final int SMALLEST_WIDTH_TWO_PANE = 600;
 
     public static UiSelector getTextView() {

@@ -19,8 +19,8 @@ public class JumpTypeTestCase extends ItemTestCase {
     private static final String DESCRIPTION_EDIT = "Edit";
     private static final String DESCRIPTION_DELETE = "Delete";
     private static final String TEXT_DETAIL_TITLE = "Jump Type Detail";
-    private static final String RESOURCE_EDIT_NAME = APP_PACKAGE + ":id/edit_jumptype_name";
-    private static final String RESOURCE_DETAIL_NAME = APP_PACKAGE + ":id/detail_jumptype_name";
+    private static final String RESOURCE_EDIT_NAME = APP_ID + "edit_jumptype_name";
+    private static final String RESOURCE_DETAIL_NAME = APP_ID + "detail_jumptype_name";
 
     // edit field hint text values
     private static final String NAME_HINT = "Jump Type";

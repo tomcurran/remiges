@@ -23,19 +23,19 @@ public class JumpTestCase extends ItemTestCase {
 
     private static final String TEXT_DETAIL_TITLE = "Jump Detail";
 
-    private static final String RESOURCE_EDIT_NUMBER = APP_PACKAGE + ":id/edit_jump_number";
-    private static final String RESOURCE_EDIT_WAY = APP_PACKAGE + ":id/edit_jump_way";
-    private static final String RESOURCE_EDIT_EXIT_ALTITUDE = APP_PACKAGE + ":id/edit_jump_exit_altitude";
-    private static final String RESOURCE_EDIT_DEPLOYMENT_ALTITUDE = APP_PACKAGE + ":id/edit_jump_deployment_altitude";
-    private static final String RESOURCE_EDIT_DELAY = APP_PACKAGE + ":id/edit_jump_delay";
-    private static final String RESOURCE_EDIT_DESCRIPTION = APP_PACKAGE + ":id/edit_jump_description";
+    private static final String RESOURCE_EDIT_NUMBER = APP_ID + "edit_jump_number";
+    private static final String RESOURCE_EDIT_WAY = APP_ID + "edit_jump_way";
+    private static final String RESOURCE_EDIT_EXIT_ALTITUDE = APP_ID + "edit_jump_exit_altitude";
+    private static final String RESOURCE_EDIT_DEPLOYMENT_ALTITUDE = APP_ID + "edit_jump_deployment_altitude";
+    private static final String RESOURCE_EDIT_DELAY = APP_ID + "edit_jump_delay";
+    private static final String RESOURCE_EDIT_DESCRIPTION = APP_ID + "edit_jump_description";
 
-    private static final String RESOURCE_DETAIL_NUMBER = APP_PACKAGE + ":id/detail_jump_number";
-    private static final String RESOURCE_DETAIL_WAY = APP_PACKAGE + ":id/detail_jump_way";
-    private static final String RESOURCE_DETAIL_EXIT_ALTITUDE = APP_PACKAGE + ":id/detail_jump_exit_altitude";
-    private static final String RESOURCE_DETAIL_DEPLOYMENT_ALTITUDE = APP_PACKAGE + ":id/detail_jump_deployment_altitude";
-    private static final String RESOURCE_DETAIL_DELAY = APP_PACKAGE + ":id/detail_jump_delay";
-    private static final String RESOURCE_DETAIL_DESCRIPTION = APP_PACKAGE + ":id/detail_jump_description";
+    private static final String RESOURCE_DETAIL_NUMBER = APP_ID + "detail_jump_number";
+    private static final String RESOURCE_DETAIL_WAY = APP_ID + "detail_jump_way";
+    private static final String RESOURCE_DETAIL_EXIT_ALTITUDE = APP_ID + "detail_jump_exit_altitude";
+    private static final String RESOURCE_DETAIL_DEPLOYMENT_ALTITUDE = APP_ID + "detail_jump_deployment_altitude";
+    private static final String RESOURCE_DETAIL_DELAY = APP_ID + "detail_jump_delay";
+    private static final String RESOURCE_DETAIL_DESCRIPTION = APP_ID + "detail_jump_description";
 
     private static final String HINT_EXIT_ALTITUDE = "Exit Altitude";
     private static final String HINT_DEPLOYMENT_ALTITUDE = "Deployment Altitude";
