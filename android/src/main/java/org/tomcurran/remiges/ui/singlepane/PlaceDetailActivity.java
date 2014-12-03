@@ -21,7 +21,7 @@ public class PlaceDetailActivity extends SimpleSinglePaneActivity implements Pla
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

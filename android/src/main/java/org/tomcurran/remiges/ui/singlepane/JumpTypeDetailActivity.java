@@ -21,7 +21,7 @@ public class JumpTypeDetailActivity extends SimpleSinglePaneActivity implements 
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

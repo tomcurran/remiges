@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     private String[] mSectionTitles;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);

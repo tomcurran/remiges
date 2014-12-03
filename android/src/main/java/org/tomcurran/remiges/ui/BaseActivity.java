@@ -2,15 +2,25 @@ package org.tomcurran.remiges.ui;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.WindowManager;
 
 import org.tomcurran.remiges.R;
 
 public class BaseActivity extends ActionBarActivity {
 
     private Toolbar mActionBarToolbar;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        }
+    }
 
     @Override
     public void setContentView(int layoutResID) {

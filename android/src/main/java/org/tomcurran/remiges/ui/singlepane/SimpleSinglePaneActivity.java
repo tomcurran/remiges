@@ -32,7 +32,7 @@ public abstract class SimpleSinglePaneActivity extends BaseActivity {
     private Fragment mFragment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewResId());
 
