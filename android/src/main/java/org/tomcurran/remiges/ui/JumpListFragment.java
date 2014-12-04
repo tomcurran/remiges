@@ -90,6 +90,8 @@ public class JumpListFragment extends ListFragment implements
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setActivateOnItemClick(getResources().getBoolean(R.bool.has_two_panes));
+
         if (savedInstanceState != null && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
         }
