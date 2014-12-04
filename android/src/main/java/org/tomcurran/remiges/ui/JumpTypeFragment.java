@@ -36,26 +36,10 @@ public class JumpTypeFragment extends Fragment implements
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_jumptype, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        if (getChildFragmentManager().findFragmentByTag(FRAGMENT_JUMPTYPE_LIST) == null) {
-            JumpTypeListFragment jumpTypeListFragment = new JumpTypeListFragment();
-            getChildFragmentManager().beginTransaction()
-                    .replace(R.id.jumptype_list_container, jumpTypeListFragment, FRAGMENT_JUMPTYPE_LIST)
-                    .commit();
-        }
-
-        if (view.findViewById(R.id.jumptype_detail_container) != null) {
-            mTwoPane = true;
-        }
-
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        mTwoPane = getResources().getBoolean(R.bool.has_two_panes);
 
         FragmentActivity activity = getActivity();
 
@@ -86,6 +70,21 @@ public class JumpTypeFragment extends Fragment implements
                 }
             }
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_jumptype, container, false);
+
+        Fragment jumpTypeListFragment = getChildFragmentManager().findFragmentByTag(FRAGMENT_JUMPTYPE_LIST);
+        if (jumpTypeListFragment == null) {
+            jumpTypeListFragment = new JumpTypeListFragment();
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.jumptype_list_container, jumpTypeListFragment, FRAGMENT_JUMPTYPE_LIST)
+                    .commit();
+        }
+
+        return view;
     }
 
     private void unknownAction() {

@@ -33,27 +33,10 @@ public class PlaceFragment extends Fragment implements
     private boolean mTwoPane;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_place, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        Fragment placeListFragment = getChildFragmentManager().findFragmentByTag(FRAGMENT_PLACE_LIST);
-        if (placeListFragment == null) {
-            placeListFragment = new PlaceListFragment();
-            getChildFragmentManager().beginTransaction()
-                    .replace(R.id.place_list_container, placeListFragment, FRAGMENT_PLACE_LIST)
-                    .commit();
-        }
-
-        if (view.findViewById(R.id.place_detail_container) != null) {
-            mTwoPane = true;
-        }
-
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        mTwoPane = getResources().getBoolean(R.bool.has_two_panes);
 
         FragmentActivity activity = getActivity();
 
@@ -84,6 +67,21 @@ public class PlaceFragment extends Fragment implements
                 }
             }
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_place, container, false);
+
+        Fragment placeListFragment = getChildFragmentManager().findFragmentByTag(FRAGMENT_PLACE_LIST);
+        if (placeListFragment == null) {
+            placeListFragment = new PlaceListFragment();
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.place_list_container, placeListFragment, FRAGMENT_PLACE_LIST)
+                    .commit();
+        }
+
+        return view;
     }
 
     private void unknownAction() {
