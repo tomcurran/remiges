@@ -60,7 +60,7 @@ public class JumpTypeTestCase extends ItemTestCase {
     }
 
     @Override
-    public String getTitle() {
+    public String getTitle(ContentValues values) {
         return isTwoPane() ? TEXT_TITLE : TEXT_DETAIL_TITLE;
     }
 

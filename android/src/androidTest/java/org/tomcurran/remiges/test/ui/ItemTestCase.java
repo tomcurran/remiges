@@ -50,7 +50,7 @@ public abstract class ItemTestCase extends RemigesUiAutomatorTestCase {
      * Returns the title of the current master detail activity regardless of single or two pane mode
      * @return the title of the current master detail activity regardless of single or two pane mode
      */
-    public abstract String getTitle();
+    public abstract String getTitle(ContentValues values);
 
     /**
      * Returns the description of the edit action button for this item
@@ -122,7 +122,7 @@ public abstract class ItemTestCase extends RemigesUiAutomatorTestCase {
         clickListItem(getMasterDetailList(), getListClickTarget(values));
 
         // ensure correct page
-        assertEquals(getTitle(), getActionBarTitle());
+        assertEquals(getTitle(values), getActionBarTitle());
 
         // click delete action
         getByDescription(getDeleteAction()).clickAndWaitForNewWindow();
@@ -192,7 +192,7 @@ public abstract class ItemTestCase extends RemigesUiAutomatorTestCase {
         clickListItem(getMasterDetailList(), getListClickTarget(values));
 
         // ensure correct page
-        assertEquals(getTitle(), getActionBarTitle());
+        assertEquals(getTitle(values), getActionBarTitle());
 
         // ensure detail
         assertDetail(values);
@@ -229,7 +229,7 @@ public abstract class ItemTestCase extends RemigesUiAutomatorTestCase {
         clickListItem(getMasterDetailList(), getListClickTarget(values));
 
         // ensure correct page
-        assertEquals(getTitle(), getActionBarTitle());
+        assertEquals(getTitle(values), getActionBarTitle());
 
         // ensure detail
         assertDetail(values);

@@ -22,6 +22,7 @@ public class JumpTestCase extends ItemTestCase {
     private static final String DESCRIPTION_DELETE = "Delete";
 
     private static final String TEXT_DETAIL_TITLE = "Jump Detail";
+    private static final String TEXT_DETAIL_TITLE_NUMBER = "Jump %d";
 
     private static final String RESOURCE_EDIT_NUMBER = APP_ID + "edit_jump_number";
     private static final String RESOURCE_EDIT_WAY = APP_ID + "edit_jump_way";
@@ -100,8 +101,12 @@ public class JumpTestCase extends ItemTestCase {
     }
 
     @Override
-    public String getTitle() {
-        return isTwoPane() ? TEXT_TITLE : TEXT_DETAIL_TITLE;
+    public String getTitle(ContentValues values) {
+        if (isTwoPane()) {
+            return TEXT_TITLE;
+        } else {
+            return String.format(TEXT_DETAIL_TITLE_NUMBER, values.getAsInteger(JUMP_NUMBER));
+        }
     }
 
     @Override

@@ -32,6 +32,7 @@
     <!-- Jump Detail -->
 
     <string name="title_jump_detail">Jump Detail</string>
+    <string name="title_jump_detail_number">Jump %d</string>
     <string name="detail_jump_solo">Solo</string>
     <string name="detail_jump_way">%d Way</string>
     <string name="label_detail_jump_place_header">Place</string>
