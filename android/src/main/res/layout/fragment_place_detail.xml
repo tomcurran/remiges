@@ -13,90 +13,51 @@
         <LinearLayout
             style="@style/CardDetail">
 
-            <TextView
-                android:id="@+id/detail_place_name"
-                style="@style/CardTitle"
-                tools:text="@string/tools_text_place_name" />
+            <edu.mit.mobile.android.maps.GoogleStaticMapView
+                android:id="@+id/detail_place_staticmap"
+                staticmap:maptype="roadmap"
+                staticmap:zoom="7"
+                staticmap:sensor="true"
+                style="@style/PlaceDetailStaticMap"
+                tools:src="@drawable/tools_place_detail_staticmap" />
 
             <LinearLayout
-                android:id="@+id/detail_place_location_container"
-                style="@style/PlaceDetailLocationContainer">
+                style="@style/PlaceDetailStats">
 
                 <TextView
-                    android:id="@+id/detail_place_location_header"
-                    android:text="@string/detail_place_location_header"
+                    android:id="@+id/detail_place_stats_header"
+                    android:text="@string/detail_place_stats_header"
                     style="@style/CardHeading"/>
 
                 <View
                     style="@style/CardDivider" />
-
-                <edu.mit.mobile.android.maps.GoogleStaticMapView
-                    android:id="@+id/detail_place_staticmap"
-                    staticmap:maptype="roadmap"
-                    staticmap:zoom="7"
-                    staticmap:sensor="true"
-                    style="@style/PlaceDetailStaticMap"
-                    tools:src="@drawable/tools_place_staticmap" />
 
                 <TableLayout
                     style="@style/CardTable">
 
                     <TableRow>
                         <TextView
-                            android:text="@string/label_detail_place_latitude"
+                            android:text="@string/label_detail_place_jump_count"
                             style="@style/CardTableLabel" />
                         <TextView
-                            android:id="@+id/detail_place_latitude"
+                            android:id="@+id/detail_place_jump_count"
                             style="@style/CardTableContent"
-                            tools:text="@string/tools_text_place_latitude" />
+                            tools:text="@string/tools_text_place_jump_count" />
                     </TableRow>
 
                     <TableRow>
                         <TextView
-                            android:text="@string/label_detail_place_longitude"
+                            android:text="@string/label_detail_place_jump_last"
                             style="@style/CardTableLabel" />
                         <TextView
-                            android:id="@+id/detail_place_longitude"
+                            android:id="@+id/detail_place_jump_last"
                             style="@style/CardTableContent"
-                            tools:text="@string/tools_text_place_longitude" />
+                            tools:text="@string/tools_text_place_jump_last" />
                     </TableRow>
 
-            </TableLayout>
+                </TableLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/detail_place_stats_header"
-                android:text="@string/detail_place_stats_header"
-                style="@style/CardHeading"/>
-
-            <View
-                style="@style/CardDivider" />
-
-            <TableLayout
-                style="@style/CardTable">
-
-                <TableRow>
-                    <TextView
-                        android:text="@string/label_detail_place_jump_count"
-                        style="@style/CardTableLabel" />
-                    <TextView
-                        android:id="@+id/detail_place_jump_count"
-                        style="@style/CardTableContent"
-                        tools:text="@string/tools_text_place_jump_count" />
-                </TableRow>
-
-                <TableRow>
-                    <TextView
-                        android:text="@string/label_detail_place_jump_last"
-                        style="@style/CardTableLabel" />
-                    <TextView
-                        android:id="@+id/detail_place_jump_last"
-                        style="@style/CardTableContent"
-                        tools:text="@string/tools_text_place_jump_last" />
-                </TableRow>
-
-            </TableLayout>
 
         </LinearLayout>
 

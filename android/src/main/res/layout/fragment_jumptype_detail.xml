@@ -10,7 +10,7 @@
         style="@style/Card">
 
         <LinearLayout
-            style="@style/CardDetail">
+            style="@style/JumpTypeDetailContainer">
 
             <TextView
                 android:id="@+id/detail_jumptype_name"

@@ -3,7 +3,6 @@ package org.tomcurran.remiges.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.tomcurran.remiges.R;
@@ -24,7 +22,6 @@ import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
 import org.tomcurran.remiges.util.GoogleStaticMapLoader;
 import org.tomcurran.remiges.util.TimeUtils;
-import org.tomcurran.remiges.util.UIUtils;
 
 import edu.mit.mobile.android.maps.GoogleStaticMapView;
 
@@ -45,13 +42,8 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
     private Cursor mPlaceJumpCountCursor;
     private Cursor mPlaceLastJumpCursor;
 
-    private TextView mPlaceName;
-    private LinearLayout mPlaceLocationContainer;
-    private TextView mPlaceLatitude;
-    private TextView mPlaceLongitude;
     private TextView mPlaceJumpCount;
     private TextView mPlaceLastJump;
-    private Typeface mRoboto;
 
     private GoogleStaticMapView mPlaceStaticMap;
     private GoogleStaticMapLoader mGoogleStaticMapLoader;
@@ -88,8 +80,6 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
             mPlaceUri = savedInstanceState.getParcelable(SAVE_STATE_PLACE_URI);
         }
 
-        mRoboto = UIUtils.loadFont(getActivity(), UIUtils.FONT_ROBOTO_THIN);
-
         mGoogleStaticMapLoader = new GoogleStaticMapLoader(getActivity());
 
         getLoaderManager().initLoader(LOADER_PLACE_DETAIL, null, this);
@@ -101,17 +91,11 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_place_detail, container, false);
 
-        mPlaceName = (TextView) rootView.findViewById(R.id.detail_place_name);
-        mPlaceLatitude = (TextView) rootView.findViewById(R.id.detail_place_latitude);
-        mPlaceLongitude = (TextView) rootView.findViewById(R.id.detail_place_longitude);
-        mPlaceLocationContainer = (LinearLayout) rootView.findViewById(R.id.detail_place_location_container);
         mPlaceStaticMap = (GoogleStaticMapView) rootView.findViewById(R.id.detail_place_staticmap);
         mPlaceJumpCount = (TextView) rootView.findViewById(R.id.detail_place_jump_count);
         mPlaceLastJump = (TextView) rootView.findViewById(R.id.detail_place_jump_last);
 
         mGoogleStaticMapLoader.setView(mPlaceStaticMap);
-
-        mPlaceName.setTypeface(mRoboto);
 
         return rootView;
     }
@@ -170,16 +154,13 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
     private void loadPlace() {
         Cursor placeCursor = mPlaceCursor;
         if (placeCursor.moveToFirst()) {
-            mPlaceName.setText(placeCursor.getString(PlaceQuery.NAME));
             double latitude = placeCursor.getDouble(PlaceQuery.LATITUDE);
             double longitude = placeCursor.getDouble(PlaceQuery.LONGITUDE);
             if (latitude != 0 && longitude != 0) {
-                mPlaceLocationContainer.setVisibility(View.VISIBLE);
-                mPlaceLatitude.setText(String.valueOf(latitude));
-                mPlaceLongitude.setText(String.valueOf(longitude));
+                mPlaceStaticMap.setVisibility(View.VISIBLE);
                 mPlaceStaticMap.setMap((float) latitude, (float) longitude, true);
             } else {
-                mPlaceLocationContainer.setVisibility(View.GONE);
+                mPlaceStaticMap.setVisibility(View.GONE);
             }
         }
     }

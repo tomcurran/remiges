@@ -81,7 +81,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:padding">@dimen/margin_medium</item>
     </style>
 
     <style name="CardTitle" parent="TextAppearance.AppCompat.Large">
@@ -184,8 +183,11 @@
         <item name="android:maxLines">1</item>
     </style>
 
-
     <!-- Jump Detail -->
+
+    <style name="JumpDetailContainer" parent="CardDetail">
+        <item name="android:padding">@dimen/margin_medium</item>
+    </style>
 
     <style name="JumpDetail">
         <item name="android:layout_height">wrap_content</item>
@@ -209,6 +211,12 @@
 
     <style name="JumpDetailDescriptionLayout" parent="CardItem">
         <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="JumpDetailStaticMap">
+        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_centerInParent">true</item>
     </style>
 
     <!-- Jump Edit -->
@@ -343,18 +351,26 @@
 
     <!-- Place Detail -->
 
-    <style name="PlaceDetailLocationContainer">
-        <item name="android:layout_height">match_parent</item>
+    <style name="PlaceDetailStats">
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:orientation">vertical</item>
+        <item name="android:paddingLeft">@dimen/margin_medium</item>
+        <item name="android:paddingRight">@dimen/margin_medium</item>
+        <item name="android:paddingBottom">@dimen/margin_medium</item>
     </style>
 
     <style name="PlaceDetailStaticMap">
-        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_height">150dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_centerInParent">true</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+
+    <!-- Jump Type Detail -->
+
+    <style name="JumpTypeDetailContainer" parent="CardDetail">
+        <item name="android:padding">@dimen/margin_medium</item>
     </style>
 
     <!-- Jump Type Edit -->

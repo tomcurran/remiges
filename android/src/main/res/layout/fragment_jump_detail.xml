@@ -11,8 +11,8 @@
         style="@style/Card">
 
         <LinearLayout
-            android:id="@+id/detail_jump_profile_container"
-            style="@style/CardDetail">
+            android:id="@+id/detail_jump_container"
+            style="@style/JumpDetailContainer">
 
             <TextView
                 android:id="@+id/detail_jump_title"
@@ -62,8 +62,8 @@
                     staticmap:maptype="roadmap"
                     staticmap:zoom="7"
                     staticmap:sensor="true"
-                    style="@style/PlaceDetailStaticMap"
-                    tools:src="@drawable/tools_place_staticmap" />
+                    style="@style/JumpDetailStaticMap"
+                    tools:src="@drawable/tools_jump_detail_staticmap" />
 
             </LinearLayout>
 

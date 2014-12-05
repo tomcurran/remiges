@@ -2,6 +2,7 @@ package org.tomcurran.remiges.test.ui;
 
 
 import android.content.ContentValues;
+import android.text.TextUtils;
 
 import com.android.uiautomator.core.UiObjectNotFoundException;
 
@@ -82,7 +83,12 @@ public class PlacesTestCase extends ItemTestCase {
 
     @Override
     public String getTitle(ContentValues values) {
-        return isTwoPane() ? TEXT_TITLE : TEXT_DETAIL_TITLE;
+        if (isTwoPane()) {
+            return TEXT_TITLE;
+        } else {
+            String name = values.getAsString(PLACE_NAME);
+            return TextUtils.isEmpty(name) ? TEXT_DETAIL_TITLE : name ;
+        }
     }
 
     @Override
