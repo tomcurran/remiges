@@ -8,14 +8,12 @@
         <ListPreference
             android:key="preference_key_default_place"
             android:title="@string/preference_title_defaults_place"
-            android:dialogTitle="@string/preference_title_defaults_place"
-            android:defaultValue="0" />
+            android:dialogTitle="@string/preference_title_defaults_place" />
 
         <ListPreference
             android:key="preference_key_default_jumptype"
             android:title="@string/preference_title_defaults_jumptype"
-            android:dialogTitle="@string/preference_title_defaults_jumptype"
-            android:defaultValue="0" />
+            android:dialogTitle="@string/preference_title_defaults_jumptype" />
 
         <EditTextPreference
             android:key="preference_key_default_way"
@@ -28,22 +26,19 @@
             android:key="preference_key_default_exit_altitude"
             android:title="@string/preference_title_defaults_exit_altitude"
             android:dialogTitle="@string/preference_title_defaults_exit_altitude"
-            android:inputType="number"
-            android:defaultValue="0" />
+            android:inputType="number" />
 
         <EditTextPreference
             android:key="preference_key_default_deployment_altitude"
             android:title="@string/preference_title_defaults_deployment_altitude"
             android:dialogTitle="@string/preference_title_defaults_deployment_altitude"
-            android:inputType="number"
-            android:defaultValue="0" />
+            android:inputType="number" />
 
         <EditTextPreference
             android:key="preference_key_default_delay"
             android:title="@string/preference_title_defaults_delay"
             android:dialogTitle="@string/preference_title_defaults_delay"
-            android:inputType="number"
-            android:defaultValue="0" />
+            android:inputType="number" />
 
     </PreferenceCategory>
 
