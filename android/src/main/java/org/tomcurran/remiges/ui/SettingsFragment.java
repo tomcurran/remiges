@@ -194,11 +194,11 @@ public class SettingsFragment extends PreferenceFragment implements LoaderManage
         switch (loader.getId()) {
             case LOADER_PLACE:
                 mPlaceCursor = data;
-                loadCursor(mPlacePreference, mPlaceCursor, mPlaceAdapter);
+                loadCursor(mPlacePreference, mPlaceCursor, mPlaceAdapter, R.string.preference_place_empty);
                 break;
             case LOADER_JUMPTYPE:
                 mJumpTypeCursor = data;
-                loadCursor(mJumpTypePreference, mJumpTypeCursor, mJumpTypeAdapter);
+                loadCursor(mJumpTypePreference, mJumpTypeCursor, mJumpTypeAdapter, R.string.preference_jumptype_empty);
                 break;
         }
     }
@@ -244,7 +244,7 @@ public class SettingsFragment extends PreferenceFragment implements LoaderManage
         CharSequence getEntryValue(Cursor data);
     }
 
-    private void loadCursor(ListPreference list, Cursor data, ListPreferenceAdapter adapter) {
+    private void loadCursor(ListPreference list, Cursor data, ListPreferenceAdapter adapter, int emptyResource) {
         int count = data.getCount();
         CharSequence[] entries = new CharSequence[count];
         CharSequence[] entryValues = new CharSequence[count];
@@ -255,6 +255,8 @@ public class SettingsFragment extends PreferenceFragment implements LoaderManage
                 entryValues[i] = adapter.getEntryValue(data);
                 data.moveToNext();
             }
+        } else {
+            list.setDialogMessage(getResources().getString(emptyResource));
         }
 
         list.setEntries(entries);
