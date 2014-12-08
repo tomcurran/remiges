@@ -1,19 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="primary">#2196F3</color> <!-- material blue 500 -->
-    <color name="primary_dark">#1976D2</color> <!-- material blue 700 -->
-    <color name="accent">#FF5252</color> <!-- material red A200 -->
+    <color name="primary">@color/material_blue_500</color>
+    <color name="primary_dark">@color/material_blue_700</color>
+    <color name="accent">@color/material_red_A200</color>
 
-    <color name="navigation_drawer">#E9E9E9</color>
-    <color name="navigation_drawer_separator">#D6D6D6</color>
+    <color name="navigation_drawer">@color/background_material_light</color>
+    <color name="navigation_drawer_separator">@color/material_black_dividers</color>
 
-    <color name="card_divider">#ffe4e4e4</color>
-    <color name="card_title">#ff3a3a3a</color>
-    <color name="card_table_label">#ff747474</color>
-    <color name="card_table_content">@android:color/primary_text_light</color>
+    <color name="card_divider">@color/material_black_dividers</color>
+    <color name="card_title">@color/abc_primary_text_material_light</color>
+    <color name="card_heading">@color/abc_secondary_text_material_light</color>
+    <color name="card_table_label">@color/abc_secondary_text_material_light</color>
+    <color name="card_table_content">@color/abc_primary_text_material_light</color>
 
-    <color name="edit_label">#ffaaaaaa</color>
-    <color name="edit_add_label">#ff777777</color>
+    <color name="edit_label">#57000000</color> <!-- black 34% -->
+    <color name="edit_add_label">@color/abc_secondary_text_material_light</color>
+
+    <!-- material color palette -->
+
+    <color name="material_black_primary_text">#DE000000</color> <!-- black 87% -->
+    <color name="material_black_secondary_text">#8A000000</color> <!-- black 54% -->
+    <color name="material_black_disabled_text">#42000000</color> <!-- black 26% -->
+    <color name="material_black_hint_text">@color/material_black_disabled_text</color>
+    <color name="material_black_dividers">#1F000000</color> <!-- black 12% -->
+
+    <color name="material_blue_50">#E3F2FD</color>
+    <color name="material_blue_100">#BBDEFB</color>
+    <color name="material_blue_200">#90CAF9</color>
+    <color name="material_blue_300">#64B5F6</color>
+    <color name="material_blue_400">#42A5F5</color>
+    <color name="material_blue_500">#2196F3</color>
+    <color name="material_blue_600">#1E88E5</color>
+    <color name="material_blue_700">#1976D2</color>
+    <color name="material_blue_800">#1565C0</color>
+    <color name="material_blue_900">#0D47A1</color>
+    <color name="material_blue_A100">#82B1FF</color>
+    <color name="material_blue_A200">#448AFF</color>
+    <color name="material_blue_A400">#2979FF</color>
+    <color name="material_blue_A700">#2962FF</color>
+
+    <color name="material_red_50">#FFEBEE</color>
+    <color name="material_red_100">#FFCDD2</color>
+    <color name="material_red_200">#EF9A9A</color>
+    <color name="material_red_300">#E57373</color>
+    <color name="material_red_400">#EF5350</color>
+    <color name="material_red_500">#F44336</color>
+    <color name="material_red_600">#E53935</color>
+    <color name="material_red_700">#D32F2F</color>
+    <color name="material_red_800">#C62828</color>
+    <color name="material_red_900">#B71C1C</color>
+    <color name="material_red_A100">#FF8A80</color>
+    <color name="material_red_A200">#FF5252</color>
+    <color name="material_red_A400">#FF1744</color>
+    <color name="material_red_A700">#D50000</color>
 
 </resources>
