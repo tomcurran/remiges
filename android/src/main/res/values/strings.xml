@@ -125,9 +125,7 @@
     <string name="title_settings">Settings</string>
     <string name="preference_title_defaults">Logbook defaults</string>
     <string name="preference_title_defaults_place">Place</string>
-    <string name="preference_place_empty">Add a place before selecting one as your logbook default</string>
     <string name="preference_title_defaults_jumptype">Jump type</string>
-    <string name="preference_jumptype_empty">Add a jump type before selecting one as your logbook default</string>
     <string name="preference_title_defaults_way">Way</string>
     <string name="preference_title_defaults_exit_altitude">Exit altitude</string>
     <string name="preference_title_defaults_deployment_altitude">Deployment altitude</string>

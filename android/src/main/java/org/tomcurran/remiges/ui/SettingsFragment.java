@@ -194,11 +194,11 @@ public class SettingsFragment extends PreferenceFragment implements LoaderManage
         switch (loader.getId()) {
             case LOADER_PLACE:
                 mPlaceCursor = data;
-                loadCursor(mPlacePreference, mPlaceCursor, mPlaceAdapter, R.string.preference_place_empty);
+                loadCursor(mPlacePreference, mPlaceCursor, mPlaceAdapter);
                 break;
             case LOADER_JUMPTYPE:
                 mJumpTypeCursor = data;
-                loadCursor(mJumpTypePreference, mJumpTypeCursor, mJumpTypeAdapter, R.string.preference_jumptype_empty);
+                loadCursor(mJumpTypePreference, mJumpTypeCursor, mJumpTypeAdapter);
                 break;
         }
     }
@@ -244,23 +244,23 @@ public class SettingsFragment extends PreferenceFragment implements LoaderManage
         CharSequence getEntryValue(Cursor data);
     }
 
-    private void loadCursor(ListPreference list, Cursor data, ListPreferenceAdapter adapter, int emptyResource) {
+    private void loadCursor(ListPreference list, Cursor data, ListPreferenceAdapter adapter) {
         int count = data.getCount();
         CharSequence[] entries = new CharSequence[count];
         CharSequence[] entryValues = new CharSequence[count];
 
-        if (data.moveToFirst()) {
+        boolean hasData = data.moveToFirst();
+        if (hasData) {
             for(int i = 0; i < count; i++) {
                 entries[i] = adapter.getEntry(data);
                 entryValues[i] = adapter.getEntryValue(data);
                 data.moveToNext();
             }
-        } else {
-            list.setDialogMessage(getResources().getString(emptyResource));
         }
 
         list.setEntries(entries);
         list.setEntryValues(entryValues);
+        list.setEnabled(hasData);
 
         if (list.getOnPreferenceChangeListener() == null) {
             SettingsActivity.bindPreferenceSummaryToValue(list);
