@@ -127,6 +127,12 @@ public class UIUtils {
         return Typeface.createFromAsset(context.getAssets(), FONTS + File.separator + font);
     }
 
+    public final static String DEFAULT_PARSE_INT_PREFERENCE = "0";
+
+    public static int parseIntPreference(SharedPreferences preferences, String key) {
+        return parseIntPreference(preferences, key, DEFAULT_PARSE_INT_PREFERENCE);
+    }
+
     public static int parseIntPreference(SharedPreferences preferences, String key, String defValue) {
         String pref = preferences.getString(key, defValue);
         return Integer.parseInt(TextUtils.isEmpty(pref) ? defValue : pref);

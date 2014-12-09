@@ -127,6 +127,7 @@
     <string name="preference_title_defaults_place">Place</string>
     <string name="preference_title_defaults_jumptype">Jump type</string>
     <string name="preference_title_defaults_way">Way</string>
+    <string name="preference_default_defaults_way">1</string>
     <string name="preference_title_defaults_exit_altitude">Exit altitude</string>
     <string name="preference_title_defaults_deployment_altitude">Deployment altitude</string>
     <string name="preference_title_defaults_delay">Delay</string>

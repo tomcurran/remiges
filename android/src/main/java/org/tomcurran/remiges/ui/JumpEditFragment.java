@@ -255,12 +255,12 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         values.put(RemigesContract.Jumps.JUMP_NUMBER, DbAdapter.getHighestJumpNumber(activity) + 1);
         values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
         values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, "");
-        values.put(RemigesContract.Jumps.JUMP_WAY, UIUtils.parseIntPreference(preferences, SettingsFragment.PREFERENCE_WAY, SettingsFragment.PREFERENCE_DEFAULT_WAY));
-        values.put(RemigesContract.Jumps.PLACE_ID, Integer.parseInt(preferences.getString(SettingsFragment.PREFERENCE_PLACE, SettingsFragment.PREFERENCE_DEFAULT_PLACE)));
-        values.put(RemigesContract.Jumps.JUMPTYPE_ID, Integer.parseInt(preferences.getString(SettingsFragment.PREFERENCE_JUMPTYPE, SettingsFragment.PREFERENCE_DEFAULT_JUMPTYPE)));
-        values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, UIUtils.parseIntPreference(preferences, SettingsFragment.PREFERENCE_EXIT_ALTITUDE, SettingsFragment.PREFERENCE_DEFAULT_EXIT_ALTITUDE));
-        values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, UIUtils.parseIntPreference(preferences, SettingsFragment.PREFERENCE_DEPLOYMENT_ALTITUDE, SettingsFragment.PREFERENCE_DEFAULT_DEPLOYMENT_ALTITUDE));
-        values.put(RemigesContract.Jumps.JUMP_DELAY, UIUtils.parseIntPreference(preferences, SettingsFragment.PREFERENCE_DELAY, SettingsFragment.PREFERENCE_DEFAULT_DELAY));
+        values.put(RemigesContract.Jumps.JUMP_WAY, UIUtils.parseIntPreference(preferences, SettingsFragment.PREFERENCE_WAY, getString(R.string.preference_default_defaults_way)));
+        values.put(RemigesContract.Jumps.PLACE_ID, UIUtils.parseIntPreference(preferences, SettingsFragment.PREFERENCE_PLACE));
+        values.put(RemigesContract.Jumps.JUMPTYPE_ID, UIUtils.parseIntPreference(preferences, SettingsFragment.PREFERENCE_JUMPTYPE));
+        values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, UIUtils.parseIntPreference(preferences, SettingsFragment.PREFERENCE_EXIT_ALTITUDE));
+        values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, UIUtils.parseIntPreference(preferences, SettingsFragment.PREFERENCE_DEPLOYMENT_ALTITUDE));
+        values.put(RemigesContract.Jumps.JUMP_DELAY, UIUtils.parseIntPreference(preferences, SettingsFragment.PREFERENCE_DELAY));
         return values;
     }
 

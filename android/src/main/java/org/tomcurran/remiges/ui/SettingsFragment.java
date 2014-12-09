@@ -39,13 +39,6 @@ public class SettingsFragment extends PreferenceFragment implements LoaderManage
     public static final String PREFERENCE_DEPLOYMENT_ALTITUDE = "preference_key_default_deployment_altitude";
     public static final String PREFERENCE_DELAY = "preference_key_default_delay";
 
-    public static final String PREFERENCE_DEFAULT_PLACE = "0";
-    public static final String PREFERENCE_DEFAULT_JUMPTYPE = "0";
-    public static final String PREFERENCE_DEFAULT_WAY = "1";
-    public static final String PREFERENCE_DEFAULT_EXIT_ALTITUDE = "0";
-    public static final String PREFERENCE_DEFAULT_DEPLOYMENT_ALTITUDE = "0";
-    public static final String PREFERENCE_DEFAULT_DELAY = "0";
-
     private static final int LOADER_PLACE = 0;
     private static final int LOADER_JUMPTYPE = 1;
 
