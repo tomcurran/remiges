@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -25,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -139,7 +137,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         private class NavigationItem {
             int type;
-            String title;
+            int title;
             int icon;
         }
 
@@ -154,20 +152,20 @@ public class NavigationDrawerFragment extends Fragment {
 
             item = new NavigationItem();
             item.type = TYPE_NAVIGATE;
-            item.title = resources.getString(R.string.navigation_drawer_title_navigate_jumps);
-            item.icon = R.drawable.ic_my_library_books_grey600_36dp;
+            item.title = R.string.navigation_drawer_title_navigate_jumps;
+            item.icon = R.drawable.ic_navigation_jumps;
             mItems.put(0, item);
 
             item = new NavigationItem();
             item.type = TYPE_NAVIGATE;
-            item.title = resources.getString(R.string.navigation_drawer_title_navigate_places);
-            item.icon = R.drawable.ic_map_grey600_36dp;
+            item.title = R.string.navigation_drawer_title_navigate_places;
+            item.icon = R.drawable.ic_navigation_places;
             mItems.put(1, item);
 
             item = new NavigationItem();
             item.type = TYPE_NAVIGATE;
-            item.title = resources.getString(R.string.navigation_drawer_title_navigate_jumptypes);
-            item.icon = R.drawable.ic_accessibility_grey600_36dp;
+            item.title = R.string.navigation_drawer_title_navigate_jumptypes;
+            item.icon = R.drawable.ic_navigation_jumptypes;
             mItems.put(2, item);
 
             item = new NavigationItem();
@@ -176,8 +174,7 @@ public class NavigationDrawerFragment extends Fragment {
 
             item = new NavigationItem();
             item.type = TYPE_EXTRA;
-            item.title = resources.getString(R.string.navigation_drawer_title_extra_settings);
-            item.icon = R.drawable.ic_settings_grey600_24dp;
+            item.title = R.string.navigation_drawer_title_extra_settings;
             mItems.put(4, item);
         }
 
@@ -206,7 +203,7 @@ public class NavigationDrawerFragment extends Fragment {
                         convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_navigation_drawer_navigate, parent, false);
                     }
                     item = getItem(position);
-                    textView = ViewHolder.get(convertView, R.id.navigation_drawer_navigate_text);
+                    textView = ViewHolder.get(convertView, R.id.navigation_drawer_navigate);
                     textView.setText(item.title);
                     textView.setCompoundDrawablesWithIntrinsicBounds(item.icon, 0, 0, 0);
                     break;
@@ -220,9 +217,8 @@ public class NavigationDrawerFragment extends Fragment {
                         convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_navigation_drawer_extra, parent, false);
                     }
                     item = getItem(position);
-                    textView = ViewHolder.get(convertView, R.id.navigation_drawer_extra_text);
+                    textView = ViewHolder.get(convertView, R.id.navigation_drawer_extra);
                     textView.setText(item.title);
-                    textView.setCompoundDrawablesWithIntrinsicBounds(item.icon, 0, 0, 0);
                     break;
                 default:
                     return null;

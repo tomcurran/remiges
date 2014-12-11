@@ -2,7 +2,7 @@
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_drawer_navigate_text"
+    android:id="@+id/navigation_drawer_navigate"
     style="@style/NavigationDrawerNavigate"
-    tools:drawableLeft="@drawable/ic_map_grey600_36dp"
-    tools:text="@string/tools_text_navigation_drawer_navigate" />
+    tools:drawableLeft="@drawable/ic_navigation_jumps"
+    tools:text="@string/navigation_drawer_title_navigate_jumps" />

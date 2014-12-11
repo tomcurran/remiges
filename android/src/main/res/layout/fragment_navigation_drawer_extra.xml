@@ -2,7 +2,6 @@
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_drawer_extra_text"
+    android:id="@+id/navigation_drawer_extra"
     style="@style/NavigationDrawerExtra"
-    tools:drawableLeft="@drawable/ic_settings_grey600_24dp"
-    tools:text="@string/tools_text_navigation_drawer_extra" />
+    tools:text="@string/navigation_drawer_title_extra_settings" />

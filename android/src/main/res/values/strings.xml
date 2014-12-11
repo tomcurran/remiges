@@ -191,7 +191,5 @@
     <string name="tools_text_jumptype_name">Formation Skydiving</string>
     <string name="tools_text_jumptype_jump_count">73</string>
     <string name="tools_text_jumptype_jump_last">2 months ago</string>
-    <string name="tools_text_navigation_drawer_navigate">Navigate option</string>
-    <string name="tools_text_navigation_drawer_extra">Extra option</string>
 
 </resources>

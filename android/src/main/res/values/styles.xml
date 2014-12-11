@@ -17,24 +17,25 @@
         <item name="android:background">@color/navigation_drawer</item>
     </style>
 
-    <style name="NavigationDrawerNavigate" parent="TextAppearance.AppCompat.Medium.Inverse">
+    <style name="NavigationDrawerNavigate" parent="TextAppearance.AppCompat.Body2">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:minHeight">?android:attr/listPreferredItemHeightSmall</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:drawablePadding">8dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:drawablePadding">16dp</item>
         <item name="android:background">?android:attr/activatedBackgroundIndicator</item>
+        <item name="android:textColor">@color/navigation_drawer_text</item>
     </style>
 
-    <style name="NavigationDrawerExtra" parent="TextAppearance.AppCompat.Small.Inverse">
+    <style name="NavigationDrawerExtra" parent="TextAppearance.AppCompat.Body2">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:minHeight">?android:attr/listPreferredItemHeightSmall</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">14dp</item>
-        <item name="android:drawablePadding">14dp</item>
+        <item name="android:paddingLeft">16dp</item>
         <item name="android:background">?android:attr/activatedBackgroundIndicator</item>
+        <item name="android:textColor">@color/navigation_drawer_text</item>
     </style>
 
     <style name="NavigationDrawerSeparator">
