@@ -17,26 +17,24 @@
         <item name="android:background">@color/navigation_drawer</item>
     </style>
 
-    <style name="NavigationDrawerNavigate">
+    <style name="NavigationDrawerNavigate" parent="TextAppearance.AppCompat.Medium.Inverse">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:orientation">horizontal</item>
+        <item name="android:minHeight">?android:attr/listPreferredItemHeightSmall</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:drawablePadding">8dp</item>
         <item name="android:background">?android:attr/activatedBackgroundIndicator</item>
     </style>
 
-    <style name="NavigationDrawerNavigateText" parent="TextAppearance.AppCompat.Medium.Inverse">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:paddingRight">8dp</item>
-    </style>
-
-    <style name="NavigationDrawerNavigateIcon">
+    <style name="NavigationDrawerExtra" parent="TextAppearance.AppCompat.Small.Inverse">
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:padding">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:minHeight">?android:attr/listPreferredItemHeightSmall</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">14dp</item>
+        <item name="android:drawablePadding">14dp</item>
+        <item name="android:background">?android:attr/activatedBackgroundIndicator</item>
     </style>
 
     <style name="NavigationDrawerSeparator">
@@ -46,30 +44,6 @@
         <item name="android:layout_marginBottom">4dp</item>
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:gravity">center</item>
-    </style>
-
-    <style name="NavigationDrawerExtra">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:orientation">horizontal</item>
-    </style>
-
-    <style name="NavigationDrawerExtraText" parent="TextAppearance.AppCompat.Small.Inverse">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:paddingRight">8dp</item>
-    </style>
-
-    <style name="NavigationDrawerExtraIcon">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:paddingBottom">8dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingLeft">14dp</item>
-        <item name="android:paddingRight">14dp</item>
-        <item name="android:gravity">center_vertical</item>
     </style>
 
     <!-- Card -->
