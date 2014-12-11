@@ -153,19 +153,19 @@ public class NavigationDrawerFragment extends Fragment {
             item = new NavigationItem();
             item.type = TYPE_NAVIGATE;
             item.title = R.string.navigation_drawer_title_navigate_jumps;
-            item.icon = R.drawable.ic_navigation_jumps;
+            item.icon = R.drawable.ic_navigation_jumps_selector;
             mItems.put(0, item);
 
             item = new NavigationItem();
             item.type = TYPE_NAVIGATE;
             item.title = R.string.navigation_drawer_title_navigate_places;
-            item.icon = R.drawable.ic_navigation_places;
+            item.icon = R.drawable.ic_navigation_places_selector;
             mItems.put(1, item);
 
             item = new NavigationItem();
             item.type = TYPE_NAVIGATE;
             item.title = R.string.navigation_drawer_title_navigate_jumptypes;
-            item.icon = R.drawable.ic_navigation_jumptypes;
+            item.icon = R.drawable.ic_navigation_jumptypes_selector;
             mItems.put(2, item);
 
             item = new NavigationItem();

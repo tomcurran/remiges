@@ -8,6 +8,9 @@
     <color name="navigation_drawer">@color/background_material_light</color>
     <color name="navigation_drawer_separator">@color/material_black_dividers</color>
     <color name="navigation_drawer_text">@color/primary_text_default_material_light</color>
+    <color name="navigation_drawer_text_active">@color/primary</color>
+    <color name="navigation_drawer_background_active">@color/material_black_dividers</color>
+    <color name="navigation_drawer_icon_tint">@color/primary</color>
 
     <color name="card_divider">@color/material_black_dividers</color>
     <color name="card_title">@color/abc_primary_text_material_light</color>
