@@ -239,6 +239,16 @@ public class NavigationDrawerFragment extends Fragment {
         public int getItemViewType(int position) {
             return getItem(position).type;
         }
+
+        @Override
+        public boolean areAllItemsEnabled() {
+            return false;
+        }
+
+        @Override
+        public boolean isEnabled(int position) {
+            return getItem(position).type != TYPE_SEPARATE;
+        }
     }
 
     public boolean isDrawerOpen() {
