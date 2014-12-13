@@ -99,6 +99,9 @@ public abstract class DataLiberationActivity extends BaseActivity implements
                 if (resultCode == FragmentActivity.RESULT_OK) {
                     mGoogleApiClient.connect();
                 }
+                if (resultCode == FragmentActivity.RESULT_CANCELED) {
+                    finish();
+                }
                 break;
             default:
                 super.onActivityResult(requestCode, resultCode, data);
