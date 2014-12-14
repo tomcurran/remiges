@@ -1,39 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/list_item_jump"
+    style="@style/ListItemJumpContainer">
 
-    <RelativeLayout
-        android:id="@+id/list_item_jump"
-        style="@style/ListItemJumpContainer">
+    <TextView
+        android:id="@+id/list_item_jump_number"
+        style="@style/ListItemJump.Number"
+        tools:text="@string/tools_text_jump_number" />
 
-        <TextView
-            android:id="@+id/list_item_jump_number"
-            style="@style/ListItemJump.Number"
-            tools:text="@string/tools_text_jump_number" />
+    <TextView
+        android:id="@+id/list_item_jump_date"
+        style="@style/ListItemJump.Date"
+        tools:text="@string/tools_text_jump_time_ago" />
 
-        <TextView
-            android:id="@+id/list_item_jump_date"
-            style="@style/ListItemJump.Date"
-            tools:text="@string/tools_text_jump_time_ago" />
+    <TextView
+        android:id="@+id/list_item_jump_way"
+        style="@style/ListItemJump.Way"
+        tools:text="@string/tools_text_jump_way" />
 
-        <TextView
-            android:id="@+id/list_item_jump_way"
-            style="@style/ListItemJump.Way"
-            tools:text="@string/tools_text_jump_way" />
+    <TextView
+        android:id="@+id/list_item_jump_type"
+        style="@style/ListItemJump.Type"
+        tools:text="@string/tools_text_jump_type" />
 
-        <TextView
-            android:id="@+id/list_item_jump_type"
-            style="@style/ListItemJump.Type"
-            tools:text="@string/tools_text_jump_type" />
+    <TextView
+        android:id="@+id/list_item_jump_description"
+        style="@style/ListItemJump.Description"
+        tools:text="@string/tools_text_jump_description" />
 
-        <TextView
-            android:id="@+id/list_item_jump_description"
-            style="@style/ListItemJump.Description"
-            tools:text="@string/tools_text_jump_description" />
-
-    </RelativeLayout>
-
-</FrameLayout>
+</RelativeLayout>
