@@ -8,7 +8,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="org.tomcurran.remiges.ui.MainActivity">
+    tools:context=".ui.MainActivity">
 
     <FrameLayout
         android:id="@+id/jumptype_list_container"

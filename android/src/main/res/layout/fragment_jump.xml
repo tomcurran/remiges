@@ -3,5 +3,5 @@
     android:id="@+id/jump_list_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.tomcurran.remiges.ui.MainActivity"
+    tools:context=".ui.MainActivity"
     tools:layout="@android:layout/list_content" />
