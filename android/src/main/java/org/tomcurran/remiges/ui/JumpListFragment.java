@@ -5,16 +5,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,13 +30,15 @@ import org.tomcurran.remiges.util.TimeUtils;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
-public class JumpListFragment extends ListFragment implements
+public class JumpListFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor>, JumpDetailFragment.Callbacks {
     private static final String TAG = makeLogTag(JumpListFragment.class);
 
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
 
     private int mActivatedPosition = ListView.INVALID_POSITION;
+
+    private ListView mListView;
 
     private CursorAdapter mAdapter;
 
@@ -62,9 +68,22 @@ public class JumpListFragment extends ListFragment implements
         setHasOptionsMenu(true);
 
         mAdapter = new JumpListAdapter(getActivity());
-        setListAdapter(mAdapter);
 
         getLoaderManager().initLoader(0, null, this);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_jump_list, container, false);
+        mListView = (ListView) rootView.findViewById(R.id.jump_list);
+        mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mCallbacks.onJumpSelected(RemigesContract.Jumps.buildJumpUri(id));
+            }
+        });
+        return rootView;
     }
 
     @Override
@@ -113,13 +132,6 @@ public class JumpListFragment extends ListFragment implements
     }
 
     @Override
-    public void onListItemClick(ListView listView, View view, int position, long id) {
-        super.onListItemClick(listView, view, position, id);
-
-        mCallbacks.onJumpSelected(RemigesContract.Jumps.buildJumpUri(id));
-    }
-
-    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (mActivatedPosition != ListView.INVALID_POSITION) {
@@ -128,12 +140,12 @@ public class JumpListFragment extends ListFragment implements
     }
 
     public void setActivateOnItemClick(boolean activateOnItemClick) {
-        getListView().setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
+        mListView.setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
     }
 
     public void setSelectedJump(String jumpId) {
         Long id = Long.parseLong(jumpId);
-        ListView listView = getListView();
+        ListView listView = mListView;
         for (int i = 0; i < listView.getCount(); i++) {
             if (id == ((Cursor) listView.getItemAtPosition(i)).getLong(JumpsQuery._ID)) {
                 listView.setSelection(i);
@@ -144,9 +156,9 @@ public class JumpListFragment extends ListFragment implements
 
     private void setActivatedPosition(int position) {
         if (position == ListView.INVALID_POSITION) {
-            getListView().setItemChecked(mActivatedPosition, false);
+            mListView.setItemChecked(mActivatedPosition, false);
         } else {
-            getListView().setItemChecked(position, true);
+            mListView.setItemChecked(position, true);
         }
         mActivatedPosition = position;
     }
