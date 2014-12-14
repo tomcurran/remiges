@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.OperationApplicationException;
+import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
@@ -32,9 +33,15 @@ import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 public class ImportActivity extends DataLiberationActivity {
     private static final String TAG = makeLogTag(ImportActivity.class);
 
+    private boolean importing = false;
+
     @Override
-    public void liberation() {
-        importFromDrive();
+    public void onConnected(Bundle bundle) {
+        super.onConnected(bundle);
+        if (!importing) {
+            importing = true;
+            importFromDrive();
+        }
     }
 
     @Override
@@ -115,7 +122,7 @@ public class ImportActivity extends DataLiberationActivity {
                     errorMessage(String.format("%s: %s", "Import data insertion error", e.getMessage()));
                 }
             }
-            endLiberation();
+            importing = false;
             mContext.finish();
         }
 

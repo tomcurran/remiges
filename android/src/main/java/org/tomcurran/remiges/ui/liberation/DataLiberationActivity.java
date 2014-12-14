@@ -53,20 +53,9 @@ public abstract class DataLiberationActivity extends BaseActivity implements
         super.onPause();
     }
 
-    private boolean operation = false;
-
-    public abstract void liberation();
-    public void endLiberation() {
-        operation = false;
-    }
-
     @Override
     public void onConnected(Bundle bundle) {
         LOGI(TAG, "GoogleApiClient connected");
-        if (!operation) {
-            operation = true;
-            liberation();
-        }
     }
 
     @Override

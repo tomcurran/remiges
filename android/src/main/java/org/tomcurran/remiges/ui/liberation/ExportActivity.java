@@ -3,6 +3,7 @@ package org.tomcurran.remiges.ui.liberation;
 
 import android.content.Intent;
 import android.content.IntentSender;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
@@ -29,7 +30,8 @@ public class ExportActivity extends DataLiberationActivity {
     private static final String TAG = makeLogTag(ImportActivity.class);
 
     @Override
-    public void liberation() {
+    public void onConnected(Bundle bundle) {
+        super.onConnected(bundle);
         exportToDrive();
     }
 
