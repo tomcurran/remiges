@@ -71,7 +71,7 @@
 
     <!-- Place List -->
 
-    <string name="menu_place_list_insert">Add Place</string>
+    <string name="fab_place_list">Add Place</string>
 
     <!-- Place Detail -->
 
