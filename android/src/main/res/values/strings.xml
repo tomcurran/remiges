@@ -25,7 +25,7 @@
 
     <!-- Jump List -->
 
-    <string name="menu_jump_list_insert">Log Jump</string>
+    <string name="fab_jump_list">Log Jump</string>
     <string name="list_jump_solo">Solo</string>
     <string name="list_jump_way">%d Way</string>
 

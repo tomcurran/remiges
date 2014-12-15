@@ -12,9 +12,6 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -67,8 +64,6 @@ public class JumpListFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setHasOptionsMenu(true);
-
         mAdapter = new JumpListAdapter(getActivity());
 
         getLoaderManager().initLoader(0, null, this);
@@ -85,22 +80,13 @@ public class JumpListFragment extends Fragment implements
                 mCallbacks.onJumpSelected(RemigesContract.Jumps.buildJumpUri(id));
             }
         });
-        return rootView;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.jump_list, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_jump_list_insert:
+        rootView.findViewById(R.id.fab_jump_list).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 insertJump();
-                return true;
-        }
-        return false;
+            }
+        });
+        return rootView;
     }
 
     private void insertJump() {
