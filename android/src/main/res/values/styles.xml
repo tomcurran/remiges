@@ -121,45 +121,64 @@
 
     <!-- Jump List -->
 
+    <style name="ListJump">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+
+    <style name="ListSubheaderJump">
+        <item name="android:background">@color/background</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
+    </style>
+
     <style name="ListItemJumpContainer">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
+        <item name="android:padding">16dp</item>
     </style>
 
-    <style name="ListItemJump">
+    <style name="ListItemJumpNumber">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-    </style>
-
-    <style name="ListItemJump.Number">
-        <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_alignParentLeft">true</item>
-    </style>
-
-    <style name="ListItemJump.Date">
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_alignParentRight">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Caption</item>
+        <item name="android:textColor">@color/secondary_text</item>
     </style>
 
-    <style name="ListItemJump.Way">
-        <item name="android:layout_below">@id/list_item_jump_number</item>
+    <style name="ListItemJumpWay">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
     </style>
 
-    <style name="ListItemJump.Type">
+    <style name="ListItemJumpType">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_toRightOf">@id/list_item_jump_way</item>
-        <item name="android:layout_below">@id/list_item_jump_number</item>
         <item name="android:paddingLeft">4dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
+        <item name="android:textColor">@color/primary_text</item>
     </style>
 
-    <style name="ListItemJump.Description">
+    <style name="ListItemJumpDescription">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_below">@id/list_item_jump_way</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">@color/secondary_text</item>
     </style>
 
     <!-- Jump Detail -->

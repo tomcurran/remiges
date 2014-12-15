@@ -5,18 +5,23 @@
     <color name="primary_dark">@color/material_blue_700</color>
     <color name="accent">@color/material_red_A200</color>
 
+    <color name="primary_text">@color/primary_text_default_material_light</color>
+    <color name="secondary_text">@color/secondary_text_default_material_light</color>
+
+    <color name="background">@color/background_material_light</color>
+
     <color name="navigation_drawer">@color/background_material_light</color>
     <color name="navigation_drawer_separator">@color/material_black_dividers</color>
-    <color name="navigation_drawer_text">@color/primary_text_default_material_light</color>
+    <color name="navigation_drawer_text">@color/primary_text</color>
     <color name="navigation_drawer_text_active">@color/primary</color>
     <color name="navigation_drawer_background_active">@color/material_black_dividers</color>
     <color name="navigation_drawer_icon_tint">@color/primary</color>
 
     <color name="card_divider">@color/material_black_dividers</color>
-    <color name="card_title">@color/abc_primary_text_material_light</color>
-    <color name="card_heading">@color/abc_secondary_text_material_light</color>
-    <color name="card_table_label">@color/abc_secondary_text_material_light</color>
-    <color name="card_table_content">@color/abc_primary_text_material_light</color>
+    <color name="card_title">@color/primary_text</color>
+    <color name="card_heading">@color/secondary_text</color>
+    <color name="card_table_label">@color/secondary_text</color>
+    <color name="card_table_content">@color/primary_text</color>
 
     <color name="edit_label">#57000000</color> <!-- black 34% -->
     <color name="edit_add_label">@color/abc_secondary_text_material_light</color>

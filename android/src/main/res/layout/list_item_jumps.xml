@@ -7,27 +7,22 @@
 
     <TextView
         android:id="@+id/list_item_jump_number"
-        style="@style/ListItemJump.Number"
+        style="@style/ListItemJumpNumber"
         tools:text="@string/tools_text_jump_number" />
 
     <TextView
-        android:id="@+id/list_item_jump_date"
-        style="@style/ListItemJump.Date"
-        tools:text="@string/tools_text_jump_time_ago" />
-
-    <TextView
         android:id="@+id/list_item_jump_way"
-        style="@style/ListItemJump.Way"
+        style="@style/ListItemJumpWay"
         tools:text="@string/tools_text_jump_way" />
 
     <TextView
         android:id="@+id/list_item_jump_type"
-        style="@style/ListItemJump.Type"
+        style="@style/ListItemJumpType"
         tools:text="@string/tools_text_jump_type" />
 
     <TextView
         android:id="@+id/list_item_jump_description"
-        style="@style/ListItemJump.Description"
+        style="@style/ListItemJumpDescription"
         tools:text="@string/tools_text_jump_description" />
 
 </RelativeLayout>

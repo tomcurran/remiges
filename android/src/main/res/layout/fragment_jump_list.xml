@@ -1,6 +1,5 @@
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<se.emilsjolander.stickylistheaders.StickyListHeadersListView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/jump_list"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/ListJump"
     tools:listitem="@layout/list_item_jumps" />

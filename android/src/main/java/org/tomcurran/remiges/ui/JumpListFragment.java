@@ -1,16 +1,15 @@
 package org.tomcurran.remiges.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +26,9 @@ import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
 import org.tomcurran.remiges.util.TimeUtils;
 
+import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
+
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
@@ -38,9 +40,9 @@ public class JumpListFragment extends Fragment implements
 
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
-    private ListView mListView;
+    private StickyListHeadersListView mHeaderListView;
 
-    private CursorAdapter mAdapter;
+    private JumpListAdapter mAdapter;
 
     public interface Callbacks {
         public void onJumpSelected(Uri uri);
@@ -75,9 +77,9 @@ public class JumpListFragment extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_jump_list, container, false);
-        mListView = (ListView) rootView.findViewById(R.id.jump_list);
-        mListView.setAdapter(mAdapter);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mHeaderListView = (StickyListHeadersListView) rootView.findViewById(R.id.jump_list);
+        mHeaderListView.setAdapter(mAdapter);
+        mHeaderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mCallbacks.onJumpSelected(RemigesContract.Jumps.buildJumpUri(id));
@@ -140,12 +142,12 @@ public class JumpListFragment extends Fragment implements
     }
 
     public void setActivateOnItemClick(boolean activateOnItemClick) {
-        mListView.setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
+        mHeaderListView.setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
     }
 
     public void setSelectedJump(String jumpId) {
         Long id = Long.parseLong(jumpId);
-        ListView listView = mListView;
+        ListView listView = mHeaderListView.getWrappedList();
         for (int i = 0; i < listView.getCount(); i++) {
             if (id == ((Cursor) listView.getItemAtPosition(i)).getLong(JumpsQuery._ID)) {
                 listView.setSelection(i);
@@ -156,9 +158,9 @@ public class JumpListFragment extends Fragment implements
 
     private void setActivatedPosition(int position) {
         if (position == ListView.INVALID_POSITION) {
-            mListView.setItemChecked(mActivatedPosition, false);
+            mHeaderListView.setItemChecked(mActivatedPosition, false);
         } else {
-            mListView.setItemChecked(position, true);
+            mHeaderListView.setItemChecked(position, true);
         }
         mActivatedPosition = position;
     }
@@ -193,11 +195,13 @@ public class JumpListFragment extends Fragment implements
         mAdapter.changeCursor(null);
     }
 
-    public static class JumpListAdapter extends SimpleCursorAdapter implements SimpleCursorAdapter.ViewBinder {
+    public static class JumpListAdapter extends SimpleCursorAdapter implements
+            SimpleCursorAdapter.ViewBinder, StickyListHeadersAdapter {
+
+        private FragmentActivity mActivity;
 
         private static final String[] FROM = {
                 RemigesContract.Jumps.JUMP_NUMBER,
-                RemigesContract.Jumps.JUMP_DATE,
                 RemigesContract.Jumps.JUMP_WAY,
                 RemigesContract.JumpTypes.JUMPTPYE_NAME,
                 RemigesContract.Jumps.JUMP_DESCRIPTION
@@ -205,27 +209,20 @@ public class JumpListFragment extends Fragment implements
 
         private static final int[] TO = {
                 R.id.list_item_jump_number,
-                R.id.list_item_jump_date,
                 R.id.list_item_jump_way,
                 R.id.list_item_jump_type,
                 R.id.list_item_jump_description
         };
 
-        public JumpListAdapter(Context context) {
+        public JumpListAdapter(FragmentActivity context) {
             super(context, R.layout.list_item_jumps, null, FROM, TO, 0);
+            mActivity = context;
             setViewBinder(this);
         }
 
         @Override
         public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
             switch (columnIndex) {
-                case JumpsQuery.DATE: {
-                    ViewHolder holder = getViewHolder(view);
-                    holder.date.setText(
-                            TimeUtils.getTimeAgo(view.getContext(), cursor.getLong(JumpsQuery.DATE))
-                    );
-                    return true;
-                }
                 case JumpsQuery.WAY: {
                     ViewHolder holder = getViewHolder(view);
                     int way = cursor.getInt(JumpsQuery.WAY);
@@ -252,7 +249,6 @@ public class JumpListFragment extends Fragment implements
             ViewHolder holder = (ViewHolder) view.getTag();
             if (holder == null) {
                 holder = new ViewHolder();
-                holder.date = (TextView) view.findViewById(R.id.list_item_jump_date);
                 holder.way = (TextView) view.findViewById(R.id.list_item_jump_way);
                 holder.description = (TextView) view.findViewById(R.id.list_item_jump_description);
                 view.setTag(holder);
@@ -260,10 +256,33 @@ public class JumpListFragment extends Fragment implements
             return holder;
         }
 
+        @Override
+        public View getHeaderView(int position, View convertView, ViewGroup parent) {
+            HeaderViewHolder holder;
+            if (convertView == null) {
+                holder = new HeaderViewHolder();
+                convertView = mActivity.getLayoutInflater().inflate(R.layout.list_subheader_jump, parent, false);
+                holder.date = (TextView) convertView.findViewById(R.id.list_subheader_jump);
+                convertView.setTag(holder);
+            } else {
+                holder = (HeaderViewHolder) convertView.getTag();
+            }
+            holder.date.setText(TimeUtils.getTimeAgo(convertView.getContext(), ((Cursor) getItem(position)).getLong(JumpsQuery.DATE)));
+            return convertView;
+        }
+
+        @Override
+        public long getHeaderId(int position) {
+            return TimeUtils.getTimeAgo(mActivity, ((Cursor) getItem(position)).getLong(JumpsQuery.DATE)).hashCode();
+        }
+
         static class ViewHolder {
-            TextView date;
             TextView way;
             TextView description;
+        }
+
+        static class HeaderViewHolder {
+            TextView date;
         }
 
     }
