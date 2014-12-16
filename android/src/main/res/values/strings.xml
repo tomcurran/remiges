@@ -88,7 +88,7 @@
 
     <!-- Jump Type List -->
 
-    <string name="menu_jumptype_list_insert">Add Jump Type</string>
+    <string name="fab_jumptype_list">Add Jump Type</string>
 
     <!-- Jump Type Detail -->
 

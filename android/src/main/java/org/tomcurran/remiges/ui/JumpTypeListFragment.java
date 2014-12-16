@@ -4,16 +4,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.tomcurran.remiges.R;
@@ -23,12 +27,14 @@ import org.tomcurran.remiges.util.FragmentUtils;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
-public class JumpTypeListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class JumpTypeListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = makeLogTag(JumpDetailFragment.class);
 
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
 
     private int mActivatedPosition = ListView.INVALID_POSITION;
+
+    private ListView mListView;
 
     public interface Callbacks {
         public void onJumpTypeSelected(String jumpTypeId);
@@ -54,25 +60,28 @@ public class JumpTypeListFragment extends ListFragment implements LoaderManager.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
         mAdapter = new JumpTypeListAdapter(getActivity());
-        setListAdapter(mAdapter);
         getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.jumptype_list, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_jumptype_list_insert:
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_jumptype_list, container, false);
+        mListView = (ListView) rootView.findViewById(R.id.jumptype_list);
+        mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mCallbacks.onJumpTypeSelected(String.valueOf(id));
+            }
+        });
+        rootView.findViewById(R.id.fab_jumptype_list).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 insertJumpType();
-                return true;
-        }
-        return false;
+            }
+        });
+        return rootView;
     }
 
     private void insertJumpType() {
@@ -82,6 +91,9 @@ public class JumpTypeListFragment extends ListFragment implements LoaderManager.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        setActivateOnItemClick(getResources().getBoolean(R.bool.has_two_panes));
+
         if (savedInstanceState != null && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
         }
@@ -103,12 +115,6 @@ public class JumpTypeListFragment extends ListFragment implements LoaderManager.
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        mCallbacks.onJumpTypeSelected(String.valueOf(id));
-    }
-
-    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (mActivatedPosition != ListView.INVALID_POSITION) {
@@ -117,14 +123,14 @@ public class JumpTypeListFragment extends ListFragment implements LoaderManager.
     }
 
     public void setActivateOnItemClick(boolean activateOnItemClick) {
-        getListView().setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
+        mListView.setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
     }
 
     private void setActivatedPosition(int position) {
         if (position == ListView.INVALID_POSITION) {
-            getListView().setItemChecked(mActivatedPosition, false);
+            mListView.setItemChecked(mActivatedPosition, false);
         } else {
-            getListView().setItemChecked(position, true);
+            mListView.setItemChecked(position, true);
         }
         mActivatedPosition = position;
     }
