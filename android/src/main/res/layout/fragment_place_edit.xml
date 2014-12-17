@@ -26,16 +26,19 @@
         <EditText
             android:id="@+id/edit_place_name"
             android:inputType="text"
+            android:hint="@string/hint_edit_place_name"
             style="@style/EditPlace.Name" />
 
         <EditText
             android:id="@+id/edit_place_latitude"
             android:inputType="numberSigned|numberDecimal"
+            android:hint="@string/hint_edit_place_latitude"
             style="@style/EditPlace.Latitude" />
 
         <EditText
             android:id="@+id/edit_place_longitude"
             android:inputType="numberSigned|numberDecimal"
+            android:hint="@string/hint_edit_place_longitude"
             style="@style/EditPlace.Longitude" />
 
     </RelativeLayout>
