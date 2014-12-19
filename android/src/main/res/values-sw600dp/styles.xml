@@ -10,14 +10,12 @@
     </style>
 
     <style name="EditJump.Number">
-        <item name="android:hint">@string/hint_edit_jump_number</item>
         <item name="android:layout_toRightOf">@id/label_edit_jump_number</item>
     </style>
 
     <style name="EditJump.Date" parent="@android:style/Widget.DeviceDefault.Light.Spinner">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:hint">@string/tools_text_jump_detail_date</item>
         <item name="android:layout_toRightOf">@id/label_edit_jump_date</item>
         <item name="android:layout_below">@id/edit_jump_number</item>
         <item name="android:paddingLeft">12dp</item>
@@ -29,7 +27,6 @@
     </style>
 
     <style name="EditJump.Way">
-        <item name="android:hint">@string/hint_edit_jump_way</item>
         <item name="android:layout_toRightOf">@id/label_edit_jump_way</item>
         <item name="android:layout_below">@id/edit_jump_add_place</item>
     </style>
@@ -40,25 +37,21 @@
     </style>
 
     <style name="EditJump.ExitAltitude">
-        <item name="android:hint">@string/hint_edit_jump_exit_altitude</item>
         <item name="android:layout_toRightOf">@id/label_edit_jump_exit_altitude</item>
         <item name="android:layout_below">@id/edit_jump_add_type</item>
     </style>
 
     <style name="EditJump.DeploymentAltitude">
-        <item name="android:hint">@string/hint_edit_jump_deployment_altitude</item>
         <item name="android:layout_toRightOf">@id/label_edit_deployment_altitude</item>
         <item name="android:layout_below">@id/edit_jump_exit_altitude</item>
     </style>
 
     <style name="EditJump.Delay">
-        <item name="android:hint">@string/hint_edit_jump_delay</item>
         <item name="android:layout_toRightOf">@id/label_edit_jump_delay</item>
         <item name="android:layout_below">@id/edit_jump_deployment_altitude</item>
     </style>
 
     <style name="EditJump.Description">
-        <item name="android:hint">@string/hint_edit_jump_description</item>
         <item name="android:layout_toRightOf">@id/label_edit_jump_description</item>
         <item name="android:layout_below">@id/edit_jump_delay</item>
     </style>
@@ -146,7 +139,6 @@
     </style>
 
     <style name="EditJumpType.Name">
-        <item name="android:hint">@string/hint_edit_jumptype_name</item>
         <item name="android:layout_toRightOf">@id/label_edit_jumptype_name</item>
     </style>
 
@@ -159,18 +151,15 @@
     </style>
 
     <style name="EditPlace.Name">
-        <item name="android:hint">@string/hint_edit_place_name</item>
         <item name="android:layout_toRightOf">@id/label_edit_place_name</item>
     </style>
 
     <style name="EditPlace.Latitude">
-        <item name="android:hint">@string/hint_edit_place_latitude</item>
         <item name="android:layout_toRightOf">@id/label_edit_place_latitude</item>
         <item name="android:layout_below">@id/edit_place_name</item>
     </style>
 
     <style name="EditPlace.Longitude">
-        <item name="android:hint">@string/hint_edit_place_longitude</item>
         <item name="android:layout_toRightOf">@id/label_edit_place_longitude</item>
         <item name="android:layout_below">@id/edit_place_latitude</item>
     </style>
