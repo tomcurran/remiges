@@ -127,9 +127,9 @@
         <item name="android:layout_gravity">bottom|end</item>
         <item name="android:layout_margin">16dp</item>
         <item name="fab_type">normal</item>
-        <item name="fab_colorNormal">@color/primary</item>
-        <item name="fab_colorPressed">@color/primary_dark</item>
-        <item name="fab_colorRipple">@color/primary_dark</item>
+        <item name="fab_colorNormal">@color/accent</item>
+        <item name="fab_colorPressed">@color/accent_dark</item>
+        <item name="fab_colorRipple">@color/accent_dark</item>
     </style>
 
     <!-- Jump List -->
