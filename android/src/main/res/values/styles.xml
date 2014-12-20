@@ -235,6 +235,7 @@
     <style name="EditJumpContainer">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">vertical</item>
         <item name="android:padding">16dp</item>
     </style>
 
@@ -302,55 +303,57 @@
         <item name="android:layout_below">@id/edit_jump_place</item>
     </style>
 
+    <style name="EditJumpLabelText">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/edit_label_text_selector</item>
+    </style>
+
     <style name="EditJumpLabel">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">-4dp</item>
-        <item name="android:paddingLeft">4dp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/edit_label</item>
+        <item name="floatLabelTrigger">text</item>
+        <item name="floatLabelSidePadding">4dp</item>
+        <item name="floatLabelTextAppearance">@style/EditJumpLabelText</item>
     </style>
 
     <style name="EditJumpLabel.Number">
+        <item name="android:layout_marginTop">0dp</item>
     </style>
 
     <style name="EditJumpLabel.Date">
-        <item name="android:layout_below">@id/edit_jump_number</item>
+        <item name="android:paddingLeft">4dp</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
     </style>
 
     <style name="EditJumpLabel.Description">
-        <item name="android:layout_below">@id/edit_jump_delay</item>
     </style>
 
     <style name="EditJumpLabel.Place">
-        <item name="android:layout_below">@id/edit_jump_date</item>
+        <item name="android:paddingLeft">4dp</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
     </style>
 
     <style name="EditJumpLabel.Way">
-        <item name="android:layout_below">@id/edit_jump_add_place</item>
     </style>
 
     <style name="EditJumpLabel.Type">
-        <item name="android:layout_below">@id/edit_jump_way</item>
+        <item name="android:paddingLeft">4dp</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
     </style>
 
     <style name="EditJumpLabel.ExitAltitude">
-        <item name="android:layout_below">@id/edit_jump_add_type</item>
     </style>
 
     <style name="EditJumpLabel.DeploymentAltitude">
-        <item name="android:layout_below">@id/edit_jump_exit_altitude</item>
     </style>
 
     <style name="EditJumpLabel.Delay">
-        <item name="android:layout_below">@id/edit_jump_deployment_altitude</item>
     </style>
 
     <!-- Place Detail -->
@@ -382,8 +385,8 @@
     <style name="EditJumpTypeContainer">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">16dp</item>
     </style>
 
     <style name="EditJumpType">
@@ -392,27 +395,35 @@
     </style>
 
     <style name="EditJumpType.Name">
-        <item name="android:layout_below">@id/label_edit_jumptype_name</item>
+    </style>
+
+    <style name="EditJumpTypeLabelText">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/edit_label_text_selector</item>
     </style>
 
     <style name="EditJumpTypeLabel">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">-4dp</item>
-        <item name="android:paddingLeft">4dp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/edit_label</item>
+        <item name="floatLabelTrigger">text</item>
+        <item name="floatLabelSidePadding">4dp</item>
+        <item name="floatLabelTextAppearance">@style/EditJumpTypeLabelText</item>
     </style>
 
     <style name="EditJumpTypeLabel.Name">
+        <item name="android:layout_marginTop">0dp</item>
     </style>
+
 
     <!-- Place Edit -->
 
     <style name="EditPlaceContainer">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">vertical</item>
         <item name="android:padding">16dp</item>
     </style>
 
@@ -422,36 +433,40 @@
     </style>
 
     <style name="EditPlace.Name">
-        <item name="android:layout_below">@id/label_edit_place_name</item>
     </style>
 
     <style name="EditPlace.Latitude">
-        <item name="android:layout_below">@id/label_edit_place_latitude</item>
     </style>
 
     <style name="EditPlace.Longitude">
-        <item name="android:layout_below">@id/label_edit_place_longitude</item>
+    </style>
+
+    <style name="EditPlaceLabelText">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/edit_label_text_selector</item>
     </style>
 
     <style name="EditPlaceLabel">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">-4dp</item>
-        <item name="android:paddingLeft">4dp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/edit_label</item>
+        <item name="floatLabelTrigger">text</item>
+        <item name="floatLabelSidePadding">4dp</item>
+        <item name="floatLabelTextAppearance">@style/EditPlaceLabelText</item>
     </style>
 
     <style name="EditPlaceLabel.Name">
+        <item name="android:layout_marginTop">0dp</item>
     </style>
 
     <style name="EditPlaceLabel.Latitude">
-        <item name="android:layout_below">@id/edit_place_name</item>
+        <item name="android:layout_below">@id/label_edit_place_name</item>
     </style>
 
     <style name="EditPlaceLabel.Longitude">
-        <item name="android:layout_below">@id/edit_place_latitude</item>
+        <item name="android:layout_below">@id/label_edit_place_latitude</item>
     </style>
 
 </resources>

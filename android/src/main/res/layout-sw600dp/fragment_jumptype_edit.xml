@@ -5,22 +5,20 @@
     android:background="#FFF"
     tools:context=".ui.JumpTypeEditFragment">
 
-    <LinearLayout
+    <RelativeLayout
         style="@style/EditJumpTypeContainer">
 
-        <org.ligi.floatlabel.FloatingLabelLayout
+        <TextView
             android:id="@+id/label_edit_jumptype_name"
             android:text="@string/label_edit_jumptype_name"
-            style="@style/EditJumpTypeLabel.Name">
+            style="@style/EditJumpTypeLabel.Name" />
 
-            <EditText
-                android:id="@+id/edit_jumptype_name"
-                android:inputType="text"
-                android:hint="@string/hint_edit_jumptype_name"
-                style="@style/EditJumpType.Name" />
+        <EditText
+            android:id="@+id/edit_jumptype_name"
+            android:inputType="text"
+            android:hint="@string/hint_edit_jumptype_name"
+            style="@style/EditJumpType.Name" />
 
-        </org.ligi.floatlabel.FloatingLabelLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </ScrollView>

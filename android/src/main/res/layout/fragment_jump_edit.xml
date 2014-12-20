@@ -5,61 +5,40 @@
     android:background="#FFF"
     tools:context=".ui.JumpEditFragment">
 
-    <RelativeLayout
+    <LinearLayout
         style="@style/EditJumpContainer">
 
-        <EditText
-            android:id="@+id/edit_jump_number"
-            android:inputType="number"
-            android:hint="@string/hint_edit_jump_number"
-            style="@style/EditJump.Number" />
+        <org.ligi.floatlabel.FloatingLabelLayout
+            android:id="@+id/label_edit_jump_number"
+            android:text="@string/label_edit_jump_number"
+            style="@style/EditJumpLabel.Number">
+
+            <EditText
+                android:id="@+id/edit_jump_number"
+                android:inputType="number"
+                android:hint="@string/hint_edit_jump_number"
+                style="@style/EditJump.Number" />
+
+        </org.ligi.floatlabel.FloatingLabelLayout>
+
+        <TextView
+            android:id="@+id/label_edit_jump_date"
+            android:text="@string/label_edit_jump_date"
+            style="@style/EditJumpLabel.Date" />
 
         <TextView
             android:id="@+id/edit_jump_date"
             tools:text="@string/tools_text_jump_detail_date"
             style="@style/EditJump.Date" />
 
-        <Spinner
-            android:id="@+id/edit_jump_type"
-            style="@style/EditJump.Type" />
-
         <TextView
-            android:id="@+id/edit_jump_add_type"
-            android:text="@string/edit_jump_add_type"
-            style="@style/EditJumpAdd.Type" />
-
-        <EditText
-            android:id="@+id/edit_jump_way"
-            android:inputType="number"
-            android:hint="@string/hint_edit_jump_way"
-            style="@style/EditJump.Way" />
-
-        <EditText
-            android:id="@+id/edit_jump_exit_altitude"
-            android:inputType="number"
-            android:hint="@string/hint_edit_jump_exit_altitude"
-            style="@style/EditJump.ExitAltitude" />
-
-        <EditText
-            android:id="@+id/edit_jump_deployment_altitude"
-            android:inputType="number"
-            android:hint="@string/hint_edit_jump_deployment_altitude"
-            style="@style/EditJump.DeploymentAltitude" />
-
-        <EditText
-            android:id="@+id/edit_jump_delay"
-            android:inputType="number"
-            android:hint="@string/hint_edit_jump_delay"
-            style="@style/EditJump.Delay" />
-
-        <EditText
-            android:id="@+id/edit_jump_description"
-            android:inputType="textMultiLine"
-            android:hint="@string/hint_edit_jump_description"
-            style="@style/EditJump.Description" />
+            android:id="@+id/label_edit_jump_place"
+            android:text="@string/label_edit_jump_place"
+            style="@style/EditJumpLabel.Place" />
 
         <Spinner
             android:id="@+id/edit_jump_place"
+            tools:listitem="@android:layout/simple_spinner_item"
             style="@style/EditJump.Place" />
 
         <TextView
@@ -68,50 +47,85 @@
             style="@style/EditJumpAdd.Place" />
 
         <TextView
-            android:id="@+id/label_edit_jump_number"
-            style="@style/EditJumpLabel.Number"
-            android:text="@string/label_edit_jump_number" />
-
-        <TextView
-            android:id="@+id/label_edit_jump_date"
-            style="@style/EditJumpLabel.Date"
-            android:text="@string/label_edit_jump_date" />
-
-        <TextView
-            android:id="@+id/label_edit_jump_place"
-            style="@style/EditJumpLabel.Place"
-            android:text="@string/label_edit_jump_place" />
-
-        <TextView
-            android:id="@+id/label_edit_jump_way"
-            style="@style/EditJumpLabel.Way"
-            android:text="@string/label_edit_jump_way" />
-
-        <TextView
             android:id="@+id/label_edit_jump_type"
-            style="@style/EditJumpLabel.Type"
-            android:text="@string/label_edit_jump_type" />
+            android:text="@string/label_edit_jump_type"
+            style="@style/EditJumpLabel.Type" />
+
+        <Spinner
+            android:id="@+id/edit_jump_type"
+            tools:listitem="@android:layout/simple_spinner_item"
+            style="@style/EditJump.Type" />
 
         <TextView
+            android:id="@+id/edit_jump_add_type"
+            android:text="@string/edit_jump_add_type"
+            style="@style/EditJumpAdd.Type" />
+
+        <org.ligi.floatlabel.FloatingLabelLayout
+            android:id="@+id/label_edit_jump_way"
+            android:text="@string/label_edit_jump_way"
+            style="@style/EditJumpLabel.Way">
+
+            <EditText
+                android:id="@+id/edit_jump_way"
+                android:inputType="number"
+                android:hint="@string/hint_edit_jump_way"
+                style="@style/EditJump.Way" />
+
+        </org.ligi.floatlabel.FloatingLabelLayout>
+
+        <org.ligi.floatlabel.FloatingLabelLayout
             android:id="@+id/label_edit_jump_exit_altitude"
-            style="@style/EditJumpLabel.ExitAltitude"
-            android:text="@string/label_edit_jump_exit_altitude" />
+            android:text="@string/label_edit_jump_exit_altitude"
+            style="@style/EditJumpLabel.ExitAltitude">
 
-        <TextView
+            <EditText
+                android:id="@+id/edit_jump_exit_altitude"
+                android:inputType="number"
+                android:hint="@string/hint_edit_jump_exit_altitude"
+                style="@style/EditJump.ExitAltitude" />
+
+        </org.ligi.floatlabel.FloatingLabelLayout>
+
+        <org.ligi.floatlabel.FloatingLabelLayout
             android:id="@+id/label_edit_deployment_altitude"
-            style="@style/EditJumpLabel.DeploymentAltitude"
-            android:text="@string/label_edit_jump_deployment_altitude" />
+            android:text="@string/label_edit_jump_deployment_altitude"
+            style="@style/EditJumpLabel.DeploymentAltitude">
 
-        <TextView
+            <EditText
+                android:id="@+id/edit_jump_deployment_altitude"
+                android:inputType="number"
+                android:hint="@string/hint_edit_jump_deployment_altitude"
+                style="@style/EditJump.DeploymentAltitude" />
+
+        </org.ligi.floatlabel.FloatingLabelLayout>
+
+        <org.ligi.floatlabel.FloatingLabelLayout
             android:id="@+id/label_edit_jump_delay"
-            style="@style/EditJumpLabel.Delay"
-            android:text="@string/label_edit_jump_delay" />
+            android:text="@string/label_edit_jump_delay"
+            style="@style/EditJumpLabel.Delay">
 
-        <TextView
+            <EditText
+                android:id="@+id/edit_jump_delay"
+                android:inputType="number"
+                android:hint="@string/hint_edit_jump_delay"
+                style="@style/EditJump.Delay" />
+
+        </org.ligi.floatlabel.FloatingLabelLayout>
+
+        <org.ligi.floatlabel.FloatingLabelLayout
             android:id="@+id/label_edit_jump_description"
-            style="@style/EditJumpLabel.Description"
-            android:text="@string/label_edit_jump_description" />
+            android:text="@string/label_edit_jump_description"
+            style="@style/EditJumpLabel.Description">
 
-    </RelativeLayout>
+            <EditText
+                android:id="@+id/edit_jump_description"
+                android:inputType="textMultiLine"
+                android:hint="@string/hint_edit_jump_description"
+                style="@style/EditJump.Description" />
+
+        </org.ligi.floatlabel.FloatingLabelLayout>
+
+    </LinearLayout>
 
 </ScrollView>

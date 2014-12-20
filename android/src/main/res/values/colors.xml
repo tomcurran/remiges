@@ -24,6 +24,7 @@
     <color name="card_table_content">@color/primary_text</color>
 
     <color name="edit_label">#57000000</color> <!-- black 34% -->
+    <color name="edit_label_focus">@color/accent</color>
     <color name="edit_add_label">@color/abc_secondary_text_material_light</color>
 
     <!-- material color palette -->

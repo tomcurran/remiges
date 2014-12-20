@@ -3,44 +3,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF"
-    tools:context=".ui.JumpTypeEditFragment">
+    tools:context=".ui.PlaceEditFragment">
 
-    <RelativeLayout
+    <LinearLayout
         style="@style/EditPlaceContainer">
 
-        <TextView
+        <org.ligi.floatlabel.FloatingLabelLayout
             android:id="@+id/label_edit_place_name"
-            style="@style/EditPlaceLabel.Name"
-            android:text="@string/label_edit_place_name" />
+            android:text="@string/label_edit_place_name"
+            style="@style/EditPlaceLabel.Name">
 
-        <TextView
+            <EditText
+                android:id="@+id/edit_place_name"
+                android:inputType="text"
+                android:hint="@string/hint_edit_place_name"
+                style="@style/EditPlace.Name" />
+
+        </org.ligi.floatlabel.FloatingLabelLayout>
+
+        <org.ligi.floatlabel.FloatingLabelLayout
             android:id="@+id/label_edit_place_latitude"
-            style="@style/EditPlaceLabel.Latitude"
-            android:text="@string/label_edit_place_latitude" />
+            android:text="@string/label_edit_place_latitude"
+            style="@style/EditPlaceLabel.Latitude">
 
-        <TextView
+            <EditText
+                android:id="@+id/edit_place_latitude"
+                android:inputType="numberSigned|numberDecimal"
+                android:hint="@string/hint_edit_place_latitude"
+                style="@style/EditPlace.Latitude" />
+
+        </org.ligi.floatlabel.FloatingLabelLayout>
+
+        <org.ligi.floatlabel.FloatingLabelLayout
             android:id="@+id/label_edit_place_longitude"
-            style="@style/EditPlaceLabel.Longitude"
-            android:text="@string/label_edit_place_longitude" />
+            android:text="@string/label_edit_place_longitude"
+            style="@style/EditPlaceLabel.Longitude">
 
-        <EditText
-            android:id="@+id/edit_place_name"
-            android:inputType="text"
-            android:hint="@string/hint_edit_place_name"
-            style="@style/EditPlace.Name" />
+            <EditText
+                android:id="@+id/edit_place_longitude"
+                android:inputType="numberSigned|numberDecimal"
+                android:hint="@string/hint_edit_place_longitude"
+                style="@style/EditPlace.Longitude" />
 
-        <EditText
-            android:id="@+id/edit_place_latitude"
-            android:inputType="numberSigned|numberDecimal"
-            android:hint="@string/hint_edit_place_latitude"
-            style="@style/EditPlace.Latitude" />
+        </org.ligi.floatlabel.FloatingLabelLayout>
 
-        <EditText
-            android:id="@+id/edit_place_longitude"
-            android:inputType="numberSigned|numberDecimal"
-            android:hint="@string/hint_edit_place_longitude"
-            style="@style/EditPlace.Longitude" />
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </ScrollView>
