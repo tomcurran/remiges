@@ -11,6 +11,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -195,8 +196,8 @@ public class JumpListFragment extends Fragment implements
 
         private static final int[] TO = {
                 R.id.list_item_jump_number,
-                R.id.list_item_jump_way,
-                R.id.list_item_jump_type,
+                R.id.list_item_jump_way_type,
+                R.id.list_item_jump_way_type,
                 R.id.list_item_jump_description
         };
 
@@ -213,9 +214,17 @@ public class JumpListFragment extends Fragment implements
                     ViewHolder holder = getViewHolder(view);
                     int way = cursor.getInt(JumpsQuery.WAY);
                     if (way > 1) {
-                        holder.way.setText(view.getContext().getString(R.string.list_jump_way, way));
+                        holder.wayType.setText(view.getContext().getString(R.string.list_jump_way, way));
                     } else {
-                        holder.way.setText(view.getContext().getString(R.string.list_jump_solo));
+                        holder.wayType.setText(view.getContext().getString(R.string.list_jump_solo));
+                    }
+                    return true;
+                }
+                case JumpsQuery.TYPE: {
+                    ViewHolder holder = getViewHolder(view);
+                    String jumpType = cursor.getString(JumpsQuery.TYPE);
+                    if (!TextUtils.isEmpty(jumpType)) {
+                        holder.wayType.append(" " + jumpType);
                     }
                     return true;
                 }
@@ -235,7 +244,7 @@ public class JumpListFragment extends Fragment implements
             ViewHolder holder = (ViewHolder) view.getTag();
             if (holder == null) {
                 holder = new ViewHolder();
-                holder.way = (TextView) view.findViewById(R.id.list_item_jump_way);
+                holder.wayType = (TextView) view.findViewById(R.id.list_item_jump_way_type);
                 holder.description = (TextView) view.findViewById(R.id.list_item_jump_description);
                 view.setTag(holder);
             }
@@ -263,7 +272,7 @@ public class JumpListFragment extends Fragment implements
         }
 
         static class ViewHolder {
-            TextView way;
+            TextView wayType;
             TextView description;
         }
 

@@ -11,14 +11,9 @@
         tools:text="@string/tools_text_jump_number" />
 
     <TextView
-        android:id="@+id/list_item_jump_way"
-        style="@style/ListItemJumpWay"
-        tools:text="@string/tools_text_jump_way" />
-
-    <TextView
-        android:id="@+id/list_item_jump_type"
-        style="@style/ListItemJumpType"
-        tools:text="@string/tools_text_jump_type" />
+        android:id="@+id/list_item_jump_way_type"
+        style="@style/ListItemJumpWayType"
+        tools:text="@string/tools_text_jump_way_type" />
 
     <TextView
         android:id="@+id/list_item_jump_description"

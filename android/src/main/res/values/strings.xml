@@ -179,6 +179,7 @@
     <string name="tools_text_jump_detail_date">Tuesday, 11 February, 2014</string>
     <string name="tools_text_jump_description">jumped out of the plane and deployed parachute some time later</string>
     <string name="tools_text_jump_way">4 way</string>
+    <string name="tools_text_jump_way_type">4 Way Freefly</string>
     <string name="tools_text_jump_type">Freefly</string>
     <string name="tools_text_jump_exit_altitude">12,460</string>
     <string name="tools_text_jump_deployment_altitude">3,500</string>

@@ -172,20 +172,11 @@
         <item name="android:textColor">@color/secondary_text</item>
     </style>
 
-    <style name="ListItemJumpWay">
+    <style name="ListItemJumpWayType">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
-    </style>
-
-    <style name="ListItemJumpType">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_toRightOf">@id/list_item_jump_way</item>
-        <item name="android:paddingLeft">4dp</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
         <item name="android:textColor">@color/primary_text</item>
     </style>
@@ -194,7 +185,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_below">@id/list_item_jump_way</item>
+        <item name="android:layout_below">@id/list_item_jump_way_type</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
