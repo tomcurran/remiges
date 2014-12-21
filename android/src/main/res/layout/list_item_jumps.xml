@@ -3,21 +3,47 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_item_jump"
-    style="@style/ListItemJumpContainer">
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:padding="@dimen/list_item_padding">
 
     <TextView
         android:id="@+id/list_item_jump_number"
-        style="@style/ListItemJumpNumber"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="@color/secondary_text"
         tools:text="@string/tools_text_jump_number" />
 
     <TextView
         android:id="@+id/list_item_jump_way_type"
-        style="@style/ListItemJumpWayType"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/list_item_jump_number"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/primary_text"
         tools:text="@string/tools_text_jump_way_type" />
 
     <TextView
         android:id="@+id/list_item_jump_description"
-        style="@style/ListItemJumpDescription"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/list_item_jump_way_type"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/secondary_text"
         tools:text="@string/tools_text_jump_description" />
 
 </RelativeLayout>

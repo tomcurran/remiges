@@ -163,11 +163,11 @@ public class PlaceListFragment extends Fragment implements LoaderManager.LoaderC
         };
 
         private static final int[] TO = {
-                android.R.id.text1
+                R.id.list_item_place_name
         };
 
         public PlaceListAdapter(Context context) {
-            super(context, android.R.layout.simple_list_item_1, null, FROM, TO, 0);
+            super(context, R.layout.list_item_places, null, FROM, TO, 0);
         }
 
     }

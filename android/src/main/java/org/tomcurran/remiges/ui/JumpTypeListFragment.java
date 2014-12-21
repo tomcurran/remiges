@@ -5,16 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -164,11 +160,11 @@ public class JumpTypeListFragment extends Fragment implements LoaderManager.Load
         };
 
         private static final int[] TO = {
-                android.R.id.text1
+                R.id.list_item_jumptype_name
         };
 
         public JumpTypeListAdapter(Context context) {
-            super(context, android.R.layout.simple_list_item_1, null, FROM, TO, 0);
+            super(context, R.layout.list_item_jumptypes, null, FROM, TO, 0);
         }
 
     }
