@@ -277,7 +277,6 @@
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/edit_label</item>
-        <item name="floatLabelTrigger">text</item>
         <item name="floatLabelSidePadding">4dp</item>
         <item name="floatLabelTextAppearance">@style/EditJumpLabelText</item>
     </style>
@@ -371,7 +370,6 @@
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/edit_label</item>
-        <item name="floatLabelTrigger">text</item>
         <item name="floatLabelSidePadding">4dp</item>
         <item name="floatLabelTextAppearance">@style/EditJumpTypeLabelText</item>
     </style>
@@ -415,7 +413,6 @@
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/edit_label</item>
-        <item name="floatLabelTrigger">text</item>
         <item name="floatLabelSidePadding">4dp</item>
         <item name="floatLabelTextAppearance">@style/EditPlaceLabelText</item>
     </style>

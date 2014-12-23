@@ -8,7 +8,7 @@
     <LinearLayout
         style="@style/EditPlaceContainer">
 
-        <org.ligi.floatlabel.FloatingLabelLayout
+        <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_place_name"
             android:text="@string/label_edit_place_name"
             style="@style/EditPlaceLabel.Name">
@@ -19,9 +19,9 @@
                 android:hint="@string/hint_edit_place_name"
                 style="@style/EditPlace.Name" />
 
-        </org.ligi.floatlabel.FloatingLabelLayout>
+        </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
-        <org.ligi.floatlabel.FloatingLabelLayout
+        <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_place_latitude"
             android:text="@string/label_edit_place_latitude"
             style="@style/EditPlaceLabel.Latitude">
@@ -32,9 +32,9 @@
                 android:hint="@string/hint_edit_place_latitude"
                 style="@style/EditPlace.Latitude" />
 
-        </org.ligi.floatlabel.FloatingLabelLayout>
+        </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
-        <org.ligi.floatlabel.FloatingLabelLayout
+        <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_place_longitude"
             android:text="@string/label_edit_place_longitude"
             style="@style/EditPlaceLabel.Longitude">
@@ -45,7 +45,7 @@
                 android:hint="@string/hint_edit_place_longitude"
                 style="@style/EditPlace.Longitude" />
 
-        </org.ligi.floatlabel.FloatingLabelLayout>
+        </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
     </LinearLayout>
 

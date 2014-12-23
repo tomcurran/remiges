@@ -8,7 +8,7 @@
     <LinearLayout
         style="@style/EditJumpTypeContainer">
 
-        <org.ligi.floatlabel.FloatingLabelLayout
+        <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_jumptype_name"
             android:text="@string/label_edit_jumptype_name"
             style="@style/EditJumpTypeLabel.Name">
@@ -19,7 +19,7 @@
                 android:hint="@string/hint_edit_jumptype_name"
                 style="@style/EditJumpType.Name" />
 
-        </org.ligi.floatlabel.FloatingLabelLayout>
+        </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
     </LinearLayout>
 

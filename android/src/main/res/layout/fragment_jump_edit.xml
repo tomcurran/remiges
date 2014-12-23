@@ -8,7 +8,7 @@
     <LinearLayout
         style="@style/EditJumpContainer">
 
-        <org.ligi.floatlabel.FloatingLabelLayout
+        <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_jump_number"
             android:text="@string/label_edit_jump_number"
             style="@style/EditJumpLabel.Number">
@@ -19,7 +19,7 @@
                 android:hint="@string/hint_edit_jump_number"
                 style="@style/EditJump.Number" />
 
-        </org.ligi.floatlabel.FloatingLabelLayout>
+        </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
         <TextView
             android:id="@+id/label_edit_jump_date"
@@ -61,7 +61,7 @@
             android:text="@string/edit_jump_add_type"
             style="@style/EditJumpAdd.Type" />
 
-        <org.ligi.floatlabel.FloatingLabelLayout
+        <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_jump_way"
             android:text="@string/label_edit_jump_way"
             style="@style/EditJumpLabel.Way">
@@ -72,9 +72,9 @@
                 android:hint="@string/hint_edit_jump_way"
                 style="@style/EditJump.Way" />
 
-        </org.ligi.floatlabel.FloatingLabelLayout>
+        </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
-        <org.ligi.floatlabel.FloatingLabelLayout
+        <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_jump_exit_altitude"
             android:text="@string/label_edit_jump_exit_altitude"
             style="@style/EditJumpLabel.ExitAltitude">
@@ -85,9 +85,9 @@
                 android:hint="@string/hint_edit_jump_exit_altitude"
                 style="@style/EditJump.ExitAltitude" />
 
-        </org.ligi.floatlabel.FloatingLabelLayout>
+        </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
-        <org.ligi.floatlabel.FloatingLabelLayout
+        <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_deployment_altitude"
             android:text="@string/label_edit_jump_deployment_altitude"
             style="@style/EditJumpLabel.DeploymentAltitude">
@@ -98,9 +98,9 @@
                 android:hint="@string/hint_edit_jump_deployment_altitude"
                 style="@style/EditJump.DeploymentAltitude" />
 
-        </org.ligi.floatlabel.FloatingLabelLayout>
+        </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
-        <org.ligi.floatlabel.FloatingLabelLayout
+        <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_jump_delay"
             android:text="@string/label_edit_jump_delay"
             style="@style/EditJumpLabel.Delay">
@@ -111,9 +111,9 @@
                 android:hint="@string/hint_edit_jump_delay"
                 style="@style/EditJump.Delay" />
 
-        </org.ligi.floatlabel.FloatingLabelLayout>
+        </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
-        <org.ligi.floatlabel.FloatingLabelLayout
+        <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_jump_description"
             android:text="@string/label_edit_jump_description"
             style="@style/EditJumpLabel.Description">
@@ -124,7 +124,7 @@
                 android:hint="@string/hint_edit_jump_description"
                 style="@style/EditJump.Description" />
 
-        </org.ligi.floatlabel.FloatingLabelLayout>
+        </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
     </LinearLayout>
 
