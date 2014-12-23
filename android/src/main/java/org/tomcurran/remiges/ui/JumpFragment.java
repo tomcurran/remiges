@@ -154,16 +154,4 @@ public class JumpFragment extends Fragment implements
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case ACTIVITY_INSERT:
-                if (resultCode == FragmentActivity.RESULT_OK) {
-                    ((JumpListFragment)getChildFragmentManager().findFragmentByTag(FRAGMENT_JUMP_LIST))
-                            .setSelectedJump(RemigesContract.Jumps.getJumpId(data.getData()));
-                }
-                break;
-        }
-    }
-
 }
