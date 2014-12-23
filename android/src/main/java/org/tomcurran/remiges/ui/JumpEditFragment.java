@@ -536,10 +536,12 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         if (id == null) {
             return;
         }
-        for (int i = 0; i < spinner.getCount(); i++) {
-            if (id == ((Cursor) spinner.getItemAtPosition(i)).getLong(column)) {
-                spinner.setSelection(i);
-                break;
+        if (id != spinner.getSelectedItemId()) {
+            for (int i = 0; i < spinner.getCount(); i++) {
+                if (id == ((Cursor) spinner.getItemAtPosition(i)).getLong(column)) {
+                    spinner.setSelection(i);
+                    break;
+                }
             }
         }
     }
