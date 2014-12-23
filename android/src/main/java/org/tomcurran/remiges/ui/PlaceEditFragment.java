@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
@@ -18,12 +19,14 @@ import android.widget.EditText;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
+import org.tomcurran.remiges.ui.singlepane.EditItemActivity;
 import org.tomcurran.remiges.util.UIUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-public class PlaceEditFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class PlaceEditFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
+        EditItemActivity.Callbacks {
     private static final String TAG = makeLogTag(PlaceEditFragment.class);
 
     private static final int STATE_INSERT = 0;
@@ -53,28 +56,19 @@ public class PlaceEditFragment extends Fragment implements LoaderManager.LoaderC
             final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
             final String action = intent.getAction();
             if (action == null) {
-                LOGE(TAG, "No action provided for jump type");
+                LOGE(TAG, "No intent action provided");
                 activity.setResult(FragmentActivity.RESULT_CANCELED);
                 activity.finish();
                 return;
             } else if (action.equals(Intent.ACTION_INSERT)) {
                 mState = STATE_INSERT;
-                ContentValues values = getDefaultValues();
-                if (intent.getExtras() != null) {
-                    passInExtras(intent.getExtras(), values);
-                }
-                mPlaceUri = activity.getContentResolver().insert(RemigesContract.Places.CONTENT_URI, values);
-                if (mPlaceUri == null) {
-                    LOGE(TAG, "Failed to insert new place into " + intent.getData());
-                    activity.setResult(FragmentActivity.RESULT_CANCELED);
-                    activity.finish();
-                    return;
-                }
+                mPlaceUri = null;
             } else if (action.equals(Intent.ACTION_EDIT)) {
                 mState = STATE_EDIT;
                 mPlaceUri = intent.getData();
+                getLoaderManager().initLoader(0, null, this);
             } else {
-                LOGE(TAG, "Unknown action. Exiting");
+                LOGE(TAG, "Unknown intent action provided");
                 activity.setResult(FragmentActivity.RESULT_CANCELED);
                 activity.finish();
                 return;
@@ -84,15 +78,9 @@ public class PlaceEditFragment extends Fragment implements LoaderManager.LoaderC
             mState = savedInstanceState.getInt(SAVE_STATE_PLACE_STATE);
         }
 
-        Intent intent = new Intent();
-        switch (mState) {
-            case STATE_INSERT: intent.setAction(Intent.ACTION_INSERT); break;
-            case STATE_EDIT:   intent.setAction(Intent.ACTION_EDIT);   break;
+        if (mState == STATE_INSERT) {
+            activity.setTitle(R.string.title_place_insert);
         }
-        intent.setData(mPlaceUri);
-        activity.setResult(FragmentActivity.RESULT_OK, intent);
-
-        getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -107,20 +95,37 @@ public class PlaceEditFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (savedInstanceState == null) {
+            ContentValues values = getDefaultValues();
+            if (mState == STATE_INSERT) {
+                Bundle extras = BaseActivity.fragmentArgumentsToIntent(getArguments()).getExtras();
+                if (extras != null) {
+                    values = passIntentValues(extras, values);
+                }
+            }
+            setViewValues(values);
+        }
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(SAVE_STATE_PLACE_URI, mPlaceUri);
         outState.putInt(SAVE_STATE_PLACE_STATE, mState);
     }
 
-    public String barDone() {
-        updatePlace();
-        return RemigesContract.Places.getPlaceId(mPlaceUri);
-    }
-
-    public void barCancel() {
-        if (mState == STATE_INSERT) {
-            deletePlace();
+    @Override
+    public void onSaveItem() {
+        switch (mState) {
+            case STATE_INSERT:
+                insertPlace();
+                break;
+            case STATE_EDIT:
+                updatePlace();
+                break;
         }
     }
 
@@ -132,34 +137,65 @@ public class PlaceEditFragment extends Fragment implements LoaderManager.LoaderC
         return values;
     }
 
-    private void passInExtras(Bundle extras, ContentValues values) {
+    private ContentValues getViewValues() {
+        ContentValues values = new ContentValues();
+        values.put(RemigesContract.Places.PLACE_NAME, mPlaceName.getText().toString());
+        values.put(RemigesContract.Places.PLACE_LATITUDE, UIUtils.parseTextViewDouble(mPlaceLatitude));
+        values.put(RemigesContract.Places.PLACE_LONGITUDE, UIUtils.parseTextViewDouble(mPlaceLongitude));
+        return values;
+    }
+
+    private void setViewValues(ContentValues values) {
+        mPlaceName.setText(values.getAsString(RemigesContract.Places.PLACE_NAME));
+        UIUtils.setTextViewDouble(mPlaceLatitude, values.getAsDouble(RemigesContract.Places.PLACE_LATITUDE));
+        UIUtils.setTextViewDouble(mPlaceLongitude, values.getAsDouble(RemigesContract.Places.PLACE_LONGITUDE));
+    }
+
+    private ContentValues passIntentValues(Bundle extras, ContentValues values) {
+        ContentValues newValues = new ContentValues(values);
         if (extras.containsKey(RemigesContract.Places.PLACE_NAME))
-            values.put(RemigesContract.Places.PLACE_NAME, extras.getString(RemigesContract.Places.PLACE_NAME));
+            newValues.put(RemigesContract.Places.PLACE_NAME, extras.getString(RemigesContract.Places.PLACE_NAME));
         if (extras.containsKey(RemigesContract.Places.PLACE_LATITUDE))
-            values.put(RemigesContract.Places.PLACE_LATITUDE, extras.getDouble(RemigesContract.Places.PLACE_LATITUDE));
+            newValues.put(RemigesContract.Places.PLACE_LATITUDE, extras.getDouble(RemigesContract.Places.PLACE_LATITUDE));
         if (extras.containsKey(RemigesContract.Places.PLACE_LONGITUDE))
-            values.put(RemigesContract.Places.PLACE_LONGITUDE, extras.getDouble(RemigesContract.Places.PLACE_LONGITUDE));
+            newValues.put(RemigesContract.Places.PLACE_LONGITUDE, extras.getDouble(RemigesContract.Places.PLACE_LONGITUDE));
+        return newValues;
     }
 
     private void loadPlace() {
         Cursor cursor = mPlaceCursor;
         if (cursor.moveToFirst()) {
-            mPlaceName.setText(cursor.getString(PlaceQuery.NAME));
-            UIUtils.setTextViewDouble(mPlaceLatitude, cursor.getDouble(PlaceQuery.LATITUDE));
-            UIUtils.setTextViewDouble(mPlaceLongitude, cursor.getDouble(PlaceQuery.LONGITUDE));
+            ContentValues values = new ContentValues();
+            values.put(RemigesContract.Places.PLACE_NAME, cursor.getString(PlaceQuery.NAME));
+            values.put(RemigesContract.Places.PLACE_LATITUDE, cursor.getDouble(PlaceQuery.LATITUDE));
+            values.put(RemigesContract.Places.PLACE_LONGITUDE, cursor.getDouble(PlaceQuery.LONGITUDE));
+            setViewValues(values);
         }
     }
 
-    private boolean updatePlace() {
-        ContentValues values = new ContentValues();
-        values.put(RemigesContract.Places.PLACE_NAME, mPlaceName.getText().toString());
-        values.put(RemigesContract.Places.PLACE_LATITUDE, UIUtils.parseTextViewDouble(mPlaceLatitude));
-        values.put(RemigesContract.Places.PLACE_LONGITUDE, UIUtils.parseTextViewDouble(mPlaceLongitude));
-        return getActivity().getContentResolver().update(mPlaceUri, values, null, null) > 0;
+    private void insertPlace() {
+        FragmentActivity activity = getActivity();
+        Uri placeUri = activity.getContentResolver().insert(RemigesContract.Places.CONTENT_URI, getViewValues());
+        if (placeUri != null) {
+            Intent intent = new Intent();
+            intent.setData(placeUri);
+            activity.setResult(FragmentActivity.RESULT_OK, intent);
+        } else {
+            activity.setResult(FragmentActivity.RESULT_CANCELED);
+        }
+        activity.finish();
     }
 
-    private boolean deletePlace() {
-        return getActivity().getContentResolver().delete(mPlaceUri, null, null) > 0;
+    private void updatePlace() {
+        FragmentActivity activity = getActivity();
+        if (activity.getContentResolver().update(mPlaceUri, getViewValues(), null, null) > 0) {
+            Intent intent = new Intent();
+            intent.setData(mPlaceUri);
+            activity.setResult(FragmentActivity.RESULT_OK, intent);
+        } else {
+            activity.setResult(FragmentActivity.RESULT_CANCELED);
+        }
+        activity.finish();
     }
 
     @Override

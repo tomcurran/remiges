@@ -53,18 +53,6 @@ public class PlaceDetailActivity extends SimpleSinglePaneActivity implements Loa
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ACTIVITY_EDIT) {
-            if (resultCode == RESULT_OK) {
-                if (data.getAction().equals(Intent.ACTION_DELETE)) {
-                    onDeletePlace(data.getData());
-                }
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
     public void onEditPlace(Uri uri) {
         Intent intent = new Intent();
         intent.setData(uri);

@@ -108,6 +108,7 @@
     <!-- Place Edit -->
 
     <string name="title_place_edit">Place Edit</string>
+    <string name="title_place_insert">Place Insert</string>
     <string name="label_edit_place_name">Place name</string>
     <string name="label_edit_place_latitude">Latitude</string>
     <string name="label_edit_place_longitude">Longitude</string>
