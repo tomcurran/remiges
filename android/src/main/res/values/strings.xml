@@ -115,6 +115,10 @@
     <string name="hint_edit_place_latitude">Latitude</string>
     <string name="hint_edit_place_longitude">Longitude</string>
 
+    <!-- Edit Item -->
+
+    <string name="menu_edit_save">Save</string>
+
     <!-- Done Bar -->
 
     <string name="donebar_done">Done</string>

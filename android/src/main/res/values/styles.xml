@@ -6,6 +6,15 @@
         <item name="colorAccent">@color/accent</item>
     </style>
 
+    <style name="RemigesTheme.EditItem">
+        <item name="android:actionButtonStyle">@style/EditItemActionButtonStyle</item>
+    </style>
+
+    <style name="EditItemActionButtonStyle" parent="Widget.AppCompat.ActionButton">
+        <item name="android:minWidth">@dimen/minimum_width_edit_action_button</item>
+        <item name="android:textSize">@dimen/text_size_edit_action_button</item>
+    </style>
+
     <!-- Navigation Drawer -->
 
     <style name="NavigationDrawer">
