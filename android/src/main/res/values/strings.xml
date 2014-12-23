@@ -98,6 +98,7 @@
     <string name="label_detail_jumptype_jump_count">Jumps</string>
     <string name="label_detail_jumptype_jump_last">Last jump</string>
     <string name="detail_jumptype_last_jump_none">Never</string>
+    <string name="menu_jumptype_detail_delete">Delete</string>
 
     <!-- Jump Type Edit -->
 
