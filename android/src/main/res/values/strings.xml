@@ -100,7 +100,8 @@
 
     <!-- Jump Type Edit -->
 
-    <string name="title_jumptype_edit">Jump Type Edit</string>
+    <string name="title_jumptype_edit">Edit Jump Type</string>
+    <string name="title_jumptype_insert">New Jump Type</string>
     <string name="label_edit_jumptype_name">Jump Type</string>
     <string name="hint_edit_jumptype_name">Jump Type</string>
     <string name="menu_jumptype_edit_delete">Delete</string>

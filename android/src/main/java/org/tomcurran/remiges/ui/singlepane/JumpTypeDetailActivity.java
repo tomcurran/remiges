@@ -27,18 +27,6 @@ public class JumpTypeDetailActivity extends SimpleSinglePaneActivity implements 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ACTIVITY_EDIT) {
-            if (resultCode == RESULT_OK) {
-                if (data.getAction().equals(Intent.ACTION_DELETE)) {
-                    onDeleteJumpType(RemigesContract.JumpTypes.getJumpTypeId(data.getData()));
-                }
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
     public void onEditJumpType(String jumpTypeId) {
         Intent intent = new Intent();
         intent.setData(RemigesContract.JumpTypes.buildJumpTypeUri(jumpTypeId));
