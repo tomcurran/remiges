@@ -125,7 +125,7 @@ public class JumpTypeFragment extends Fragment implements
                     .commit();
         } else {
             intent.setClass(getActivity(), JumpTypeDetailActivity.class);
-            startActivityForResult(intent, ACTIVITY_EDIT);
+            startActivityForResult(intent, ACTIVITY_VIEW);
         }
     }
 
