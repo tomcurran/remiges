@@ -10,7 +10,7 @@ public class PlaceEditActivity extends EditItemActivity {
     private static final String TAG = makeLogTag(PlaceEditFragment.class);
 
     @Override
-    protected Fragment onCreatePane() {
+    protected Fragment onCreateEditPane() {
         return new PlaceEditFragment();
     }
 

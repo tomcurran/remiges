@@ -10,7 +10,7 @@ public class JumpTypeEditActivity extends EditItemActivity {
     private static final String TAG = makeLogTag(JumpTypeEditActivity.class);
 
     @Override
-    protected Fragment onCreatePane() {
+    protected Fragment onCreateEditPane() {
         return new JumpTypeEditFragment();
     }
 

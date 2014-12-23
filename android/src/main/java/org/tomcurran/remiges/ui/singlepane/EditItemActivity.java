@@ -19,12 +19,15 @@ public abstract class EditItemActivity extends SimpleSinglePaneActivity {
     }
 
     @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
+    protected Fragment onCreatePane() {
+        Fragment fragment = onCreateEditPane();
         if (!Callbacks.class.isInstance(fragment)) {
             throw new IllegalStateException("Fragment must implement activity's callbacks.");
         }
+        return fragment;
     }
+
+    protected abstract Fragment onCreateEditPane();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
