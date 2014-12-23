@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
+import org.tomcurran.remiges.ui.singlepane.EditItemActivity;
 import org.tomcurran.remiges.util.DbAdapter;
 import org.tomcurran.remiges.util.FragmentUtils;
 import org.tomcurran.remiges.util.UIUtils;
@@ -40,7 +42,8 @@ import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
-public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
+        EditItemActivity.Callbacks {
     private static final String TAG = makeLogTag(JumpEditFragment.class);
 
     private static final int STATE_INSERT = 0;
@@ -141,28 +144,19 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
             final String action = intent.getAction();
             if (action == null) {
-                LOGE(TAG, "No action provided for jump");
+                LOGE(TAG, "No intent action provided");
                 activity.setResult(FragmentActivity.RESULT_CANCELED);
                 activity.finish();
                 return;
             } else if (action.equals(Intent.ACTION_INSERT)) {
                 mState = STATE_INSERT;
-                ContentValues values = getDefaultValues();
-                if (intent.getExtras() != null) {
-                    passInExtras(intent.getExtras(), values);
-                }
-                mJumpUri = activity.getContentResolver().insert(RemigesContract.Jumps.CONTENT_URI, values);
-                if (mJumpUri == null) {
-                    LOGE(TAG, "Failed to insert new jump into " + intent.getData());
-                    activity.setResult(FragmentActivity.RESULT_CANCELED);
-                    activity.finish();
-                    return;
-                }
+                mJumpUri = null;
             } else if (action.equals(Intent.ACTION_EDIT)) {
                 mState = STATE_EDIT;
                 mJumpUri = intent.getData();
+                getLoaderManager().initLoader(LOADER_JUMP, null, this);
             } else {
-                LOGE(TAG, "Unknown action. Exiting");
+                LOGE(TAG, "Unknown intent action provided");
                 activity.setResult(FragmentActivity.RESULT_CANCELED);
                 activity.finish();
                 return;
@@ -173,15 +167,9 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
             mTime.set(savedInstanceState.getLong(SAVE_SATE_JUMP_TIME));
         }
 
-        Intent intent = new Intent();
-        switch (mState) {
-            case STATE_INSERT: intent.setAction(Intent.ACTION_INSERT); break;
-            case STATE_EDIT:   intent.setAction(Intent.ACTION_EDIT);   break;
+        if (mState == STATE_INSERT) {
+            activity.setTitle(R.string.title_jump_insert);
         }
-        intent.setData(mJumpUri);
-        activity.setResult(FragmentActivity.RESULT_OK, intent);
-
-        getLoaderManager().initLoader(LOADER_JUMP, null, this);
     }
 
     @Override
@@ -214,6 +202,22 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (savedInstanceState == null) {
+            ContentValues values = getDefaultValues();
+            if (mState == STATE_INSERT) {
+                Bundle extras = BaseActivity.fragmentArgumentsToIntent(getArguments()).getExtras();
+                if (extras != null) {
+                    values = passIntentValues(extras, values);
+                }
+            }
+            setViewValues(values);
+        }
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(SAVE_STATE_JUMP_URI, mJumpUri);
@@ -236,14 +240,15 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         mCallbacks = sDummyCallbacks;
     }
 
-    public String barDone() {
-        updateJump();
-        return RemigesContract.Jumps.getJumpId(mJumpUri);
-    }
-
-    public void barCancel() {
-        if (mState == STATE_INSERT) {
-            deleteJump();
+    @Override
+    public void onSaveItem() {
+        switch (mState) {
+            case STATE_INSERT:
+                insertJump();
+                break;
+            case STATE_EDIT:
+                updateJump();
+                break;
         }
     }
 
@@ -264,39 +269,70 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         return values;
     }
 
-    private void passInExtras(Bundle extras, ContentValues values) {
+    private ContentValues getViewValues() {
+        ContentValues values = new ContentValues();
+        values.put(RemigesContract.Jumps.JUMP_NUMBER, UIUtils.parseTextViewInt(mJumpNumber));
+        values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
+        values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, mJumpDescription.getText().toString());
+        values.put(RemigesContract.Jumps.PLACE_ID, mPlaceId);
+        int way = UIUtils.parseTextViewInt(mJumpWay);
+        values.put(RemigesContract.Jumps.JUMP_WAY, way > 1 ? way : 1);
+        values.put(RemigesContract.Jumps.JUMPTYPE_ID, mJumpTypeId);
+        values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, UIUtils.parseTextViewInt(mJumpExitAltitude));
+        values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, UIUtils.parseTextViewInt(mJumpDeploymentAltitude));
+        values.put(RemigesContract.Jumps.JUMP_DELAY, UIUtils.parseTextViewInt(mJumpDelay));
+        return values;
+    }
+
+    private void setViewValues(ContentValues values) {
+        mJumpNumber.setText(values.getAsString(RemigesContract.Jumps.JUMP_NUMBER));
+        setDate(values.getAsLong(RemigesContract.Jumps.JUMP_DATE));
+        setPlace(values.getAsLong(RemigesContract.Jumps.PLACE_ID));
+        mJumpWay.setText(values.getAsString(RemigesContract.Jumps.JUMP_WAY));
+        setJumpType(values.getAsLong(RemigesContract.Jumps.JUMPTYPE_ID));
+        UIUtils.setTextViewInt(mJumpExitAltitude, values.getAsInteger(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE));
+        UIUtils.setTextViewInt(mJumpDeploymentAltitude, values.getAsInteger(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE));
+        UIUtils.setTextViewInt(mJumpDelay, values.getAsInteger(RemigesContract.Jumps.JUMP_DELAY));
+        mJumpDescription.setText(values.getAsString(RemigesContract.Jumps.JUMP_DESCRIPTION));
+    }
+
+    private ContentValues passIntentValues(Bundle extras, ContentValues values) {
+        ContentValues newValues = new ContentValues(values);
         if (extras.containsKey(RemigesContract.Jumps.JUMP_NUMBER))
-            values.put(RemigesContract.Jumps.JUMP_NUMBER, extras.getInt(RemigesContract.Jumps.JUMP_NUMBER));
+            newValues.put(RemigesContract.Jumps.JUMP_NUMBER, extras.getInt(RemigesContract.Jumps.JUMP_NUMBER));
         if (extras.containsKey(RemigesContract.Jumps.JUMP_DATE))
-            values.put(RemigesContract.Jumps.JUMP_DATE, extras.getLong(RemigesContract.Jumps.JUMP_DATE));
+            newValues.put(RemigesContract.Jumps.JUMP_DATE, extras.getLong(RemigesContract.Jumps.JUMP_DATE));
         if (extras.containsKey(RemigesContract.Jumps.JUMP_DESCRIPTION))
-            values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, extras.getString(RemigesContract.Jumps.JUMP_DESCRIPTION));
+            newValues.put(RemigesContract.Jumps.JUMP_DESCRIPTION, extras.getString(RemigesContract.Jumps.JUMP_DESCRIPTION));
         if (extras.containsKey(RemigesContract.Jumps.JUMP_WAY))
-            values.put(RemigesContract.Jumps.JUMP_WAY, extras.getInt(RemigesContract.Jumps.JUMP_WAY));
+            newValues.put(RemigesContract.Jumps.JUMP_WAY, extras.getInt(RemigesContract.Jumps.JUMP_WAY));
         if (extras.containsKey(RemigesContract.Jumps.PLACE_ID))
-            values.put(RemigesContract.Jumps.PLACE_ID, extras.getLong(RemigesContract.Jumps.PLACE_ID));
+            newValues.put(RemigesContract.Jumps.PLACE_ID, extras.getLong(RemigesContract.Jumps.PLACE_ID));
         if (extras.containsKey(RemigesContract.Jumps.JUMPTYPE_ID))
-            values.put(RemigesContract.Jumps.JUMPTYPE_ID, extras.getLong(RemigesContract.Jumps.JUMPTYPE_ID));
+            newValues.put(RemigesContract.Jumps.JUMPTYPE_ID, extras.getLong(RemigesContract.Jumps.JUMPTYPE_ID));
         if (extras.containsKey(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE))
-            values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, extras.getInt(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE));
+            newValues.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, extras.getInt(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE));
         if (extras.containsKey(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE))
-            values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, extras.getInt(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE));
+            newValues.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, extras.getInt(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE));
         if (extras.containsKey(RemigesContract.Jumps.JUMP_DELAY))
-            values.put(RemigesContract.Jumps.JUMP_DELAY, extras.getInt(RemigesContract.Jumps.JUMP_DELAY));
+            newValues.put(RemigesContract.Jumps.JUMP_DELAY, extras.getInt(RemigesContract.Jumps.JUMP_DELAY));
+        return newValues;
     }
 
     private void loadJump() {
-        Cursor jumpCursor = mJumpCursor;
-        if (jumpCursor.moveToFirst()) {
-            mJumpNumber.setText(jumpCursor.getString(JumpQuery.NUMBER));
-            setDate(jumpCursor.getLong(JumpQuery.DATE));
-            setPlace(jumpCursor.getLong(JumpQuery.PLACE));
-            mJumpWay.setText(jumpCursor.getString(JumpQuery.WAY));
-            setJumpType(jumpCursor.getLong(JumpQuery.TYPE));
-            UIUtils.setTextViewInt(mJumpExitAltitude, jumpCursor.getInt(JumpQuery.EXIT_ALTITUDE));
-            UIUtils.setTextViewInt(mJumpDeploymentAltitude, jumpCursor.getInt(JumpQuery.DEPLOYMENT_ALTITUDE));
-            UIUtils.setTextViewInt(mJumpDelay, jumpCursor.getInt(JumpQuery.DELAY));
-            mJumpDescription.setText(jumpCursor.getString(JumpQuery.DESCRIPTION));
+        Cursor cursor = mJumpCursor;
+        if (cursor.moveToFirst()) {
+            ContentValues values = new ContentValues();
+            values.put(RemigesContract.Jumps.JUMP_NUMBER, cursor.getInt(JumpQuery.NUMBER));
+            values.put(RemigesContract.Jumps.JUMP_DATE, cursor.getLong(JumpQuery.DATE));
+            values.put(RemigesContract.Jumps.PLACE_ID, cursor.getLong(JumpQuery.PLACE));
+            values.put(RemigesContract.Jumps.JUMP_WAY, cursor.getInt(JumpQuery.WAY));
+            values.put(RemigesContract.Jumps.JUMPTYPE_ID, cursor.getLong(JumpQuery.TYPE));
+            values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, cursor.getInt(JumpQuery.EXIT_ALTITUDE));
+            values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, cursor.getInt(JumpQuery.DEPLOYMENT_ALTITUDE));
+            values.put(RemigesContract.Jumps.JUMP_DELAY, cursor.getInt(JumpQuery.DELAY));
+            values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, cursor.getString(JumpQuery.DESCRIPTION));
+            setViewValues(values);
         }
     }
 
@@ -331,23 +367,29 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         updateJumpTypeSpinner();
     }
 
-    private boolean updateJump() {
-        ContentValues values = new ContentValues();
-        values.put(RemigesContract.Jumps.JUMP_NUMBER, UIUtils.parseTextViewInt(mJumpNumber));
-        values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
-        values.put(RemigesContract.Jumps.JUMP_DESCRIPTION, mJumpDescription.getText().toString());
-        values.put(RemigesContract.Jumps.PLACE_ID, mPlaceId);
-        int way = UIUtils.parseTextViewInt(mJumpWay);
-        values.put(RemigesContract.Jumps.JUMP_WAY, way > 1 ? way : 1);
-        values.put(RemigesContract.Jumps.JUMPTYPE_ID, mJumpTypeId);
-        values.put(RemigesContract.Jumps.JUMP_EXIT_ALTITUDE, UIUtils.parseTextViewInt(mJumpExitAltitude));
-        values.put(RemigesContract.Jumps.JUMP_DEPLOYMENT_ALTITUDE, UIUtils.parseTextViewInt(mJumpDeploymentAltitude));
-        values.put(RemigesContract.Jumps.JUMP_DELAY, UIUtils.parseTextViewInt(mJumpDelay));
-        return getActivity().getContentResolver().update(mJumpUri, values, null, null) > 0;
+    private void insertJump() {
+        FragmentActivity activity = getActivity();
+        Uri jumpUri = activity.getContentResolver().insert(RemigesContract.Jumps.CONTENT_URI, getViewValues());
+        if (jumpUri != null) {
+            Intent intent = new Intent();
+            intent.setData(jumpUri);
+            activity.setResult(FragmentActivity.RESULT_OK, intent);
+        } else {
+            activity.setResult(FragmentActivity.RESULT_CANCELED);
+        }
+        activity.finish();
     }
 
-    private boolean deleteJump() {
-        return getActivity().getContentResolver().delete(mJumpUri, null, null) > 0;
+    private void updateJump() {
+        FragmentActivity activity = getActivity();
+        if (activity.getContentResolver().update(mJumpUri, getViewValues(), null, null) > 0) {
+            Intent intent = new Intent();
+            intent.setData(mJumpUri);
+            activity.setResult(FragmentActivity.RESULT_OK, intent);
+        } else {
+            activity.setResult(FragmentActivity.RESULT_CANCELED);
+        }
+        activity.finish();
     }
 
     @Override

@@ -52,18 +52,6 @@ public class JumpDetailActivity extends SimpleSinglePaneActivity implements Load
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ACTIVITY_EDIT) {
-            if (resultCode == RESULT_OK) {
-                if (data.getAction().equals(Intent.ACTION_DELETE)) {
-                    onDeleteJump(data.getData());
-                }
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
     public void onEditJump(Uri uri) {
         Intent intent = new Intent();
         intent.setData(uri);

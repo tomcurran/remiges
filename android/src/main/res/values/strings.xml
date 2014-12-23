@@ -47,7 +47,8 @@
 
     <!-- Jump Edit -->
 
-    <string name="title_jump_edit">Jump Edit</string>
+    <string name="title_jump_edit">Edit Jump</string>
+    <string name="title_jump_insert">New Jump</string>
     <string name="label_edit_jump_number">Jump Number</string>
     <string name="label_edit_jump_date">Date</string>
     <string name="label_edit_jump_place">Place</string>
