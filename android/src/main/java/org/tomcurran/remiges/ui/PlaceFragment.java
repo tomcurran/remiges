@@ -139,6 +139,7 @@ public class PlaceFragment extends Fragment implements
         intent.setData(RemigesContract.Places.CONTENT_URI);
         intent.setAction(Intent.ACTION_INSERT);
         intent.setClass(getActivity(), PlaceEditActivity.class);
+        intent.putExtras(getActivity().getIntent());
         startActivityForResult(intent, ACTIVITY_INSERT);
     }
 

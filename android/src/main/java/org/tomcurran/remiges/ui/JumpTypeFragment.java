@@ -142,6 +142,7 @@ public class JumpTypeFragment extends Fragment implements
         intent.setData(RemigesContract.JumpTypes.CONTENT_URI);
         intent.setAction(Intent.ACTION_INSERT);
         intent.setClass(getActivity(), JumpTypeEditActivity.class);
+        intent.putExtras(getActivity().getIntent());
         startActivityForResult(intent, ACTIVITY_INSERT);
     }
 
