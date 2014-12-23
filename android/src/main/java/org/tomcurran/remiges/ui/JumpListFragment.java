@@ -135,10 +135,12 @@ public class JumpListFragment extends Fragment implements
     public void setSelectedJump(String jumpId) {
         Long id = Long.parseLong(jumpId);
         ListView listView = mHeaderListView.getWrappedList();
-        for (int i = 0; i < listView.getCount(); i++) {
-            if (id == ((Cursor) listView.getItemAtPosition(i)).getLong(JumpsQuery._ID)) {
-                listView.setSelection(i);
-                break;
+        if (listView.getSelectedItemId() != id) {
+            for (int i = 0; i < listView.getCount(); i++) {
+                if (id == ((Cursor) listView.getItemAtPosition(i)).getLong(JumpsQuery._ID)) {
+                    listView.setSelection(i);
+                    break;
+                }
             }
         }
     }
