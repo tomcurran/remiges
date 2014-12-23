@@ -28,6 +28,7 @@
 
         <TextView
             android:id="@+id/edit_jump_date"
+            android:freezesText="true"
             tools:text="@string/tools_text_jump_detail_date"
             style="@style/EditJump.Date" />
 
