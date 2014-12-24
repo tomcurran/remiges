@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -32,6 +34,8 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
     private static final String TAG = makeLogTag(PlaceDetailFragment.class);
 
     private static final String SAVE_STATE_PLACE_URI = "place_uri";
+
+    private static final int DIALOG_FRAGMENT = 0;
 
     private static final int LOADER_PLACE_DETAIL = 0;
     private static final int LOADER_PLACE_STAT_JUMP_COUNT = 1;
@@ -127,10 +131,24 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
                 editPlace();
                 return true;
             case R.id.menu_place_detail_delete:
-                deletePlace();
+                DialogFragment dialog = DeleteItemDialogFragment.newInstance(R.string.dialog_place_delete_message);
+                dialog.setTargetFragment(this, DIALOG_FRAGMENT);
+                dialog.show(getFragmentManager().beginTransaction(), "dialog");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case DIALOG_FRAGMENT:
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    deletePlace();
+                }
+                break;
         }
     }
 
