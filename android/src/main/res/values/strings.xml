@@ -123,11 +123,6 @@
 
     <string name="menu_edit_save">Save</string>
 
-    <!-- Done Bar -->
-
-    <string name="donebar_done">Done</string>
-    <string name="donebar_cancel">Cancel</string>
-
     <!-- Settings -->
 
     <string name="title_settings">Settings</string>
