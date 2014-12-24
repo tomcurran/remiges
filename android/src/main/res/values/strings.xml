@@ -99,6 +99,7 @@
     <string name="label_detail_jumptype_jump_last">Last jump</string>
     <string name="detail_jumptype_last_jump_none">Never</string>
     <string name="menu_jumptype_detail_delete">Delete</string>
+    <string name="dialog_jumptype_delete_message">Delete this jump type?</string>
 
     <!-- Jump Type Edit -->
 
@@ -118,6 +119,11 @@
     <string name="hint_edit_place_name">Place Name</string>
     <string name="hint_edit_place_latitude">Latitude</string>
     <string name="hint_edit_place_longitude">Longitude</string>
+
+    <!-- Delete Item Dialog -->
+
+    <string name="dialog_item_delete_positive">OK</string>
+    <string name="dialog_item_delete_negative">Cancel</string>
 
     <!-- Edit Item -->
 

@@ -7,7 +7,9 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -31,6 +33,8 @@ public class JumpTypeDetailFragment extends Fragment implements LoaderManager.Lo
     private static final String TAG = makeLogTag(JumpTypeDetailFragment.class);
 
     private static final String SAVE_STATE_JUMPTYPE_URI = "jumptype_uri";
+
+    private static final int DIALOG_FRAGMENT = 0;
 
     private static final int LOADER_JUMPTYPE_DETAIL = 0;
     private static final int LOADER_JUMPTYPE_STAT_JUMP_COUNT = 1;
@@ -125,10 +129,24 @@ public class JumpTypeDetailFragment extends Fragment implements LoaderManager.Lo
                 editJumpType();
                 return true;
             case R.id.menu_jumptype_detail_delete:
-                deleteJumpType();
+                DialogFragment dialog = DeleteItemDialogFragment.newInstance(R.string.dialog_jumptype_delete_message);
+                dialog.setTargetFragment(this, DIALOG_FRAGMENT);
+                dialog.show(getFragmentManager().beginTransaction(), "dialog");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case DIALOG_FRAGMENT:
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    deleteJumpType();
+                }
+                break;
         }
     }
 
