@@ -92,6 +92,20 @@ public class JumpFragment extends Fragment implements
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case ACTIVITY_INSERT:
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    if (mTwoPane) {
+                        setDetailFragment(data);
+                    }
+                }
+                break;
+        }
+    }
+
+    @Override
     public void onJumpSelected(Uri uri) {
         viewJump(uri);
     }
@@ -115,11 +129,7 @@ public class JumpFragment extends Fragment implements
         Intent intent = new Intent();
         intent.setData(uri);
         if (mTwoPane) {
-            JumpDetailFragment fragment = new JumpDetailFragment();
-            fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-            getChildFragmentManager().beginTransaction()
-                    .replace(R.id.jump_detail_container, fragment)
-                    .commit();
+            setDetailFragment(intent);
         } else {
             intent.setClass(getActivity(), JumpDetailActivity.class);
             startActivityForResult(intent, ACTIVITY_VIEW);
@@ -153,6 +163,14 @@ public class JumpFragment extends Fragment implements
                         .commit();
             }
         }
+    }
+
+    private void setDetailFragment(Intent intent) {
+        JumpDetailFragment fragment = new JumpDetailFragment();
+        fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.jump_detail_container, fragment)
+                .commitAllowingStateLoss();
     }
 
 }

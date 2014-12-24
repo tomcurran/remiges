@@ -95,6 +95,20 @@ public class JumpTypeFragment extends Fragment implements
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case ACTIVITY_INSERT:
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    if (mTwoPane) {
+                        setDetailFragment(data);
+                    }
+                }
+                break;
+        }
+    }
+
+    @Override
     public void onJumpTypeSelected(String jumpTypeId) {
         viewJumpType(RemigesContract.JumpTypes.buildJumpTypeUri(jumpTypeId));
     }
@@ -118,11 +132,7 @@ public class JumpTypeFragment extends Fragment implements
         Intent intent = new Intent();
         intent.setData(uri);
         if (mTwoPane) {
-            JumpTypeDetailFragment fragment = new JumpTypeDetailFragment();
-            fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-            getChildFragmentManager().beginTransaction()
-                    .replace(R.id.jumptype_detail_container, fragment)
-                    .commit();
+            setDetailFragment(intent);
         } else {
             intent.setClass(getActivity(), JumpTypeDetailActivity.class);
             startActivityForResult(intent, ACTIVITY_VIEW);
@@ -156,6 +166,14 @@ public class JumpTypeFragment extends Fragment implements
                         .commit();
             }
         }
+    }
+
+    private void setDetailFragment(Intent intent) {
+        JumpTypeDetailFragment fragment = new JumpTypeDetailFragment();
+        fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.jumptype_detail_container, fragment)
+                .commitAllowingStateLoss();
     }
 
 }

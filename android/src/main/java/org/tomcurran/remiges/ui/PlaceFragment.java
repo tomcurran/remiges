@@ -92,6 +92,20 @@ public class PlaceFragment extends Fragment implements
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case ACTIVITY_INSERT:
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    if (mTwoPane) {
+                        setDetailFragment(data);
+                    }
+                }
+                break;
+        }
+    }
+
+    @Override
     public void onPlaceSelected(Uri uri) {
         viewPlace(uri);
     }
@@ -115,11 +129,7 @@ public class PlaceFragment extends Fragment implements
         Intent intent = new Intent();
         intent.setData(uri);
         if (mTwoPane) {
-            PlaceDetailFragment fragment = new PlaceDetailFragment();
-            fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
-            getChildFragmentManager().beginTransaction()
-                    .replace(R.id.place_detail_container, fragment)
-                    .commit();
+            setDetailFragment(intent);
         } else {
             intent.setClass(getActivity(), PlaceDetailActivity.class);
             startActivityForResult(intent, ACTIVITY_VIEW);
@@ -153,6 +163,14 @@ public class PlaceFragment extends Fragment implements
                         .commit();
             }
         }
+    }
+
+    private void setDetailFragment(Intent intent) {
+        PlaceDetailFragment fragment = new PlaceDetailFragment();
+        fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.place_detail_container, fragment)
+                .commitAllowingStateLoss();
     }
 
 }
