@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -35,6 +37,8 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     private static final String TAG = makeLogTag(JumpDetailFragment.class);
 
     private static final String SAVE_STATE_JUMP_URI = "jump_uri";
+
+    private static final int DIALOG_FRAGMENT = 0;
 
     private Uri mJumpUri;
     private Cursor mJumpCursor;
@@ -140,10 +144,24 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
                 editJump();
                 return true;
             case R.id.menu_jump_detail_delete:
-                deleteJump();
+                DialogFragment dialog = DeleteItemDialogFragment.newInstance(R.string.dialog_jump_delete_message);
+                dialog.setTargetFragment(this, DIALOG_FRAGMENT);
+                dialog.show(getFragmentManager().beginTransaction(), "dialog");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case DIALOG_FRAGMENT:
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    deleteJump();
+                }
+                break;
         }
     }
 

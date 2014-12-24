@@ -44,6 +44,7 @@
     <string name="format_detail_jump_date">EEEE, d MMMM, yyyy</string>
     <string name="menu_jump_detail_edit">Edit</string>
     <string name="menu_jump_detail_delete">Delete</string>
+    <string name="dialog_jump_delete_message">Delete this jump?</string>
 
     <!-- Jump Edit -->
 
