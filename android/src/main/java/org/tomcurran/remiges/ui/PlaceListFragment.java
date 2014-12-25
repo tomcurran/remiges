@@ -27,9 +27,9 @@ import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 public class PlaceListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = makeLogTag(PlaceListFragment.class);
 
-    private static final String STATE_ACTIVATED_POSITION = "activated_position";
+    private static final String SAVE_STATE_PLACE_URI = "place_uri";
 
-    private int mActivatedPosition = ListView.INVALID_POSITION;
+    private Uri mPlaceUri;
 
     private ListView mListView;
 
@@ -57,6 +57,12 @@ public class PlaceListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(SAVE_STATE_PLACE_URI)) {
+                mPlaceUri = savedInstanceState.getParcelable(SAVE_STATE_PLACE_URI);
+            }
+        }
 
         mAdapter = new PlaceListAdapter(getActivity());
 
@@ -92,10 +98,6 @@ public class PlaceListFragment extends Fragment implements LoaderManager.LoaderC
         super.onViewCreated(view, savedInstanceState);
 
         setActivateOnItemClick(getResources().getBoolean(R.bool.has_two_panes));
-
-        if (savedInstanceState != null && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
-            setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
-        }
     }
 
     @Override
@@ -116,8 +118,8 @@ public class PlaceListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (mActivatedPosition != ListView.INVALID_POSITION) {
-            outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
+        if (mPlaceUri != null) {
+            outState.putParcelable(SAVE_STATE_PLACE_URI, mPlaceUri);
         }
     }
 
@@ -125,13 +127,26 @@ public class PlaceListFragment extends Fragment implements LoaderManager.LoaderC
         mListView.setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
     }
 
-    private void setActivatedPosition(int position) {
-        if (position == ListView.INVALID_POSITION) {
-            mListView.setItemChecked(mActivatedPosition, false);
-        } else {
-            mListView.setItemChecked(position, true);
+    public void setSelectedPlace(Uri uri) {
+        mPlaceUri = uri;
+        updateSelectedPlace();
+    }
+
+    private void updateSelectedPlace() {
+        if (mPlaceUri != null) {
+            Long id = Long.parseLong(RemigesContract.JumpTypes.getJumpTypeId(mPlaceUri));
+            ListView listView = mListView;
+            if (listView.getSelectedItemId() != id) {
+                int listCount = listView.getCount();
+                for (int i = 0; i < listCount; i++) {
+                    if (id == ((Cursor) listView.getItemAtPosition(i)).getLong(PlaceQuery._ID)) {
+                        listView.setItemChecked(i, true);
+                        listView.setSelection(i);
+                        break;
+                    }
+                }
+            }
         }
-        mActivatedPosition = position;
     }
 
     @Override
@@ -149,6 +164,7 @@ public class PlaceListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mAdapter.swapCursor(data);
+        updateSelectedPlace();
     }
 
     @Override

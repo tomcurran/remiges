@@ -178,6 +178,7 @@ public class PlaceEditFragment extends Fragment implements LoaderManager.LoaderC
         Uri placeUri = activity.getContentResolver().insert(RemigesContract.Places.CONTENT_URI, getViewValues());
         if (placeUri != null) {
             Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_INSERT);
             intent.setData(placeUri);
             activity.setResult(FragmentActivity.RESULT_OK, intent);
         } else {
@@ -190,6 +191,7 @@ public class PlaceEditFragment extends Fragment implements LoaderManager.LoaderC
         FragmentActivity activity = getActivity();
         if (activity.getContentResolver().update(mPlaceUri, getViewValues(), null, null) > 0) {
             Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_EDIT);
             intent.setData(mPlaceUri);
             activity.setResult(FragmentActivity.RESULT_OK, intent);
         } else {
