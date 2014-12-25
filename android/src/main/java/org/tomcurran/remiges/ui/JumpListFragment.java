@@ -34,9 +34,9 @@ public class JumpListFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor>, JumpDetailFragment.Callbacks {
     private static final String TAG = makeLogTag(JumpListFragment.class);
 
-    private static final String STATE_ACTIVATED_POSITION = "activated_position";
+    private static final String SAVE_STATE_JUMP_URI = "jump_uri";
 
-    private int mActivatedPosition = ListView.INVALID_POSITION;
+    private Uri mJumpUri;
 
     private StickyListHeadersListView mHeaderListView;
 
@@ -64,6 +64,12 @@ public class JumpListFragment extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(SAVE_STATE_JUMP_URI)) {
+                mJumpUri = savedInstanceState.getParcelable(SAVE_STATE_JUMP_URI);
+            }
+        }
 
         mAdapter = new JumpListAdapter(getActivity());
 
@@ -99,10 +105,6 @@ public class JumpListFragment extends Fragment implements
         super.onViewCreated(view, savedInstanceState);
 
         setActivateOnItemClick(getResources().getBoolean(R.bool.has_two_panes));
-
-        if (savedInstanceState != null && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
-            setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
-        }
     }
 
     @Override
@@ -123,8 +125,8 @@ public class JumpListFragment extends Fragment implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (mActivatedPosition != ListView.INVALID_POSITION) {
-            outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
+        if (mJumpUri != null) {
+            outState.putParcelable(SAVE_STATE_JUMP_URI, mJumpUri);
         }
     }
 
@@ -132,26 +134,26 @@ public class JumpListFragment extends Fragment implements
         mHeaderListView.setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
     }
 
-    public void setSelectedJump(String jumpId) {
-        Long id = Long.parseLong(jumpId);
-        ListView listView = mHeaderListView.getWrappedList();
-        if (listView.getSelectedItemId() != id) {
-            for (int i = 0; i < listView.getCount(); i++) {
-                if (id == ((Cursor) listView.getItemAtPosition(i)).getLong(JumpsQuery._ID)) {
-                    listView.setSelection(i);
-                    break;
+    public void setSelectedJump(Uri uri) {
+        mJumpUri = uri;
+        updateSelectedJump();
+    }
+
+    private void updateSelectedJump() {
+        if (mJumpUri != null) {
+            Long id = Long.parseLong(RemigesContract.Jumps.getJumpId(mJumpUri));
+            StickyListHeadersListView headerListView = mHeaderListView;
+            if (headerListView.getWrappedList().getSelectedItemId() != id) {
+                int listCount = headerListView.getCount();
+                for (int i = 0; i < listCount; i++) {
+                    if (id == ((Cursor) headerListView.getItemAtPosition(i)).getLong(JumpsQuery._ID)) {
+                        headerListView.setItemChecked(i, true);
+                        headerListView.setSelection(i);
+                        break;
+                    }
                 }
             }
         }
-    }
-
-    private void setActivatedPosition(int position) {
-        if (position == ListView.INVALID_POSITION) {
-            mHeaderListView.setItemChecked(mActivatedPosition, false);
-        } else {
-            mHeaderListView.setItemChecked(position, true);
-        }
-        mActivatedPosition = position;
     }
 
     @Override
@@ -177,6 +179,7 @@ public class JumpListFragment extends Fragment implements
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         mAdapter.changeCursor(cursor);
+        updateSelectedJump();
     }
 
     @Override

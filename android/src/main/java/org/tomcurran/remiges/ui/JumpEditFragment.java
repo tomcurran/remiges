@@ -372,6 +372,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         Uri jumpUri = activity.getContentResolver().insert(RemigesContract.Jumps.CONTENT_URI, getViewValues());
         if (jumpUri != null) {
             Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_INSERT);
             intent.setData(jumpUri);
             activity.setResult(FragmentActivity.RESULT_OK, intent);
         } else {
@@ -384,6 +385,7 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         FragmentActivity activity = getActivity();
         if (activity.getContentResolver().update(mJumpUri, getViewValues(), null, null) > 0) {
             Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_EDIT);
             intent.setData(mJumpUri);
             activity.setResult(FragmentActivity.RESULT_OK, intent);
         } else {

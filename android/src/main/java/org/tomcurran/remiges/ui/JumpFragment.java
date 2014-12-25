@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,6 +97,15 @@ public class JumpFragment extends Fragment implements
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            case ACTIVITY_EDIT:
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    new Handler().post(new Runnable() {
+                        public void run() {
+                            setListSelection(data.getData());
+                        }
+                    });
+                }
+                break;
             case ACTIVITY_INSERT:
                 if (resultCode == FragmentActivity.RESULT_OK) {
                     new Handler().post(new Runnable() {
@@ -103,6 +113,7 @@ public class JumpFragment extends Fragment implements
                             if (mTwoPane) {
                                 setDetailFragment(data);
                             }
+                            setListSelection(data.getData());
                         }
                     });
                 }
@@ -176,6 +187,11 @@ public class JumpFragment extends Fragment implements
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.jump_detail_container, fragment)
                 .commit();
+    }
+
+    private void setListSelection(Uri uri) {
+        ((JumpListFragment) getChildFragmentManager().findFragmentByTag(FRAGMENT_JUMP_LIST))
+                .setSelectedJump(uri);
     }
 
 }
