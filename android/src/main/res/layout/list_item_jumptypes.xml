@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:padding="@dimen/list_item_padding"
+    android:background="@drawable/list_item_selector"
     android:minHeight="@dimen/list_item_height"
     android:ellipsize="end"
     android:maxLines="1"

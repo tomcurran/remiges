@@ -24,6 +24,9 @@
     <color name="card_table_label">@color/secondary_text</color>
     <color name="card_table_content">@color/primary_text</color>
 
+    <color name="list_item_background_pressed">@color/material_black_dividers</color>
+    <color name="list_item_background_active">#42FFC107</color> <!-- material_amber_500 12% -->
+
     <color name="edit_label">#57000000</color> <!-- black 34% -->
     <color name="edit_label_focus">@color/accent</color>
     <color name="edit_add_label">@color/abc_secondary_text_material_light</color>

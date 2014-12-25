@@ -5,7 +5,8 @@
     android:id="@+id/list_item_jump"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:padding="@dimen/list_item_padding">
+    android:padding="@dimen/list_item_padding"
+    android:background="@drawable/list_item_selector">
 
     <TextView
         android:id="@+id/list_item_jump_number"
