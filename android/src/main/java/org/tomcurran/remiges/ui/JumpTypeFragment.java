@@ -4,6 +4,7 @@ package org.tomcurran.remiges.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -95,14 +96,18 @@ public class JumpTypeFragment extends Fragment implements
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case ACTIVITY_INSERT:
                 if (resultCode == FragmentActivity.RESULT_OK) {
-                    if (mTwoPane) {
-                        setDetailFragment(data);
-                    }
+                    new Handler().post(new Runnable() {
+                        public void run() {
+                            if (mTwoPane) {
+                                setDetailFragment(data);
+                            }
+                        }
+                    });
                 }
                 break;
         }
@@ -173,7 +178,7 @@ public class JumpTypeFragment extends Fragment implements
         fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.jumptype_detail_container, fragment)
-                .commitAllowingStateLoss();
+                .commit();
     }
 
 }
