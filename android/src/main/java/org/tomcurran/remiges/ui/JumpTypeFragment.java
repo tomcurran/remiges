@@ -99,6 +99,15 @@ public class JumpTypeFragment extends Fragment implements
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            case ACTIVITY_EDIT:
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    new Handler().post(new Runnable() {
+                        public void run() {
+                            setListSelection(data.getData());
+                        }
+                    });
+                }
+                break;
             case ACTIVITY_INSERT:
                 if (resultCode == FragmentActivity.RESULT_OK) {
                     new Handler().post(new Runnable() {
@@ -106,6 +115,7 @@ public class JumpTypeFragment extends Fragment implements
                             if (mTwoPane) {
                                 setDetailFragment(data);
                             }
+                            setListSelection(data.getData());
                         }
                     });
                 }
@@ -179,6 +189,11 @@ public class JumpTypeFragment extends Fragment implements
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.jumptype_detail_container, fragment)
                 .commit();
+    }
+
+    private void setListSelection(Uri uri) {
+        ((JumpTypeListFragment) getChildFragmentManager().findFragmentByTag(FRAGMENT_JUMPTYPE_LIST))
+                .setSelectedJumpType(uri);
     }
 
 }

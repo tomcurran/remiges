@@ -161,6 +161,7 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
         Uri jumpTypeUri = activity.getContentResolver().insert(RemigesContract.JumpTypes.CONTENT_URI, getViewValues());
         if (jumpTypeUri != null) {
             Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_INSERT);
             intent.setData(jumpTypeUri);
             activity.setResult(FragmentActivity.RESULT_OK, intent);
         } else {
@@ -173,6 +174,7 @@ public class JumpTypeEditFragment extends Fragment implements LoaderManager.Load
         FragmentActivity activity = getActivity();
         if (activity.getContentResolver().update(mJumpTypeUri, getViewValues(), null, null) > 0) {
             Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_EDIT);
             intent.setData(mJumpTypeUri);
             activity.setResult(FragmentActivity.RESULT_OK, intent);
         } else {

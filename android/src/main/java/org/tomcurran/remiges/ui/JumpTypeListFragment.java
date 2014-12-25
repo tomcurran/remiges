@@ -3,6 +3,7 @@ package org.tomcurran.remiges.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -26,9 +27,9 @@ import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 public class JumpTypeListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = makeLogTag(JumpDetailFragment.class);
 
-    private static final String STATE_ACTIVATED_POSITION = "activated_position";
+    private static final String SAVE_STATE_JUMPTYPE_URI = "jumptype_uri";
 
-    private int mActivatedPosition = ListView.INVALID_POSITION;
+    private Uri mJumpTypeUri;
 
     private ListView mListView;
 
@@ -56,6 +57,13 @@ public class JumpTypeListFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(SAVE_STATE_JUMPTYPE_URI)) {
+                mJumpTypeUri = savedInstanceState.getParcelable(SAVE_STATE_JUMPTYPE_URI);
+            }
+        }
+
         mAdapter = new JumpTypeListAdapter(getActivity());
         getLoaderManager().initLoader(0, null, this);
     }
@@ -89,10 +97,6 @@ public class JumpTypeListFragment extends Fragment implements LoaderManager.Load
         super.onViewCreated(view, savedInstanceState);
 
         setActivateOnItemClick(getResources().getBoolean(R.bool.has_two_panes));
-
-        if (savedInstanceState != null && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
-            setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
-        }
     }
 
     @Override
@@ -113,8 +117,8 @@ public class JumpTypeListFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (mActivatedPosition != ListView.INVALID_POSITION) {
-            outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
+        if (mJumpTypeUri != null) {
+            outState.putParcelable(SAVE_STATE_JUMPTYPE_URI, mJumpTypeUri);
         }
     }
 
@@ -122,13 +126,26 @@ public class JumpTypeListFragment extends Fragment implements LoaderManager.Load
         mListView.setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
     }
 
-    private void setActivatedPosition(int position) {
-        if (position == ListView.INVALID_POSITION) {
-            mListView.setItemChecked(mActivatedPosition, false);
-        } else {
-            mListView.setItemChecked(position, true);
+    public void setSelectedJumpType(Uri uri) {
+        mJumpTypeUri = uri;
+        updateSelectedJumpType();
+    }
+
+    private void updateSelectedJumpType() {
+        if (mJumpTypeUri != null) {
+            Long id = Long.parseLong(RemigesContract.JumpTypes.getJumpTypeId(mJumpTypeUri));
+            ListView listView = mListView;
+            if (listView.getSelectedItemId() != id) {
+                int listCount = listView.getCount();
+                for (int i = 0; i < listCount; i++) {
+                    if (id == ((Cursor) listView.getItemAtPosition(i)).getLong(JumpTypeQuery._ID)) {
+                        listView.setItemChecked(i, true);
+                        listView.setSelection(i);
+                        break;
+                    }
+                }
+            }
         }
-        mActivatedPosition = position;
     }
 
     @Override
@@ -146,6 +163,7 @@ public class JumpTypeListFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mAdapter.swapCursor(data);
+        updateSelectedJumpType();
     }
 
     @Override
