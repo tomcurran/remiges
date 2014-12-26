@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,20 +18,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
-import org.tomcurran.remiges.util.GoogleStaticMapLoader;
 import org.tomcurran.remiges.util.TimeUtils;
-
-import edu.mit.mobile.android.maps.GoogleStaticMapView;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
-public class PlaceDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class PlaceDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
+        OnMapReadyCallback {
     private static final String TAG = makeLogTag(PlaceDetailFragment.class);
 
     private static final String SAVE_STATE_PLACE_URI = "place_uri";
@@ -48,9 +55,9 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
 
     private TextView mPlaceJumpCount;
     private TextView mPlaceLastJump;
-
-    private GoogleStaticMapView mPlaceStaticMap;
-    private GoogleStaticMapLoader mGoogleStaticMapLoader;
+    private GoogleMap mMap;
+    private LatLng mLocation;
+    private FrameLayout mPlaceMapContainer;
 
     public interface Callbacks {
         public void onEditPlace(Uri uri);
@@ -84,8 +91,6 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
             mPlaceUri = savedInstanceState.getParcelable(SAVE_STATE_PLACE_URI);
         }
 
-        mGoogleStaticMapLoader = new GoogleStaticMapLoader(getActivity());
-
         getLoaderManager().initLoader(LOADER_PLACE_DETAIL, null, this);
         getLoaderManager().initLoader(LOADER_PLACE_STAT_JUMP_COUNT, null, this);
         getLoaderManager().initLoader(LOADER_PLACE_STAT_LAST_JUMP, null, this);
@@ -95,13 +100,24 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_place_detail, container, false);
 
-        mPlaceStaticMap = (GoogleStaticMapView) rootView.findViewById(R.id.detail_place_staticmap);
+        mPlaceMapContainer = (FrameLayout) rootView.findViewById(R.id.detail_place_map_container);
         mPlaceJumpCount = (TextView) rootView.findViewById(R.id.detail_place_jump_count);
         mPlaceLastJump = (TextView) rootView.findViewById(R.id.detail_place_jump_last);
 
-        mGoogleStaticMapLoader.setView(mPlaceStaticMap);
-
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.detail_place_map))
+                .getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        mMap = map;
+        addMarker();
     }
 
     @Override
@@ -175,10 +191,12 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
             double latitude = placeCursor.getDouble(PlaceQuery.LATITUDE);
             double longitude = placeCursor.getDouble(PlaceQuery.LONGITUDE);
             if (latitude != 0 && longitude != 0) {
-                mPlaceStaticMap.setVisibility(View.VISIBLE);
-                mPlaceStaticMap.setMap((float) latitude, (float) longitude, true);
+                mLocation = new LatLng(latitude, longitude);
+                addMarker();
+                mPlaceMapContainer.setVisibility(View.VISIBLE);
             } else {
-                mPlaceStaticMap.setVisibility(View.GONE);
+                mLocation = null;
+                mPlaceMapContainer.setVisibility(View.GONE);
             }
         }
     }
@@ -199,6 +217,15 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
             } else {
                 mPlaceLastJump.setText(TimeUtils.getTimeAgo(getActivity(), date));
             }
+        }
+    }
+
+    private void addMarker() {
+        if (mLocation != null && mMap != null) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(mLocation));
+            mMap.addMarker(new MarkerOptions()
+                            .position(mLocation)
+            );
         }
     }
 

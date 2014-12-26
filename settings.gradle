@@ -1,1 +1,1 @@
-include ':android', ':staticmap', ':imagecache'
+include ':android'

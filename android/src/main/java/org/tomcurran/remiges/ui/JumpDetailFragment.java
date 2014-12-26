@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -19,21 +20,27 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
-import org.tomcurran.remiges.util.GoogleStaticMapLoader;
 import org.tomcurran.remiges.util.UIUtils;
-
-import edu.mit.mobile.android.maps.GoogleStaticMapView;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
-public class JumpDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class JumpDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
+        OnMapReadyCallback {
     private static final String TAG = makeLogTag(JumpDetailFragment.class);
 
     private static final String SAVE_STATE_JUMP_URI = "jump_uri";
@@ -51,10 +58,11 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     private TextView mJumpDeploymentAltitude;
     private TextView mJumpDelay;
     private LinearLayout mPlaceContainer;
+    private GoogleMap mMap;
+    private LatLng mLocation;
+    private FrameLayout mPlaceMapContainer;
     private TextView mPlaceName;
     private Typeface mRoboto;
-    private GoogleStaticMapView mPlaceStaticMap;
-    private GoogleStaticMapLoader mGoogleStaticMapLoader;
 
     public interface Callbacks {
         public void onEditJump(Uri uri);
@@ -90,8 +98,6 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
 
         mRoboto = UIUtils.loadFont(getActivity(), UIUtils.FONT_ROBOTO_THIN);
 
-        mGoogleStaticMapLoader = new GoogleStaticMapLoader(getActivity());
-
         getLoaderManager().restartLoader(0, null, this);
     }
 
@@ -105,16 +111,27 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
         mJumpDescriptionLayout = (LinearLayout) rootView.findViewById(R.id.detail_jump_layout_description);
         mPlaceContainer = (LinearLayout) rootView.findViewById(R.id.detail_jump_place_container);
         mPlaceName = (TextView) rootView.findViewById(R.id.detail_jump_place_name);
-        mPlaceStaticMap = (GoogleStaticMapView) rootView.findViewById(R.id.detail_jump_place_staticmap);
+        mPlaceMapContainer = (FrameLayout) rootView.findViewById(R.id.detail_jump_map);
         mJumpExitAltitude = (TextView) rootView.findViewById(R.id.detail_jump_exit_altitude);
         mJumpDeploymentAltitude = (TextView) rootView.findViewById(R.id.detail_jump_deployment_altitude);
         mJumpDelay = (TextView) rootView.findViewById(R.id.detail_jump_delay);
 
-        mGoogleStaticMapLoader.setView(mPlaceStaticMap);
-
         mJumpTitle.setTypeface(mRoboto);
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.detail_jump_map))
+                .getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        mMap = map;
+        addMarker();
     }
 
     @Override
@@ -208,10 +225,12 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
                 double latitude = jumpCursor.getFloat(JumpQuery.LATITUDE);
                 double longitude = jumpCursor.getFloat(JumpQuery.LONGITUDE);
                 if (latitude != 0 && longitude != 0) {
-                    mPlaceStaticMap.setVisibility(View.VISIBLE);
-                    mPlaceStaticMap.setMap((float)latitude, (float)longitude, true);
+                    mLocation = new LatLng(latitude, longitude);
+                    addMarker();
+                    mPlaceMapContainer.setVisibility(View.VISIBLE);
                 } else {
-                    mPlaceStaticMap.setVisibility(View.GONE);
+                    mLocation = null;
+                    mPlaceMapContainer.setVisibility(View.GONE);
                 }
             } else {
                 mPlaceContainer.setVisibility(View.GONE);
@@ -219,6 +238,15 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
             mJumpExitAltitude.setText(jumpCursor.getString(JumpQuery.EXIT_ALTITUDE));
             mJumpDeploymentAltitude.setText(jumpCursor.getString(JumpQuery.DEPLOYMENT_ALTITUDE));
             mJumpDelay.setText(jumpCursor.getString(JumpQuery.DELAY));
+        }
+    }
+
+    private void addMarker() {
+        if (mLocation != null && mMap != null) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(mLocation));
+            mMap.addMarker(new MarkerOptions()
+                            .position(mLocation)
+            );
         }
     }
 

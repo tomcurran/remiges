@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:staticmap="http://schemas.android.com/apk/res-auto"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -57,13 +57,27 @@
                     style="@style/JumpDetail.PlaceName"
                     tools:text="@string/tools_text_place_name" />
 
-                <edu.mit.mobile.android.maps.GoogleStaticMapView
-                    android:id="@+id/detail_jump_place_staticmap"
-                    staticmap:maptype="roadmap"
-                    staticmap:zoom="7"
-                    staticmap:sensor="true"
-                    style="@style/JumpDetailStaticMap"
-                    tools:src="@drawable/tools_jump_detail_staticmap" />
+                <FrameLayout
+                    android:id="@+id/detail_jump_map_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <fragment
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:id="@+id/detail_jump_map"
+                        android:layout_height="200dp"
+                        android:layout_width="match_parent"
+                        map:mapType="normal"
+                        map:liteMode="false"
+                        map:cameraZoom="7"
+                        map:uiCompass="false"
+                        map:uiRotateGestures="false"
+                        map:uiScrollGestures="false"
+                        map:uiTiltGestures="false"
+                        map:uiZoomControls="false"
+                        map:uiZoomGestures="false" />
+
+                </FrameLayout>
 
             </LinearLayout>
 
