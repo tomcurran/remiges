@@ -14,26 +14,9 @@
             style="@style/CardDetail">
 
             <FrameLayout
-                android:id="@+id/detail_place_map_container"
+                android:id="@+id/detail_place_map"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <fragment
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
-                    android:id="@+id/detail_place_map"
-                    android:layout_height="150dp"
-                    android:layout_width="match_parent"
-                    map:mapType="normal"
-                    map:liteMode="false"
-                    map:cameraZoom="7"
-                    map:uiCompass="false"
-                    map:uiRotateGestures="false"
-                    map:uiScrollGestures="false"
-                    map:uiTiltGestures="false"
-                    map:uiZoomControls="false"
-                    map:uiZoomGestures="false" />
-
-            </FrameLayout>
+                android:layout_height="150dp" />
 
             <LinearLayout
                 style="@style/PlaceDetailStats">

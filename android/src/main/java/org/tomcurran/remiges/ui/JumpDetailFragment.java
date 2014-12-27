@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -26,8 +25,10 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -60,9 +61,20 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     private LinearLayout mPlaceContainer;
     private GoogleMap mMap;
     private LatLng mLocation;
-    private FrameLayout mPlaceMapContainer;
+    private FrameLayout mPlaceMap;
     private TextView mPlaceName;
     private Typeface mRoboto;
+
+    private static GoogleMapOptions sDefaultMapOptions = new GoogleMapOptions()
+            .mapType(GoogleMap.MAP_TYPE_NORMAL)
+            .liteMode(false)
+            .compassEnabled(false)
+            .rotateGesturesEnabled(false)
+            .scrollGesturesEnabled(false)
+            .tiltGesturesEnabled(false)
+            .zoomGesturesEnabled(false)
+            .zoomControlsEnabled(false);
+    private static final float sDefaultMapZoom = 7;
 
     public interface Callbacks {
         public void onEditJump(Uri uri);
@@ -111,7 +123,7 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
         mJumpDescriptionLayout = (LinearLayout) rootView.findViewById(R.id.detail_jump_layout_description);
         mPlaceContainer = (LinearLayout) rootView.findViewById(R.id.detail_jump_place_container);
         mPlaceName = (TextView) rootView.findViewById(R.id.detail_jump_place_name);
-        mPlaceMapContainer = (FrameLayout) rootView.findViewById(R.id.detail_jump_map);
+        mPlaceMap = (FrameLayout) rootView.findViewById(R.id.detail_jump_map);
         mJumpExitAltitude = (TextView) rootView.findViewById(R.id.detail_jump_exit_altitude);
         mJumpDeploymentAltitude = (TextView) rootView.findViewById(R.id.detail_jump_deployment_altitude);
         mJumpDelay = (TextView) rootView.findViewById(R.id.detail_jump_delay);
@@ -119,13 +131,6 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
         mJumpTitle.setTypeface(mRoboto);
 
         return rootView;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.detail_jump_map))
-                .getMapAsync(this);
     }
 
     @Override
@@ -226,11 +231,15 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
                 double longitude = jumpCursor.getFloat(JumpQuery.LONGITUDE);
                 if (latitude != 0 && longitude != 0) {
                     mLocation = new LatLng(latitude, longitude);
+                    SupportMapFragment mapFragment = SupportMapFragment.newInstance(
+                            sDefaultMapOptions.camera(CameraPosition.fromLatLngZoom(mLocation, sDefaultMapZoom)));
+                    mapFragment.getMapAsync(this);
+                    getChildFragmentManager().beginTransaction().replace(R.id.detail_jump_map, mapFragment).commit();
                     addMarker();
-                    mPlaceMapContainer.setVisibility(View.VISIBLE);
+                    mPlaceMap.setVisibility(View.VISIBLE);
                 } else {
                     mLocation = null;
-                    mPlaceMapContainer.setVisibility(View.GONE);
+                    mPlaceMap.setVisibility(View.GONE);
                 }
             } else {
                 mPlaceContainer.setVisibility(View.GONE);

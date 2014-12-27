@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -23,8 +22,10 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -57,7 +58,18 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
     private TextView mPlaceLastJump;
     private GoogleMap mMap;
     private LatLng mLocation;
-    private FrameLayout mPlaceMapContainer;
+    private FrameLayout mPlaceMap;
+
+    private static GoogleMapOptions sDefaultMapOptions = new GoogleMapOptions()
+            .mapType(GoogleMap.MAP_TYPE_NORMAL)
+            .liteMode(false)
+            .compassEnabled(false)
+            .rotateGesturesEnabled(false)
+            .scrollGesturesEnabled(false)
+            .tiltGesturesEnabled(false)
+            .zoomGesturesEnabled(false)
+            .zoomControlsEnabled(false);
+    private static final float sDefaultMapZoom = 7;
 
     public interface Callbacks {
         public void onEditPlace(Uri uri);
@@ -100,18 +112,11 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_place_detail, container, false);
 
-        mPlaceMapContainer = (FrameLayout) rootView.findViewById(R.id.detail_place_map_container);
+        mPlaceMap = (FrameLayout) rootView.findViewById(R.id.detail_place_map);
         mPlaceJumpCount = (TextView) rootView.findViewById(R.id.detail_place_jump_count);
         mPlaceLastJump = (TextView) rootView.findViewById(R.id.detail_place_jump_last);
 
         return rootView;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.detail_place_map))
-                .getMapAsync(this);
     }
 
     @Override
@@ -192,11 +197,15 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
             double longitude = placeCursor.getDouble(PlaceQuery.LONGITUDE);
             if (latitude != 0 && longitude != 0) {
                 mLocation = new LatLng(latitude, longitude);
+                SupportMapFragment mapFragment = SupportMapFragment.newInstance(
+                        sDefaultMapOptions.camera(CameraPosition.fromLatLngZoom(mLocation, sDefaultMapZoom)));
+                mapFragment.getMapAsync(this);
+                getChildFragmentManager().beginTransaction().replace(R.id.detail_place_map, mapFragment).commit();
                 addMarker();
-                mPlaceMapContainer.setVisibility(View.VISIBLE);
+                mPlaceMap.setVisibility(View.VISIBLE);
             } else {
                 mLocation = null;
-                mPlaceMapContainer.setVisibility(View.GONE);
+                mPlaceMap.setVisibility(View.GONE);
             }
         }
     }
