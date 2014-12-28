@@ -24,7 +24,6 @@ import android.widget.TextView;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
-import org.tomcurran.remiges.util.TimeUtils;
 import org.tomcurran.remiges.util.UIUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
@@ -37,17 +36,11 @@ public class JumpTypeDetailFragment extends Fragment implements LoaderManager.Lo
     private static final int DIALOG_FRAGMENT = 0;
 
     private static final int LOADER_JUMPTYPE_DETAIL = 0;
-    private static final int LOADER_JUMPTYPE_STAT_JUMP_COUNT = 1;
-    private static final int LOADER_JUMPTYPE_STAT_LAST_JUMP = 2;
 
     private Uri mJumpTypeUri;
     private Cursor mJumpTypeCursor;
-    private Cursor mJumpTypeJumpCountCursor;
-    private Cursor mJumpTypeLastJumpCursor;
 
     private TextView mJumpTypeName;
-    private TextView mJumpTypeJumpCount;
-    private TextView mJumpTypeLastJump;
     private Typeface mRoboto;
 
     public interface Callbacks {
@@ -85,8 +78,6 @@ public class JumpTypeDetailFragment extends Fragment implements LoaderManager.Lo
         mRoboto = UIUtils.loadFont(getActivity(), UIUtils.FONT_ROBOTO_THIN);
 
         getLoaderManager().initLoader(LOADER_JUMPTYPE_DETAIL, null, this);
-        getLoaderManager().initLoader(LOADER_JUMPTYPE_STAT_JUMP_COUNT, null, this);
-        getLoaderManager().initLoader(LOADER_JUMPTYPE_STAT_LAST_JUMP, null, this);
     }
 
     @Override
@@ -94,10 +85,14 @@ public class JumpTypeDetailFragment extends Fragment implements LoaderManager.Lo
         View rootView = inflater.inflate(R.layout.fragment_jumptype_detail, container, false);
 
         mJumpTypeName = (TextView) rootView.findViewById(R.id.detail_jumptype_name);
-        mJumpTypeJumpCount = (TextView) rootView.findViewById(R.id.detail_jumptype_jump_count);
-        mJumpTypeLastJump = (TextView) rootView.findViewById(R.id.detail_jumptype_jump_last);
-
         mJumpTypeName.setTypeface(mRoboto);
+
+        if (savedInstanceState == null) {
+            StatisticsFragment statisticsFragment = StatisticsFragment.newInstance(
+                    RemigesContract.JumpTypes.getJumpTypeId(mJumpTypeUri), RemigesContract.Jumps.JUMPTYPE_ID);
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.detail_jumptype_statistics, statisticsFragment).commit();
+        }
 
         return rootView;
     }
@@ -174,25 +169,6 @@ public class JumpTypeDetailFragment extends Fragment implements LoaderManager.Lo
         }
     }
 
-    private void loadJumpCount() {
-        Cursor cursor = mJumpTypeJumpCountCursor;
-        if (cursor.moveToFirst()) {
-            mJumpTypeJumpCount.setText(cursor.getString(JumpTypeCountQuery.COUNT));
-        }
-    }
-
-    private void loadLastJump() {
-        Cursor cursor = mJumpTypeLastJumpCursor;
-        if (cursor.moveToFirst()) {
-            long date = cursor.getLong(JumpTypeLastJumpQuery.DATE);
-            if (date == 0) {
-                mJumpTypeLastJump.setText(R.string.detail_place_last_jump_none);
-            } else {
-                mJumpTypeLastJump.setText(TimeUtils.getTimeAgo(getActivity(), date));
-            }
-        }
-    }
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
@@ -204,24 +180,6 @@ public class JumpTypeDetailFragment extends Fragment implements LoaderManager.Lo
                         null,
                         null,
                         RemigesContract.JumpTypes.DEFAULT_SORT
-                );
-            case LOADER_JUMPTYPE_STAT_JUMP_COUNT:
-                return new CursorLoader(
-                        getActivity(),
-                        RemigesContract.Jumps.CONTENT_URI,
-                        JumpTypeCountQuery.PROJECTION,
-                        JumpTypeCountQuery.SELECTION,
-                        new String[] { RemigesContract.JumpTypes.getJumpTypeId(mJumpTypeUri) },
-                        JumpTypeCountQuery.SORT
-                );
-            case LOADER_JUMPTYPE_STAT_LAST_JUMP:
-                return new CursorLoader(
-                        getActivity(),
-                        RemigesContract.Jumps.CONTENT_URI,
-                        JumpTypeLastJumpQuery.PROJECTION,
-                        JumpTypeLastJumpQuery.SELECTION,
-                        new String[] { RemigesContract.JumpTypes.getJumpTypeId(mJumpTypeUri) },
-                        JumpTypeLastJumpQuery.SORT
                 );
             default:
                 return null;
@@ -235,14 +193,6 @@ public class JumpTypeDetailFragment extends Fragment implements LoaderManager.Lo
                 mJumpTypeCursor = cursor;
                 loadJumpType();
                 break;
-            case LOADER_JUMPTYPE_STAT_JUMP_COUNT:
-                mJumpTypeJumpCountCursor = cursor;
-                loadJumpCount();
-                break;
-            case LOADER_JUMPTYPE_STAT_LAST_JUMP:
-                mJumpTypeLastJumpCursor = cursor;
-                loadLastJump();
-                break;
         }
     }
 
@@ -251,12 +201,6 @@ public class JumpTypeDetailFragment extends Fragment implements LoaderManager.Lo
         switch (cursorLoader.getId()) {
             case LOADER_JUMPTYPE_DETAIL:
                 mJumpTypeCursor = null;
-                break;
-            case LOADER_JUMPTYPE_STAT_JUMP_COUNT:
-                mJumpTypeJumpCountCursor = null;
-                break;
-            case LOADER_JUMPTYPE_STAT_LAST_JUMP:
-                mJumpTypeLastJumpCursor = null;
                 break;
         }
     }
@@ -270,36 +214,6 @@ public class JumpTypeDetailFragment extends Fragment implements LoaderManager.Lo
 
         int NAME = 0;
         int _ID = 1;
-
-    }
-
-    private interface JumpTypeCountQuery {
-
-        String[] PROJECTION = {
-                "count(" + RemigesContract.Jumps.JUMP_NUMBER + ")"
-        };
-
-        String SELECTION = RemigesContract.Jumps.JUMPTYPE_ID + "=?";
-
-        String SORT = "count(" + RemigesContract.Jumps.JUMP_NUMBER + ")";
-
-        int COUNT = 0;
-
-    }
-
-    private interface JumpTypeLastJumpQuery {
-
-        String[] PROJECTION = {
-                "max(" + RemigesContract.Jumps.JUMP_DATE + ")",
-                RemigesContract.Jumps.JUMP_DATE
-        };
-
-        String SELECTION = RemigesContract.Jumps.JUMPTYPE_ID + "=?";
-
-        String SORT = RemigesContract.Jumps.JUMP_DATE;
-
-        int MAX_DATE = 0;
-        int DATE = 1;
 
     }
 

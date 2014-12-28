@@ -10,45 +10,19 @@
         style="@style/Card">
 
         <LinearLayout
-            style="@style/JumpTypeDetailContainer">
+            android:padding="@dimen/margin_medium"
+            style="@style/CardDetail">
 
             <TextView
                 android:id="@+id/detail_jumptype_name"
                 style="@style/CardTitle"
                 tools:text="@string/tools_text_jumptype_name" />
 
-            <TextView
-                android:id="@+id/detail_place_stats_header"
-                android:text="@string/detail_jumptype_stats_header"
-                style="@style/CardHeading"/>
-
-            <View
-                style="@style/CardDivider" />
-
-            <TableLayout
-                style="@style/CardTable">
-
-                <TableRow>
-                    <TextView
-                        android:text="@string/label_detail_jumptype_jump_count"
-                        style="@style/CardTableLabel" />
-                    <TextView
-                        android:id="@+id/detail_jumptype_jump_count"
-                        style="@style/CardTableContent"
-                        tools:text="@string/tools_text_jumptype_jump_count" />
-                </TableRow>
-
-                <TableRow>
-                    <TextView
-                        android:text="@string/label_detail_jumptype_jump_last"
-                        style="@style/CardTableLabel" />
-                    <TextView
-                        android:id="@+id/detail_jumptype_jump_last"
-                        style="@style/CardTableContent"
-                        tools:text="@string/tools_text_jumptype_jump_last" />
-                </TableRow>
-
-            </TableLayout>
+            <FrameLayout
+                android:id="@+id/detail_jumptype_statistics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_statistics" />
 
         </LinearLayout>
 

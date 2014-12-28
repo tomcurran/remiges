@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,43 +17,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp" />
 
-            <LinearLayout
-                style="@style/PlaceDetailStats">
-
-                <TextView
-                    android:id="@+id/detail_place_stats_header"
-                    android:text="@string/detail_place_stats_header"
-                    style="@style/CardHeading"/>
-
-                <View
-                    style="@style/CardDivider" />
-
-                <TableLayout
-                    style="@style/CardTable">
-
-                    <TableRow>
-                        <TextView
-                            android:text="@string/label_detail_place_jump_count"
-                            style="@style/CardTableLabel" />
-                        <TextView
-                            android:id="@+id/detail_place_jump_count"
-                            style="@style/CardTableContent"
-                            tools:text="@string/tools_text_place_jump_count" />
-                    </TableRow>
-
-                    <TableRow>
-                        <TextView
-                            android:text="@string/label_detail_place_jump_last"
-                            style="@style/CardTableLabel" />
-                        <TextView
-                            android:id="@+id/detail_place_jump_last"
-                            style="@style/CardTableContent"
-                            tools:text="@string/tools_text_place_jump_last" />
-                    </TableRow>
-
-                </TableLayout>
-
-            </LinearLayout>
+            <FrameLayout
+                android:id="@+id/detail_place_statistics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_medium"
+                android:paddingRight="@dimen/margin_medium"
+                android:paddingBottom="@dimen/margin_medium"
+                tools:layout="@layout/fragment_statistics" />
 
         </LinearLayout>
 

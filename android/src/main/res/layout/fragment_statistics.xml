@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/detail_stats_header"
+        android:text="@string/stats_header"
+        style="@style/CardHeading"/>
+
+    <View
+        style="@style/CardDivider" />
+
+    <TableLayout
+        style="@style/CardTable">
+
+        <TableRow>
+            <TextView
+                android:text="@string/label_stats_jump_count"
+                style="@style/CardTableLabel" />
+            <TextView
+                android:id="@+id/detail_jump_count"
+                style="@style/CardTableContent"
+                tools:text="@string/tools_text_stats_jump_count" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:text="@string/label_stats_jump_last"
+                style="@style/CardTableLabel" />
+            <TextView
+                android:id="@+id/detail_jump_last"
+                style="@style/CardTableContent"
+                tools:text="@string/tools_text_stats_jump_last" />
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

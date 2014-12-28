@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,7 +31,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
-import org.tomcurran.remiges.util.TimeUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
@@ -46,16 +44,9 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
     private static final int DIALOG_FRAGMENT = 0;
 
     private static final int LOADER_PLACE_DETAIL = 0;
-    private static final int LOADER_PLACE_STAT_JUMP_COUNT = 1;
-    private static final int LOADER_PLACE_STAT_LAST_JUMP = 2;
 
     private Uri mPlaceUri;
     private Cursor mPlaceCursor;
-    private Cursor mPlaceJumpCountCursor;
-    private Cursor mPlaceLastJumpCursor;
-
-    private TextView mPlaceJumpCount;
-    private TextView mPlaceLastJump;
     private GoogleMap mMap;
     private LatLng mLocation;
     private FrameLayout mPlaceMap;
@@ -104,8 +95,6 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         }
 
         getLoaderManager().initLoader(LOADER_PLACE_DETAIL, null, this);
-        getLoaderManager().initLoader(LOADER_PLACE_STAT_JUMP_COUNT, null, this);
-        getLoaderManager().initLoader(LOADER_PLACE_STAT_LAST_JUMP, null, this);
     }
 
     @Override
@@ -113,8 +102,13 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         View rootView = inflater.inflate(R.layout.fragment_place_detail, container, false);
 
         mPlaceMap = (FrameLayout) rootView.findViewById(R.id.detail_place_map);
-        mPlaceJumpCount = (TextView) rootView.findViewById(R.id.detail_place_jump_count);
-        mPlaceLastJump = (TextView) rootView.findViewById(R.id.detail_place_jump_last);
+
+        if (savedInstanceState == null) {
+            StatisticsFragment statisticsFragment = StatisticsFragment.newInstance(
+                    RemigesContract.Places.getPlaceId(mPlaceUri), RemigesContract.Jumps.PLACE_ID);
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.detail_place_statistics, statisticsFragment).commit();
+        }
 
         return rootView;
     }
@@ -210,25 +204,6 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         }
     }
 
-    private void loadJumpCount() {
-        Cursor cursor = mPlaceJumpCountCursor;
-        if (cursor.moveToFirst()) {
-            mPlaceJumpCount.setText(cursor.getString(PlaceCountQuery.COUNT));
-        }
-    }
-
-    private void loadLastJump() {
-        Cursor cursor = mPlaceLastJumpCursor;
-        if (cursor.moveToFirst()) {
-            long date = cursor.getLong(PlaceLastJumpQuery.DATE);
-            if (date == 0) {
-                mPlaceLastJump.setText(R.string.detail_place_last_jump_none);
-            } else {
-                mPlaceLastJump.setText(TimeUtils.getTimeAgo(getActivity(), date));
-            }
-        }
-    }
-
     private void addMarker() {
         if (mLocation != null && mMap != null) {
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mLocation));
@@ -250,24 +225,6 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
                         null,
                         RemigesContract.Places.DEFAULT_SORT
                 );
-            case LOADER_PLACE_STAT_JUMP_COUNT:
-                return new CursorLoader(
-                        getActivity(),
-                        RemigesContract.Jumps.CONTENT_URI,
-                        PlaceCountQuery.PROJECTION,
-                        PlaceCountQuery.SELECTION,
-                        new String[] { RemigesContract.Places.getPlaceId(mPlaceUri) },
-                        PlaceCountQuery.SORT
-                );
-            case LOADER_PLACE_STAT_LAST_JUMP:
-                return new CursorLoader(
-                        getActivity(),
-                        RemigesContract.Jumps.CONTENT_URI,
-                        PlaceLastJumpQuery.PROJECTION,
-                        PlaceLastJumpQuery.SELECTION,
-                        new String[] { RemigesContract.Places.getPlaceId(mPlaceUri) },
-                        PlaceLastJumpQuery.SORT
-                );
             default:
                 return null;
         }
@@ -280,14 +237,6 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
                 mPlaceCursor = cursor;
                 loadPlace();
                 break;
-            case LOADER_PLACE_STAT_JUMP_COUNT:
-                mPlaceJumpCountCursor = cursor;
-                loadJumpCount();
-                break;
-            case LOADER_PLACE_STAT_LAST_JUMP:
-                mPlaceLastJumpCursor = cursor;
-                loadLastJump();
-                break;
         }
     }
 
@@ -296,12 +245,6 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         switch (cursorLoader.getId()) {
             case LOADER_PLACE_DETAIL:
                 mPlaceCursor = null;
-                break;
-            case LOADER_PLACE_STAT_JUMP_COUNT:
-                mPlaceJumpCountCursor = null;
-                break;
-            case LOADER_PLACE_STAT_LAST_JUMP:
-                mPlaceLastJumpCursor = null;
                 break;
         }
     }
@@ -319,36 +262,6 @@ public class PlaceDetailFragment extends Fragment implements LoaderManager.Loade
         int LATITUDE = 1;
         int LONGITUDE = 2;
         int _ID = 3;
-
-    }
-
-    private interface PlaceCountQuery {
-
-        String[] PROJECTION = {
-                "count(" + RemigesContract.Jumps.JUMP_NUMBER + ")"
-        };
-
-        String SELECTION = RemigesContract.Jumps.PLACE_ID + "=?";
-
-        String SORT = "count(" + RemigesContract.Jumps.JUMP_NUMBER + ")";
-
-        int COUNT = 0;
-
-    }
-
-    private interface PlaceLastJumpQuery {
-
-        String[] PROJECTION = {
-                "max(" + RemigesContract.Jumps.JUMP_DATE + ")",
-                RemigesContract.Jumps.JUMP_DATE
-        };
-
-        String SELECTION = RemigesContract.Jumps.PLACE_ID + "=?";
-
-        String SORT = RemigesContract.Jumps.JUMP_DATE;
-
-        int MAX_DATE = 0;
-        int DATE = 1;
 
     }
 

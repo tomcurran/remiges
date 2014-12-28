@@ -23,6 +23,13 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="menu_settings">Settings</string>
 
+    <!-- Statistics -->
+
+    <string name="stats_header">Statistics</string>
+    <string name="label_stats_jump_count">Jumps</string>
+    <string name="label_stats_jump_last">Last jump</string>
+    <string name="stats_last_jump_none">Never</string>
+
     <!-- Jump List -->
 
     <string name="fab_jump_list">Log Jump</string>
@@ -79,12 +86,8 @@
 
     <string name="title_place_detail">Place Detail</string>
     <string name="detail_place_location_header">Location</string>
-    <string name="detail_place_stats_header">Statistics</string>
     <string name="label_detail_place_latitude">Latitude</string>
     <string name="label_detail_place_longitude">Longitude</string>
-    <string name="label_detail_place_jump_count">Jumps</string>
-    <string name="label_detail_place_jump_last">Last jump</string>
-    <string name="detail_place_last_jump_none">Never</string>
     <string name="menu_place_detail_edit">Edit</string>
     <string name="menu_place_detail_delete">Delete</string>
 
@@ -95,10 +98,6 @@
     <!-- Jump Type Detail -->
 
     <string name="title_jumptype_detail">Jump Type Detail</string>
-    <string name="detail_jumptype_stats_header">Statistics</string>
-    <string name="label_detail_jumptype_jump_count">Jumps</string>
-    <string name="label_detail_jumptype_jump_last">Last jump</string>
-    <string name="detail_jumptype_last_jump_none">Never</string>
     <string name="menu_jumptype_detail_delete">Delete</string>
     <string name="dialog_jumptype_delete_message">Delete this jump type?</string>
 
@@ -198,10 +197,8 @@
     <string name="tools_text_place_name">Strathallan</string>
     <string name="tools_text_place_longitude">-3.750835</string>
     <string name="tools_text_place_latitude">56.326013</string>
-    <string name="tools_text_place_jump_count">121</string>
-    <string name="tools_text_place_jump_last">4 days ago</string>
     <string name="tools_text_jumptype_name">Formation Skydiving</string>
-    <string name="tools_text_jumptype_jump_count">73</string>
-    <string name="tools_text_jumptype_jump_last">2 months ago</string>
+    <string name="tools_text_stats_jump_count">121</string>
+    <string name="tools_text_stats_jump_last">4 days ago</string>
 
 </resources>
