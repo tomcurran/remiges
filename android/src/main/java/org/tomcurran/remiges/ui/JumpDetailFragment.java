@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.tomcurran.remiges.R;
@@ -237,6 +239,9 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
                     getChildFragmentManager().beginTransaction().replace(R.id.detail_jump_map, mapFragment).commit();
                     addMarker();
                     mPlaceMap.setVisibility(View.VISIBLE);
+                    if (!TextUtils.isEmpty(place)) {
+                        mPlaceName.setVisibility(View.GONE);
+                    }
                 } else {
                     mLocation = null;
                     mPlaceMap.setVisibility(View.GONE);
@@ -253,9 +258,16 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     private void addMarker() {
         if (mLocation != null && mMap != null) {
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mLocation));
-            mMap.addMarker(new MarkerOptions()
-                            .position(mLocation)
-            );
+            MarkerOptions markerOptions = new MarkerOptions().position(mLocation);
+            CharSequence placeName = mPlaceName.getText();
+            boolean showTitle = !TextUtils.isEmpty(placeName);
+            if (showTitle) {
+                markerOptions.title(placeName.toString());
+            }
+            Marker marker = mMap.addMarker(markerOptions);
+            if (showTitle) {
+                marker.showInfoWindow();
+            }
         }
     }
 
