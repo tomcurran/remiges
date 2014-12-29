@@ -190,6 +190,7 @@
     <style name="JumpDetail.PlaceName">
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
     </style>
 
     <style name="JumpDetailDescriptionLayout" parent="CardItem">
