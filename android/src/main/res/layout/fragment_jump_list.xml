@@ -5,7 +5,10 @@
 
     <se.emilsjolander.stickylistheaders.StickyListHeadersListView
         android:id="@+id/jump_list"
-        style="@style/ListJump"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         tools:listitem="@layout/list_item_jumps" />
 
     <com.melnykov.fab.FloatingActionButton

@@ -148,24 +148,6 @@
         <item name="fab_colorRipple">@color/accent_dark</item>
     </style>
 
-    <!-- Jump List -->
-
-    <style name="ListJump">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:divider">@null</item>
-        <item name="android:dividerHeight">0dp</item>
-    </style>
-
-    <style name="ListSubheaderJump">
-        <item name="android:background">@color/background</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:padding">16dp</item>
-        <item name="android:textColor">@color/primary</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
-    </style>
-
     <!-- Jump Detail -->
 
     <style name="JumpDetailContainer" parent="CardDetail">
