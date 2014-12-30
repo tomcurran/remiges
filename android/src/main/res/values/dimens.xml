@@ -2,6 +2,7 @@
 
     <dimen name="keyline_1">16dp</dimen>
     <dimen name="keyline_2">72dp</dimen>
+    <dimen name="keyline_2_minus_40dp">32dp</dimen>
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -14,11 +15,6 @@
 
     <dimen name="navigation_drawer_width">280dp</dimen>
     <dimen name="navigation_drawer_item_height">@dimen/list_item_height</dimen>
-    <dimen name="navigation_drawer_item_padding">@dimen/list_item_padding</dimen>
-    <dimen name="navigation_drawer_item_icon_padding">@dimen/list_item_padding</dimen>
-    <dimen name="navigation_drawer_item_icon_text_padding">32dp</dimen>
-    <dimen name="navigation_drawer_divider_vertical_padding">8dp</dimen>
-    <dimen name="navigation_drawer_divider_height">1px</dimen>
 
     <!-- Define standard dimensions to comply with Holo-style grids and rhythm. -->
 
