@@ -18,11 +18,11 @@
     <color name="navigation_drawer_background_active">@color/material_black_dividers</color>
     <color name="navigation_drawer_icon_tint">@color/primary</color>
 
-    <color name="card_divider">@color/material_black_dividers</color>
-    <color name="card_title">@color/primary_text</color>
-    <color name="card_heading">@color/secondary_text</color>
-    <color name="card_table_label">@color/secondary_text</color>
-    <color name="card_table_content">@color/primary_text</color>
+    <color name="detail_divider">@color/material_black_dividers</color>
+    <color name="detail_title">@color/primary_text</color>
+    <color name="detail_heading">@color/secondary_text</color>
+    <color name="detail_table_label">@color/secondary_text</color>
+    <color name="detail_table_content">@color/primary_text</color>
 
     <color name="list_item_background_pressed">@color/material_black_dividers</color>
     <color name="list_item_background_active">#42FFC107</color> <!-- material_amber_500 12% -->

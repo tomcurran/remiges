@@ -15,76 +15,81 @@
         <item name="android:textSize">@dimen/text_size_edit_action_button</item>
     </style>
 
-    <!-- Card -->
+    <!-- Detail -->
 
-    <style name="Card">
+    <style name="Detail">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_margin">@dimen/margin_small</item>
     </style>
 
-    <style name="CardDetail">
+    <style name="DetailContainer">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingLeft">@dimen/keyline_1</item>
+        <item name="android:paddingRight">@dimen/keyline_1</item>
     </style>
 
-    <style name="CardTitle" parent="TextAppearance.AppCompat.Large">
+    <style name="DetailTitle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textColor">@color/card_title</item>
+        <item name="android:textColor">@color/detail_title</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
     </style>
 
-    <style name="CardHeading">
+    <style name="DetailHeading">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingTop">12dp</item>
         <item name="android:paddingBottom">12dp</item>
-        <item name="android:textColor">@color/card_heading</item>
+        <item name="android:textColor">@color/detail_heading</item>
     </style>
 
-    <style name="CardDivider">
+    <style name="DetailDivider">
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:background">@color/card_divider</item>
+        <item name="android:background">@color/detail_divider</item>
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
-    <style name="CardItem">
+    <style name="DetailItem">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
     </style>
 
-    <style name="CardItemLabel">
+    <style name="DetailItemLabel">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="CardItemContent">
+    <style name="DetailItemContent">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
 
-    <style name="CardTable">
+    <style name="DetailTable">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
     </style>
 
-    <style name="CardTableLabel">
+    <style name="DetailTableLabel">
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
         <item name="android:paddingRight">50dp</item>
-        <item name="android:textColor">@color/card_table_label</item>
+        <item name="android:textColor">@color/detail_table_label</item>
     </style>
 
-    <style name="CardTableContent">
-        <item name="android:textColor">@color/card_table_content</item>
+    <style name="DetailTableContent">
+        <item name="android:textColor">@color/detail_table_content</item>
     </style>
 
     <!-- Floating Action Button -->
@@ -98,37 +103,6 @@
         <item name="fab_colorNormal">@color/accent</item>
         <item name="fab_colorPressed">@color/accent_dark</item>
         <item name="fab_colorRipple">@color/accent_dark</item>
-    </style>
-
-    <!-- Jump Detail -->
-
-    <style name="JumpDetailContainer" parent="CardDetail">
-        <item name="android:padding">@dimen/margin_medium</item>
-    </style>
-
-    <style name="JumpDetail">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-    </style>
-
-    <style name="JumpDetail.Date">
-        <item name="android:paddingBottom">8dp</item>
-    </style>
-
-    <style name="JumpDetail.PlaceContainer">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:orientation">vertical</item>
-    </style>
-
-    <style name="JumpDetail.PlaceName">
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-    </style>
-
-    <style name="JumpDetailDescriptionLayout" parent="CardItem">
-        <item name="android:orientation">vertical</item>
     </style>
 
     <!-- Jump Edit -->

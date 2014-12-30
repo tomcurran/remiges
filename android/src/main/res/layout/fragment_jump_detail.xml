@@ -1,114 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.JumpDetailFragment">
 
-    <android.support.v7.widget.CardView
-        style="@style/Card">
+    <LinearLayout
+        android:id="@+id/detail_jump_container"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="@dimen/keyline_1"
+        android:paddingRight="@dimen/keyline_1">
+
+        <TextView
+            android:id="@+id/detail_jump_title"
+            style="@style/DetailTitle"
+            tools:text="@string/tools_text_jump_title" />
+
+        <TextView
+            android:id="@+id/detail_jump_date"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:paddingBottom="8dp"
+            tools:text="@string/tools_text_jump_detail_date" />
 
         <LinearLayout
-            android:id="@+id/detail_jump_container"
-            style="@style/JumpDetailContainer">
+            android:id="@+id/detail_jump_layout_description"
+            android:orientation="vertical"
+            style="@style/DetailItem">
 
             <TextView
-                android:id="@+id/detail_jump_title"
-                style="@style/CardTitle"
-                tools:text="@string/tools_text_jump_title" />
+                android:id="@+id/detail_jump_label_description"
+                android:text="@string/label_detail_jump_description"
+                style="@style/DetailItemLabel"/>
 
             <TextView
-                android:id="@+id/detail_jump_date"
-                style="@style/JumpDetail.Date"
-                tools:text="@string/tools_text_jump_detail_date" />
-
-            <LinearLayout
-                android:id="@+id/detail_jump_layout_description"
-                style="@style/JumpDetailDescriptionLayout">
-
-                <TextView
-                    android:id="@+id/detail_jump_label_description"
-                    android:text="@string/label_detail_jump_description"
-                    style="@style/CardItemLabel"/>
-
-                <TextView
-                    android:id="@+id/detail_jump_description"
-                    style="@style/CardItemContent"
-                    tools:text="@string/tools_text_jump_description" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/detail_jump_place_container"
-                style="@style/JumpDetail.PlaceContainer">
-
-                <TextView
-                    android:id="@+id/detail_jump_place_header"
-                    android:text="@string/label_detail_jump_place_header"
-                    style="@style/CardHeading"/>
-
-                <View
-                    style="@style/CardDivider" />
-
-                <TextView
-                    android:id="@+id/detail_jump_place_name"
-                    style="@style/JumpDetail.PlaceName"
-                    tools:text="@string/tools_text_place_name" />
-
-                <FrameLayout
-                    android:id="@+id/detail_jump_map"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/detail_jump_profile_header"
-                android:text="@string/label_detail_jump_profile_header"
-                style="@style/CardHeading"/>
-
-            <View
-                style="@style/CardDivider" />
-
-            <TableLayout
-                style="@style/CardTable">
-
-                <TableRow>
-                    <TextView
-                        android:text="@string/label_detail_jump_exit_altitude"
-                        style="@style/CardTableLabel" />
-                    <TextView
-                        android:id="@+id/detail_jump_exit_altitude"
-                        style="@style/CardTableContent"
-                        tools:text="@string/tools_text_jump_exit_altitude" />
-                </TableRow>
-
-                <TableRow>
-                    <TextView
-                        android:text="@string/label_detail_jump_deployment_altitude"
-                        style="@style/CardTableLabel" />
-                    <TextView
-                        android:id="@+id/detail_jump_deployment_altitude"
-                        style="@style/CardTableContent"
-                        tools:text="@string/tools_text_jump_deployment_altitude" />
-                </TableRow>
-
-                <TableRow>
-                    <TextView
-                        android:text="@string/label_detail_jump_delay"
-                        style="@style/CardTableLabel" />
-                    <TextView
-                        android:id="@+id/detail_jump_delay"
-                        style="@style/CardTableContent"
-                        tools:text="@string/tools_text_jump_delay" />
-                </TableRow>
-
-            </TableLayout>
+                android:id="@+id/detail_jump_description"
+                style="@style/DetailItemContent"
+                tools:text="@string/tools_text_jump_description" />
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+        <LinearLayout
+            android:id="@+id/detail_jump_place_container"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/detail_jump_place_header"
+                android:text="@string/label_detail_jump_place_header"
+                style="@style/DetailHeading"/>
+
+            <View
+                style="@style/DetailDivider" />
+
+            <TextView
+                android:id="@+id/detail_jump_place_name"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:layout_marginBottom="4dp"
+                tools:text="@string/tools_text_place_name" />
+
+            <FrameLayout
+                android:id="@+id/detail_jump_map"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/detail_jump_profile_header"
+            android:text="@string/label_detail_jump_profile_header"
+            style="@style/DetailHeading"/>
+
+        <View
+            style="@style/DetailDivider" />
+
+        <TableLayout
+            style="@style/DetailTable">
+
+            <TableRow>
+                <TextView
+                    android:text="@string/label_detail_jump_exit_altitude"
+                    style="@style/DetailTableLabel" />
+                <TextView
+                    android:id="@+id/detail_jump_exit_altitude"
+                    style="@style/DetailTableContent"
+                    tools:text="@string/tools_text_jump_exit_altitude" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="@string/label_detail_jump_deployment_altitude"
+                    style="@style/DetailTableLabel" />
+                <TextView
+                    android:id="@+id/detail_jump_deployment_altitude"
+                    style="@style/DetailTableContent"
+                    tools:text="@string/tools_text_jump_deployment_altitude" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="@string/label_detail_jump_delay"
+                    style="@style/DetailTableLabel" />
+                <TextView
+                    android:id="@+id/detail_jump_delay"
+                    style="@style/DetailTableContent"
+                    tools:text="@string/tools_text_jump_delay" />
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
 
 </ScrollView>

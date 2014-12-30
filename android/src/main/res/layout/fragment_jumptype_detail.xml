@@ -6,26 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".ui.JumpTypeDetailFragment">
 
-    <android.support.v7.widget.CardView
-        style="@style/Card">
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="@dimen/keyline_1"
+        android:paddingRight="@dimen/keyline_1">
 
-        <LinearLayout
-            android:padding="@dimen/margin_medium"
-            style="@style/CardDetail">
+        <TextView
+            android:id="@+id/detail_jumptype_name"
+            style="@style/DetailTitle"
+            tools:text="@string/tools_text_jumptype_name" />
 
-            <TextView
-                android:id="@+id/detail_jumptype_name"
-                style="@style/CardTitle"
-                tools:text="@string/tools_text_jumptype_name" />
+        <FrameLayout
+            android:id="@+id/detail_jumptype_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_statistics" />
 
-            <FrameLayout
-                android:id="@+id/detail_jumptype_statistics"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_statistics" />
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
+    </LinearLayout>
 
 </ScrollView>

@@ -9,31 +9,31 @@
     <TextView
         android:id="@+id/detail_stats_header"
         android:text="@string/stats_header"
-        style="@style/CardHeading"/>
+        style="@style/DetailHeading"/>
 
     <View
-        style="@style/CardDivider" />
+        style="@style/DetailDivider" />
 
     <TableLayout
-        style="@style/CardTable">
+        style="@style/DetailTable">
 
         <TableRow>
             <TextView
                 android:text="@string/label_stats_jump_count"
-                style="@style/CardTableLabel" />
+                style="@style/DetailTableLabel" />
             <TextView
                 android:id="@+id/detail_jump_count"
-                style="@style/CardTableContent"
+                style="@style/DetailTableContent"
                 tools:text="@string/tools_text_stats_jump_count" />
         </TableRow>
 
         <TableRow>
             <TextView
                 android:text="@string/label_stats_jump_last"
-                style="@style/CardTableLabel" />
+                style="@style/DetailTableLabel" />
             <TextView
                 android:id="@+id/detail_jump_last"
-                style="@style/CardTableContent"
+                style="@style/DetailTableContent"
                 tools:text="@string/tools_text_stats_jump_last" />
         </TableRow>
 
