@@ -4,9 +4,6 @@
     <dimen name="keyline_2">72dp</dimen>
     <dimen name="keyline_2_minus_40dp">32dp</dimen>
 
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-
     <dimen name="minimum_width_edit_action_button">80dp</dimen>
     <dimen name="text_size_edit_action_button">@dimen/abc_text_size_button_material</dimen>
 
@@ -15,13 +12,5 @@
 
     <dimen name="navigation_drawer_width">280dp</dimen>
     <dimen name="navigation_drawer_item_height">@dimen/list_item_height</dimen>
-
-    <!-- Define standard dimensions to comply with Holo-style grids and rhythm. -->
-
-    <dimen name="margin_tiny">4dp</dimen>
-    <dimen name="margin_small">8dp</dimen>
-    <dimen name="margin_medium">16dp</dimen>
-    <dimen name="margin_large">32dp</dimen>
-    <dimen name="margin_huge">64dp</dimen>
 
 </resources>
