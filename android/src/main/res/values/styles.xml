@@ -17,12 +17,6 @@
 
     <!-- Detail -->
 
-    <style name="Detail">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_margin">@dimen/margin_small</item>
-    </style>
-
     <style name="DetailContainer">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
