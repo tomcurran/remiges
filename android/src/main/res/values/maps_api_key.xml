@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Replace with your own API key -->
     <string name="maps_api_key" translatable="false">ReplaceWithYourApiKey</string>
