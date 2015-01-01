@@ -200,7 +200,7 @@ public class NavigationDrawerFragment extends Fragment {
             switch (getItemViewType(position)) {
                 case TYPE_NAVIGATE:
                     if (convertView == null) {
-                        convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_navigation_drawer_navigate, parent, false);
+                        convertView = LayoutInflater.from(mContext).inflate(R.layout.navigation_drawer_navigate, parent, false);
                     }
                     item = getItem(position);
                     textView = ViewHolder.get(convertView, R.id.navigation_drawer_navigate);
@@ -209,12 +209,12 @@ public class NavigationDrawerFragment extends Fragment {
                     break;
                 case TYPE_SEPARATE:
                     if (convertView == null) {
-                        convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_navigation_drawer_separator, parent, false);
+                        convertView = LayoutInflater.from(mContext).inflate(R.layout.navigation_drawer_separator, parent, false);
                     }
                     break;
                 case TYPE_EXTRA:
                     if (convertView == null) {
-                        convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_navigation_drawer_extra, parent, false);
+                        convertView = LayoutInflater.from(mContext).inflate(R.layout.navigation_drawer_extra, parent, false);
                     }
                     item = getItem(position);
                     textView = ViewHolder.get(convertView, R.id.navigation_drawer_extra);
