@@ -48,7 +48,7 @@ public class PlaceFragment extends Fragment implements
             String uriType = activity.getContentResolver().getType(uri);
             if (RemigesContract.Places.CONTENT_TYPE.equals(uriType)) {
                 if (Intent.ACTION_INSERT.equals(action)) {
-                    insertPlace();
+                    insertPlace(intent.getExtras());
                 } else if (!Intent.ACTION_VIEW.equals(action)) {
                     unknownAction(action);
                 }
@@ -121,7 +121,7 @@ public class PlaceFragment extends Fragment implements
 
     @Override
     public void onInsertPlace() {
-        insertPlace();
+        insertPlace(null);
     }
 
     @Override
@@ -153,12 +153,14 @@ public class PlaceFragment extends Fragment implements
         startActivityForResult(intent, ACTIVITY_EDIT);
     }
 
-    private void insertPlace() {
+    private void insertPlace(Bundle extras) {
         Intent intent = new Intent();
         intent.setData(RemigesContract.Places.CONTENT_URI);
         intent.setAction(Intent.ACTION_INSERT);
         intent.setClass(getActivity(), PlaceEditActivity.class);
-        intent.putExtras(getActivity().getIntent());
+        if (extras != null) {
+            intent.putExtras(extras);
+        }
         startActivityForResult(intent, ACTIVITY_INSERT);
     }
 

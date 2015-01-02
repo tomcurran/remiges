@@ -51,7 +51,7 @@ public class JumpTypeFragment extends Fragment implements
             String uriType = activity.getContentResolver().getType(uri);
             if (RemigesContract.JumpTypes.CONTENT_TYPE.equals(uriType)) {
                 if (Intent.ACTION_INSERT.equals(action)) {
-                    insertJumpType();
+                    insertJumpType(intent.getExtras());
                 } else if (!Intent.ACTION_VIEW.equals(action)) {
                     unknownAction(action);
                 }
@@ -124,7 +124,7 @@ public class JumpTypeFragment extends Fragment implements
 
     @Override
     public void onInsertJumpType() {
-        insertJumpType();
+        insertJumpType(null);
     }
 
     @Override
@@ -156,12 +156,14 @@ public class JumpTypeFragment extends Fragment implements
         startActivityForResult(intent, ACTIVITY_EDIT);
     }
 
-    private void insertJumpType() {
+    private void insertJumpType(Bundle extras) {
         Intent intent = new Intent();
         intent.setData(RemigesContract.JumpTypes.CONTENT_URI);
         intent.setAction(Intent.ACTION_INSERT);
         intent.setClass(getActivity(), JumpTypeEditActivity.class);
-        intent.putExtras(getActivity().getIntent());
+        if (extras != null) {
+            intent.putExtras(extras);
+        }
         startActivityForResult(intent, ACTIVITY_INSERT);
     }
 
