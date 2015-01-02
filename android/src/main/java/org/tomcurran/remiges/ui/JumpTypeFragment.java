@@ -47,27 +47,21 @@ public class JumpTypeFragment extends Fragment implements
         final Intent intent = activity.getIntent();
         final String action = intent.getAction();
         final Uri uri = intent.getData();
-        LOGD(TAG, String.format("uri=%s action=%s", uri, action));
         if (uri != null) {
             String uriType = activity.getContentResolver().getType(uri);
-            if (action == null) {
-                unknownAction();
-                return;
-            }
-            if (uri.equals(RemigesContract.JumpTypes.CONTENT_URI)) {
-                // default behaviour is to view jump types, we do not check for Intent.ACTION_VIEW
-                if (action.equals(Intent.ACTION_INSERT)) {
+            if (RemigesContract.JumpTypes.CONTENT_TYPE.equals(uriType)) {
+                if (Intent.ACTION_INSERT.equals(action)) {
                     insertJumpType();
-                } else {
-                    unknownAction();
+                } else if (!Intent.ACTION_VIEW.equals(action)) {
+                    unknownAction(action);
                 }
-            } else if (uriType.equals(RemigesContract.JumpTypes.CONTENT_ITEM_TYPE)) {
-                if (action.equals(Intent.ACTION_VIEW)) {
+            } else if (RemigesContract.JumpTypes.CONTENT_ITEM_TYPE.equals(uriType)) {
+                if (Intent.ACTION_VIEW.equals(action)) {
                     viewJumpType(uri);
-                } else if (action.equals(Intent.ACTION_EDIT)) {
+                } else if (Intent.ACTION_EDIT.equals(action)) {
                     editJumpType(uri);
                 } else {
-                    unknownAction();
+                    unknownAction(action);
                 }
             }
         }
@@ -88,8 +82,8 @@ public class JumpTypeFragment extends Fragment implements
         return view;
     }
 
-    private void unknownAction() {
-        LOGE(TAG, "Unknown action. Exiting");
+    private void unknownAction(String action) {
+        LOGE(TAG, String.format("Unknown action: %s", action));
         FragmentActivity activity = getActivity();
         activity.setResult(FragmentActivity.RESULT_CANCELED);
         activity.finish();

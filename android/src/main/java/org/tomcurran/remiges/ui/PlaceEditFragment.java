@@ -55,20 +55,15 @@ public class PlaceEditFragment extends Fragment implements LoaderManager.LoaderC
         if (savedInstanceState == null) {
             final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
             final String action = intent.getAction();
-            if (action == null) {
-                LOGE(TAG, "No intent action provided");
-                activity.setResult(FragmentActivity.RESULT_CANCELED);
-                activity.finish();
-                return;
-            } else if (action.equals(Intent.ACTION_INSERT)) {
+            if (Intent.ACTION_INSERT.equals(action)) {
                 mState = STATE_INSERT;
                 mPlaceUri = null;
-            } else if (action.equals(Intent.ACTION_EDIT)) {
+            } else if (Intent.ACTION_EDIT.equals(action)) {
                 mState = STATE_EDIT;
                 mPlaceUri = intent.getData();
                 getLoaderManager().initLoader(0, null, this);
             } else {
-                LOGE(TAG, "Unknown intent action provided");
+                LOGE(TAG, "Unknown action");
                 activity.setResult(FragmentActivity.RESULT_CANCELED);
                 activity.finish();
                 return;
