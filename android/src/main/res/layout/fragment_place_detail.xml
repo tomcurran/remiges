@@ -7,6 +7,7 @@
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:paddingBottom="16dp"
         android:orientation="vertical">
 
         <FrameLayout
@@ -18,9 +19,6 @@
             android:id="@+id/detail_place_statistics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
-            android:paddingLeft="@dimen/keyline_1"
-            android:paddingRight="@dimen/keyline_1"
             tools:layout="@layout/fragment_statistics" />
 
     </LinearLayout>
