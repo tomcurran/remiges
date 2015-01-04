@@ -8,9 +8,9 @@
     <color name="primary_text">@color/primary_text_default_material_light</color>
     <color name="secondary_text">@color/secondary_text_default_material_light</color>
 
-    <color name="background">@color/background_material_light</color>
+    <color name="background">@android:color/white</color>
 
-    <color name="navigation_drawer">@color/background_material_light</color>
+    <color name="navigation_drawer">@color/background</color>
     <color name="navigation_drawer_separator">@color/material_black_dividers</color>
     <color name="navigation_drawer_text">@color/primary_text</color>
     <color name="navigation_drawer_text_active">@color/primary</color>
