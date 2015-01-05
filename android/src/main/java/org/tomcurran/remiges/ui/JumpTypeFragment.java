@@ -17,7 +17,6 @@ import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.ui.singlepane.JumpTypeDetailActivity;
 import org.tomcurran.remiges.ui.singlepane.JumpTypeEditActivity;
 
-import static org.tomcurran.remiges.util.LogUtils.LOGD;
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
@@ -58,8 +57,13 @@ public class JumpTypeFragment extends Fragment implements
             } else if (RemigesContract.JumpTypes.CONTENT_ITEM_TYPE.equals(uriType)) {
                 if (Intent.ACTION_VIEW.equals(action)) {
                     viewJumpType(uri);
+                    handledSetListSelection(uri);
                 } else if (Intent.ACTION_EDIT.equals(action)) {
                     editJumpType(uri);
+                    handledSetListSelection(uri);
+                    if (mTwoPane) {
+                        handledSetDetailFragment(intent);
+                    }
                 } else {
                     unknownAction(action);
                 }
@@ -95,23 +99,15 @@ public class JumpTypeFragment extends Fragment implements
         switch (requestCode) {
             case ACTIVITY_EDIT:
                 if (resultCode == FragmentActivity.RESULT_OK) {
-                    new Handler().post(new Runnable() {
-                        public void run() {
-                            setListSelection(data.getData());
-                        }
-                    });
+                    handledSetListSelection(data.getData());
                 }
                 break;
             case ACTIVITY_INSERT:
                 if (resultCode == FragmentActivity.RESULT_OK) {
-                    new Handler().post(new Runnable() {
-                        public void run() {
-                            if (mTwoPane) {
-                                setDetailFragment(data);
-                            }
-                            setListSelection(data.getData());
-                        }
-                    });
+                    if (mTwoPane) {
+                        handledSetDetailFragment(data);
+                    }
+                    handledSetListSelection(data.getData());
                 }
                 break;
         }
@@ -190,6 +186,22 @@ public class JumpTypeFragment extends Fragment implements
     private void setListSelection(Uri uri) {
         ((JumpTypeListFragment) getChildFragmentManager().findFragmentByTag(FRAGMENT_JUMPTYPE_LIST))
                 .setSelectedJumpType(uri);
+    }
+
+    private void handledSetListSelection(final Uri uri) {
+        new Handler().post(new Runnable() {
+            public void run() {
+                setListSelection(uri);
+            }
+        });
+    }
+
+    private void handledSetDetailFragment(final Intent intent) {
+        new Handler().post(new Runnable() {
+            public void run() {
+                setDetailFragment(intent);
+            }
+        });
     }
 
 }
