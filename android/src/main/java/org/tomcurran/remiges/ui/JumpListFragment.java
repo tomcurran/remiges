@@ -31,7 +31,7 @@ import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
 public class JumpListFragment extends Fragment implements
-        LoaderManager.LoaderCallbacks<Cursor>, JumpDetailFragment.Callbacks {
+        LoaderManager.LoaderCallbacks<Cursor>, JumpDetailFragment.Callbacks, ItemFragment.ItemListFragment {
     private static final String TAG = makeLogTag(JumpListFragment.class);
 
     private static final String SAVE_STATE_JUMP_URI = "jump_uri";
@@ -134,7 +134,7 @@ public class JumpListFragment extends Fragment implements
         mHeaderListView.setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
     }
 
-    public void setSelectedJump(Uri uri) {
+    public void setSelectedItem(Uri uri) {
         mJumpUri = uri;
         updateSelectedJump();
     }

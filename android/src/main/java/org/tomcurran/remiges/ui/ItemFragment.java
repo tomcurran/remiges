@@ -1,6 +1,5 @@
 package org.tomcurran.remiges.ui;
 
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,22 +12,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.tomcurran.remiges.R;
-import org.tomcurran.remiges.provider.RemigesContract;
-import org.tomcurran.remiges.ui.singlepane.JumpDetailActivity;
-import org.tomcurran.remiges.ui.singlepane.JumpEditActivity;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-public class JumpFragment extends Fragment implements
-        JumpListFragment.Callbacks, JumpDetailFragment.Callbacks {
-    private static final String TAG = makeLogTag(JumpFragment.class);
+
+public abstract class ItemFragment extends Fragment {
+    private static final String TAG = makeLogTag(ItemFragment.class);
+
+    protected abstract String getContentType();
+    protected abstract String getContentItemType();
+    protected abstract Uri getContentUri();
+    protected abstract Fragment getListFragment();
+    protected abstract Fragment getDetailFragment();
+    protected abstract Class<?> getDetailActivity();
+    protected abstract Class<?> getEditActivity();
 
     private static final int ACTIVITY_INSERT = 0;
     private static final int ACTIVITY_VIEW = 1;
     private static final int ACTIVITY_EDIT = 2;
 
-    private static final String FRAGMENT_JUMP_LIST = "fragment_tag_jump_list";
+    private static final String FRAGMENT_ITEM_LIST = "fragment_tag_item_list";
 
     private boolean mTwoPane;
 
@@ -45,18 +49,18 @@ public class JumpFragment extends Fragment implements
         final Uri uri = intent.getData();
         if (uri != null) {
             String uriType = activity.getContentResolver().getType(uri);
-            if (RemigesContract.Jumps.CONTENT_TYPE.equals(uriType)) {
+            if (getContentType().equals(uriType)) {
                 if (Intent.ACTION_INSERT.equals(action)) {
-                    insertJump(intent.getExtras());
+                    insertItem(intent.getExtras());
                 } else if (!Intent.ACTION_VIEW.equals(action)) {
                     unknownAction(action);
                 }
-            } else if (RemigesContract.Jumps.CONTENT_ITEM_TYPE.equals(uriType)) {
+            } else if (getContentItemType().equals(uriType)) {
                 if (Intent.ACTION_VIEW.equals(action)) {
-                    viewJump(uri);
+                    viewItem(uri);
                     handledSetListSelection(uri);
                 } else if (Intent.ACTION_EDIT.equals(action)) {
-                    editJump(uri);
+                    editItem(uri);
                     handledSetListSelection(uri);
                     if (mTwoPane) {
                         handledSetDetailFragment(intent);
@@ -70,13 +74,16 @@ public class JumpFragment extends Fragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_jump, container, false);
+        View view = inflater.inflate(R.layout.fragment_item, container, false);
 
-        Fragment jumpListFragment = getChildFragmentManager().findFragmentByTag(FRAGMENT_JUMP_LIST);
-        if (jumpListFragment == null) {
-            jumpListFragment = new JumpListFragment();
+        Fragment listFragment = getChildFragmentManager().findFragmentByTag(FRAGMENT_ITEM_LIST);
+        if (listFragment == null) {
+            listFragment = getListFragment();
+            if (!(listFragment instanceof ItemListFragment)) {
+                throw new IllegalStateException(String.format("List fragment must implement %s.", ItemListFragment.class.getSimpleName()));
+            }
             getChildFragmentManager().beginTransaction()
-                    .replace(R.id.jump_list_container, jumpListFragment, FRAGMENT_JUMP_LIST)
+                    .replace(R.id.item_list_container, listFragment, FRAGMENT_ITEM_LIST)
                     .commit();
         }
 
@@ -110,60 +117,40 @@ public class JumpFragment extends Fragment implements
         }
     }
 
-    @Override
-    public void onJumpSelected(Uri uri) {
-        viewJump(uri);
-    }
-
-    @Override
-    public void onInsertJump() {
-        insertJump(null);
-    }
-
-    @Override
-    public void onEditJump(Uri uri) {
-        editJump(uri);
-    }
-
-    @Override
-    public void onDeleteJump(Uri uri) {
-        deleteJump();
-    }
-
-    private void viewJump(Uri uri) {
+    protected void viewItem(Uri uri) {
         Intent intent = new Intent();
         intent.setData(uri);
         if (mTwoPane) {
             setDetailFragment(intent);
         } else {
-            intent.setClass(getActivity(), JumpDetailActivity.class);
+            intent.setClass(getActivity(), getDetailActivity());
             startActivityForResult(intent, ACTIVITY_VIEW);
         }
     }
 
-    private void editJump(Uri uri) {
+    protected void editItem(Uri uri) {
         Intent intent = new Intent();
         intent.setData(uri);
         intent.setAction(Intent.ACTION_EDIT);
-        intent.setClass(getActivity(), JumpEditActivity.class);
+        intent.setClass(getActivity(), getEditActivity());
         startActivityForResult(intent, ACTIVITY_EDIT);
     }
 
-    private void insertJump(Bundle extras) {
+    protected void insertItem(Bundle extras) {
         Intent intent = new Intent();
-        intent.setData(RemigesContract.Jumps.CONTENT_URI);
+        intent.setData(getContentUri());
         intent.setAction(Intent.ACTION_INSERT);
-        intent.setClass(getActivity(), JumpEditActivity.class);
+        intent.setClass(getActivity(), getEditActivity());
         if (extras != null) {
             intent.putExtras(extras);
         }
         startActivityForResult(intent, ACTIVITY_INSERT);
     }
 
-    private void deleteJump() {
+    protected void deleteItem() {
         if (mTwoPane) {
             FragmentManager fragmentManager = getChildFragmentManager();
-            Fragment fragment = fragmentManager.findFragmentById(R.id.jump_detail_container);
+            Fragment fragment = fragmentManager.findFragmentById(R.id.item_detail_container);
             if (fragment != null) {
                 fragmentManager.beginTransaction()
                         .remove(fragment)
@@ -172,20 +159,24 @@ public class JumpFragment extends Fragment implements
         }
     }
 
-    private void setDetailFragment(Intent intent) {
-        JumpDetailFragment fragment = new JumpDetailFragment();
+    protected void setDetailFragment(Intent intent) {
+        Fragment fragment = getDetailFragment();
         fragment.setArguments(BaseActivity.intentToFragmentArguments(intent));
         getChildFragmentManager().beginTransaction()
-                .replace(R.id.jump_detail_container, fragment)
+                .replace(R.id.item_detail_container, fragment)
                 .commit();
     }
 
-    private void setListSelection(Uri uri) {
-        ((JumpListFragment) getChildFragmentManager().findFragmentByTag(FRAGMENT_JUMP_LIST))
-                .setSelectedJump(uri);
+    public interface ItemListFragment {
+        public void setSelectedItem(Uri uri);
     }
 
-    private void handledSetListSelection(final Uri uri) {
+    protected void setListSelection(Uri uri) {
+        ((ItemListFragment) getChildFragmentManager().findFragmentByTag(FRAGMENT_ITEM_LIST))
+                .setSelectedItem(uri);
+    }
+
+    protected void handledSetListSelection(final Uri uri) {
         new Handler().post(new Runnable() {
             public void run() {
                 setListSelection(uri);
@@ -193,7 +184,7 @@ public class JumpFragment extends Fragment implements
         });
     }
 
-    private void handledSetDetailFragment(final Intent intent) {
+    protected void handledSetDetailFragment(final Intent intent) {
         new Handler().post(new Runnable() {
             public void run() {
                 setDetailFragment(intent);

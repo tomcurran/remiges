@@ -24,7 +24,8 @@ import org.tomcurran.remiges.util.FragmentUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-public class PlaceListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class PlaceListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
+        ItemFragment.ItemListFragment {
     private static final String TAG = makeLogTag(PlaceListFragment.class);
 
     private static final String SAVE_STATE_PLACE_URI = "place_uri";
@@ -127,7 +128,7 @@ public class PlaceListFragment extends Fragment implements LoaderManager.LoaderC
         mListView.setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
     }
 
-    public void setSelectedPlace(Uri uri) {
+    public void setSelectedItem(Uri uri) {
         mPlaceUri = uri;
         updateSelectedPlace();
     }
