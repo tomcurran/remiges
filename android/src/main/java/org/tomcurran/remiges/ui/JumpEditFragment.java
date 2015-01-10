@@ -42,23 +42,16 @@ import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
-public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
+public class JumpEditFragment extends ItemEditFragment implements LoaderManager.LoaderCallbacks<Cursor>,
         EditItemActivity.Callbacks {
     private static final String TAG = makeLogTag(JumpEditFragment.class);
-
-    private static final int STATE_INSERT = 0;
-    private static final int STATE_EDIT = 1;
 
     private static final int LOADER_JUMP = 0;
     private static final int LOADER_PLACES = 1;
     private static final int LOADER_JUMPTYPES = 2;
 
-    private static final String SAVE_STATE_JUMP_URI = "jump_uri";
-    private static final String SAVE_STATE_JUMP_STATE = "jump_state";
     private static final String SAVE_SATE_JUMP_TIME = "jump_time";
 
-    private int mState;
-    private Uri mJumpUri;
     private Cursor mJumpCursor;
     private Long mPlaceId;
     private Long mJumpTypeId;
@@ -128,40 +121,23 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
 
     private Callbacks mCallbacks = sDummyCallbacks;
 
-    public JumpEditFragment() {
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FragmentActivity activity = getActivity();
         mTime = new Time();
 
-        if (savedInstanceState == null) {
-            final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
-            final String action = intent.getAction();
-            if (Intent.ACTION_INSERT.equals(action)) {
-                mState = STATE_INSERT;
-                mJumpUri = null;
-            } else if (Intent.ACTION_EDIT.equals(action)) {
-                mState = STATE_EDIT;
-                mJumpUri = intent.getData();
-                getLoaderManager().initLoader(LOADER_JUMP, null, this);
-            } else {
-                LOGE(TAG, "Unknown action");
-                activity.setResult(FragmentActivity.RESULT_CANCELED);
-                activity.finish();
-                return;
-            }
-        } else {
-            mJumpUri = savedInstanceState.getParcelable(SAVE_STATE_JUMP_URI);
-            mState = savedInstanceState.getInt(SAVE_STATE_JUMP_STATE);
+        if (savedInstanceState != null) {
             mTime.set(savedInstanceState.getLong(SAVE_SATE_JUMP_TIME));
         }
 
-        if (mState == STATE_INSERT) {
-            activity.setTitle(R.string.title_jump_insert);
+        switch (mState) {
+            case STATE_INSERT:
+                getActivity().setTitle(R.string.title_jump_insert);
+                break;
+            case STATE_EDIT:
+                getLoaderManager().initLoader(0, null, this);
+                break;
         }
     }
 
@@ -195,26 +171,8 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        if (savedInstanceState == null) {
-            ContentValues values = getDefaultValues();
-            if (mState == STATE_INSERT) {
-                Bundle extras = BaseActivity.fragmentArgumentsToIntent(getArguments()).getExtras();
-                if (extras != null) {
-                    values = passIntentValues(extras, values);
-                }
-            }
-            setViewValues(values);
-        }
-    }
-
-    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(SAVE_STATE_JUMP_URI, mJumpUri);
-        outState.putInt(SAVE_STATE_JUMP_STATE, mState);
         outState.putLong(SAVE_SATE_JUMP_TIME, mTime.toMillis(false));
     }
 
@@ -234,18 +192,12 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
-    public void onSaveItem() {
-        switch (mState) {
-            case STATE_INSERT:
-                insertJump();
-                break;
-            case STATE_EDIT:
-                updateJump();
-                break;
-        }
+    protected Uri getContentUri() {
+        return RemigesContract.Jumps.CONTENT_URI;
     }
 
-    private ContentValues getDefaultValues() {
+    @Override
+    protected ContentValues getDefaultValues() {
         FragmentActivity activity = getActivity();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         mTime.setToNow();
@@ -262,7 +214,8 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         return values;
     }
 
-    private ContentValues getViewValues() {
+    @Override
+    protected ContentValues getViewValues() {
         ContentValues values = new ContentValues();
         values.put(RemigesContract.Jumps.JUMP_NUMBER, UIUtils.parseTextViewInt(mJumpNumber));
         values.put(RemigesContract.Jumps.JUMP_DATE, mTime.toMillis(false));
@@ -277,7 +230,8 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         return values;
     }
 
-    private void setViewValues(ContentValues values) {
+    @Override
+    protected void setViewValues(ContentValues values) {
         mJumpNumber.setText(values.getAsString(RemigesContract.Jumps.JUMP_NUMBER));
         setDate(values.getAsLong(RemigesContract.Jumps.JUMP_DATE));
         setPlace(values.getAsLong(RemigesContract.Jumps.PLACE_ID));
@@ -289,7 +243,8 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         mJumpDescription.setText(values.getAsString(RemigesContract.Jumps.JUMP_DESCRIPTION));
     }
 
-    private ContentValues passIntentValues(Bundle extras, ContentValues values) {
+    @Override
+    protected ContentValues passIntentValues(Bundle extras, ContentValues values) {
         ContentValues newValues = new ContentValues(values);
         if (extras.containsKey(RemigesContract.Jumps.JUMP_NUMBER))
             newValues.put(RemigesContract.Jumps.JUMP_NUMBER, extras.getInt(RemigesContract.Jumps.JUMP_NUMBER));
@@ -360,40 +315,13 @@ public class JumpEditFragment extends Fragment implements LoaderManager.LoaderCa
         updateJumpTypeSpinner();
     }
 
-    private void insertJump() {
-        FragmentActivity activity = getActivity();
-        Uri jumpUri = activity.getContentResolver().insert(RemigesContract.Jumps.CONTENT_URI, getViewValues());
-        if (jumpUri != null) {
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_INSERT);
-            intent.setData(jumpUri);
-            activity.setResult(FragmentActivity.RESULT_OK, intent);
-        } else {
-            activity.setResult(FragmentActivity.RESULT_CANCELED);
-        }
-        activity.finish();
-    }
-
-    private void updateJump() {
-        FragmentActivity activity = getActivity();
-        if (activity.getContentResolver().update(mJumpUri, getViewValues(), null, null) > 0) {
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_EDIT);
-            intent.setData(mJumpUri);
-            activity.setResult(FragmentActivity.RESULT_OK, intent);
-        } else {
-            activity.setResult(FragmentActivity.RESULT_CANCELED);
-        }
-        activity.finish();
-    }
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
             case LOADER_JUMP:
                 return new CursorLoader(
                         getActivity(),
-                        mJumpUri,
+                        mItemUri,
                         JumpQuery.PROJECTION,
                         null,
                         null,

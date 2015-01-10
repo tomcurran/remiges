@@ -2,13 +2,9 @@ package org.tomcurran.remiges.ui;
 
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -22,59 +18,29 @@ import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.ui.singlepane.EditItemActivity;
 import org.tomcurran.remiges.util.UIUtils;
 
-import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
-public class PlaceEditFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
+public class PlaceEditFragment extends ItemEditFragment implements LoaderManager.LoaderCallbacks<Cursor>,
         EditItemActivity.Callbacks {
     private static final String TAG = makeLogTag(PlaceEditFragment.class);
 
-    private static final int STATE_INSERT = 0;
-    private static final int STATE_EDIT = 1;
-
-    private static final String SAVE_STATE_PLACE_URI = "place_uri";
-    private static final String SAVE_STATE_PLACE_STATE = "place_state";
-
-    private int mState;
-    private Uri mPlaceUri;
     private Cursor mPlaceCursor;
 
     private EditText mPlaceName;
     private EditText mPlaceLatitude;
     private EditText mPlaceLongitude;
 
-    public PlaceEditFragment() {
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FragmentActivity activity = getActivity();
-
-        if (savedInstanceState == null) {
-            final Intent intent = BaseActivity.fragmentArgumentsToIntent(getArguments());
-            final String action = intent.getAction();
-            if (Intent.ACTION_INSERT.equals(action)) {
-                mState = STATE_INSERT;
-                mPlaceUri = null;
-            } else if (Intent.ACTION_EDIT.equals(action)) {
-                mState = STATE_EDIT;
-                mPlaceUri = intent.getData();
+        switch (mState) {
+            case STATE_INSERT:
+                getActivity().setTitle(R.string.title_place_insert);
+                break;
+            case STATE_EDIT:
                 getLoaderManager().initLoader(0, null, this);
-            } else {
-                LOGE(TAG, "Unknown action");
-                activity.setResult(FragmentActivity.RESULT_CANCELED);
-                activity.finish();
-                return;
-            }
-        } else {
-            mPlaceUri = savedInstanceState.getParcelable(SAVE_STATE_PLACE_URI);
-            mState = savedInstanceState.getInt(SAVE_STATE_PLACE_STATE);
-        }
-
-        if (mState == STATE_INSERT) {
-            activity.setTitle(R.string.title_place_insert);
+                break;
         }
     }
 
@@ -90,41 +56,12 @@ public class PlaceEditFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        if (savedInstanceState == null) {
-            ContentValues values = getDefaultValues();
-            if (mState == STATE_INSERT) {
-                Bundle extras = BaseActivity.fragmentArgumentsToIntent(getArguments()).getExtras();
-                if (extras != null) {
-                    values = passIntentValues(extras, values);
-                }
-            }
-            setViewValues(values);
-        }
+    protected Uri getContentUri() {
+        return RemigesContract.Places.CONTENT_URI;
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(SAVE_STATE_PLACE_URI, mPlaceUri);
-        outState.putInt(SAVE_STATE_PLACE_STATE, mState);
-    }
-
-    @Override
-    public void onSaveItem() {
-        switch (mState) {
-            case STATE_INSERT:
-                insertPlace();
-                break;
-            case STATE_EDIT:
-                updatePlace();
-                break;
-        }
-    }
-
-    private ContentValues getDefaultValues() {
+    protected ContentValues getDefaultValues() {
         ContentValues values = new ContentValues();
         values.put(RemigesContract.Places.PLACE_NAME, "");
         values.put(RemigesContract.Places.PLACE_LATITUDE, 0.0);
@@ -132,7 +69,8 @@ public class PlaceEditFragment extends Fragment implements LoaderManager.LoaderC
         return values;
     }
 
-    private ContentValues getViewValues() {
+    @Override
+    protected ContentValues getViewValues() {
         ContentValues values = new ContentValues();
         values.put(RemigesContract.Places.PLACE_NAME, mPlaceName.getText().toString());
         values.put(RemigesContract.Places.PLACE_LATITUDE, UIUtils.parseTextViewDouble(mPlaceLatitude));
@@ -140,13 +78,15 @@ public class PlaceEditFragment extends Fragment implements LoaderManager.LoaderC
         return values;
     }
 
-    private void setViewValues(ContentValues values) {
+    @Override
+    protected void setViewValues(ContentValues values) {
         mPlaceName.setText(values.getAsString(RemigesContract.Places.PLACE_NAME));
         UIUtils.setTextViewDouble(mPlaceLatitude, values.getAsDouble(RemigesContract.Places.PLACE_LATITUDE));
         UIUtils.setTextViewDouble(mPlaceLongitude, values.getAsDouble(RemigesContract.Places.PLACE_LONGITUDE));
     }
 
-    private ContentValues passIntentValues(Bundle extras, ContentValues values) {
+    @Override
+    protected ContentValues passIntentValues(Bundle extras, ContentValues values) {
         ContentValues newValues = new ContentValues(values);
         if (extras.containsKey(RemigesContract.Places.PLACE_NAME))
             newValues.put(RemigesContract.Places.PLACE_NAME, extras.getString(RemigesContract.Places.PLACE_NAME));
@@ -168,38 +108,11 @@ public class PlaceEditFragment extends Fragment implements LoaderManager.LoaderC
         }
     }
 
-    private void insertPlace() {
-        FragmentActivity activity = getActivity();
-        Uri placeUri = activity.getContentResolver().insert(RemigesContract.Places.CONTENT_URI, getViewValues());
-        if (placeUri != null) {
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_INSERT);
-            intent.setData(placeUri);
-            activity.setResult(FragmentActivity.RESULT_OK, intent);
-        } else {
-            activity.setResult(FragmentActivity.RESULT_CANCELED);
-        }
-        activity.finish();
-    }
-
-    private void updatePlace() {
-        FragmentActivity activity = getActivity();
-        if (activity.getContentResolver().update(mPlaceUri, getViewValues(), null, null) > 0) {
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_EDIT);
-            intent.setData(mPlaceUri);
-            activity.setResult(FragmentActivity.RESULT_OK, intent);
-        } else {
-            activity.setResult(FragmentActivity.RESULT_CANCELED);
-        }
-        activity.finish();
-    }
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(
                 getActivity(),
-                mPlaceUri,
+                mItemUri,
                 PlaceQuery.PROJECTION,
                 null,
                 null,
