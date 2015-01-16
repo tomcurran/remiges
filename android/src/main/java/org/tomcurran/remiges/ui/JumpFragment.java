@@ -50,12 +50,12 @@ public class JumpFragment extends ItemFragment implements
     }
 
     @Override
-    public void onJumpSelected(Uri uri) {
+    public void onItemSelected(Uri uri) {
         viewItem(uri);
     }
 
     @Override
-    public void onInsertJump() {
+    public void onInsertItem() {
         insertItem(null);
     }
 

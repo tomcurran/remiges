@@ -3,14 +3,13 @@
     android:layout_height="match_parent">
 
     <ListView
-        android:id="@+id/place_list"
+        android:id="@+id/item_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab_place_list"
+        android:id="@+id/fab_item_list"
         android:src="@drawable/ic_menu_add"
-        android:contentDescription="@string/fab_place_list"
         style="@style/FloatingActionButton" />
 
 </FrameLayout>

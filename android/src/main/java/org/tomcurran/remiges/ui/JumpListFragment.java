@@ -1,15 +1,13 @@
 package org.tomcurran.remiges.ui;
 
-import android.app.Activity;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -21,7 +19,6 @@ import android.widget.TextView;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
-import org.tomcurran.remiges.util.FragmentUtils;
 import org.tomcurran.remiges.util.TimeUtils;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
@@ -30,123 +27,46 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
-public class JumpListFragment extends Fragment implements
-        LoaderManager.LoaderCallbacks<Cursor>, JumpDetailFragment.Callbacks, ItemFragment.ItemListFragment {
+public class JumpListFragment extends ItemListFragment {
     private static final String TAG = makeLogTag(JumpListFragment.class);
 
-    private static final String SAVE_STATE_JUMP_URI = "jump_uri";
-
-    private Uri mJumpUri;
-
     private StickyListHeadersListView mHeaderListView;
-
-    private JumpListAdapter mAdapter;
-
-    public interface Callbacks {
-        public void onJumpSelected(Uri uri);
-        public void onInsertJump();
-    }
-
-    private static Callbacks sDummyCallbacks = new Callbacks() {
-        @Override
-        public void onJumpSelected(Uri uri) {
-        }
-        @Override
-        public void onInsertJump() {
-        }
-    };
-
-    private Callbacks mCallbacks = sDummyCallbacks;
-
-    public JumpListFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            if (savedInstanceState.containsKey(SAVE_STATE_JUMP_URI)) {
-                mJumpUri = savedInstanceState.getParcelable(SAVE_STATE_JUMP_URI);
-            }
-        }
-
-        mAdapter = new JumpListAdapter(getActivity());
-
-        getLoaderManager().initLoader(0, null, this);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_jump_list, container, false);
         mHeaderListView = (StickyListHeadersListView) rootView.findViewById(R.id.jump_list);
-        mHeaderListView.setAdapter(mAdapter);
+        mHeaderListView.setAdapter((StickyListHeadersAdapter) mAdapter);
         mHeaderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mCallbacks.onJumpSelected(RemigesContract.Jumps.buildJumpUri(id));
+                mCallbacks.onItemSelected(buildItemUri(id));
             }
         });
         rootView.findViewById(R.id.fab_jump_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                insertJump();
+                mCallbacks.onInsertItem();
             }
         });
         return rootView;
     }
 
-    private void insertJump() {
-        mCallbacks.onInsertJump();
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        mHeaderListView.setChoiceMode(getResources().getBoolean(R.bool.has_two_panes) ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        setActivateOnItemClick(getResources().getBoolean(R.bool.has_two_panes));
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mCallbacks = FragmentUtils.getParent(this, Callbacks.class);
-        if (mCallbacks == null) {
-            throw new IllegalStateException("Parent must implement fragment's callbacks.");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mCallbacks = sDummyCallbacks;
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (mJumpUri != null) {
-            outState.putParcelable(SAVE_STATE_JUMP_URI, mJumpUri);
-        }
-    }
-
-    public void setActivateOnItemClick(boolean activateOnItemClick) {
-        mHeaderListView.setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
-    }
-
-    public void setSelectedItem(Uri uri) {
-        mJumpUri = uri;
-        updateSelectedJump();
-    }
-
-    private void updateSelectedJump() {
-        if (mJumpUri != null) {
-            Long id = Long.parseLong(RemigesContract.Jumps.getJumpId(mJumpUri));
+    protected void updateSelectedItem() {
+        if (mItemUri != null) {
+            Long id = Long.parseLong(getItemId(mItemUri));
             StickyListHeadersListView headerListView = mHeaderListView;
             if (headerListView.getWrappedList().getSelectedItemId() != id) {
                 int listCount = headerListView.getCount();
+                int idColumn = getQueryIdColumn();
                 for (int i = 0; i < listCount; i++) {
-                    if (id == ((Cursor) headerListView.getItemAtPosition(i)).getLong(JumpsQuery._ID)) {
+                    if (id == ((Cursor) headerListView.getItemAtPosition(i)).getLong(idColumn)) {
                         headerListView.setItemChecked(i, true);
                         headerListView.setSelection(i);
                         break;
@@ -157,15 +77,12 @@ public class JumpListFragment extends Fragment implements
     }
 
     @Override
-    public void onEditJump(Uri uri) {
+    protected CursorAdapter getListAdapter() {
+        return new JumpListAdapter(getActivity());
     }
 
     @Override
-    public void onDeleteJump(Uri uri) {
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+    protected Loader<Cursor> getCursorLoader() {
         return new CursorLoader(
                 getActivity(),
                 RemigesContract.Jumps.CONTENT_URI,
@@ -176,15 +93,16 @@ public class JumpListFragment extends Fragment implements
         );
     }
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        mAdapter.changeCursor(cursor);
-        updateSelectedJump();
+    protected Uri buildItemUri(long id) {
+        return RemigesContract.Jumps.buildJumpUri(id);
     }
 
-    @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-        mAdapter.changeCursor(null);
+    protected String getItemId(Uri uri) {
+        return RemigesContract.Jumps.getJumpId(uri);
+    }
+
+    protected int getQueryIdColumn() {
+        return JumpsQuery._ID;
     }
 
     public static class JumpListAdapter extends SimpleCursorAdapter implements

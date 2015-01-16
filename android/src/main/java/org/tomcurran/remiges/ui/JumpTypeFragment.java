@@ -50,12 +50,12 @@ public class JumpTypeFragment extends ItemFragment implements
     }
 
     @Override
-    public void onJumpTypeSelected(String jumpTypeId) {
-        viewItem(RemigesContract.JumpTypes.buildJumpTypeUri(jumpTypeId));
+    public void onItemSelected(Uri uri) {
+        viewItem(uri);
     }
 
     @Override
-    public void onInsertJumpType() {
+    public void onInsertItem() {
         insertItem(null);
     }
 

@@ -50,12 +50,12 @@ public class PlaceFragment extends ItemFragment implements
     }
 
     @Override
-    public void onPlaceSelected(Uri uri) {
+    public void onItemSelected(Uri uri) {
         viewItem(uri);
     }
 
     @Override
-    public void onInsertPlace() {
+    public void onInsertItem() {
         insertItem(null);
     }
 
