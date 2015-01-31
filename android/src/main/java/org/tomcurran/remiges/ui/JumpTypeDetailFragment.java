@@ -4,7 +4,6 @@ package org.tomcurran.remiges.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -24,7 +23,6 @@ import android.widget.TextView;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
-import org.tomcurran.remiges.util.UIUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
@@ -41,7 +39,6 @@ public class JumpTypeDetailFragment extends Fragment implements LoaderManager.Lo
     private Cursor mJumpTypeCursor;
 
     private TextView mJumpTypeName;
-    private Typeface mRoboto;
 
     public interface Callbacks {
         public void onEditJumpType(String jumpTypeId);
@@ -75,8 +72,6 @@ public class JumpTypeDetailFragment extends Fragment implements LoaderManager.Lo
             mJumpTypeUri = savedInstanceState.getParcelable(SAVE_STATE_JUMPTYPE_URI);
         }
 
-        mRoboto = UIUtils.loadFont(getActivity(), UIUtils.FONT_ROBOTO_THIN);
-
         getLoaderManager().initLoader(LOADER_JUMPTYPE_DETAIL, null, this);
     }
 
@@ -85,7 +80,6 @@ public class JumpTypeDetailFragment extends Fragment implements LoaderManager.Lo
         View rootView = inflater.inflate(R.layout.fragment_jumptype_detail, container, false);
 
         mJumpTypeName = (TextView) rootView.findViewById(R.id.detail_jumptype_name);
-        mJumpTypeName.setTypeface(mRoboto);
 
         if (savedInstanceState == null) {
             StatisticsFragment statisticsFragment = StatisticsFragment.newInstance(

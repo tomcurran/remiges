@@ -3,7 +3,6 @@ package org.tomcurran.remiges.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -37,7 +36,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.FragmentUtils;
-import org.tomcurran.remiges.util.UIUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
@@ -55,7 +53,6 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
 
     private TextView mJumpTitle;
     private TextView mJumpDate;
-    private LinearLayout mJumpDescriptionLayout;
     private TextView mJumpDescription;
     private TextView mJumpExitAltitude;
     private TextView mJumpDeploymentAltitude;
@@ -65,7 +62,6 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
     private LatLng mLocation;
     private FrameLayout mPlaceMap;
     private TextView mPlaceName;
-    private Typeface mRoboto;
 
     private static GoogleMapOptions sDefaultMapOptions = new GoogleMapOptions()
             .mapType(GoogleMap.MAP_TYPE_NORMAL)
@@ -110,8 +106,6 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
             mJumpUri = savedInstanceState.getParcelable(SAVE_STATE_JUMP_URI);
         }
 
-        mRoboto = UIUtils.loadFont(getActivity(), UIUtils.FONT_ROBOTO_THIN);
-
         getLoaderManager().restartLoader(0, null, this);
     }
 
@@ -122,15 +116,12 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
         mJumpTitle = (TextView) rootView.findViewById(R.id.detail_jump_title);
         mJumpDate = (TextView) rootView.findViewById(R.id.detail_jump_date);
         mJumpDescription = (TextView) rootView.findViewById(R.id.detail_jump_description);
-        mJumpDescriptionLayout = (LinearLayout) rootView.findViewById(R.id.detail_jump_layout_description);
         mPlaceContainer = (LinearLayout) rootView.findViewById(R.id.detail_jump_place_container);
         mPlaceName = (TextView) rootView.findViewById(R.id.detail_jump_place_name);
         mPlaceMap = (FrameLayout) rootView.findViewById(R.id.detail_jump_map);
         mJumpExitAltitude = (TextView) rootView.findViewById(R.id.detail_jump_exit_altitude);
         mJumpDeploymentAltitude = (TextView) rootView.findViewById(R.id.detail_jump_deployment_altitude);
         mJumpDelay = (TextView) rootView.findViewById(R.id.detail_jump_delay);
-
-        mJumpTitle.setTypeface(mRoboto);
 
         return rootView;
     }
@@ -212,7 +203,7 @@ public class JumpDetailFragment extends Fragment implements LoaderManager.Loader
             mJumpDate.setText(DateFormat.format(getString(R.string.format_detail_jump_date), jumpCursor.getLong(JumpQuery.DATE)));
             String description = jumpCursor.getString(JumpQuery.DESCRIPTION);
             mJumpDescription.setText(description);
-            mJumpDescriptionLayout.setVisibility(description.isEmpty() ? View.GONE : View.VISIBLE);
+            mJumpDescription.setVisibility(TextUtils.isEmpty(description) ? View.GONE : View.VISIBLE);
             String title;
             int way =  jumpCursor.getInt(JumpQuery.WAY);
             if (way > 1) {
