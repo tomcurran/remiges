@@ -80,6 +80,7 @@ public abstract class ItemListFragment extends Fragment implements LoaderManager
                 mCallbacks.onInsertItem();
             }
         });
+        mListView.setEmptyView(rootView.findViewById(R.id.item_list_empty));
         return rootView;
     }
 

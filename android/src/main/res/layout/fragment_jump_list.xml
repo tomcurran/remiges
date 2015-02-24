@@ -11,6 +11,16 @@
         android:dividerHeight="0dp"
         tools:listitem="@layout/list_item_jumps" />
 
+    <TextView
+        android:id="@+id/jump_list_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/keyline_1"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        tools:text="@string/list_jump_empty" />
+
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab_jump_list"
         android:src="@drawable/ic_menu_add"

@@ -11,6 +11,7 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
@@ -25,6 +26,7 @@ public class JumpTypeListFragment extends ItemListFragment implements ItemFragme
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         rootView.findViewById(R.id.fab_item_list).setContentDescription(getResources().getString(R.string.fab_jumptype_list));
+        ((TextView)rootView.findViewById(R.id.item_list_empty)).setText(R.string.list_jumptype_empty);
         return rootView;
     }
 

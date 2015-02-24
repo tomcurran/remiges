@@ -32,6 +32,7 @@
     <!-- Jump List -->
 
     <string name="fab_jump_list">Log Jump</string>
+    <string name="list_jump_empty">Log a jump using the + button below</string>
     <string name="list_jump_solo">Solo</string>
     <string name="list_jump_way">%d Way</string>
 
@@ -80,6 +81,7 @@
     <!-- Place List -->
 
     <string name="fab_place_list">Add Place</string>
+    <string name="list_place_empty">Add a place using the + button below</string>
 
     <!-- Place Detail -->
 
@@ -93,6 +95,7 @@
     <!-- Jump Type List -->
 
     <string name="fab_jumptype_list">Add Jump Type</string>
+    <string name="list_jumptype_empty">Add a jump type using the + button below</string>
 
     <!-- Jump Type Detail -->
 

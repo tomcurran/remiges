@@ -49,6 +49,9 @@ public class JumpListFragment extends ItemListFragment {
                 mCallbacks.onInsertItem();
             }
         });
+        TextView mEmptyView = (TextView) rootView.findViewById(R.id.jump_list_empty);
+        mEmptyView.setText(R.string.list_jump_empty);
+        mHeaderListView.setEmptyView(mEmptyView);
         return rootView;
     }
 
