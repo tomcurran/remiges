@@ -7,6 +7,7 @@ import com.android.uiautomator.core.UiObjectNotFoundException;
 
 public class JumpTestCase extends ItemTestCase {
 
+    // content value keys
     private static final String JUMP_NUMBER = "jump_number";
     private static final String JUMP_WAY = "jump_way";
     private static final String JUMP_EXIT_ALTITUDE = "jump_exit_altitude";
@@ -14,9 +15,11 @@ public class JumpTestCase extends ItemTestCase {
     private static final String JUMP_DELAY = "jump_delay";
     private static final String JUMP_DESCRIPTION = "jump_description";
 
+    // content description and text values used for navigation
     public static final String TEXT_NAVIGATION = "Jumps";
     public static final String TEXT_TITLE = "Jumps";
 
+    // content descriptions, text values and resource IDs
     private static final String DESCRIPTION_ADD = "Log Jump";
     private static final String DESCRIPTION_EDIT = "Edit";
     private static final String DESCRIPTION_DELETE = "Delete";
@@ -38,11 +41,15 @@ public class JumpTestCase extends ItemTestCase {
     private static final String RESOURCE_DETAIL_DELAY = APP_ID + "detail_jump_delay";
     private static final String RESOURCE_DETAIL_DESCRIPTION = APP_ID + "detail_jump_description";
 
+    // edit field hint text values
+    private static final String HINT_NUMBER = "Jump Number";
+    private static final String HINT_WAY = "Way";
     private static final String HINT_EXIT_ALTITUDE = "Exit Altitude";
     private static final String HINT_DEPLOYMENT_ALTITUDE = "Deployment Altitude";
     private static final String HINT_DELAY = "Delay (seconds)";
     private static final String HINT_DESCRIPTION = "Description";
 
+    // generates unique descriptions
     private static int descriptionCount = 0;
 
     private static String getNextDescription() {
@@ -55,12 +62,13 @@ public class JumpTestCase extends ItemTestCase {
 
     @Override
     public void editValues(ContentValues values) throws UiObjectNotFoundException {
-        changeTextField(RESOURCE_EDIT_NUMBER, values.getAsString(JUMP_NUMBER));
-        changeTextField(RESOURCE_EDIT_WAY, values.getAsString(JUMP_WAY));
-        changeTextField(RESOURCE_EDIT_EXIT_ALTITUDE, values.getAsString(JUMP_EXIT_ALTITUDE));
-        changeTextField(RESOURCE_EDIT_DEPLOYMENT_ALTITUDE, values.getAsString(JUMP_DEPLOYMENT_ALTITUDE));
-        changeTextField(RESOURCE_EDIT_DELAY, values.getAsString(JUMP_DELAY));
-//        changeTextField(RESOURCE_EDIT_DESCRIPTION, values.getAsString(JUMP_DESCRIPTION));
+        changeTextField(RESOURCE_EDIT_NUMBER, values.getAsString(JUMP_NUMBER), HINT_NUMBER);
+        changeTextField(RESOURCE_EDIT_WAY, values.getAsString(JUMP_WAY), HINT_WAY);
+        changeTextField(RESOURCE_EDIT_EXIT_ALTITUDE, values.getAsString(JUMP_EXIT_ALTITUDE), HINT_EXIT_ALTITUDE);
+        changeTextField(RESOURCE_EDIT_DEPLOYMENT_ALTITUDE, values.getAsString(JUMP_DEPLOYMENT_ALTITUDE), HINT_DEPLOYMENT_ALTITUDE);
+        changeTextField(RESOURCE_EDIT_DELAY, values.getAsString(JUMP_DELAY), HINT_DELAY);
+        // TODO edit jump description
+//        changeTextField(RESOURCE_EDIT_DESCRIPTION, values.getAsString(JUMP_DESCRIPTION), HINT_DESCRIPTION);
     }
 
     @Override
@@ -75,6 +83,7 @@ public class JumpTestCase extends ItemTestCase {
         assertEquals(HINT_EXIT_ALTITUDE, getByResource(RESOURCE_EDIT_EXIT_ALTITUDE).getText());
         assertEquals(HINT_DEPLOYMENT_ALTITUDE, getByResource(RESOURCE_EDIT_DEPLOYMENT_ALTITUDE).getText());
         assertEquals(HINT_DELAY, getByResource(RESOURCE_EDIT_DELAY).getText());
+        // TODO assert jump description
 //        assertEquals(HINT_DESCRIPTION, getByResource(RESOURCE_EDIT_DESCRIPTION).getText());
     }
 

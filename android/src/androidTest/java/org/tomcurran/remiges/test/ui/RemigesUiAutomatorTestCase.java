@@ -14,22 +14,23 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
 
     public static final String APP_PACKAGE = "org.tomcurran.remiges";
     public static final String APP_ID = APP_PACKAGE + ":id/";
-    public static final String CLASS_LISTVIEW = "android.widget.ListView";
-    public static final String CLASS_TEXTVIEW = "android.widget.TextView";
-    public static final String RESOURCE_ACTIONBAR_DONE = APP_ID + "actionbar_done";
-    public static final String RESOURCE_ACTIONBAR_CANCEL = APP_ID + "actionbar_cancel";
+
+    public static final String RESOURCE_EDIT_SAVE = APP_ID + "menu_edit_save";
+    public static final String DESCRIPTION_NAVIGATE_UP = "Navigate up";
+    public static final String TEXT_OK = "OK";
 
     private static final String APP_TITLE = "Remiges";
     private static final String RESOURCE_TOOLBAR = APP_ID + "toolbar_actionbar";
     private static final String RESOURCE_MASTER_DETAIL_CONTAINER = APP_ID + "container";
+
     private static final int SMALLEST_WIDTH_TWO_PANE = 600;
 
     public static UiSelector getTextView() {
-        return new UiSelector().className(CLASS_TEXTVIEW);
+        return new UiSelector().className(android.widget.TextView.class.getName());
     }
 
     public static UiSelector getListView(UiSelector container) {
-        return container.childSelector(new UiSelector().className(CLASS_LISTVIEW));
+        return container.childSelector(new UiSelector().className(android.widget.ListView.class.getName()));
     }
 
     public static UiObject getByResource(String resourceId) {
@@ -82,18 +83,25 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
         return getListView(getMasterDetailContainer());
     }
 
-    public static int getMasterDetailListCount() throws UiObjectNotFoundException {
-        return new UiObject(getMasterDetailList()).getChildCount();
+    public static int getMasterDetailListCount() {
+        try {
+            return new UiObject(getMasterDetailList()).getChildCount();
+        } catch (UiObjectNotFoundException exception) {
+            return 0;
+        }
     }
 
     /**
-     * Sets the value of a text field to value
+     * Sets the value of a text field to value. Field must have a placeholder when blank.
      * @param resource resource id
      * @param value string value to set
+     * @param hint string placeholder text when field is blank
      * @throws UiObjectNotFoundException
      */
-    public static void changeTextField(String resource, String value) throws  UiObjectNotFoundException {
-        getByResource(resource).clearTextField();
+    public static void changeTextField(String resource, String value, String hint) throws  UiObjectNotFoundException {
+        while (!getByResource(resource).getText().equals(hint)) {
+            getByResource(resource).clearTextField();
+        }
         getByResource(resource).setText(value);
         assertEquals(value, getByResource(resource).getText());
     }
@@ -121,45 +129,20 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
      * @throws UiObjectNotFoundException
      */
     private void openApp() throws UiObjectNotFoundException {
-        // Simulate a short press on the HOME button.
         getUiDevice().pressHome();
 
-        // We’re now in the home screen. Next, we want to simulate
-        // a user bringing up the All Apps screen.
-        // If you use the uiautomatorviewer tool to capture a snapshot
-        // of the Home screen, notice that the All Apps button’s
-        // content-description property has the value “Apps”.  We can
-        // use this property to create a UiSelector to find the button.
-        // Simulate a click to bring up the All Apps screen.
         getByDescription("Apps").clickAndWaitForNewWindow();
 
-        // In the All Apps screen, the Settings app is located in
-        // the Apps tab. To simulate the user bringing up the Apps tab,
-        // we create a UiSelector to find a tab with the text
-        // label “Apps”.
-        // Simulate a click to enter the Apps tab on the default android launcher
         UiObject appsTab = getByText("Apps");
         if (appsTab.exists()) {
             appsTab.click();
         }
 
-        // Next, in the apps tabs, we can simulate a user swiping until
-        // they come to the Settings app icon.  Since the container view
-        // is scrollable, we can use a UiScrollable object.
         UiScrollable apps = new UiScrollable(new UiSelector().scrollable(true));
-
-        // Set the swiping mode to horizontal (the default is vertical)
         apps.setAsHorizontalList();
+        apps.getChildByText(getTextView(), APP_TITLE).clickAndWaitForNewWindow();
 
-        // Create a UiSelector to find the Settings app and simulate
-        // a user click to launch the app.
-        UiObject app = apps.getChildByText(new UiSelector()
-                .className(android.widget.TextView.class.getName()), APP_TITLE);
-        app.clickAndWaitForNewWindow();
-
-        // Validate that the package name is the expected one
-        UiObject appPackage = new UiObject(new UiSelector().packageName(APP_PACKAGE));
-        assertTrue("Unable to detect " + APP_TITLE, appPackage.exists());
+        assertTrue("Unable to detect " + APP_TITLE, new UiObject(new UiSelector().packageName(APP_PACKAGE)).exists());
     }
 
     /**

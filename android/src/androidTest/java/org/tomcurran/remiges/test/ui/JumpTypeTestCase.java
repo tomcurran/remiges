@@ -23,7 +23,7 @@ public class JumpTypeTestCase extends ItemTestCase {
     private static final String RESOURCE_DETAIL_NAME = APP_ID + "detail_jumptype_name";
 
     // edit field hint text values
-    private static final String NAME_HINT = "Jump Type";
+    private static final String HINT_NAME = "Jump Type";
 
     // generates unique names
     private static int nameCount = 0;
@@ -40,7 +40,7 @@ public class JumpTypeTestCase extends ItemTestCase {
 
     @Override
     public void editValues(ContentValues values) throws UiObjectNotFoundException {
-        changeTextField(RESOURCE_EDIT_NAME, values.getAsString(JUMPTYPE_NAME));
+        changeTextField(RESOURCE_EDIT_NAME, values.getAsString(JUMPTYPE_NAME), HINT_NAME);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class JumpTypeTestCase extends ItemTestCase {
 
     @Override
     public void assertHint() throws UiObjectNotFoundException {
-        assertEquals(NAME_HINT, getByResource(RESOURCE_EDIT_NAME).getText());
+        assertEquals(HINT_NAME, getByResource(RESOURCE_EDIT_NAME).getText());
     }
 
     @Override
