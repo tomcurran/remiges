@@ -1,16 +1,17 @@
 package org.tomcurran.remiges.test.ui;
 
-import com.android.uiautomator.core.UiObject;
-import com.android.uiautomator.core.UiObjectNotFoundException;
-import com.android.uiautomator.core.UiScrollable;
-import com.android.uiautomator.core.UiSelector;
-import com.android.uiautomator.testrunner.UiAutomatorTestCase;
+import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiScrollable;
+import android.support.test.uiautomator.UiSelector;
+import android.test.InstrumentationTestCase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
+public class RemigesUiAutomatorTestCase extends InstrumentationTestCase {
 
     public static final String APP_PACKAGE = "org.tomcurran.remiges";
     public static final String APP_ID = APP_PACKAGE + ":id/";
@@ -25,6 +26,10 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
 
     private static final int SMALLEST_WIDTH_TWO_PANE = 600;
 
+    protected UiDevice getUiDevice() {
+        return UiDevice.getInstance(getInstrumentation());
+    }
+
     public static UiSelector getTextView() {
         return new UiSelector().className(android.widget.TextView.class.getName());
     }
@@ -33,16 +38,16 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
         return container.childSelector(new UiSelector().className(android.widget.ListView.class.getName()));
     }
 
-    public static UiObject getByResource(String resourceId) {
-        return new UiObject(new UiSelector().resourceId(resourceId));
+    protected UiObject getByResource(String resourceId) {
+        return getUiDevice().findObject(new UiSelector().resourceId(resourceId));
     }
 
-    public static UiObject getByDescription(String description) throws UiObjectNotFoundException {
-        return new UiObject(new UiSelector().description(description));
+    protected UiObject getByDescription(String description) throws UiObjectNotFoundException {
+        return getUiDevice().findObject(new UiSelector().description(description));
     }
 
-    public static UiObject getByText(String text) throws UiObjectNotFoundException {
-        return new UiObject(new UiSelector().text(text));
+    protected UiObject getByText(String text) throws UiObjectNotFoundException {
+        return getUiDevice().findObject(new UiSelector().text(text));
     }
 
     public static UiObject getListItem(UiSelector list, String text) throws UiObjectNotFoundException {
@@ -71,8 +76,8 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
         }
     }
 
-    public static String getActionBarTitle() throws UiObjectNotFoundException {
-        return new UiObject(new UiSelector().resourceId(RESOURCE_TOOLBAR).childSelector(new UiSelector().index(1))).getText();
+    protected String getActionBarTitle() throws UiObjectNotFoundException {
+        return getUiDevice().findObject(new UiSelector().resourceId(RESOURCE_TOOLBAR).childSelector(new UiSelector().index(1))).getText();
     }
 
     public static UiSelector getMasterDetailContainer() {
@@ -83,9 +88,9 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
         return getListView(getMasterDetailContainer());
     }
 
-    public static int getMasterDetailListCount() {
+    protected int getMasterDetailListCount() {
         try {
-            return new UiObject(getMasterDetailList()).getChildCount();
+            return getUiDevice().findObject(getMasterDetailList()).getChildCount();
         } catch (UiObjectNotFoundException exception) {
             return 0;
         }
@@ -98,7 +103,7 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
      * @param hint string placeholder text when field is blank
      * @throws UiObjectNotFoundException
      */
-    public static void changeTextField(String resource, String value, String hint) throws  UiObjectNotFoundException {
+    protected void changeTextField(String resource, String value, String hint) throws  UiObjectNotFoundException {
         while (!getByResource(resource).getText().equals(hint)) {
             getByResource(resource).clearTextField();
         }
@@ -129,7 +134,8 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
      * @throws UiObjectNotFoundException
      */
     private void openApp() throws UiObjectNotFoundException {
-        getUiDevice().pressHome();
+        UiDevice device = getUiDevice();
+        device.pressHome();
 
         getByDescription("Apps").clickAndWaitForNewWindow();
 
@@ -142,7 +148,7 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
         apps.setAsHorizontalList();
         apps.getChildByText(getTextView(), APP_TITLE).clickAndWaitForNewWindow();
 
-        assertTrue("Unable to detect " + APP_TITLE, new UiObject(new UiSelector().packageName(APP_PACKAGE)).exists());
+        assertTrue("Unable to detect " + APP_TITLE, device.findObject(new UiSelector().packageName(APP_PACKAGE)).exists());
     }
 
     /**
@@ -150,9 +156,10 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
      * @throws InterruptedException
      */
     private void closeApp() throws InterruptedException {
-        while (getUiDevice().getCurrentPackageName().equals(APP_PACKAGE)) {
-            getUiDevice().pressBack();
-            getUiDevice().waitForIdle();
+        UiDevice device = UiDevice.getInstance(getInstrumentation());
+        while (device.getCurrentPackageName().equals(APP_PACKAGE)) {
+            device.pressBack();
+            device.waitForIdle();
         }
     }
 
@@ -167,5 +174,4 @@ public class RemigesUiAutomatorTestCase extends UiAutomatorTestCase {
         super.tearDown();
         closeApp();
     }
-
 }

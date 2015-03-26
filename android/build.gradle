@@ -28,4 +28,5 @@ dependencies {
     compile 'se.emilsjolander:stickylistheaders:2.5.+'
     compile 'com.melnykov:floatingactionbutton:1.1.+'
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.+'
 }

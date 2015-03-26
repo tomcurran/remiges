@@ -2,9 +2,8 @@ package org.tomcurran.remiges.test.ui;
 
 
 import android.content.ContentValues;
+import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.text.TextUtils;
-
-import com.android.uiautomator.core.UiObjectNotFoundException;
 
 public class PlacesTestCase extends ItemTestCase {
 
@@ -105,7 +104,7 @@ public class PlacesTestCase extends ItemTestCase {
 
     @Override
     public void navigateTo() throws UiObjectNotFoundException {
-        NavigationDrawerTestCase.navigateTo(PlacesTestCase.TEXT_NAVIGATION, PlacesTestCase.TEXT_TITLE);
+        getNavigationDrawerTestCase().navigateTo(PlacesTestCase.TEXT_NAVIGATION, PlacesTestCase.TEXT_TITLE);
     }
 
     @Override
@@ -114,7 +113,7 @@ public class PlacesTestCase extends ItemTestCase {
         navigateTo();
 
         // navigate to jump type
-        NavigationDrawerTestCase.navigateTo(JumpTypeTestCase.TEXT_NAVIGATION, JumpTypeTestCase.TEXT_TITLE);
+        getNavigationDrawerTestCase().navigateTo(JumpTypeTestCase.TEXT_NAVIGATION, JumpTypeTestCase.TEXT_TITLE);
 
         // navigate to places
         navigateTo();

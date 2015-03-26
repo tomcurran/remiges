@@ -1,9 +1,8 @@
 package org.tomcurran.remiges.test.ui;
 
-import com.android.uiautomator.core.UiObject;
-import com.android.uiautomator.core.UiObjectNotFoundException;
-import com.android.uiautomator.core.UiScrollable;
-import com.android.uiautomator.core.UiSelector;
+
+import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiSelector;
 
 public class NavigationDrawerTestCase extends RemigesUiAutomatorTestCase {
 
@@ -15,12 +14,11 @@ public class NavigationDrawerTestCase extends RemigesUiAutomatorTestCase {
 
     private static final String RESOURCE_DRAWER = APP_ID + "drawer_layout";
 
-
     /**
      * Opens the navigation drawer
      * @throws UiObjectNotFoundException
      */
-    public static void openDrawer() throws UiObjectNotFoundException {
+    protected void openDrawer() throws UiObjectNotFoundException {
         getByDescription(DESCRIPTION_OPEN_DRAWER).click();
     }
 
@@ -28,7 +26,7 @@ public class NavigationDrawerTestCase extends RemigesUiAutomatorTestCase {
      * Closes the navigation drawer
      * @throws UiObjectNotFoundException
      */
-    public static void closeDrawer() throws UiObjectNotFoundException {
+    protected void closeDrawer() throws UiObjectNotFoundException {
         getByDescription(DESCRIPTION_CLOSE_DRAWER).click();
     }
 
@@ -37,7 +35,7 @@ public class NavigationDrawerTestCase extends RemigesUiAutomatorTestCase {
      * @param navigation
      * @throws UiObjectNotFoundException
      */
-    public static void selectNavigation(String navigation) throws UiObjectNotFoundException {
+    protected void selectNavigation(String navigation) throws UiObjectNotFoundException {
         getListItem(new UiSelector().resourceId(RESOURCE_DRAWER), navigation).click();
     }
 
@@ -47,7 +45,7 @@ public class NavigationDrawerTestCase extends RemigesUiAutomatorTestCase {
      * @param navigateToTitle title of the page we are navigating to
      * @throws UiObjectNotFoundException
      */
-    protected static void navigateTo(String navigateTo, String navigateToTitle) throws UiObjectNotFoundException {
+    protected void navigateTo(String navigateTo, String navigateToTitle) throws UiObjectNotFoundException {
         // open navigation drawer
         openDrawer();
 

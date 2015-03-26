@@ -1,11 +1,20 @@
 package org.tomcurran.remiges.test.ui;
 
 import android.content.ContentValues;
-
-import com.android.uiautomator.core.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiObjectNotFoundException;
 
 
 public abstract class ItemTestCase extends RemigesUiAutomatorTestCase {
+
+    protected NavigationDrawerTestCase mNavigationDrawerTestCase;
+
+    public ItemTestCase() {
+        mNavigationDrawerTestCase = new NavigationDrawerTestCase();
+    }
+
+    protected NavigationDrawerTestCase getNavigationDrawerTestCase() {
+        return mNavigationDrawerTestCase;
+    }
 
     /**
      * Changes the fields of the edit item screen to the values provided in values
