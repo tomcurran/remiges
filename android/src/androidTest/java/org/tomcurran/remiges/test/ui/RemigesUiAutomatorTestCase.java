@@ -104,11 +104,12 @@ public class RemigesUiAutomatorTestCase extends InstrumentationTestCase {
      * @throws UiObjectNotFoundException
      */
     protected void changeTextField(String resource, String value, String hint) throws  UiObjectNotFoundException {
-        while (!getByResource(resource).getText().equals(hint)) {
-            getByResource(resource).clearTextField();
+        UiObject textField = getByResource(resource);
+        while (!textField.getText().equals(hint)) {
+            textField.clearTextField();
         }
-        getByResource(resource).setText(value);
-        assertEquals(value, getByResource(resource).getText());
+        textField.setText(value);
+        assertEquals(value, textField.getText());
     }
 
     /**
