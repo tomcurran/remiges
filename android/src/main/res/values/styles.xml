@@ -305,6 +305,17 @@
     <style name="EditPlace.Longitude">
     </style>
 
+    <style name="EditPlacePicker">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginBottom">-8dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:textColor">@color/edit_add_label</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+    </style>
+
     <style name="EditPlaceLabelText">
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/edit_label_text_selector</item>

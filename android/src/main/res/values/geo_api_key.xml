@@ -1,0 +1,4 @@
+<resources>
+    <!-- Replace with your own API key -->
+    <string name="geo_api_key" translatable="false">ReplaceWithYourApiKey</string>
+</resources>

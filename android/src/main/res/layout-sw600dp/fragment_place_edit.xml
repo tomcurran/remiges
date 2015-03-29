@@ -40,6 +40,11 @@
             android:hint="@string/hint_edit_place_longitude"
             style="@style/EditPlace.Longitude" />
 
+        <TextView
+            android:id="@+id/edit_place_picker"
+            android:text="@string/edit_place_picker"
+            style="@style/EditPlacePicker" />
+
     </RelativeLayout>
 
 </ScrollView>

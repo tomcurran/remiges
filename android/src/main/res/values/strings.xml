@@ -121,6 +121,7 @@
     <string name="hint_edit_place_name">Place Name</string>
     <string name="hint_edit_place_latitude">Latitude</string>
     <string name="hint_edit_place_longitude">Longitude</string>
+    <string name="edit_place_picker">Select location with map</string>
     <string name="dialog_place_delete_message">Delete this place?</string>
 
     <!-- Delete Item Dialog -->

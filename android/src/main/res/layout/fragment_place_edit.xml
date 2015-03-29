@@ -46,6 +46,11 @@
 
         </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
+        <TextView
+            android:id="@+id/edit_place_picker"
+            android:text="@string/edit_place_picker"
+            style="@style/EditPlacePicker" />
+
     </LinearLayout>
 
 </ScrollView>

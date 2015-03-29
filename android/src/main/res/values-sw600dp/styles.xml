@@ -172,6 +172,18 @@
         <item name="android:layout_below">@id/edit_place_latitude</item>
     </style>
 
+    <style name="EditPlacePicker">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:textColor">@color/edit_add_label</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+        <item name="android:layout_alignLeft">@id/edit_place_longitude</item>
+        <item name="android:layout_below">@id/edit_place_longitude</item>
+    </style>
+
     <style name="EditPlaceLabel">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">150dp</item>

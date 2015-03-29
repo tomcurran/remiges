@@ -2,9 +2,11 @@ package org.tomcurran.remiges.ui;
 
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -12,10 +14,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.ui.singlepane.EditItemActivity;
+import org.tomcurran.remiges.util.GeoUtil;
 import org.tomcurran.remiges.util.UIUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
@@ -24,11 +36,14 @@ public class PlaceEditFragment extends ItemEditFragment implements LoaderManager
         EditItemActivity.Callbacks {
     private static final String TAG = makeLogTag(PlaceEditFragment.class);
 
+    private static final int ACTIVITY_PLACE_PICKER = 0;
+
     private Cursor mPlaceCursor;
 
     private EditText mPlaceName;
     private EditText mPlaceLatitude;
     private EditText mPlaceLongitude;
+    private TextView mPlacePicker;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +66,14 @@ public class PlaceEditFragment extends ItemEditFragment implements LoaderManager
         mPlaceName = (EditText) rootView.findViewById(R.id.edit_place_name);
         mPlaceLatitude = (EditText) rootView.findViewById(R.id.edit_place_latitude);
         mPlaceLongitude = (EditText) rootView.findViewById(R.id.edit_place_longitude);
+        mPlacePicker = (TextView) rootView.findViewById(R.id.edit_place_picker);
+
+        mPlacePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OpenPlacePicker();
+            }
+        });
 
         return rootView;
     }
@@ -105,6 +128,42 @@ public class PlaceEditFragment extends ItemEditFragment implements LoaderManager
             values.put(RemigesContract.Places.PLACE_LATITUDE, cursor.getDouble(PlaceQuery.LATITUDE));
             values.put(RemigesContract.Places.PLACE_LONGITUDE, cursor.getDouble(PlaceQuery.LONGITUDE));
             setViewValues(values);
+        }
+    }
+
+    private void OpenPlacePicker() {
+        try {
+            mPlacePicker.setEnabled(false);
+            PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
+            ContentValues values = getViewValues();
+            LatLng place = new LatLng(values.getAsDouble(RemigesContract.Places.PLACE_LATITUDE), values.getAsDouble(RemigesContract.Places.PLACE_LONGITUDE));
+            if (place.latitude != 0.0 && place.longitude != 0.0) {
+                intentBuilder.setLatLngBounds(GeoUtil.LatLngBoundary(place, 100000));
+            }
+            startActivityForResult(intentBuilder.build(getActivity()), ACTIVITY_PLACE_PICKER);
+        } catch (GooglePlayServicesRepairableException e) {
+            GooglePlayServicesUtil.getErrorDialog(e.getConnectionStatusCode(), getActivity(), 0);
+        } catch (GooglePlayServicesNotAvailableException e) {
+            Toast.makeText(getActivity(), "Google Play Services is not available.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case ACTIVITY_PLACE_PICKER:
+                mPlacePicker.setEnabled(true);
+                if (resultCode == FragmentActivity.RESULT_OK) {
+                    final Place place = PlacePicker.getPlace(data, getActivity());
+                    final LatLng latLng = place.getLatLng();
+                    ContentValues values = getViewValues();
+                    values.put(RemigesContract.Places.PLACE_LATITUDE, latLng.latitude);
+                    values.put(RemigesContract.Places.PLACE_LONGITUDE, latLng.longitude);
+                    setViewValues(values);
+                }
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
