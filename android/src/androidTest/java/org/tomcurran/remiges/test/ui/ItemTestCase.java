@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 
 
-public abstract class ItemTestCase extends RemigesUiAutomatorTestCase {
+public abstract class ItemTestCase extends RemigesTestCase {
 
     protected NavigationDrawerTestCase mNavigationDrawerTestCase;
 

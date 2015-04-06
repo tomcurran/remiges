@@ -16,7 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class RemigesUiAutomatorTestCase extends InstrumentationTestCase {
+public abstract class RemigesTestCase extends InstrumentationTestCase {
 
     public static final String APP_PACKAGE = "org.tomcurran.remiges";
     public static final String APP_ID = APP_PACKAGE + ":id/";

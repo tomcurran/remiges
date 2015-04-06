@@ -4,7 +4,7 @@ package org.tomcurran.remiges.test.ui;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 
-public class NavigationDrawerTestCase extends RemigesUiAutomatorTestCase {
+public class NavigationDrawerTestCase extends RemigesTestCase {
 
     // content description and text values used for navigation
     public static final String DESCRIPTION_OPEN_DRAWER = "Open navigation drawer";
