@@ -1,10 +1,15 @@
 package org.tomcurran.remiges.test.ui;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
+import android.support.test.uiautomator.Until;
 import android.test.InstrumentationTestCase;
 
 import java.io.BufferedReader;
@@ -24,6 +29,7 @@ public class RemigesUiAutomatorTestCase extends InstrumentationTestCase {
     private static final String RESOURCE_TOOLBAR = APP_ID + "toolbar_actionbar";
     private static final String RESOURCE_MASTER_DETAIL_CONTAINER = APP_ID + "container";
 
+    private static final int LAUNCH_TIMEOUT = 5000;
     private static final int SMALLEST_WIDTH_TWO_PANE = 600;
 
     protected UiDevice getUiDevice() {
@@ -131,25 +137,24 @@ public class RemigesUiAutomatorTestCase extends InstrumentationTestCase {
     }
 
     /**
-     * Opens the application regardless of where the UI current is
+     * Opens the application with an intent
      * @throws UiObjectNotFoundException
      */
     private void openApp() throws UiObjectNotFoundException {
         UiDevice device = getUiDevice();
         device.pressHome();
 
-        getByDescription("Apps").clickAndWaitForNewWindow();
+        final String launcherPackage = getInstrumentation().getContext().getPackageManager().resolveActivity(
+                new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME), PackageManager.MATCH_DEFAULT_ONLY)
+                .activityInfo.packageName;
+        assertNotNull(launcherPackage);
+        device.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)), LAUNCH_TIMEOUT);
 
-        UiObject appsTab = getByText("Apps");
-        if (appsTab.exists()) {
-            appsTab.click();
-        }
+        Context context = getInstrumentation().getContext();
+        context.startActivity(context.getPackageManager()
+                .getLaunchIntentForPackage(APP_PACKAGE).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
 
-        UiScrollable apps = new UiScrollable(new UiSelector().scrollable(true));
-        apps.setAsHorizontalList();
-        apps.getChildByText(getTextView(), APP_TITLE).clickAndWaitForNewWindow();
-
-        assertTrue("Unable to detect " + APP_TITLE, device.findObject(new UiSelector().packageName(APP_PACKAGE)).exists());
+        device.wait(Until.hasObject(By.pkg(APP_PACKAGE).depth(0)), LAUNCH_TIMEOUT);
     }
 
     /**
