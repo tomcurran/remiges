@@ -5,4 +5,9 @@
         <attr name="floatLabelSidePadding" format="reference|dimension" />
     </declare-styleable>
 
+    <declare-styleable name="DrawShadowFrameLayout">
+        <attr name="shadowDrawable" format="reference" />
+        <attr name="shadowVisible" format="boolean" />
+    </declare-styleable>
+
 </resources>
