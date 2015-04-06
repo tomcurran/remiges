@@ -44,8 +44,7 @@ public class JumpTypeTestCase extends ItemTestCase {
 
     @Override
     public void assertDetail(ContentValues values) throws UiObjectNotFoundException {
-        assertEquals(values.getAsString(JUMPTYPE_NAME), getByResource(RESOURCE_DETAIL_NAME)
-                .getText());
+        assertEquals(values.getAsString(JUMPTYPE_NAME), getByResource(RESOURCE_DETAIL_NAME).getText());
     }
 
     @Override

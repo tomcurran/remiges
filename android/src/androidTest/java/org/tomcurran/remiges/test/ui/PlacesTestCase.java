@@ -59,10 +59,10 @@ public class PlacesTestCase extends ItemTestCase {
 
     @Override
     public void assertDetail(ContentValues values) throws UiObjectNotFoundException {
-        assertEquals(values.getAsString(PLACE_NAME), getActionBarTitle());
-        // TODO assert PLACE_LATITUDE && PLACE_LONGITUDE
-//        assertEquals(values.getAsString(PLACE_LATITUDE), getByResource(RESOURCE_DETAIL_LATITUDE).getText());
-//        assertEquals(values.getAsString(PLACE_LONGITUDE), getByResource(RESOURCE_DETAIL_LONGITUDE).getText());
+        if (!isTwoPane()) {
+            assertEquals(values.getAsString(PLACE_NAME), getActionBarTitle());
+            // TODO assert PLACE_LATITUDE && PLACE_LONGITUDE
+        }
     }
 
     @Override
