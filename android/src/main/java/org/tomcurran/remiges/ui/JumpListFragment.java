@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -49,9 +50,12 @@ public class JumpListFragment extends ItemListFragment {
                 mCallbacks.onInsertItem();
             }
         });
-        TextView mEmptyView = (TextView) rootView.findViewById(R.id.jump_list_empty);
-        mEmptyView.setText(R.string.list_jump_empty);
-        mHeaderListView.setEmptyView(mEmptyView);
+        mHeaderListView.setEmptyView(rootView.findViewById(R.id.jump_list_empty));
+        mListEmptyMessage = (TextView) rootView.findViewById(R.id.jump_list_empty_message);
+        mProgressImage = (ImageView) rootView.findViewById(R.id.jump_list_empty_progress);
+        mListEmptyProgress = getProgressDrawable(rootView);
+        mProgressImage.setImageDrawable(mListEmptyProgress);
+        checkEmptyList();
         return rootView;
     }
 

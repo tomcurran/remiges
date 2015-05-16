@@ -11,15 +11,31 @@
         android:dividerHeight="0dp"
         tools:listitem="@layout/list_item_jumps" />
 
-    <TextView
+    <FrameLayout
         android:id="@+id/jump_list_empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/keyline_1"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        tools:text="@string/list_jump_empty" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/keyline_1">
+
+        <TextView
+            android:id="@+id/jump_list_empty_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:visibility="invisible"
+            android:text="@string/list_jump_empty"
+            tools:text="@string/list_jump_empty" />
+
+        <ImageView
+            android:id="@+id/jump_list_empty_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/item_list_loading" />
+
+    </FrameLayout>
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab_jump_list"

@@ -26,7 +26,7 @@ public class PlaceListFragment extends ItemListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         rootView.findViewById(R.id.fab_item_list).setContentDescription(getResources().getString(R.string.fab_place_list));
-        ((TextView)rootView.findViewById(R.id.item_list_empty)).setText(R.string.list_place_empty);
+        ((TextView)rootView.findViewById(R.id.item_list_empty_message)).setText(R.string.list_place_empty);
         return rootView;
     }
 

@@ -29,6 +29,10 @@
     <string name="label_stats_jump_last">Last jump</string>
     <string name="stats_last_jump_none">Never</string>
 
+    <!-- Item List -->
+
+    <string name="item_list_loading">Loading</string>
+
     <!-- Jump List -->
 
     <string name="fab_jump_list">Log Jump</string>

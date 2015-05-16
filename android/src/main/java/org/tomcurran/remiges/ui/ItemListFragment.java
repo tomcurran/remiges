@@ -13,9 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.tomcurran.remiges.R;
+import org.tomcurran.remiges.ui.widget.MaterialProgressDrawable;
 import org.tomcurran.remiges.util.FragmentUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
@@ -31,6 +34,9 @@ public abstract class ItemListFragment extends Fragment implements LoaderManager
     protected CursorAdapter mAdapter;
 
     private ListView mListView;
+    protected TextView mListEmptyMessage;
+    protected MaterialProgressDrawable mListEmptyProgress;
+    protected ImageView mProgressImage;
 
     public interface Callbacks {
         public void onItemSelected(Uri uri);
@@ -81,6 +87,11 @@ public abstract class ItemListFragment extends Fragment implements LoaderManager
             }
         });
         mListView.setEmptyView(rootView.findViewById(R.id.item_list_empty));
+        mListEmptyMessage = (TextView) rootView.findViewById(R.id.item_list_empty_message);
+        mProgressImage = (ImageView) rootView.findViewById(R.id.item_list_empty_progress);
+        mListEmptyProgress = getProgressDrawable(rootView);
+        mProgressImage.setImageDrawable(mListEmptyProgress);
+        checkEmptyList();
         return rootView;
     }
 
@@ -135,6 +146,25 @@ public abstract class ItemListFragment extends Fragment implements LoaderManager
             }
         }
     }
+
+    protected void checkEmptyList() {
+        if (mAdapter.getCursor() != null && mListEmptyProgress != null) {
+            mProgressImage.setVisibility(View.GONE);
+            mListEmptyMessage.setVisibility(View.VISIBLE);
+            mListEmptyProgress.setVisible(false, false);
+            mListEmptyProgress.stop();
+        }
+    }
+
+    protected MaterialProgressDrawable getProgressDrawable(View view) {
+        MaterialProgressDrawable progress = new MaterialProgressDrawable(getActivity(), view);
+        progress.setAlpha(255);
+        progress.setColorSchemeColors(getResources().getColor(R.color.primary));
+        progress.updateSizes(MaterialProgressDrawable.LARGE);
+        progress.start();
+        return progress;
+    }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return getCursorLoader();
@@ -144,6 +174,7 @@ public abstract class ItemListFragment extends Fragment implements LoaderManager
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mAdapter.swapCursor(data);
         updateSelectedItem();
+        checkEmptyList();
     }
 
     @Override
