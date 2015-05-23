@@ -20,6 +20,7 @@ import android.widget.TextView;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.ui.widget.MaterialProgressDrawable;
 import org.tomcurran.remiges.util.FragmentUtils;
+import org.tomcurran.remiges.util.UIUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
@@ -89,7 +90,7 @@ public abstract class ItemListFragment extends Fragment implements LoaderManager
         mListView.setEmptyView(rootView.findViewById(R.id.item_list_empty));
         mListEmptyMessage = (TextView) rootView.findViewById(R.id.item_list_empty_message);
         mProgressImage = (ImageView) rootView.findViewById(R.id.item_list_empty_progress);
-        mListEmptyProgress = getProgressDrawable(rootView);
+        mListEmptyProgress = UIUtils.getProgressDrawable(getActivity(), rootView);
         mProgressImage.setImageDrawable(mListEmptyProgress);
         checkEmptyList();
         return rootView;
@@ -154,15 +155,6 @@ public abstract class ItemListFragment extends Fragment implements LoaderManager
             mListEmptyProgress.setVisible(false, false);
             mListEmptyProgress.stop();
         }
-    }
-
-    protected MaterialProgressDrawable getProgressDrawable(View view) {
-        MaterialProgressDrawable progress = new MaterialProgressDrawable(getActivity(), view);
-        progress.setAlpha(255);
-        progress.setColorSchemeColors(getResources().getColor(R.color.primary));
-        progress.updateSizes(MaterialProgressDrawable.LARGE);
-        progress.start();
-        return progress;
     }
 
     @Override

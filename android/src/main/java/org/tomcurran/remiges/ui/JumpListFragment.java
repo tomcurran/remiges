@@ -21,6 +21,7 @@ import android.widget.TextView;
 import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.TimeUtils;
+import org.tomcurran.remiges.util.UIUtils;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -53,7 +54,7 @@ public class JumpListFragment extends ItemListFragment {
         mHeaderListView.setEmptyView(rootView.findViewById(R.id.jump_list_empty));
         mListEmptyMessage = (TextView) rootView.findViewById(R.id.jump_list_empty_message);
         mProgressImage = (ImageView) rootView.findViewById(R.id.jump_list_empty_progress);
-        mListEmptyProgress = getProgressDrawable(rootView);
+        mListEmptyProgress = UIUtils.getProgressDrawable(getActivity(), rootView);
         mProgressImage.setImageDrawable(mListEmptyProgress);
         checkEmptyList();
         return rootView;

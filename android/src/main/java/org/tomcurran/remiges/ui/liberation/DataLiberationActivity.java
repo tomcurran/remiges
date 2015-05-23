@@ -4,13 +4,19 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.drive.Drive;
 
+import org.tomcurran.remiges.R;
 import org.tomcurran.remiges.ui.BaseActivity;
+import org.tomcurran.remiges.ui.widget.MaterialProgressDrawable;
+import org.tomcurran.remiges.util.UIUtils;
 
 import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.LOGI;
@@ -30,6 +36,16 @@ public abstract class DataLiberationActivity extends BaseActivity implements
     public static final String MIME_TYPE_JAVASCRIPT = "application/javascript";
 
     private GoogleApiClient mGoogleApiClient;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_liberation);
+
+        View container = findViewById(R.id.liberation_container);
+        ImageView progressImage = (ImageView) findViewById(R.id.liberation_progress);
+        progressImage.setImageDrawable(UIUtils.getProgressDrawable(this, container));
+    }
 
     @Override
     public void onResume() {

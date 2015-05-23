@@ -31,7 +31,7 @@
 
     <!-- Item List -->
 
-    <string name="item_list_loading">Loading</string>
+    <string name="content_description_loading">Loading</string>
 
     <!-- Jump List -->
 

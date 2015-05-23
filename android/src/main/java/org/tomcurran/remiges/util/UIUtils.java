@@ -5,7 +5,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
+
+import org.tomcurran.remiges.R;
+import org.tomcurran.remiges.ui.widget.MaterialProgressDrawable;
 
 import java.io.File;
 
@@ -136,6 +140,15 @@ public class UIUtils {
     public static int parseIntPreference(SharedPreferences preferences, String key, String defValue) {
         String pref = preferences.getString(key, defValue);
         return Integer.parseInt(TextUtils.isEmpty(pref) ? defValue : pref);
+    }
+
+    public static MaterialProgressDrawable getProgressDrawable(Context context, View parent) {
+        MaterialProgressDrawable progress = new MaterialProgressDrawable(context, parent);
+        progress.setAlpha(255);
+        progress.setColorSchemeColors(context.getResources().getColor(R.color.primary));
+        progress.updateSizes(MaterialProgressDrawable.LARGE);
+        progress.start();
+        return progress;
     }
 
 }
