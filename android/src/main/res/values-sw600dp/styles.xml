@@ -63,16 +63,6 @@
         <item name="android:layout_below">@id/edit_jump_delay</item>
     </style>
 
-    <style name="EditJumpAdd">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:textColor">@color/edit_add_label</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
-    </style>
-
     <style name="EditJumpAdd.Place">
         <item name="android:layout_toRightOf">@id/label_edit_jump_place</item>
         <item name="android:layout_below">@id/edit_jump_place</item>
@@ -90,14 +80,17 @@
         <item name="android:textColor">@color/edit_label</item>
     </style>
 
+    <style name="EditJumpLabel.Spinner">
+    </style>
+
     <style name="EditJumpLabel.Number">
     </style>
 
-    <style name="EditJumpLabel.Date">
+    <style name="EditJumpLabel.Spinner.Date">
         <item name="android:layout_below">@id/edit_jump_number</item>
     </style>
 
-    <style name="EditJumpLabel.Place">
+    <style name="EditJumpLabel.Spinner.Place">
         <item name="android:layout_below">@id/edit_jump_date</item>
     </style>
 
@@ -105,7 +98,7 @@
         <item name="android:layout_below">@id/edit_jump_add_place</item>
     </style>
 
-    <style name="EditJumpLabel.Type">
+    <style name="EditJumpLabel.Spinner.Type">
         <item name="android:layout_below">@id/edit_jump_way</item>
     </style>
 

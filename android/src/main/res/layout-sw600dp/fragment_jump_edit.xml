@@ -24,7 +24,7 @@
             tools:listitem="@android:layout/simple_spinner_item"
             style="@style/EditJump.Spinner.Type" />
 
-        <TextView
+        <Button
             android:id="@+id/edit_jump_add_type"
             android:text="@string/edit_jump_add_type"
             style="@style/EditJumpAdd.Type" />
@@ -64,7 +64,7 @@
             tools:listitem="@android:layout/simple_spinner_item"
             style="@style/EditJump.Spinner.Place" />
 
-        <TextView
+        <Button
             android:id="@+id/edit_jump_add_place"
             android:text="@string/edit_jump_add_place"
             style="@style/EditJumpAdd.Place" />
@@ -77,12 +77,12 @@
         <TextView
             android:id="@+id/label_edit_jump_date"
             android:text="@string/label_edit_jump_date"
-            style="@style/EditJumpLabel.Date" />
+            style="@style/EditJumpLabel.Spinner.Date" />
 
         <TextView
             android:id="@+id/label_edit_jump_place"
             android:text="@string/label_edit_jump_place"
-            style="@style/EditJumpLabel.Place" />
+            style="@style/EditJumpLabel.Spinner.Place" />
 
         <TextView
             android:id="@+id/label_edit_jump_way"
@@ -92,7 +92,7 @@
         <TextView
             android:id="@+id/label_edit_jump_type"
             android:text="@string/label_edit_jump_type"
-            style="@style/EditJumpLabel.Type" />
+            style="@style/EditJumpLabel.Spinner.Type" />
 
         <TextView
             android:id="@+id/label_edit_jump_exit_altitude"

@@ -129,6 +129,7 @@
     <style name="EditJump">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">-4dp</item>
     </style>
 
     <style name="EditJump.Spinner" parent="Widget.Remiges.Spinner.Underlined">
@@ -142,6 +143,7 @@
 
     <style name="EditJump.Spinner.Date">
         <item name="android:layout_below">@id/label_edit_jump_date</item>
+        <item name="android:layout_marginTop">0dp</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem</item>
     </style>
@@ -174,13 +176,12 @@
         <item name="android:layout_below">@id/label_edit_jump_description</item>
     </style>
 
-    <style name="EditJumpAdd" parent="TextAppearance.AppCompat.Medium">
+    <style name="EditJumpAdd" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginLeft">-8dp</item>
         <item name="android:layout_marginBottom">-8dp</item>
-        <item name="android:paddingBottom">12dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingLeft">4dp</item>
+        <item name="android:layout_marginTop">-8dp</item>
         <item name="android:textColor">@color/edit_add_label</item>
     </style>
 
@@ -192,8 +193,7 @@
         <item name="android:layout_below">@id/edit_jump_place</item>
     </style>
 
-    <style name="EditJumpLabelText">
-        <item name="android:textAllCaps">true</item>
+    <style name="EditJumpLabelText" parent="TextAppearance.AppCompat.Caption">
         <item name="android:textColor">@color/edit_label_text_selector</item>
     </style>
 
@@ -201,38 +201,34 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginTop">8dp</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Caption</item>
         <item name="android:textColor">@color/edit_label</item>
         <item name="floatLabelSidePadding">4dp</item>
         <item name="floatLabelTextAppearance">@style/EditJumpLabelText</item>
+    </style>
+
+    <style name="EditJumpLabel.Spinner">
+        <item name="android:paddingLeft">4dp</item>
     </style>
 
     <style name="EditJumpLabel.Number">
         <item name="android:layout_marginTop">0dp</item>
     </style>
 
-    <style name="EditJumpLabel.Date">
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
+    <style name="EditJumpLabel.Spinner.Date">
     </style>
 
     <style name="EditJumpLabel.Description">
     </style>
 
-    <style name="EditJumpLabel.Place">
-        <item name="android:paddingLeft">4dp</item>
+    <style name="EditJumpLabel.Spinner.Place">
         <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
     </style>
 
     <style name="EditJumpLabel.Way">
     </style>
 
-    <style name="EditJumpLabel.Type">
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
+    <style name="EditJumpLabel.Spinner.Type">
     </style>
 
     <style name="EditJumpLabel.ExitAltitude">
