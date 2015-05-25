@@ -441,6 +441,15 @@ public class JumpEditFragment extends ItemEditFragment implements LoaderManager.
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         }
 
+        @Override
+        public View newView(Context context, Cursor cursor, ViewGroup parent) {
+            View view = super.newView(context, cursor, parent);
+            TextView text = (TextView) view.findViewById(android.R.id.text1);
+            if (text.getPaddingLeft() != 0) {
+                text.setPadding(0, text.getPaddingTop(), text.getPaddingRight(), text.getPaddingBottom());
+            }
+            return view;
+        }
     }
 
     private void updatePlaceSpinner() {

@@ -17,12 +17,12 @@
             android:id="@+id/edit_jump_date"
             android:freezesText="true"
             tools:text="@string/tools_text_jump_detail_date"
-            style="@style/EditJump.Date" />
+            style="@style/EditJump.Spinner.Date" />
 
         <Spinner
             android:id="@+id/edit_jump_type"
             tools:listitem="@android:layout/simple_spinner_item"
-            style="@style/EditJump.Type" />
+            style="@style/EditJump.Spinner.Type" />
 
         <TextView
             android:id="@+id/edit_jump_add_type"
@@ -62,7 +62,7 @@
         <Spinner
             android:id="@+id/edit_jump_place"
             tools:listitem="@android:layout/simple_spinner_item"
-            style="@style/EditJump.Place" />
+            style="@style/EditJump.Spinner.Place" />
 
         <TextView
             android:id="@+id/edit_jump_add_place"

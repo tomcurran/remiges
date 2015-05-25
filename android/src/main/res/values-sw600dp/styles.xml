@@ -9,28 +9,28 @@
         <item name="android:layout_marginBottom">4dp</item>
     </style>
 
+    <style name="EditJump.Spinner" parent="Widget.AppCompat.Spinner.Underlined">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">12dp</item>
+    </style>
+
     <style name="EditJump.Number">
         <item name="android:layout_toRightOf">@id/label_edit_jump_number</item>
     </style>
 
-    <style name="EditJump.Date" parent="Widget.AppCompat.Spinner">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
+    <style name="EditJump.Spinner.Date">
         <item name="android:layout_toRightOf">@id/label_edit_jump_date</item>
         <item name="android:layout_below">@id/edit_jump_number</item>
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
-        <item name="android:paddingLeft">4dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem</item>
     </style>
 
-    <style name="EditJump.Place">
+    <style name="EditJump.Spinner.Place">
         <item name="android:layout_toRightOf">@id/label_edit_jump_place</item>
         <item name="android:layout_below">@id/edit_jump_date</item>
-        <item name="android:layout_marginLeft">-4dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
     </style>
 
     <style name="EditJump.Way">
@@ -38,12 +38,9 @@
         <item name="android:layout_below">@id/edit_jump_add_place</item>
     </style>
 
-    <style name="EditJump.Type">
+    <style name="EditJump.Spinner.Type">
         <item name="android:layout_toRightOf">@id/label_edit_jump_type</item>
         <item name="android:layout_below">@id/edit_jump_way</item>
-        <item name="android:layout_marginLeft">-4dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
     </style>
 
     <style name="EditJump.ExitAltitude">
