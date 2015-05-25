@@ -5,45 +5,45 @@
     tools:context=".ui.PlaceEditFragment">
 
     <RelativeLayout
-        style="@style/EditPlaceContainer">
+        style="@style/EditContainer">
 
         <TextView
             android:id="@+id/label_edit_place_name"
             android:text="@string/label_edit_place_name"
-            style="@style/EditPlaceLabel.Name" />
+            style="@style/EditLabel.Place.Name" />
 
         <TextView
             android:id="@+id/label_edit_place_latitude"
             android:text="@string/label_edit_place_latitude"
-            style="@style/EditPlaceLabel.Latitude" />
+            style="@style/EditLabel.Place.Latitude" />
 
         <TextView
             android:id="@+id/label_edit_place_longitude"
             android:text="@string/label_edit_place_longitude"
-            style="@style/EditPlaceLabel.Longitude" />
+            style="@style/EditLabel.Place.Longitude" />
 
         <EditText
             android:id="@+id/edit_place_name"
             android:inputType="text"
             android:hint="@string/hint_edit_place_name"
-            style="@style/EditPlace.Name" />
+            style="@style/EditText.Place.Name" />
 
         <EditText
             android:id="@+id/edit_place_latitude"
             android:inputType="numberSigned|numberDecimal"
             android:hint="@string/hint_edit_place_latitude"
-            style="@style/EditPlace.Latitude" />
+            style="@style/EditText.Place.Latitude" />
 
         <EditText
             android:id="@+id/edit_place_longitude"
             android:inputType="numberSigned|numberDecimal"
             android:hint="@string/hint_edit_place_longitude"
-            style="@style/EditPlace.Longitude" />
+            style="@style/EditText.Place.Longitude" />
 
-        <TextView
+        <Button
             android:id="@+id/edit_place_picker"
             android:text="@string/edit_place_picker"
-            style="@style/EditPlacePicker" />
+            style="@style/EditButton.Place.Picker" />
 
     </RelativeLayout>
 

@@ -13,6 +13,7 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ public class PlaceEditFragment extends ItemEditFragment implements LoaderManager
     private EditText mPlaceName;
     private EditText mPlaceLatitude;
     private EditText mPlaceLongitude;
-    private TextView mPlacePicker;
+    private Button mPlacePicker;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class PlaceEditFragment extends ItemEditFragment implements LoaderManager
         mPlaceName = (EditText) rootView.findViewById(R.id.edit_place_name);
         mPlaceLatitude = (EditText) rootView.findViewById(R.id.edit_place_latitude);
         mPlaceLongitude = (EditText) rootView.findViewById(R.id.edit_place_longitude);
-        mPlacePicker = (TextView) rootView.findViewById(R.id.edit_place_picker);
+        mPlacePicker = (Button) rootView.findViewById(R.id.edit_place_picker);
 
         mPlacePicker.setOnClickListener(new View.OnClickListener() {
             @Override
