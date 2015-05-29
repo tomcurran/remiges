@@ -10,46 +10,46 @@
         <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_place_name"
             android:text="@string/label_edit_place_name"
-            style="@style/EditLabel.Place.Name">
+            style="@style/EditLabel.Top">
 
             <EditText
                 android:id="@+id/edit_place_name"
                 android:inputType="text"
                 android:hint="@string/hint_edit_place_name"
-                style="@style/EditText.Place.Name" />
+                style="@style/EditText" />
 
         </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
         <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_place_latitude"
             android:text="@string/label_edit_place_latitude"
-            style="@style/EditLabel.Place.Latitude">
+            style="@style/EditLabel">
 
             <EditText
                 android:id="@+id/edit_place_latitude"
                 android:inputType="numberSigned|numberDecimal"
                 android:hint="@string/hint_edit_place_latitude"
-                style="@style/EditText.Place.Latitude" />
+                style="@style/EditText" />
 
         </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
         <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_place_longitude"
             android:text="@string/label_edit_place_longitude"
-            style="@style/EditLabel.Place.Longitude">
+            style="@style/EditLabel">
 
             <EditText
                 android:id="@+id/edit_place_longitude"
                 android:inputType="numberSigned|numberDecimal"
                 android:hint="@string/hint_edit_place_longitude"
-                style="@style/EditText.Place.Longitude" />
+                style="@style/EditText" />
 
         </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
         <Button
             android:id="@+id/edit_place_picker"
             android:text="@string/edit_place_picker"
-            style="@style/EditButton.Place.Picker" />
+            style="@style/EditButton" />
 
     </LinearLayout>
 

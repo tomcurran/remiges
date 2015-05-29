@@ -10,119 +10,122 @@
         <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_jump_number"
             android:text="@string/label_edit_jump_number"
-            style="@style/EditLabel.Jump.Number">
+            style="@style/EditLabel.Top">
 
             <EditText
                 android:id="@+id/edit_jump_number"
                 android:inputType="number"
                 android:hint="@string/hint_edit_jump_number"
-                style="@style/EditText.Jump.Number" />
+                style="@style/EditText" />
 
         </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
         <TextView
             android:id="@+id/label_edit_jump_date"
             android:text="@string/label_edit_jump_date"
-            style="@style/EditLabel.Spinner.Jump.Date" />
+            style="@style/EditLabel.Spinner" />
 
         <TextView
             android:id="@+id/edit_jump_date"
             android:freezesText="true"
             tools:text="@string/tools_text_jump_detail_date"
-            style="@style/EditSpinner.Jump.Date" />
+            style="@style/EditSpinner"
+            android:layout_marginTop="0dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem" />
 
         <TextView
             android:id="@+id/label_edit_jump_place"
             android:text="@string/label_edit_jump_place"
-            style="@style/EditLabel.Spinner.Jump.Place" />
+            style="@style/EditLabel.Spinner"
+            android:paddingTop="4dp" />
 
         <Spinner
             android:id="@+id/edit_jump_place"
             tools:listitem="@android:layout/simple_spinner_item"
-            style="@style/EditSpinner.Jump.Place" />
+            style="@style/EditSpinner" />
 
         <Button
             android:id="@+id/edit_jump_add_place"
             android:text="@string/edit_jump_add_place"
-            style="@style/EditButton.Jump.AddPlace" />
+            style="@style/EditButton" />
 
         <TextView
             android:id="@+id/label_edit_jump_type"
             android:text="@string/label_edit_jump_type"
-            style="@style/EditLabel.Spinner.Jump.Type" />
+            style="@style/EditLabel.Spinner" />
 
         <Spinner
             android:id="@+id/edit_jump_type"
             tools:listitem="@android:layout/simple_spinner_item"
-            style="@style/EditSpinner.Jump.Type" />
+            style="@style/EditSpinner" />
 
         <Button
             android:id="@+id/edit_jump_add_type"
             android:text="@string/edit_jump_add_type"
-            style="@style/EditButton.Jump.AddType" />
+            style="@style/EditButton" />
 
         <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_jump_way"
             android:text="@string/label_edit_jump_way"
-            style="@style/EditLabel.Jump.Way">
+            style="@style/EditLabel">
 
             <EditText
                 android:id="@+id/edit_jump_way"
                 android:inputType="number"
                 android:hint="@string/hint_edit_jump_way"
-                style="@style/EditText.Jump.Way" />
+                style="@style/EditText" />
 
         </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
         <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_jump_exit_altitude"
             android:text="@string/label_edit_jump_exit_altitude"
-            style="@style/EditLabel.Jump.ExitAltitude">
+            style="@style/EditLabel">
 
             <EditText
                 android:id="@+id/edit_jump_exit_altitude"
                 android:inputType="number"
                 android:hint="@string/hint_edit_jump_exit_altitude"
-                style="@style/EditText.Jump.ExitAltitude" />
+                style="@style/EditText" />
 
         </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
         <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_deployment_altitude"
             android:text="@string/label_edit_jump_deployment_altitude"
-            style="@style/EditLabel.Jump.DeploymentAltitude">
+            style="@style/EditLabel">
 
             <EditText
                 android:id="@+id/edit_jump_deployment_altitude"
                 android:inputType="number"
                 android:hint="@string/hint_edit_jump_deployment_altitude"
-                style="@style/EditText.Jump.DeploymentAltitude" />
+                style="@style/EditText" />
 
         </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
         <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_jump_delay"
             android:text="@string/label_edit_jump_delay"
-            style="@style/EditLabel.Jump.Delay">
+            style="@style/EditLabel">
 
             <EditText
                 android:id="@+id/edit_jump_delay"
                 android:inputType="number"
                 android:hint="@string/hint_edit_jump_delay"
-                style="@style/EditText.Jump.Delay" />
+                style="@style/EditText" />
 
         </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
         <org.tomcurran.remiges.ui.widget.FloatLabelLayout
             android:id="@+id/label_edit_jump_description"
             android:text="@string/label_edit_jump_description"
-            style="@style/EditLabel.Jump.Description">
+            style="@style/EditLabel">
 
             <EditText
                 android:id="@+id/edit_jump_description"
                 android:inputType="textMultiLine"
                 android:hint="@string/hint_edit_jump_description"
-                style="@style/EditText.Jump.Description" />
+                style="@style/EditText" />
 
         </org.tomcurran.remiges.ui.widget.FloatLabelLayout>
 
