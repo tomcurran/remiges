@@ -33,9 +33,9 @@
 
     </FrameLayout>
 
-    <com.melnykov.fab.FloatingActionButton
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_item_list"
         android:src="@drawable/ic_menu_add"
-        style="@style/FloatingActionButton" />
+        style="@style/Widget.Remiges.FloatingActionButton" />
 
 </FrameLayout>

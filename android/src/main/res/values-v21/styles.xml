@@ -1,0 +1,9 @@
+<resources>
+
+    <!-- Floating Action Button -->
+
+    <style name="Widget.Remiges.FloatingActionButton" parent="Base.Widget.Remiges.FloatingActionButton">
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
+</resources>

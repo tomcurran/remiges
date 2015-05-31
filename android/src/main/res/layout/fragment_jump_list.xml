@@ -37,10 +37,10 @@
 
     </FrameLayout>
 
-    <com.melnykov.fab.FloatingActionButton
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_jump_list"
         android:src="@drawable/ic_menu_add"
         android:contentDescription="@string/fab_jump_list"
-        style="@style/FloatingActionButton" />
+        style="@style/Widget.Remiges.FloatingActionButton" />
 
 </FrameLayout>
