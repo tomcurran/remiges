@@ -1,10 +1,5 @@
 <resources>
 
-    <declare-styleable name="FloatLabelLayout">
-        <attr name="floatLabelTextAppearance" format="reference" />
-        <attr name="floatLabelSidePadding" format="reference|dimension" />
-    </declare-styleable>
-
     <declare-styleable name="DrawShadowFrameLayout">
         <attr name="shadowDrawable" format="reference" />
         <attr name="shadowVisible" format="boolean" />
