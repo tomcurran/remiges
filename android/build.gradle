@@ -1,5 +1,33 @@
 apply plugin: 'com.android.application'
 
+import org.apache.tools.ant.taskdefs.condition.Os
+
+def fetchPassword(identifier) {
+    if (!Os.isFamily(Os.FAMILY_MAC)) {
+        return props.getProperty(identifier)
+    }
+    def account = "remiges"
+    def keychainLabel = "remiges-release-${identifier}"
+    println "Fetching keychain password with account '${account}' and label '${keychainLabel}"
+    def stdout = new ByteArrayOutputStream()
+    def stderr = new ByteArrayOutputStream()
+    def keychainExec = exec {
+        commandLine 'security', '-q', 'find-generic-password', '-a', account, '-gl', "${keychainLabel}"
+        standardOutput = stdout
+        errorOutput = stderr
+        ignoreExitValue true
+    }
+    if (keychainExec.exitValue != 0) {
+        println stdout.toString()
+        println stderr.toString()
+        return
+    }
+    (stderr.toString().trim() =~ /password: "(.*)"/)[0][1]
+}
+
+def props = new Properties()
+props.load(new FileInputStream(file("release.properties")))
+
 android {
     compileSdkVersion 22
     buildToolsVersion '22.0.1'
@@ -19,6 +47,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            storeFile file(props.keyStore)
+            storePassword fetchPassword('keyStorePassword')
+            keyAlias props.keyAlias
+            keyPassword fetchPassword('keyAliasPassword')
+        }
     }
 
     buildTypes {
@@ -28,6 +62,7 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
