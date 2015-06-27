@@ -32,22 +32,6 @@ public abstract class RemigesTestCase extends InstrumentationTestCase {
     private static final int LAUNCH_TIMEOUT = 5000;
     private static final int SMALLEST_WIDTH_TWO_PANE = 600;
 
-    private boolean mIsTwoPane;
-
-    public RemigesTestCase() {
-        try {
-            double dpi = Double.parseDouble(new BufferedReader(new InputStreamReader(
-                    Runtime.getRuntime().exec("getprop ro.sf.lcd_density").getInputStream()
-            )).readLine());
-            double width = getUiDevice().getDisplayWidth() / (dpi / 160);
-            double height = getUiDevice().getDisplayHeight() / (dpi / 160);
-            mIsTwoPane = Math.min(width, height) >= SMALLEST_WIDTH_TWO_PANE;
-        } catch (IOException e) {
-            System.err.println("I/O error: " + e.getMessage());
-            mIsTwoPane = false;
-        }
-    }
-
     protected UiDevice getUiDevice() {
         return UiDevice.getInstance(getInstrumentation());
     }
@@ -139,7 +123,17 @@ public abstract class RemigesTestCase extends InstrumentationTestCase {
      * @return true if the application is in two pane mode based on SMALLEST_WIDTH_TWO_PANE
      */
     public boolean isTwoPane() {
-        return mIsTwoPane;
+        try {
+            double dpi = Double.parseDouble(new BufferedReader(new InputStreamReader(
+                    Runtime.getRuntime().exec("getprop ro.sf.lcd_density").getInputStream()
+            )).readLine());
+            double width = getUiDevice().getDisplayWidth() / (dpi / 160);
+            double height = getUiDevice().getDisplayHeight() / (dpi / 160);
+            return Math.min(width, height) >= SMALLEST_WIDTH_TWO_PANE;
+        } catch (IOException e) {
+            System.err.println("I/O error: " + e.getMessage());
+            return false;
+        }
     }
 
     /**
