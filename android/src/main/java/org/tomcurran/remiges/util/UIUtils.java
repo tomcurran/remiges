@@ -3,6 +3,7 @@ package org.tomcurran.remiges.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.View;
@@ -149,6 +150,15 @@ public class UIUtils {
         progress.updateSizes(MaterialProgressDrawable.LARGE);
         progress.start();
         return progress;
+    }
+
+    public static int getStatusBarHeight(Resources resources) {
+        int result = 0;
+        int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = resources.getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
 }

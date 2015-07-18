@@ -25,7 +25,6 @@ public abstract class RemigesTestCase extends InstrumentationTestCase {
     public static final String DESCRIPTION_NAVIGATE_UP = "Navigate up";
     public static final String TEXT_OK = "OK";
 
-    private static final String APP_TITLE = "Remiges";
     private static final String RESOURCE_TOOLBAR = APP_ID + "toolbar_actionbar";
     private static final String RESOURCE_MASTER_DETAIL_CONTAINER = APP_ID + "container";
 
@@ -111,7 +110,7 @@ public abstract class RemigesTestCase extends InstrumentationTestCase {
      */
     protected void changeTextField(String resource, String value, String hint) throws  UiObjectNotFoundException {
         UiObject textField = getByResource(resource);
-        while (!textField.getText().equals(hint)) {
+        while (!textField.getText().equals(isTwoPane() ? hint : "")) {
             textField.clearTextField();
         }
         textField.setText(value);

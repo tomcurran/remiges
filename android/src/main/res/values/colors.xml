@@ -10,11 +10,9 @@
 
     <color name="background">@android:color/white</color>
 
-    <color name="navigation_drawer">@color/background</color>
-    <color name="navigation_drawer_separator">@color/material_black_dividers</color>
     <color name="navigation_drawer_text">@color/primary_text</color>
-    <color name="navigation_drawer_text_active">@color/primary</color>
-    <color name="navigation_drawer_background_active">@color/material_black_dividers</color>
+    <color name="navigation_drawer_text_checked">@color/primary</color>
+    <color name="navigation_drawer_icon">@color/material_black_secondary_text</color>
     <color name="navigation_drawer_icon_tint">@color/primary</color>
 
     <color name="detail_divider">@color/material_black_dividers</color>

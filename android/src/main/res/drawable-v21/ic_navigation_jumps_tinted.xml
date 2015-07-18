@@ -1,4 +1,0 @@
-<bitmap
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:src="@drawable/ic_navigation_jumps"
-    android:tint="@color/navigation_drawer_icon_tint" />

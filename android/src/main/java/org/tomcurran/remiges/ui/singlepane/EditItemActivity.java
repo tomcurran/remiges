@@ -31,7 +31,7 @@ public abstract class EditItemActivity extends SimpleSinglePaneActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.RemigesTheme_EditItem);
+        setTheme(R.style.Theme_Remiges_EditItem);
 
         super.onCreate(savedInstanceState);
 

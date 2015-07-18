@@ -15,14 +15,6 @@ public class BaseActivity extends AppCompatActivity {
     private Toolbar mActionBarToolbar;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        }
-    }
-
-    @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         getActionBarToolbar();

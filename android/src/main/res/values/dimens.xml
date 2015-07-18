@@ -10,7 +10,4 @@
     <dimen name="list_item_height">48dp</dimen>
     <dimen name="list_item_padding">16dp</dimen>
 
-    <dimen name="navigation_drawer_width">280dp</dimen>
-    <dimen name="navigation_drawer_item_height">@dimen/list_item_height</dimen>
-
 </resources>

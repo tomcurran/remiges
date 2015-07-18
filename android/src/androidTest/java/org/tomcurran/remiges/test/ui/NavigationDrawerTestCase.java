@@ -8,9 +8,6 @@ public class NavigationDrawerTestCase extends RemigesTestCase {
 
     // content description and text values used for navigation
     public static final String DESCRIPTION_OPEN_DRAWER = "Open navigation drawer";
-    public static final String DESCRIPTION_CLOSE_DRAWER = "Close navigation drawer";
-    public static final String TEXT_HOME_TITLE = "Remiges";
-    public static final String TEXT_NAVIGATION_TITLE = "Remiges";
 
     private static final String RESOURCE_DRAWER = APP_ID + "drawer_layout";
 
@@ -27,7 +24,7 @@ public class NavigationDrawerTestCase extends RemigesTestCase {
      * @throws UiObjectNotFoundException
      */
     protected void closeDrawer() throws UiObjectNotFoundException {
-        getByDescription(DESCRIPTION_CLOSE_DRAWER).click();
+        getUiDevice().pressBack();
     }
 
     /**
@@ -46,17 +43,16 @@ public class NavigationDrawerTestCase extends RemigesTestCase {
      * @throws UiObjectNotFoundException
      */
     protected void navigateTo(String navigateTo, String navigateToTitle) throws UiObjectNotFoundException {
-        // open navigation drawer
-        openDrawer();
+        if (!getActionBarTitle().equals(navigateToTitle)) {
+            // open navigation drawer
+            openDrawer();
 
-        // ensure correct navigation
-        assertEquals(TEXT_NAVIGATION_TITLE, getActionBarTitle());
+            // select navigation
+            selectNavigation(navigateTo);
 
-        // select navigation
-        selectNavigation(navigateTo);
-
-        // ensure title correct
-        assertEquals(navigateToTitle, getActionBarTitle());
+            // ensure title correct
+            assertEquals(navigateToTitle, getActionBarTitle());
+        }
     }
 
     /**
@@ -65,19 +61,16 @@ public class NavigationDrawerTestCase extends RemigesTestCase {
      */
     public void testOpenCloseNavigationDrawer() throws UiObjectNotFoundException {
         // ensure correct navigation
-        assertEquals(TEXT_HOME_TITLE, getActionBarTitle());
+        assertEquals(JumpTestCase.TEXT_TITLE, getActionBarTitle());
 
         // open navigation drawer
         openDrawer();
-
-        // ensure correct navigation
-        assertEquals(TEXT_NAVIGATION_TITLE, getActionBarTitle());
 
         // close navigation drawer
         closeDrawer();
 
         // ensure correct navigation
-        assertEquals(TEXT_HOME_TITLE, getActionBarTitle());
+        assertEquals(JumpTestCase.TEXT_TITLE, getActionBarTitle());
     }
 
 }

@@ -93,17 +93,19 @@ public abstract class ItemTestCase extends RemigesTestCase {
         // navigate to
         navigateTo();
 
-        // get current amount of places available
+        // get current amount of items available
         int listItemCount = getMasterDetailListCount();
 
-        // ensure place name not present in list
+        // ensure item not present in list
         assertNotInList(getMasterDetailList(), getListClickTarget(values));
 
         // click add action
         getByDescription(getAddAction()).clickAndWaitForNewWindow();
 
         // ensure hints set
-        assertHint();
+        if (isTwoPane()) {
+            assertHint();
+        }
 
         // change values
         editValues(values);
@@ -114,7 +116,7 @@ public abstract class ItemTestCase extends RemigesTestCase {
         // ensure new item in list
         assertEquals(listItemCount + 1, getMasterDetailListCount());
 
-        // ensure place name present in list
+        // ensure item present in list
         assertInList(getMasterDetailList(), getListClickTarget(values));
     }
 
@@ -167,7 +169,9 @@ public abstract class ItemTestCase extends RemigesTestCase {
         getByDescription(getAddAction()).clickAndWaitForNewWindow();
 
         // ensure hints set
-        assertHint();
+        if (isTwoPane()) {
+            assertHint();
+        }
 
         // action bar cancel
         getByDescription(DESCRIPTION_NAVIGATE_UP).clickAndWaitForNewWindow();

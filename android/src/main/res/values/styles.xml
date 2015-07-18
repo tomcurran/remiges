@@ -1,13 +1,20 @@
 <resources>
 
-    <style name="RemigesTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Base.Theme.Remiges" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 
-    <style name="RemigesTheme.EditItem">
+    <style name="Theme.Remiges" parent="Base.Theme.Remiges">
+    </style>
+
+    <style name="Theme.Remiges.MainActivity">
+    </style>
+
+    <style name="Theme.Remiges.EditItem">
         <item name="android:actionButtonStyle">@style/EditItemActionButtonStyle</item>
     </style>
 

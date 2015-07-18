@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/navigation_drawer_navigate"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_drawer_jumps"
+            android:icon="@drawable/ic_navigation_drawer_jumps"
+            android:title="@string/navigation_drawer_jumps"/>
+        <item
+            android:id="@+id/navigation_drawer_places"
+            android:icon="@drawable/ic_navigation_drawer_places"
+            android:title="@string/navigation_drawer_places"/>
+        <item
+            android:id="@+id/navigation_drawer_jumptypes"
+            android:icon="@drawable/ic_navigation_drawer_jumptypes"
+            android:title="@string/navigation_drawer_jumptypes"/>
+    </group>
+    <group
+        android:id="@+id/navigation_drawer_extras"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/navigation_drawer_settings"
+            android:title="@string/navigation_drawer_settings"/>
+    </group>
+</menu>

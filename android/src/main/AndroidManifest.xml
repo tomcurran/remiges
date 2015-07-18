@@ -26,12 +26,13 @@
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/RemigesTheme"
+        android:theme="@style/Theme.Remiges"
         android:allowBackup="true">
 
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
+            android:theme="@style/Theme.Remiges.MainActivity"
             android:launchMode="singleTop">
 
             <intent-filter>
