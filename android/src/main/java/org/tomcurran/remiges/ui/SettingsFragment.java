@@ -1,6 +1,7 @@
 package org.tomcurran.remiges.ui;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -91,6 +92,19 @@ public class SettingsFragment extends PreferenceFragment implements LoaderManage
         if (BuildConfig.DEBUG) {
             enableDebugSettings();
         }
+    }
+
+    @Override
+    public void onPause() {
+        Dialog dialog = mPlacePreference.getDialog();
+        if (dialog != null) {
+            dialog.cancel();
+        }
+        dialog = mJumpTypePreference.getDialog();
+        if (dialog != null) {
+            dialog.cancel();
+        }
+        super.onPause();
     }
 
     private void enableDebugSettings() {
