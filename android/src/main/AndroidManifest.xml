@@ -27,7 +27,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Remiges"
-        android:allowBackup="true">
+        android:allowBackup="true"
+        android:name="android.support.multidex.MultiDexApplication">
 
         <activity
             android:name=".ui.MainActivity"
