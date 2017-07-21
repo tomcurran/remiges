@@ -32,6 +32,9 @@ proguard/
 # Gradle
 .gradle
 
+# bitrise
+.bitrise*
+
 
 ## OSX ##
 
