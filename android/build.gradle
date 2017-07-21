@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 def props = new Properties()
 props.load(new FileInputStream(file("release.properties")))
+props.load(new FileInputStream(file("shared.properties")))
 
 android {
     compileSdkVersion 23
@@ -14,6 +15,7 @@ android {
         versionCode 1
         versionName '1.0'
         multiDexEnabled true
+        manifestPlaceholders = [ geoApiKey: props.geoApiKey ]
     }
 
     signingConfigs {
