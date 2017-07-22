@@ -1,51 +1,70 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list_item_jump"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
-    android:paddingLeft="@dimen/keyline_1"
-    android:paddingRight="@dimen/keyline_1"
-    android:background="@drawable/list_item_selector">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/list_item_jump_number"
+        android:id="@+id/list_subheader_jump"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:textColor="@color/secondary_text"
-        tools:text="@string/tools_text_jump_number" />
+        android:layout_width="match_parent"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="@dimen/keyline_1"
+        android:paddingRight="@dimen/keyline_1"
+        android:background="@color/background"
+        android:textColor="@color/primary"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        tools:text="@string/tools_text_jump_time_ago" />
 
-    <TextView
-        android:id="@+id/list_item_jump_way_type"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/list_item_jump_number"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="@color/primary_text"
-        tools:text="@string/tools_text_jump_way_type" />
+    <RelativeLayout
+        android:id="@+id/list_item_jump"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="@dimen/keyline_1"
+        android:paddingRight="@dimen/keyline_1"
+        android:background="@drawable/list_item_selector">
 
-    <TextView
-        android:id="@+id/list_item_jump_description"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/list_item_jump_way_type"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/secondary_text"
-        tools:text="@string/tools_text_jump_description" />
+        <TextView
+            android:id="@+id/list_item_jump_number"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/secondary_text"
+            tools:text="@string/tools_text_jump_number" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/list_item_jump_way_type"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/list_item_jump_number"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/primary_text"
+            tools:text="@string/tools_text_jump_way_type" />
+
+        <TextView
+            android:id="@+id/list_item_jump_description"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/list_item_jump_way_type"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/secondary_text"
+            tools:text="@string/tools_text_jump_description" />
+
+    </RelativeLayout>
+</LinearLayout>

@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-    <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+    <ListView
         android:id="@+id/jump_list"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"

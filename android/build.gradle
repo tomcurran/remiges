@@ -56,7 +56,6 @@ dependencies {
     compile "com.google.android.gms:play-services-location:${google_play_services_client_library_version}"
     compile 'com.google.maps.android:android-maps-utils:0.4'
     compile 'com.google.code.gson:gson:2.4'
-    compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
 }

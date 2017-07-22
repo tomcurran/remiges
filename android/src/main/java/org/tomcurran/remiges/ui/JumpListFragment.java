@@ -23,22 +23,19 @@ import org.tomcurran.remiges.provider.RemigesContract;
 import org.tomcurran.remiges.util.TimeUtils;
 import org.tomcurran.remiges.util.UIUtils;
 
-import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
-import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
-
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
 public class JumpListFragment extends ItemListFragment {
     private static final String TAG = makeLogTag(JumpListFragment.class);
 
-    private StickyListHeadersListView mHeaderListView;
+    private ListView mHeaderListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_jump_list, container, false);
-        mHeaderListView = (StickyListHeadersListView) rootView.findViewById(R.id.jump_list);
-        mHeaderListView.setAdapter((StickyListHeadersAdapter) mAdapter);
+        mHeaderListView = (ListView) rootView.findViewById(R.id.jump_list);
+        mHeaderListView.setAdapter(mAdapter);
         mHeaderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -69,8 +66,8 @@ public class JumpListFragment extends ItemListFragment {
     protected void updateSelectedItem() {
         if (mItemUri != null) {
             Long id = Long.parseLong(getItemId(mItemUri));
-            StickyListHeadersListView headerListView = mHeaderListView;
-            if (headerListView.getWrappedList().getSelectedItemId() != id) {
+            ListView headerListView = mHeaderListView;
+            if (headerListView.getSelectedItemId() != id) {
                 int listCount = headerListView.getCount();
                 int idColumn = getQueryIdColumn();
                 for (int i = 0; i < listCount; i++) {
@@ -114,12 +111,11 @@ public class JumpListFragment extends ItemListFragment {
     }
 
     public static class JumpListAdapter extends SimpleCursorAdapter implements
-            SimpleCursorAdapter.ViewBinder, StickyListHeadersAdapter {
-
-        private FragmentActivity mActivity;
+            SimpleCursorAdapter.ViewBinder {
 
         private static final String[] FROM = {
                 RemigesContract.Jumps.JUMP_NUMBER,
+                RemigesContract.Jumps.JUMP_DATE,
                 RemigesContract.Jumps.JUMP_WAY,
                 RemigesContract.JumpTypes.JUMPTPYE_NAME,
                 RemigesContract.Jumps.JUMP_DESCRIPTION
@@ -127,6 +123,7 @@ public class JumpListFragment extends ItemListFragment {
 
         private static final int[] TO = {
                 R.id.list_item_jump_number,
+                R.id.list_subheader_jump,
                 R.id.list_item_jump_way_type,
                 R.id.list_item_jump_way_type,
                 R.id.list_item_jump_description
@@ -134,7 +131,6 @@ public class JumpListFragment extends ItemListFragment {
 
         public JumpListAdapter(FragmentActivity context) {
             super(context, R.layout.list_item_jumps, null, FROM, TO, 0);
-            mActivity = context;
             setViewBinder(this);
         }
 
@@ -166,6 +162,32 @@ public class JumpListFragment extends ItemListFragment {
                     holder.description.setVisibility(description.isEmpty() ? View.GONE : View.VISIBLE);
                     return true;
                 }
+                case JumpsQuery.DATE: {
+                    ViewHolder holder = getViewHolder(view);
+                    String timeAgo = TimeUtils.getTimeAgo(view.getContext(), cursor.getLong(JumpsQuery.DATE));
+
+                    boolean isSubheader = false;
+                    int position = cursor.getPosition();
+                    if (position == 0) {
+                        isSubheader = true;
+                    } else {
+                        cursor.moveToPosition(position - 1);
+                        String previousTimeAgo = TimeUtils.getTimeAgo(view.getContext(), cursor.getLong(JumpsQuery.DATE));
+                        if (!timeAgo.equals(previousTimeAgo)) {
+                            isSubheader = true;
+                        }
+                        cursor.moveToPosition(position);
+                    }
+
+                    if (isSubheader) {
+                        holder.date.setText(timeAgo);
+                        holder.date.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.date.setVisibility(View.GONE);
+                    }
+
+                    return true;
+                }
                 default:
                     return false;
             }
@@ -177,40 +199,17 @@ public class JumpListFragment extends ItemListFragment {
                 holder = new ViewHolder();
                 holder.wayType = (TextView) view.findViewById(R.id.list_item_jump_way_type);
                 holder.description = (TextView) view.findViewById(R.id.list_item_jump_description);
+                holder.date = (TextView) view.findViewById(R.id.list_subheader_jump);
                 view.setTag(holder);
             }
             return holder;
         }
 
-        @Override
-        public View getHeaderView(int position, View convertView, ViewGroup parent) {
-            HeaderViewHolder holder;
-            if (convertView == null) {
-                holder = new HeaderViewHolder();
-                convertView = mActivity.getLayoutInflater().inflate(R.layout.list_subheader_jump, parent, false);
-                holder.date = (TextView) convertView.findViewById(R.id.list_subheader_jump);
-                convertView.setTag(holder);
-            } else {
-                holder = (HeaderViewHolder) convertView.getTag();
-            }
-            holder.date.setText(TimeUtils.getTimeAgo(convertView.getContext(), ((Cursor) getItem(position)).getLong(JumpsQuery.DATE)));
-            return convertView;
-        }
-
-        @Override
-        public long getHeaderId(int position) {
-            return TimeUtils.getTimeAgo(mActivity, ((Cursor) getItem(position)).getLong(JumpsQuery.DATE)).hashCode();
-        }
-
         static class ViewHolder {
+            TextView date;
             TextView wayType;
             TextView description;
         }
-
-        static class HeaderViewHolder {
-            TextView date;
-        }
-
     }
 
     private interface JumpsQuery {
