@@ -50,6 +50,8 @@ dependencies {
     compile "com.android.support:support-v4:${android_support_lib_version}"
     compile "com.android.support:appcompat-v7:${android_support_lib_version}"
     compile "com.android.support:design:${android_support_lib_version}"
+    compile "com.android.support:preference-v7:${android_support_lib_version}"
+    compile "com.android.support:preference-v14:${android_support_lib_version}"
     compile 'com.android.support:multidex:1.0.1'
     compile "com.google.android.gms:play-services-drive:${google_play_services_client_library_version}"
     compile "com.google.android.gms:play-services-maps:${google_play_services_client_library_version}"

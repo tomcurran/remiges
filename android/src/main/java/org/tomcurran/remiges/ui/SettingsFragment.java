@@ -10,10 +10,13 @@ import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceCategory;
-import android.preference.PreferenceFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.preference.ListPreference;
+import android.support.v7.preference.ListPreferenceDialogFragmentCompat;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceCategory;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.widget.Toast;
 
 import com.google.gson.JsonSyntaxException;
@@ -30,8 +33,8 @@ import static org.tomcurran.remiges.util.LogUtils.LOGE;
 import static org.tomcurran.remiges.util.LogUtils.makeLogTag;
 
 
-public class SettingsFragment extends PreferenceFragment implements LoaderManager.LoaderCallbacks<Cursor> {
-    private static final String TAG = makeLogTag(PreferenceFragment.class);
+public class SettingsFragment extends PreferenceFragmentCompat implements LoaderManager.LoaderCallbacks<Cursor> {
+    private static final String TAG = makeLogTag(SettingsFragment.class);
 
     public static final String PREFERENCE_PLACE = "preference_key_default_place";
     public static final String PREFERENCE_JUMPTYPE = "preference_key_default_jumptype";
@@ -52,8 +55,7 @@ public class SettingsFragment extends PreferenceFragment implements LoaderManage
     private ListPreferenceAdapter mPlaceAdapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preferences);
 
         mJumpTypePreference = (ListPreference) findPreference(PREFERENCE_JUMPTYPE);
@@ -96,14 +98,12 @@ public class SettingsFragment extends PreferenceFragment implements LoaderManage
 
     @Override
     public void onPause() {
-        Dialog dialog = mPlacePreference.getDialog();
-        if (dialog != null) {
-            dialog.cancel();
+        for (Fragment fragment : getFragmentManager().getFragments()) {
+            if (fragment instanceof ListPreferenceDialogFragmentCompat) {
+                ((ListPreferenceDialogFragmentCompat) fragment).dismiss();
+            }
         }
-        dialog = mJumpTypePreference.getDialog();
-        if (dialog != null) {
-            dialog.cancel();
-        }
+
         super.onPause();
     }
 

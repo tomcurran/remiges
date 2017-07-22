@@ -1,9 +1,9 @@
 package org.tomcurran.remiges.ui;
 
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
+import android.support.v7.preference.ListPreference;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceManager;
 
 import org.tomcurran.remiges.R;
 
@@ -18,7 +18,7 @@ public class SettingsActivity extends BaseActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.root_container, new SettingsFragment())
                 .commit();
     }
