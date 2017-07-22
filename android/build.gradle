@@ -5,7 +5,7 @@ props.load(new FileInputStream(file("release.properties")))
 props.load(new FileInputStream(file("shared.properties")))
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion '25.0.3'
 
     defaultConfig {

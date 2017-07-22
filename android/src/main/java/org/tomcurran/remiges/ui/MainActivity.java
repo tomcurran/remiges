@@ -58,16 +58,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             });
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            View navigationHeader = mNavigationView.findViewById(R.id.navigation_drawer_header);
-            int statusBarHeight = UIUtils.getStatusBarHeight(getResources());
-            navigationHeader.setPaddingRelative(
-                    navigationHeader.getPaddingStart(),
-                    navigationHeader.getPaddingTop() + statusBarHeight,
-                    navigationHeader.getPaddingRight(),
-                    navigationHeader.getPaddingEnd());
-        }
-
         if (savedInstanceState == null) {
             Uri uri = getIntent().getData();
             String uriType = getContentResolver().getType(uri != null ? uri : RemigesContract.Jumps.CONTENT_URI);
