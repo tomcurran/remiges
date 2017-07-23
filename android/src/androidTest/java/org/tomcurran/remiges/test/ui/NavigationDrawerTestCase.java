@@ -2,6 +2,7 @@ package org.tomcurran.remiges.test.ui;
 
 
 import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 
 public class NavigationDrawerTestCase extends RemigesTestCase {
@@ -33,7 +34,7 @@ public class NavigationDrawerTestCase extends RemigesTestCase {
      * @throws UiObjectNotFoundException
      */
     protected void selectNavigation(String navigation) throws UiObjectNotFoundException {
-        getListItem(new UiSelector().resourceId(RESOURCE_DRAWER), navigation).click();
+        new UiScrollable(new UiSelector().resourceId(RESOURCE_DRAWER)).getChildByText(getCheckedTextView(), navigation).click();
     }
 
     /**

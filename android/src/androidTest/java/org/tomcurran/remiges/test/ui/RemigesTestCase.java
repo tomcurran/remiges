@@ -39,6 +39,10 @@ public abstract class RemigesTestCase extends InstrumentationTestCase {
         return new UiSelector().className(android.widget.TextView.class.getName());
     }
 
+    public static UiSelector getCheckedTextView() {
+        return new UiSelector().className(android.widget.CheckedTextView.class.getName());
+    }
+
     public static UiSelector getListView(UiSelector container) {
         return container.childSelector(new UiSelector().className(android.widget.ListView.class.getName()));
     }
