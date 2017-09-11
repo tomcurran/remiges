@@ -87,7 +87,7 @@ public class ImportActivity extends DataLiberationActivity {
         @Override
         protected String doInBackgroundConnected(DriveId... params) {
             String contents = null;
-            DriveFile file = Drive.DriveApi.getFile(getGoogleApiClient(), params[0]);
+            DriveFile file = params[0].asDriveFile();
             DriveContentsResult contentsResult = file.open(getGoogleApiClient(), DriveFile.MODE_READ_ONLY, null).await();
             if (!contentsResult.getStatus().isSuccess()) {
                 return null;
