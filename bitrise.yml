@@ -32,6 +32,10 @@ workflows:
     - gradle-runner@1.7.7:
         inputs:
         - gradle_task: "$GRADLE_TASK"
+    - virtual-device-testing-for-android@0.9.5:
+        inputs:
+        - test_apk_path: "$BITRISE_DEPLOY_DIR/android-debug-androidTest.apk"
+        - test_devices: Nexus5,21,en,portrait
     - deploy-to-bitrise-io@1.3.7:
         inputs:
         - notify_user_groups: none
@@ -42,7 +46,7 @@ app:
     GRADLE_BUILD_FILE_PATH: build.gradle
   - opts:
       is_expand: false
-    GRADLE_TASK: assembleRelease
+    GRADLE_TASK: assembleRelease assembleAndroidTest
   - opts:
       is_expand: false
     GRADLEW_PATH: "./gradlew"
